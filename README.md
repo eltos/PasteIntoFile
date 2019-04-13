@@ -16,8 +16,10 @@ Paste Into File
 + Support for HiDPI monitors
 + Modern folder selector
 
-## [Download Now](http://archive.francescosorge.com/paste-into-file) (335KB)
+#### Get it
++ [Download Now](http://archive.francescosorge.com/paste-into-file) (335KB)
++ Clone this repo and compile it
 
-----------------
+#### Requirements and notes
 + .NET Framework 4.5 required
 + Tested on Windows 10
