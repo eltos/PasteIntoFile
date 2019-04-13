@@ -5,8 +5,6 @@ Paste Into File
 
 ----------------
 
-![Paste Into File](https://raw.githubusercontent.com/sorge13248/PasteIntoFile/master/screenshot.png)
-
 + Supports any type of text, source Code and images.
 + Change the current saving location or type it yourself.
 + Shortcut in context menu (right click)
@@ -15,6 +13,11 @@ Paste Into File
 + Support for Windows 10 dark theme
 + Support for HiDPI monitors
 + Modern folder selector
++ Image preview before saving
+
+#### Screenshots
+![Paste Into File](https://raw.githubusercontent.com/sorge13248/PasteIntoFile/master/screenshot.png)
+![Paste Into File with image preview](https://raw.githubusercontent.com/sorge13248/PasteIntoFile/master/screenshot-2.png)
 
 #### Get it
 + [Download Now](http://archive.francescosorge.com/paste-into-file) (335KB)
