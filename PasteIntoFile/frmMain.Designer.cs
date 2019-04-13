@@ -61,10 +61,11 @@
             // 
             // imgContent
             // 
-            this.imgContent.Location = new System.Drawing.Point(309, 362);
+            this.imgContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.imgContent.Location = new System.Drawing.Point(24, 203);
             this.imgContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(181, 125);
+            this.imgContent.Size = new System.Drawing.Size(728, 411);
             this.imgContent.TabIndex = 2;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
@@ -86,9 +87,9 @@
             this.lblFileName.Location = new System.Drawing.Point(19, 20);
             this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(82, 20);
+            this.lblFileName.Size = new System.Drawing.Size(78, 20);
             this.lblFileName.TabIndex = 4;
-            this.lblFileName.Text = "Filename :";
+            this.lblFileName.Text = "Filename:";
             // 
             // txtFilename
             // 
@@ -97,7 +98,7 @@
             this.txtFilename.Location = new System.Drawing.Point(24, 46);
             this.txtFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(428, 26);
+            this.txtFilename.Size = new System.Drawing.Size(612, 26);
             this.txtFilename.TabIndex = 1;
             this.txtFilename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilename_KeyPress);
             // 
@@ -105,12 +106,12 @@
             // 
             this.lblExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblExt.AutoSize = true;
-            this.lblExt.Location = new System.Drawing.Point(455, 20);
+            this.lblExt.Location = new System.Drawing.Point(639, 20);
             this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExt.Name = "lblExt";
-            this.lblExt.Size = new System.Drawing.Size(87, 20);
+            this.lblExt.Size = new System.Drawing.Size(83, 20);
             this.lblExt.TabIndex = 6;
-            this.lblExt.Text = "Extension :";
+            this.lblExt.Text = "Extension:";
             // 
             // comExt
             // 
@@ -132,7 +133,7 @@
             "bmp",
             "gif",
             "ico"});
-            this.comExt.Location = new System.Drawing.Point(460, 46);
+            this.comExt.Location = new System.Drawing.Point(644, 46);
             this.comExt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comExt.Name = "comExt";
             this.comExt.Size = new System.Drawing.Size(108, 28);
@@ -146,7 +147,7 @@
             this.btnSave.Location = new System.Drawing.Point(276, 148);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(292, 45);
+            this.btnSave.Size = new System.Drawing.Size(476, 45);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -159,7 +160,7 @@
             this.txtCurrentLocation.Location = new System.Drawing.Point(24, 111);
             this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurrentLocation.Name = "txtCurrentLocation";
-            this.txtCurrentLocation.Size = new System.Drawing.Size(486, 26);
+            this.txtCurrentLocation.Size = new System.Drawing.Size(670, 26);
             this.txtCurrentLocation.TabIndex = 3;
             this.txtCurrentLocation.Text = "C:\\";
             // 
@@ -169,14 +170,14 @@
             this.label1.Location = new System.Drawing.Point(19, 85);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 20);
+            this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Current Location :";
+            this.label1.Text = "Location:";
             // 
             // btnBrowseForFolder
             // 
             this.btnBrowseForFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseForFolder.Location = new System.Drawing.Point(518, 110);
+            this.btnBrowseForFolder.Location = new System.Drawing.Point(702, 110);
             this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
             this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 28);
@@ -191,7 +192,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(18, 236);
+            this.label2.Location = new System.Drawing.Point(18, 217);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 20);
@@ -202,7 +203,7 @@
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(378, 236);
+            this.linkLabel1.Location = new System.Drawing.Point(562, 217);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(190, 20);
             this.linkLabel1.TabIndex = 15;
@@ -214,7 +215,7 @@
             // 
             this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(381, 270);
+            this.linkLabel2.Location = new System.Drawing.Point(565, 251);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(187, 20);
             this.linkLabel2.TabIndex = 16;
@@ -226,7 +227,7 @@
             // 
             this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(18, 270);
+            this.linkLabel3.Location = new System.Drawing.Point(18, 251);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(169, 20);
             this.linkLabel3.TabIndex = 17;
@@ -249,7 +250,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(591, 306);
+            this.ClientSize = new System.Drawing.Size(775, 287);
             this.Controls.Add(this.clrClipboard);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
@@ -266,6 +267,7 @@
             this.Controls.Add(this.txtContent);
             this.Controls.Add(this.imgContent);
             this.Controls.Add(this.lblType);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;

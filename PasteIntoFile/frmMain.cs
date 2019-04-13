@@ -93,7 +93,10 @@ namespace PasteIntoFile
             {
                 lblType.Text = "Image";
                 comExt.SelectedItem = "png";
-                imgContent.Image = Clipboard.GetImage();
+                imgContent.Show();
+                Height = 751;
+                CenterToScreen();
+                imgContent.BackgroundImage = Clipboard.GetImage();
                 return;
             }
 
@@ -115,22 +118,22 @@ namespace PasteIntoFile
                 switch (comExt.SelectedItem.ToString())
                 {
                     case "png":
-                        imgContent.Image.Save(location + filename, ImageFormat.Png);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Png);
                         break;
                     case "ico":
-                        imgContent.Image.Save(location + filename, ImageFormat.Icon);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Icon);
                         break;
                     case "jpg":
-                        imgContent.Image.Save(location + filename, ImageFormat.Jpeg);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Jpeg);
                         break;
                     case "bmp":
-                        imgContent.Image.Save(location + filename, ImageFormat.Bmp);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Bmp);
                         break;
                     case "gif":
-                        imgContent.Image.Save(location + filename, ImageFormat.Gif);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Gif);
                         break;
                     default:
-                        imgContent.Image.Save(location + filename, ImageFormat.Png);
+                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Png);
                         break;
                 }
             }
