@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BetterFolderBrowser</name>
+    </assembly>
+    <members>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser">
+            <summary>
+            A Windows Forms component that enhances the standard folder-browsing experience.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.editorService">
+            <summary>
+            Used in creating a <see cref="T:System.Drawing.Design.UITypeEditor"/> service
+            for extending its usage into the Properties window.
+            Developers can use it where possible.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.Title">
+            <summary>
+            Gets or sets the folder dialog box title.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.RootFolder">
+            <summary>
+            Gets or sets the root folder where the browsing starts from.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.Multiselect">
+            <summary>
+            Gets or sets a value indicating whether the 
+            dialog box allows multiple folders to be selected.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedPath">
+            <summary>
+            Gets the folder-path selected by the user.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedPaths">
+            <summary>
+            Gets the list of folder-paths selected by the user.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedFolder">
+            <summary>
+            Variant of <see cref="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedPath"/> property.
+            Gets the folder-path selected by the user.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedFolders">
+            <summary>
+            Variant of <see cref="P:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.SelectedPaths"/> property.
+            Gets the list of folder-paths selected by the user.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.ShowDialog">
+            <summary>
+            Runs a common dialog box with a default owner.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.ShowDialog(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Runs a common dialog box with the specified owner.
+            </summary>
+            <param name="owner">
+            Any object that implements <see cref="T:System.Windows.Forms.IWin32Window"/> that represents
+            the top-level window that will own the modal dialog box.
+            </param>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.RunDialog(System.IntPtr)">
+            <summary>
+            Specifies a common dialog box.
+            </summary>
+            <param name="hwndOwner">
+            Any object that implements <see cref="T:System.Windows.Forms.IWin32Window"/> that represents
+            the top-level window that will own the modal dialog box.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.Reset">
+            <summary>
+            Resets all properties to their default values.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.WKComponentActionList">
+            <summary>
+            Initializes a new instance of the <see cref="T:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.WKComponentActionList"/> class.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.WKComponentActionList.GetSortedActionItems">
+            <summary>
+            Implementation of this abstract method creates Smart Tag items,
+            associates their targets, and collects them into a list.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.Editors.SelectedPathEditor">
+            <summary>
+            Provides a custom <see cref="T:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser"/> UI Editor
+            for browsing through folders via the Properties window. 
+            This allows for the selection of a single folder.
+            It's designed as a replacement for <see cref="T:System.Windows.Forms.FolderBrowserDialog"/>'s
+            <see cref="T:System.Drawing.Design.UITypeEditor"/>.
+            
+            <para>
+            Example:
+            <code>[Editor(typeof(BetterFolderBrowserPathEditor), typeof(UITypeEditor))]</code>
+            </para>
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.Editors.SelectedPathsEditor">
+            <summary>
+            Provides a custom <see cref="T:WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser"/> UI Editor
+            for browsing through folders via the Properties window. 
+            This allows for the selection of a single folder.
+            It's designed as a replacement for <see cref="T:System.Windows.Forms.FolderBrowserDialog"/>'s
+            <see cref="T:System.Drawing.Design.UITypeEditor"/>.
+            
+            <para>
+            Example:
+            <code>[Editor(typeof(BetterFolderBrowserPathsEditor), typeof(UITypeEditor))]</code>
+            </para>
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector">
+             <summary>
+             This class is from the Front-End for Dosbox and is 
+             used to present a 'vista' dialog box to select folders.
+             http://code.google.com/p/fed/
+            
+             For example:
+             ----------------------------------------------
+             var r = new Reflector("System.Windows.Forms");
+             </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector"/> class object.
+            </summary>
+            <param name="ns">The namespace containing types to be used.</param>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new <see cref="T:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector"/> class object.
+            </summary>
+            <param name="an__1">
+            A specific assembly name (used if the assembly name does not tie exactly with the namespace)
+            </param>
+            <param name="ns">The namespace containing types to be used.</param>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.GetTypo(System.String)">
+            <summary>
+            Return a Type instance for a type 'typeName'.
+            </summary>
+            <param name="typeName">The name of the type.</param>
+            <returns>A type instance.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.New(System.String,System.Object[])">
+            <summary>
+            Create a new object of a named type passing along any params.
+            </summary>
+            <param name="name">The name of the type to create.</param>
+            <param name="parameters">An array of passed parameters.</param>
+            <returns>An instantiated type.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.Call(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls method 'func' on object 'obj' passing parameters 'parameters'.
+            </summary>
+            <param name="obj">The object on which to excute function 'func'.</param>
+            <param name="func">The function to execute.</param>
+            <param name="parameters">The parameters to pass to function 'func'.</param>
+            <returns>The result of the function invocation.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.Call2(System.Object,System.String,System.Object[])">
+            <summary>
+            Calls method 'func' on object 'obj' passing parameters 'parameters'.
+            </summary>
+            <param name="obj">The object on which to excute function 'func'.</param>
+            <param name="func">The function to execute.</param>
+            <param name="parameters">The parameters to pass to function 'func'.</param>
+            <returns>The result of the function invocation.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.CallAs(System.Type,System.Object,System.String,System.Object[])">
+            <summary>
+            Calls method 'func' on object 'obj' which is of type 'type' passing parameters 'parameters'.
+            </summary>
+            <param name="type">The type of 'obj'.</param>
+            <param name="obj">The object on which to excute function 'func'.</param>
+            <param name="func">The function to execute.</param>
+            <param name="parameters">The parameters to pass to function 'func'.</param>
+            <returns>The result of the function invocation.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.CallAs2(System.Type,System.Object,System.String,System.Object[])">
+            <summary>
+            Calls method 'func' on object 'obj' which is of type 'type' passing parameters 'parameters'.
+            </summary>
+            <param name="type">The type of 'obj'.</param>
+            <param name="obj">The object on which to excute function 'func'.</param>
+            <param name="func">The function to execute.</param>
+            <param name="parameters">The parameters to pass to function 'func'.</param>
+            <returns>The result of the function invocation.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.Get(System.Object,System.String)">
+            <summary>
+            Returns the value of property 'prop' of object 'obj'.
+            </summary>
+            <param name="obj">The object containing 'prop'.</param>
+            <param name="prop">The property name.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.GetAs(System.Type,System.Object,System.String)">
+            <summary>
+            Returns the value of property 'prop' of object 'obj' which has type 'type'.
+            </summary>
+            <param name="type">The type of 'obj'.</param>
+            <param name="obj">The object containing 'prop'.</param>
+            <param name="prop">The property name.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.Reflector.GetEnum(System.String,System.String)">
+            <summary>
+            Returns an enum value.
+            </summary>
+            <param name="typeName">The name of enum type.</param>
+            <param name="name">The name of the value.</param>
+            <returns>The enum value.</returns>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog">
+            <summary>
+            Wraps System.Windows.Forms.OpenFileDialog to make it present
+            a vista-style dialog.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.allow_multiselect">
+            <summary>
+            
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.InitialDirectory">
+            <summary>
+            Gets/Sets the initial folder to be selected. A null value selects the current directory.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.Title">
+            <summary>
+            Gets/Sets the title to show in the dialog
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.FileName">
+            <summary>
+            Gets the selected folder
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.ShowDialog">
+            <summary>
+            Shows the dialog
+            </summary>
+            <returns>True if the user presses OK else false</returns>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.BetterFolderBrowserDialog.ShowDialog(System.IntPtr)">
+            <summary>
+            Shows the dialog.
+            </summary>
+            <param name="hWndOwner">Handle of the control to be parent.</param>
+            <returns>True if the user presses OK else false.</returns>
+        </member>
+        <member name="T:WK.Libraries.BetterFolderBrowserNS.Helpers.WindowWrapper">
+            <summary>
+            Creates IWin32Window around an IntPtr
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.BetterFolderBrowserNS.Helpers.WindowWrapper.Handle">
+            <summary>
+            Original ptr
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.BetterFolderBrowserNS.Helpers.WindowWrapper.#ctor(System.IntPtr)">
+            <summary>
+            Provides a wrapper for <see cref="T:System.Windows.Forms.IWin32Window"/>.
+            </summary>
+            <param name="handle">Handle to wrap.</param>
+        </member>
+    </members>
+</doc>
