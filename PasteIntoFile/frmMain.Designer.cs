@@ -1,4 +1,4 @@
-﻿namespace PasteAsFile
+﻿namespace PasteIntoFile
 {
     partial class frmMain
     {
@@ -40,72 +40,81 @@
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
-            this.lblMe = new System.Windows.Forms.Label();
-            this.lblWebsite = new System.Windows.Forms.Label();
-            this.lblHelp = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.clrClipboard = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
             this.SuspendLayout();
             // 
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(17, 128);
+            this.lblType.Location = new System.Drawing.Point(20, 200);
             this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(40, 17);
+            this.lblType.Size = new System.Drawing.Size(43, 20);
             this.lblType.TabIndex = 6;
             this.lblType.Text = "Type";
+            this.lblType.Visible = false;
             // 
             // imgContent
             // 
-            this.imgContent.Location = new System.Drawing.Point(275, 290);
-            this.imgContent.Margin = new System.Windows.Forms.Padding(4);
+            this.imgContent.Location = new System.Drawing.Point(309, 362);
+            this.imgContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(161, 100);
+            this.imgContent.Size = new System.Drawing.Size(181, 125);
             this.imgContent.TabIndex = 2;
             this.imgContent.TabStop = false;
+            this.imgContent.Visible = false;
             // 
             // txtContent
             // 
-            this.txtContent.Location = new System.Drawing.Point(16, 290);
-            this.txtContent.Margin = new System.Windows.Forms.Padding(4);
+            this.txtContent.Location = new System.Drawing.Point(18, 362);
+            this.txtContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(249, 142);
+            this.txtContent.Size = new System.Drawing.Size(280, 176);
             this.txtContent.TabIndex = 3;
+            this.txtContent.Visible = false;
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(17, 16);
+            this.lblFileName.Location = new System.Drawing.Point(19, 20);
             this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(73, 17);
+            this.lblFileName.Size = new System.Drawing.Size(82, 20);
             this.lblFileName.TabIndex = 4;
             this.lblFileName.Text = "Filename :";
             // 
             // txtFilename
             // 
-            this.txtFilename.Location = new System.Drawing.Point(21, 37);
-            this.txtFilename.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilename.Location = new System.Drawing.Point(24, 46);
+            this.txtFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(244, 22);
+            this.txtFilename.Size = new System.Drawing.Size(428, 26);
             this.txtFilename.TabIndex = 1;
             this.txtFilename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilename_KeyPress);
             // 
             // lblExt
             // 
+            this.lblExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblExt.AutoSize = true;
-            this.lblExt.Location = new System.Drawing.Point(312, 16);
+            this.lblExt.Location = new System.Drawing.Point(455, 20);
             this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExt.Name = "lblExt";
-            this.lblExt.Size = new System.Drawing.Size(77, 17);
+            this.lblExt.Size = new System.Drawing.Size(87, 20);
             this.lblExt.TabIndex = 6;
             this.lblExt.Text = "Extension :";
             // 
             // comExt
             // 
+            this.comExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comExt.FormattingEnabled = true;
             this.comExt.Items.AddRange(new object[] {
             "txt",
@@ -123,19 +132,21 @@
             "bmp",
             "gif",
             "ico"});
-            this.comExt.Location = new System.Drawing.Point(316, 37);
-            this.comExt.Margin = new System.Windows.Forms.Padding(4);
+            this.comExt.Location = new System.Drawing.Point(460, 46);
+            this.comExt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comExt.Name = "comExt";
-            this.comExt.Size = new System.Drawing.Size(96, 24);
+            this.comExt.Size = new System.Drawing.Size(108, 28);
             this.comExt.TabIndex = 2;
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Location = new System.Drawing.Point(144, 117);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(276, 148);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(180, 37);
+            this.btnSave.Size = new System.Drawing.Size(292, 45);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -143,79 +154,107 @@
             // 
             // txtCurrentLocation
             // 
-            this.txtCurrentLocation.Location = new System.Drawing.Point(21, 89);
-            this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCurrentLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCurrentLocation.Location = new System.Drawing.Point(24, 111);
+            this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurrentLocation.Name = "txtCurrentLocation";
-            this.txtCurrentLocation.Size = new System.Drawing.Size(339, 22);
+            this.txtCurrentLocation.Size = new System.Drawing.Size(486, 26);
             this.txtCurrentLocation.TabIndex = 3;
-            this.txtCurrentLocation.Text = "D:\\";
+            this.txtCurrentLocation.Text = "C:\\";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 68);
+            this.label1.Location = new System.Drawing.Point(19, 85);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 17);
+            this.label1.Size = new System.Drawing.Size(135, 20);
             this.label1.TabIndex = 9;
             this.label1.Text = "Current Location :";
             // 
             // btnBrowseForFolder
             // 
-            this.btnBrowseForFolder.Location = new System.Drawing.Point(369, 86);
-            this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBrowseForFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowseForFolder.Location = new System.Drawing.Point(518, 110);
+            this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
-            this.btnBrowseForFolder.Size = new System.Drawing.Size(44, 28);
+            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 28);
             this.btnBrowseForFolder.TabIndex = 4;
             this.btnBrowseForFolder.Text = "...";
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             // 
-            // lblMe
+            // label2
             // 
-            this.lblMe.AutoSize = true;
-            this.lblMe.ForeColor = System.Drawing.Color.Gray;
-            this.lblMe.Location = new System.Drawing.Point(267, 165);
-            this.lblMe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMe.Name = "lblMe";
-            this.lblMe.Size = new System.Drawing.Size(161, 17);
-            this.lblMe.TabIndex = 12;
-            this.lblMe.Text = "© Eslam Hamouda 2014";
-            this.lblMe.Click += new System.EventHandler(this.lblMe_Click);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(18, 236);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(304, 20);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Forked and improved by Francesco Sorge";
             // 
-            // lblWebsite
+            // linkLabel1
             // 
-            this.lblWebsite.AutoSize = true;
-            this.lblWebsite.ForeColor = System.Drawing.Color.Gray;
-            this.lblWebsite.Location = new System.Drawing.Point(16, 165);
-            this.lblWebsite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWebsite.Name = "lblWebsite";
-            this.lblWebsite.Size = new System.Drawing.Size(81, 17);
-            this.lblWebsite.TabIndex = 13;
-            this.lblWebsite.Text = "eslamx.com";
-            this.lblWebsite.Click += new System.EventHandler(this.lblWebsite_Click);
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(378, 236);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(190, 20);
+            this.linkLabel1.TabIndex = 15;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "www.francescosorge.com";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
-            // lblHelp
+            // linkLabel2
             // 
-            this.lblHelp.AutoSize = true;
-            this.lblHelp.Cursor = System.Windows.Forms.Cursors.Help;
-            this.lblHelp.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.lblHelp.Location = new System.Drawing.Point(393, 126);
-            this.lblHelp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblHelp.Name = "lblHelp";
-            this.lblHelp.Size = new System.Drawing.Size(18, 21);
-            this.lblHelp.TabIndex = 8;
-            this.lblHelp.Text = "?";
-            this.lblHelp.Click += new System.EventHandler(this.lblHelp_Click);
+            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(381, 270);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(187, 20);
+            this.linkLabel2.TabIndex = 16;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Unregister from Windows";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(18, 270);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(169, 20);
+            this.linkLabel3.TabIndex = 17;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "Register with Windows";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel3_LinkClicked);
+            // 
+            // clrClipboard
+            // 
+            this.clrClipboard.AutoSize = true;
+            this.clrClipboard.Location = new System.Drawing.Point(23, 160);
+            this.clrClipboard.Name = "clrClipboard";
+            this.clrClipboard.Size = new System.Drawing.Size(140, 24);
+            this.clrClipboard.TabIndex = 18;
+            this.clrClipboard.Text = "Clear clipboard";
+            this.clrClipboard.UseVisualStyleBackColor = true;
+            this.clrClipboard.CheckedChanged += new System.EventHandler(this.ClrClipboard_CheckedChanged);
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 192);
-            this.Controls.Add(this.lblHelp);
-            this.Controls.Add(this.lblWebsite);
-            this.Controls.Add(this.lblMe);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(591, 306);
+            this.Controls.Add(this.clrClipboard);
+            this.Controls.Add(this.linkLabel3);
+            this.Controls.Add(this.linkLabel2);
+            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBrowseForFolder);
             this.Controls.Add(this.txtCurrentLocation);
             this.Controls.Add(this.label1);
@@ -227,9 +266,8 @@
             this.Controls.Add(this.txtContent);
             this.Controls.Add(this.imgContent);
             this.Controls.Add(this.lblType);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -254,9 +292,11 @@
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBrowseForFolder;
-        private System.Windows.Forms.Label lblMe;
-        private System.Windows.Forms.Label lblWebsite;
-        private System.Windows.Forms.Label lblHelp;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.CheckBox clrClipboard;
     }
 }
 
