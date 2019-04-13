@@ -1,21 +1,23 @@
 Paste Into File
 ===========
 
-###Desktop Application to Paste Clipboard Contents into Files
+### Windows application to paste clipboard contents into files
 
 ----------------
 
-+ Supports  Any type of Text, Source Code , Images.
+![Paste Into File](https://raw.githubusercontent.com/sorge13248/PasteIntoFile/master/screenshot.png)
+
++ Supports any type of text, source Code and images.
 + Change the current saving location or type it yourself.
-+ Shortcut in Context Menu (Right Click)
-+ to `Unregister` the application and remove the Context Menu Shortcut from your system run the command line as Administrator and run the application with this argument : **`/unreg`**
-+ to manually `Register` it use this argument : **`/reg`**
++ Shortcut in context menu (right click)
++ Automatically clear clipboard after saving to file
++ First launch wizard to register app with Windows Explorer context menu
++ Support for Windows 10 dark theme
++ Support for HiDPI monitors
++ Modern folder selector
 
-### Screenshot of the Application
-![Paste As File](https://raw.githubusercontent.com/EslaMx7/PasteIntoFiles/master/PasteIntoFile/screenshot.png)
-
-## [Download Now](https://goo.gl/aBlfYQ) (162KB)
+## [Download Now](http://archive.francescosorge.com/paste-into-file) (335KB)
 
 ----------------
-+ .NET Framework 4.5 Required
-+ Tested On My Machine (Windows 10)
++ .NET Framework 4.5 required
++ Tested on Windows 10
