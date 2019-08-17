@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using WK.Libraries.BetterFolderBrowserNS;
 
@@ -71,6 +73,7 @@ namespace PasteIntoFile
             txtFilename.Text = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
             clrClipboard.Checked = Properties.Settings.Default.clrClipboard;
+            autoSave.Checked = Properties.Settings.Default.autoSave;
 
             /*if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\Paste Into File\command", "", null) == null)
             {
@@ -86,10 +89,8 @@ namespace PasteIntoFile
                 comExt.SelectedItem = "txt";
                 IsText = true;
                 txtContent.Text = Clipboard.GetText();
-                return;
             }
-
-            if (Clipboard.ContainsImage())
+            else if (Clipboard.ContainsImage())
             {
                 lblType.Text = "Image";
                 comExt.SelectedItem = "png";
@@ -97,11 +98,17 @@ namespace PasteIntoFile
                 Height = 751;
                 CenterToScreen();
                 imgContent.BackgroundImage = Clipboard.GetImage();
-                return;
+            }
+            else
+            {
+                lblType.Text = "Unknown";
+                btnSave.Enabled = false;
             }
 
-            lblType.Text = "Unknown";
-            btnSave.Enabled = false;
+            if (autoSave.Checked && btnSave.Enabled)
+            {
+                btnSave.PerformClick();
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -141,6 +148,13 @@ namespace PasteIntoFile
             if (clrClipboard.Checked)
             {
                 Clipboard.Clear();
+            }
+
+
+            if (autoSave.Checked)
+            {
+                Program.ShowBalloon("Autosave", "Clipboard content has been automatically saved to " + txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text);
+                Thread.Sleep(5000);
             }
 
             Environment.Exit(0);
@@ -215,6 +229,20 @@ namespace PasteIntoFile
         {
             PasteIntoFile.Properties.Settings.Default.clrClipboard = clrClipboard.Checked;
             PasteIntoFile.Properties.Settings.Default.Save();
+        }
+
+        private void AutoSave_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.autoSave = autoSave.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void AutoSave_Click(object sender, EventArgs e)
+        {
+            if (autoSave.Checked)
+            {
+                MessageBox.Show("PasteIntoFile will automatically save files without showing a dialog anymore. If you will want to show the main window again, you will have to delete this file: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

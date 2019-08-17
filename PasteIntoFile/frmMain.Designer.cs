@@ -45,6 +45,7 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.clrClipboard = new System.Windows.Forms.CheckBox();
+            this.autoSave = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -238,7 +239,7 @@
             // clrClipboard
             // 
             this.clrClipboard.AutoSize = true;
-            this.clrClipboard.Location = new System.Drawing.Point(23, 160);
+            this.clrClipboard.Location = new System.Drawing.Point(22, 148);
             this.clrClipboard.Name = "clrClipboard";
             this.clrClipboard.Size = new System.Drawing.Size(140, 24);
             this.clrClipboard.TabIndex = 18;
@@ -246,11 +247,24 @@
             this.clrClipboard.UseVisualStyleBackColor = true;
             this.clrClipboard.CheckedChanged += new System.EventHandler(this.ClrClipboard_CheckedChanged);
             // 
+            // autoSave
+            // 
+            this.autoSave.AutoSize = true;
+            this.autoSave.Location = new System.Drawing.Point(22, 173);
+            this.autoSave.Name = "autoSave";
+            this.autoSave.Size = new System.Drawing.Size(102, 24);
+            this.autoSave.TabIndex = 19;
+            this.autoSave.Text = "Autosave";
+            this.autoSave.UseVisualStyleBackColor = true;
+            this.autoSave.CheckedChanged += new System.EventHandler(this.AutoSave_CheckedChanged);
+            this.autoSave.Click += new System.EventHandler(this.AutoSave_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(775, 287);
+            this.Controls.Add(this.autoSave);
             this.Controls.Add(this.clrClipboard);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
@@ -299,6 +313,7 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.CheckBox clrClipboard;
+        private System.Windows.Forms.CheckBox autoSave;
     }
 }
 

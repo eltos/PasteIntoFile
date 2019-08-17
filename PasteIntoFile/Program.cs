@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PasteIntoFile
@@ -125,6 +126,30 @@ namespace PasteIntoFile
                 return;
             }
             Application.Exit();
+        }
+
+        public static void ShowBalloon(string title, string message, ushort timeout = 5000)
+        {
+            var notification = new System.Windows.Forms.NotifyIcon()
+            {
+                Visible = true,
+                Icon = System.Drawing.SystemIcons.Information,
+                // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
+                BalloonTipTitle = title,
+                BalloonTipText = message,
+            };
+
+            // Display for 5 seconds.
+            notification.ShowBalloonTip(timeout);
+
+            // This will let the balloon close after it's 5 second timeout
+            // for demonstration purposes. Comment this out to see what happens
+            // when dispose is called while a balloon is still visible.
+            Thread.Sleep(timeout);
+
+            // The notification should be disposed when you don't need it anymore,
+            // but doing so will immediately close the balloon if it's visible.
+            notification.Dispose();
         }
 
         static RegistryKey OpenDirectoryKey()

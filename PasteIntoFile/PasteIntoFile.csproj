@@ -73,6 +73,7 @@
       <HintPath>..\packages\BetterFolderBrowser.1.0.0\lib\BetterFolderBrowser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
