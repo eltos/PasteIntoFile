@@ -72,44 +72,58 @@ namespace PasteAsFile
             string location = txtCurrentLocation.Text;
             location = location.EndsWith("\\") ? location : location + "\\";
             string filename = txtFilename.Text + "." + comExt.SelectedItem.ToString();
-            if (IsText)
+            try
             {
-
-                File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
-            }
-            else
-            {
-                switch (comExt.SelectedItem.ToString())
+                if (IsText)
                 {
-                    case "png":
-                        imgContent.Image.Save(location + filename, ImageFormat.Png);
-                        break;
-                    case "ico":
-                        imgContent.Image.Save(location + filename, ImageFormat.Icon);
-                        break;
-                    case "jpg":
-                        imgContent.Image.Save(location + filename, ImageFormat.Jpeg);
-                        break;
-                    case "bmp":
-                        imgContent.Image.Save(location + filename, ImageFormat.Bmp);
-                        break;
-                    case "gif":
-                        imgContent.Image.Save(location + filename, ImageFormat.Gif);
-                        break;
-                    default:
-                        imgContent.Image.Save(location + filename, ImageFormat.Png);
-                        break;
+
+                    File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
+                }
+                else
+                {
+                    switch (comExt.SelectedItem.ToString())
+                    {
+                        case "png":
+                            imgContent.Image.Save(location + filename, ImageFormat.Png);
+                            break;
+                        case "ico":
+                            imgContent.Image.Save(location + filename, ImageFormat.Icon);
+                            break;
+                        case "jpg":
+                            imgContent.Image.Save(location + filename, ImageFormat.Jpeg);
+                            break;
+                        case "bmp":
+                            imgContent.Image.Save(location + filename, ImageFormat.Bmp);
+                            break;
+                        case "gif":
+                            imgContent.Image.Save(location + filename, ImageFormat.Gif);
+                            break;
+                        default:
+                            imgContent.Image.Save(location + filename, ImageFormat.Png);
+                            break;
+                    }
+
                 }
 
+                this.btnSave.Text = Resources.str_file_saved;
+
+                Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    Environment.Exit(0);
+                });
+
+            }
+            catch (System.UnauthorizedAccessException ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-            this.btnSave.Text = Resources.str_file_saved;
-
-            Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(1000);
-                Environment.Exit(0);
-            });
+            
         }
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e)
