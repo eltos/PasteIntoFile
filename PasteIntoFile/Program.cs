@@ -26,19 +26,19 @@ namespace PasteIntoFile
             bool is_light_mode = true;
             try
             {
-                var v = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
+                var v = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
                 if (v != null && v.ToString() == "0")
                     is_light_mode = false;
             }
             catch { }
 
-            Properties.Settings.Default.darkTheme = !is_light_mode;
-            Properties.Settings.Default.Save();
+            Settings.Default.darkTheme = !is_light_mode;
+            Settings.Default.Save();
 
-            if (Properties.Settings.Default.firstLaunch)
+            if (Settings.Default.firstLaunch)
             {
                 Application.Run(new FirstLaunch());
-                if (Properties.Settings.Default.firstLaunch)
+                if (Settings.Default.firstLaunch)
                     return;
             }
 
@@ -161,7 +161,7 @@ namespace PasteIntoFile
 
         public static void ShowBalloon(string title, string message, ushort timeout = 5000)
         {
-            var notification = new System.Windows.Forms.NotifyIcon()
+            var notification = new NotifyIcon()
             {
                 Visible = true,
                 Icon = System.Drawing.SystemIcons.Information,

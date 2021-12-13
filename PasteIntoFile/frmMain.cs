@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using WK.Libraries.BetterFolderBrowserNS;
@@ -26,7 +27,7 @@ namespace PasteIntoFile
         public frmMain(string location)
         {
             InitializeComponent();
-            this.CurrentLocation = location;
+            CurrentLocation = location;
         }
         /// <summary>
         /// 
@@ -35,38 +36,38 @@ namespace PasteIntoFile
         /// <param name="e"></param>
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.darkTheme)
+            if (Settings.Default.darkTheme)
             {
                 BackColor = Color.FromArgb(0, 0, 0);
 
-                foreach (Label lbl in this.Controls.OfType<Label>())
+                foreach (Label lbl in Controls.OfType<Label>())
                 {
                     lbl.ForeColor = Color.FromArgb(255, 255, 255);
                 }
 
-                foreach (TextBox txt in this.Controls.OfType<TextBox>())
+                foreach (TextBox txt in Controls.OfType<TextBox>())
                 {
                     txt.ForeColor = Color.FromArgb(255, 255, 255);
                     txt.BackColor = Color.FromArgb(43, 43, 43);
                 }
 
-                foreach (ComboBox cmb in this.Controls.OfType<ComboBox>())
+                foreach (ComboBox cmb in Controls.OfType<ComboBox>())
                 {
                     cmb.ForeColor = Color.FromArgb(255, 255, 255);
                     cmb.BackColor = Color.FromArgb(43, 43, 43);
                 }
 
-                foreach (LinkLabel lnk in this.Controls.OfType<LinkLabel>())
+                foreach (LinkLabel lnk in Controls.OfType<LinkLabel>())
                 {
                     lnk.LinkColor = Color.FromArgb(255, 255, 255);
                 }
 
-                foreach (CheckBox chb in this.Controls.OfType<CheckBox>())
+                foreach (CheckBox chb in Controls.OfType<CheckBox>())
                 {
                     chb.ForeColor = Color.FromArgb(255, 255, 255);
                 }
 
-                foreach (Button btn in this.Controls.OfType<Button>())
+                foreach (Button btn in Controls.OfType<Button>())
                 {
                     btn.ForeColor = Color.FromArgb(255, 255, 255);
                     btn.BackColor = Color.FromArgb(43, 43, 43);
@@ -77,8 +78,8 @@ namespace PasteIntoFile
             txtFilename.Text = DateTime.Now.ToString(filename);
             txtCurrentLocation.Text = CurrentLocation ?? @"C:\";
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
-            clrClipboard.Checked = Properties.Settings.Default.clrClipboard;
-            autoSave.Checked = Properties.Settings.Default.autoSave;
+            clrClipboard.Checked = Settings.Default.clrClipboard;
+            autoSave.Checked = Settings.Default.autoSave;
 
             /*if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\"+Program.RegistrySubKey+@"\command", "", null) == null)
             {
@@ -239,14 +240,14 @@ namespace PasteIntoFile
 
         private void ClrClipboard_CheckedChanged(object sender, EventArgs e)
         {
-            PasteIntoFile.Properties.Settings.Default.clrClipboard = clrClipboard.Checked;
-            PasteIntoFile.Properties.Settings.Default.Save();
+            Settings.Default.clrClipboard = clrClipboard.Checked;
+            Settings.Default.Save();
         }
 
         private void AutoSave_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.autoSave = autoSave.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.autoSave = autoSave.Checked;
+            Settings.Default.Save();
         }
 
         private void AutoSave_Click(object sender, EventArgs e)

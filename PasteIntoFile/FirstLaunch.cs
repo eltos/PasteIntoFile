@@ -21,15 +21,15 @@ namespace PasteIntoFile
         private void Button2_Click(object sender, EventArgs e)
         {
             Program.RegisterApp();
-            Properties.Settings.Default.firstLaunch = false;
-            Properties.Settings.Default.Save();
+            Settings.Default.firstLaunch = false;
+            Settings.Default.Save();
             Close();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.firstLaunch = false;
-            Properties.Settings.Default.Save();
+            Settings.Default.firstLaunch = false;
+            Settings.Default.Save();
             Close();
         }
 
