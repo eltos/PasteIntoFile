@@ -1,4 +1,6 @@
-﻿namespace PasteIntoFile
+using PasteIntoFile.Properties;
+
+namespace PasteIntoFile
 {
     partial class frmMain
     {
@@ -90,7 +92,7 @@
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(78, 20);
             this.lblFileName.TabIndex = 4;
-            this.lblFileName.Text = "Filename:";
+            this.lblFileName.Text = Resources.str_filename;
             // 
             // txtFilename
             // 
@@ -111,7 +113,7 @@
             this.lblExt.Name = "lblExt";
             this.lblExt.Size = new System.Drawing.Size(83, 20);
             this.lblExt.TabIndex = 6;
-            this.lblExt.Text = "Extension:";
+            this.lblExt.Text = Resources.str_extension;
             // 
             // comExt
             // 
@@ -149,7 +151,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(476, 45);
             this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = Resources.str_save;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -172,7 +174,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Location:";
+            this.label1.Text = Resources.str_location;
             // 
             // btnBrowseForFolder
             // 
@@ -182,7 +184,7 @@
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
             this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 28);
             this.btnBrowseForFolder.TabIndex = 4;
-            this.btnBrowseForFolder.Text = "...";
+            this.btnBrowseForFolder.Text = Resources.str_ellipsis;
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             // 
@@ -288,7 +290,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Paste Into File";
+            this.Text = Resources.window_title;
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();

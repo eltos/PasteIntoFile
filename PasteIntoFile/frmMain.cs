@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using WK.Libraries.BetterFolderBrowserNS;
+using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
@@ -72,16 +73,16 @@ namespace PasteIntoFile
                 }
             }
 
-            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\Paste Into File\filename", "", null) ?? DEFAULT_FILENAME_FORMAT;
+            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\"+Program.RegistrySubKey+@"\filename", "", null) ?? DEFAULT_FILENAME_FORMAT;
             txtFilename.Text = DateTime.Now.ToString(filename);
             txtCurrentLocation.Text = CurrentLocation ?? @"C:\";
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
             clrClipboard.Checked = Properties.Settings.Default.clrClipboard;
             autoSave.Checked = Properties.Settings.Default.autoSave;
 
-            /*if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\Paste Into File\command", "", null) == null)
+            /*if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\"+Program.RegistrySubKey+@"\command", "", null) == null)
             {
-                if (MessageBox.Show("Seems that you are running this application for the first time,\nDo you want to register it with your system?", "Paste Into File", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(Resources.str_message_first_time, Resources.window_title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     Program.RegisterApp();
                 }
@@ -89,14 +90,14 @@ namespace PasteIntoFile
 
             if (Clipboard.ContainsText())
             {
-                lblType.Text = "Text";
+                lblType.Text = Resources.str_type_txt;
                 comExt.SelectedItem = "txt";
                 IsText = true;
                 txtContent.Text = Clipboard.GetText();
             }
             else if (Clipboard.ContainsImage())
             {
-                lblType.Text = "Image";
+                lblType.Text = Resources.str_type_img;
                 comExt.SelectedItem = "png";
                 imgContent.Show();
                 Height = 751;
@@ -105,7 +106,7 @@ namespace PasteIntoFile
             }
             else
             {
-                lblType.Text = "Unknown";
+                lblType.Text = Resources.str_type_unknown;
                 btnSave.Enabled = false;
             }
 
@@ -175,7 +176,7 @@ namespace PasteIntoFile
 
             BetterFolderBrowser betterFolderBrowser = new BetterFolderBrowser();
 
-            betterFolderBrowser.Title = "Select folder...";
+            betterFolderBrowser.Title = Resources.str_select_folder;
             betterFolderBrowser.RootFolder = @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
 
             // Allow multi-selection of folders.
@@ -199,12 +200,8 @@ namespace PasteIntoFile
 
         private void lblHelp_Click(object sender, EventArgs e)
         {
-            string msg = "Paste Into File helps you paste any text or images in your system clipboard into a file directly instead of creating new file yourself";
-            msg += "\n--------------------\nTo Register the application to your system Context Menu run the program as Administrator with this argument : /reg";
-            msg += "\nto Unregister the application use this argument : /unreg\n";
-            msg += "\nTo change the format of the default filename, use this argument: /filename yyyy-MM-dd_HHmm\n";
-            msg += "\n--------------------\nSend Feedback to : contact@francescosorge.com\n\nThanks :)";
-            MessageBox.Show(msg, "Paste As File Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Resources.str_message_help, Resources.window_title, MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void frmMain_KeyUp(object sender, KeyEventArgs e)
