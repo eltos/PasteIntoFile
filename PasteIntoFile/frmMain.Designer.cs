@@ -269,7 +269,7 @@ namespace PasteIntoFile
             this.Controls.Add(this.imgContent);
             this.Controls.Add(this.lblType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Resources.icon;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.KeyPreview = true;
             this.MaximizeBox = false;

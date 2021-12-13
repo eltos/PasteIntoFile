@@ -83,7 +83,7 @@ namespace PasteIntoFile
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.BackgroundImage = global::PasteIntoFile.Properties.Resources.next1;
+            this.button1.BackgroundImage = global::PasteIntoFile.Properties.Resources.next;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -186,7 +186,7 @@ namespace PasteIntoFile
             this.Controls.Add(this.second);
             this.Controls.Add(this.first);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Resources.icon;
             this.MaximizeBox = false;
             this.Name = "FirstLaunch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
