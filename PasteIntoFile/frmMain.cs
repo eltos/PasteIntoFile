@@ -207,11 +207,11 @@ namespace PasteIntoFile
             MessageBox.Show(msg, "Paste As File Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void txtFilename_KeyPress(object sender, KeyPressEventArgs e)
+        private void frmMain_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyCode == Keys.Escape)
             {
-                btnSave_Click(sender, null);
+                Environment.Exit(0);
             }
         }
 
