@@ -57,6 +57,13 @@ namespace PasteIntoFile
                     UnRegisterApp();
                     return;
                 }
+                else if (args[0] == "/filename")
+                {
+                    if (args.Length > 1) {
+                        RegisterFilename(args[1]);
+                    }
+                    return;
+                }
                 Application.Run(new frmMain(args[0]));
             }
             else
@@ -65,6 +72,23 @@ namespace PasteIntoFile
             }
 
         }
+
+		public static void RegisterFilename(string filename)
+		{
+			try
+			{
+                var key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey("Paste Into File");
+                key = key.CreateSubKey("filename");
+                key.SetValue("", filename);
+
+                MessageBox.Show("Filename has been registered with your system", "Paste Into File", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch (Exception ex)
+			{
+				//throw;
+				MessageBox.Show(ex.Message + "\nPlease run the application as Administrator !", "Paste As File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
         public static void UnRegisterApp()
         {
@@ -91,12 +115,14 @@ namespace PasteIntoFile
             try
             {
                 var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey("Paste Into File");
+				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
-                key.SetValue("", Application.ExecutablePath + " \"%V\"");
+				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
 
                 key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey("Paste Into File");
+				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
-                key.SetValue("", Application.ExecutablePath + " \"%1\"");
+				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%1\"");
                 MessageBox.Show("Application has been registered with your system", "Paste Into File", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }

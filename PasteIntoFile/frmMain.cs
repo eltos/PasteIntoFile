@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
@@ -14,6 +15,7 @@ namespace PasteIntoFile
 {
     public partial class frmMain : Form
     {
+        public const string DEFAULT_FILENAME_FORMAT = "yyyy-MM-dd HH-mm-ss";
         public string CurrentLocation { get; set; }
         public bool IsText { get; set; }
         public frmMain()
@@ -70,7 +72,9 @@ namespace PasteIntoFile
                 }
             }
 
-            txtFilename.Text = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\Paste Into File\filename", "", null) ?? DEFAULT_FILENAME_FORMAT;
+            txtFilename.Text = DateTime.Now.ToString(filename);
+            txtCurrentLocation.Text = CurrentLocation ?? @"C:\";
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
             clrClipboard.Checked = Properties.Settings.Default.clrClipboard;
             autoSave.Checked = Properties.Settings.Default.autoSave;
@@ -198,6 +202,7 @@ namespace PasteIntoFile
             string msg = "Paste Into File helps you paste any text or images in your system clipboard into a file directly instead of creating new file yourself";
             msg += "\n--------------------\nTo Register the application to your system Context Menu run the program as Administrator with this argument : /reg";
             msg += "\nto Unregister the application use this argument : /unreg\n";
+            msg += "\nTo change the format of the default filename, use this argument: /filename yyyy-MM-dd_HHmm\n";
             msg += "\n--------------------\nSend Feedback to : contact@francescosorge.com\n\nThanks :)";
             MessageBox.Show(msg, "Paste As File Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
