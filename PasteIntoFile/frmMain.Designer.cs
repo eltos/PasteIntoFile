@@ -121,22 +121,6 @@ namespace PasteIntoFile
             // 
             this.comExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comExt.FormattingEnabled = true;
-            this.comExt.Items.AddRange(new object[] {
-            "txt",
-            "html",
-            "js",
-            "css",
-            "csv",
-            "json",
-            "cs",
-            "cpp",
-            "java",
-            "php",
-            "png",
-            "jpg",
-            "bmp",
-            "gif",
-            "ico"});
             this.comExt.Location = new System.Drawing.Point(644, 46);
             this.comExt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comExt.Name = "comExt";

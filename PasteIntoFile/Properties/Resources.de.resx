@@ -28,7 +28,7 @@
         <value>Dateiname</value>
     </data>
     <data name="str_extension" xml:space="preserve">
-        <value>Erweiterung</value>
+        <value>Dateityp</value>
     </data>
     <data name="str_message_first_time" xml:space="preserve">
         <value>Es scheint als würdest du die Anwendung zum ersten Mal starten. Möchtest du einen Eintrag zum Kontextmenu des Explorers hinzufügen?</value>

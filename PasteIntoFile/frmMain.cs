@@ -91,15 +91,29 @@ namespace PasteIntoFile
 
             if (Clipboard.ContainsText())
             {
-                lblType.Text = Resources.str_type_txt;
-                comExt.SelectedItem = "txt";
-                IsText = true;
                 txtContent.Text = Clipboard.GetText();
+                IsText = true;
+                comExt.Items.AddRange(new object[] {
+                    "txt", "html", "js", "css", "csv", "json", "cs", "cpp", "java", "php", "py"
+                });
+                // heuristic to suggest filetype
+                if (Regex.IsMatch(txtContent.Text, "<html.*>(.|\n)*</html>")) {
+                    comExt.SelectedItem = "html";
+                } else if (Regex.IsMatch(txtContent.Text, "^\\{(.|\n)*:(.|\n)*\\}$")) {
+                    comExt.SelectedItem = "json";
+                } else {
+                    comExt.SelectedItem = "txt";
+                }
+                lblType.Text = Resources.str_type_txt;
             }
             else if (Clipboard.ContainsImage())
             {
-                lblType.Text = Resources.str_type_img;
+                comExt.Items.AddRange(new object[] {
+                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
+                });
+                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
                 comExt.SelectedItem = "png";
+                lblType.Text = Resources.str_type_img;
                 imgContent.Show();
                 imgContent.BackgroundImage = Clipboard.GetImage();
                 if (imgContent.BackgroundImage.Width*1.0/imgContent.BackgroundImage.Height > imgContent.Width*1.0/imgContent.Height)
@@ -138,27 +152,20 @@ namespace PasteIntoFile
             }
             else
             {
+                ImageFormat format;
                 switch (comExt.SelectedItem.ToString())
                 {
-                    case "png":
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Png);
-                        break;
-                    case "ico":
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Icon);
-                        break;
-                    case "jpg":
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Jpeg);
-                        break;
-                    case "bmp":
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Bmp);
-                        break;
-                    case "gif":
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Gif);
-                        break;
-                    default:
-                        imgContent.BackgroundImage.Save(location + filename, ImageFormat.Png);
-                        break;
+                    case "bpm": format = ImageFormat.Bmp; break;
+                    case "emf": format = ImageFormat.Emf; break;
+                    case "gif": format = ImageFormat.Gif; break;
+                    case "ico": format = ImageFormat.Icon; break;
+                    case "jpg": format = ImageFormat.Jpeg; break;
+                    case "tif": format = ImageFormat.Tiff; break;
+                    case "wmf": format = ImageFormat.Wmf; break;
+                    default: format = ImageFormat.Png; break;
                 }
+
+                imgContent.BackgroundImage.Save(location + filename, format);
             }
 
             if (clrClipboard.Checked)
