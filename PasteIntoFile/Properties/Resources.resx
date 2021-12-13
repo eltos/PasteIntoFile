@@ -223,10 +223,10 @@ Paste Into File</value>
     <value>Clear clipboard</value>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Forked and improved by Francesco Sorge</value>
+    <value>Find this project on GitLab</value>
   </data>
   <data name="str_main_info_url" xml:space="preserve">
-    <value>www.francescosorge.com</value>
+    <value>gitlab.com/fsorge/PasteIntoFile</value>
   </data>
   <data name="str_firstlaunch_register_explain" xml:space="preserve">
     <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing '{0}'.</value>

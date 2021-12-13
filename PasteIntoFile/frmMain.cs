@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -221,21 +220,6 @@ namespace PasteIntoFile
             {
                 Environment.Exit(0);
             }
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://" + Resources.str_main_info_url);
-        }
-
-        private void LinkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Program.RegisterApp();
-        }
-
-        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Program.UnRegisterApp();
         }
 
         private void ClrClipboard_CheckedChanged(object sender, EventArgs e)

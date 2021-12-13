@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -44,10 +45,10 @@ namespace PasteIntoFile
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.infoLabel = new System.Windows.Forms.Label();
+            this.linkUnregister = new System.Windows.Forms.LinkLabel();
+            this.linkRegister = new System.Windows.Forms.LinkLabel();
             this.clrClipboard = new System.Windows.Forms.CheckBox();
             this.autoSave = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
@@ -174,53 +175,50 @@ namespace PasteIntoFile
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             // 
-            // label2
+            // linkRegister
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(18, 217);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(304, 20);
-            this.label2.TabIndex = 14;
-            this.label2.Text = Resources.str_main_info;
+            this.linkRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkRegister.Location = new System.Drawing.Point(18, 217);
+            this.linkRegister.Name = "linkRegister";
+            this.linkRegister.Size = new System.Drawing.Size(300, 20);
+            this.linkRegister.TabIndex = 14;
+            this.linkRegister.TabStop = true;
+            this.linkRegister.Text = Resources.str_contextentry_register;
+            this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Program.RegisterApp());
             // 
-            // linkLabel1
+            // linkUnregister
             // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(562, 217);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(190, 20);
-            this.linkLabel1.TabIndex = 15;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = Resources.str_main_info_url;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            this.linkUnregister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkUnregister.Location = new System.Drawing.Point(18, 251);
+            this.linkUnregister.Name = "linkUnregister";
+            this.linkUnregister.Size = new System.Drawing.Size(300, 20);
+            this.linkUnregister.TabIndex = 15;
+            this.linkUnregister.TabStop = true;
+            this.linkUnregister.Text = Resources.str_contextentry_unregister;
+            this.linkUnregister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Program.UnRegisterApp());
             // 
-            // linkLabel2
+            // infoLabel
             // 
-            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel2.Location = new System.Drawing.Point(507, 251);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(250, 20);
-            this.linkLabel2.TabIndex = 16;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = Resources.str_contextentry_unregister;
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
-            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.infoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.infoLabel.Location = new System.Drawing.Point(357, 217);
+            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(400, 20);
+            this.infoLabel.ForeColor = System.Drawing.Color.Gray;
+            this.infoLabel.Text = Resources.str_main_info;
             // 
-            // linkLabel3
+            // infoLinkLabel
             // 
-            this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linkLabel3.Location = new System.Drawing.Point(18, 251);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(250, 20);
-            this.linkLabel3.TabIndex = 17;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = Resources.str_contextentry_register;
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel3_LinkClicked);
+            this.infoLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.infoLinkLabel.Location = new System.Drawing.Point(357, 251);
+            this.infoLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.infoLinkLabel.Name = "infoLinkLabel";
+            this.infoLinkLabel.Size = new System.Drawing.Size(400, 20);
+            this.infoLinkLabel.TabIndex = 17;
+            this.infoLinkLabel.TabStop = true;
+            this.infoLinkLabel.Text = Resources.str_main_info_url;
+            this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Process.Start("http://" + Resources.str_main_info_url));
+            
             // 
             // clrClipboard
             // 
@@ -228,7 +226,7 @@ namespace PasteIntoFile
             this.clrClipboard.Location = new System.Drawing.Point(22, 148);
             this.clrClipboard.Name = "clrClipboard";
             this.clrClipboard.Size = new System.Drawing.Size(140, 24);
-            this.clrClipboard.TabIndex = 18;
+            this.clrClipboard.TabIndex = 10;
             this.clrClipboard.Text = Resources.str_clear_clipboard;
             this.clrClipboard.UseVisualStyleBackColor = true;
             this.clrClipboard.CheckedChanged += new System.EventHandler(this.ClrClipboard_CheckedChanged);
@@ -239,7 +237,7 @@ namespace PasteIntoFile
             this.autoSave.Location = new System.Drawing.Point(22, 173);
             this.autoSave.Name = "autoSave";
             this.autoSave.Size = new System.Drawing.Size(102, 24);
-            this.autoSave.TabIndex = 19;
+            this.autoSave.TabIndex = 11;
             this.autoSave.Text = Resources.str_autosave;
             this.autoSave.UseVisualStyleBackColor = true;
             this.autoSave.CheckedChanged += new System.EventHandler(this.AutoSave_CheckedChanged);
@@ -253,10 +251,10 @@ namespace PasteIntoFile
             this.ClientSize = new System.Drawing.Size(775, 287);
             this.Controls.Add(this.autoSave);
             this.Controls.Add(this.clrClipboard);
-            this.Controls.Add(this.linkLabel3);
-            this.Controls.Add(this.linkLabel2);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.linkRegister);
+            this.Controls.Add(this.linkUnregister);
+            this.Controls.Add(this.infoLabel);
+            this.Controls.Add(this.infoLinkLabel);
             this.Controls.Add(this.btnBrowseForFolder);
             this.Controls.Add(this.txtCurrentLocation);
             this.Controls.Add(this.label1);
@@ -297,10 +295,10 @@ namespace PasteIntoFile
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBrowseForFolder;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.LinkLabel infoLinkLabel;
+        private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.LinkLabel linkUnregister;
+        private System.Windows.Forms.LinkLabel linkRegister;
         private System.Windows.Forms.CheckBox clrClipboard;
         private System.Windows.Forms.CheckBox autoSave;
     }

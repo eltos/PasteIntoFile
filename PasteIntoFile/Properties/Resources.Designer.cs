@@ -262,7 +262,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forked and improved by Francesco Sorge.
+        ///   Looks up a localized string similar to Find this project on GitLab.
         /// </summary>
         internal static string str_main_info {
             get {
@@ -271,7 +271,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to www.francescosorge.com.
+        ///   Looks up a localized string similar to gitlab.com/fsorge/PasteIntoFile.
         /// </summary>
         internal static string str_main_info_url {
             get {

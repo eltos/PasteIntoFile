@@ -18,8 +18,8 @@ Forked, improved and currently maintained by Francesco Sorge on GitLab: https://
 + Image preview before saving
 
 #### Screenshots
-![Paste Into File](https://gitlab.com/fsorge/PasteIntoFile/-/raw/master/PasteIntoFile/screenshot.png)
-![Paste Into File with image preview](https://gitlab.com/fsorge/PasteIntoFile/-/raw/master/PasteIntoFile/screenshot-2.png)
+![Paste Into File](screenshot.png)
+![Paste Into File with image preview](screenshot-2.png)
 
 ## Installation
 
