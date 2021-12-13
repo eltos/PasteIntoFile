@@ -174,10 +174,9 @@ namespace PasteIntoFile
             }
 
 
-            if (autoSave.Checked)
+            if (autoSave.Checked && e == EventArgs.Empty)
             {
                 Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text));
-                Thread.Sleep(5000);
             }
 
             Environment.Exit(0);
