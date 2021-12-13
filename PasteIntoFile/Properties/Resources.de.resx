@@ -30,14 +30,11 @@
     <data name="str_extension" xml:space="preserve">
         <value>Erweiterung</value>
     </data>
-    <data name="str_file_saved" xml:space="preserve">
-        <value>Gespeichert :)</value>
-    </data>
     <data name="str_message_first_time" xml:space="preserve">
         <value>Es scheint als würdest du die Anwendung zum ersten Mal starten. Möchtest du einen Eintrag zum Kontextmenu des Explorers hinzufügen?</value>
     </data>
     <data name="str_location" xml:space="preserve">
-        <value>Speicherort</value>
+        <value>Zielordner</value>
     </data>
     <data name="str_select_folder" xml:space="preserve">
         <value>Speicherort auswählen</value>
@@ -60,7 +57,7 @@
     <data name="str_message_unregister_context_menu_success" xml:space="preserve">
         <value>Eintrag im Kontextmenu wurde entfernt</value>
     </data>
-    <data name="explorer_context_entry" xml:space="preserve">
+    <data name="str_contextentry" xml:space="preserve">
         <value>Einfügen als Datei (Paste Into File)</value>
     </data>
     <data name="str_message_help" xml:space="preserve">
@@ -79,5 +76,54 @@ Komandozeilen-Argumente:
 https://gitlab.com/fsorge/PasteIntoFile
 Feedback auf Englisch an: contact@francescosorge.com
 Danke :)</value>
+    </data>
+    <data name="str_firstlaunch_windowtitle" xml:space="preserve">
+        <value>Paste Into File – Einrichtungsassistent</value>
+    </data>
+    <data name="str_firstlaunch_welcome" xml:space="preserve">
+        <value>Willkommen bei
+Paste Into File</value>
+    </data>
+    <data name="str_firstlaunch_register" xml:space="preserve">
+        <value>Eintrag im Kontextmenu anlegen?</value>
+    </data>
+    <data name="str_firstlaunch_register_explain" xml:space="preserve">
+        <value>Es kann ein Eintrag im Explorer Kontext Menu hinzugefügt werden. Inhalte aus der Zwischenablage können dann auf dem Desktop und in jedem Ordner einfach durch Rechtsklick und Auswahl des Eintrages '{0}' als Datei gespeichert werden.</value>
+    </data>
+    <data name="str_no" xml:space="preserve">
+        <value>Nein danke</value>
+    </data>
+    <data name="str_contextentry_unregister" xml:space="preserve">
+        <value>Aus Kontextmenu entfernen</value>
+    </data>
+    <data name="str_contextentry_register" xml:space="preserve">
+        <value>Im Kontextmenu eintragen</value>
+    </data>
+    <data name="str_firstlaunch_creator" xml:space="preserve">
+        <value>Ursprünglich entwickelt von Eslam Hamouda</value>
+    </data>
+    <data name="str_firstlaunch_maintainer" xml:space="preserve">
+        <value>Verbessert und betreut von Francesco Sorge</value>
+    </data>
+    <data name="str_main_info" xml:space="preserve">
+        <value>Verbessert und betreut von Francesco Sorge</value>
+    </data>
+    <data name="str_clear_clipboard" xml:space="preserve">
+        <value>Zwischenablage leeren</value>
+    </data>
+    <data name="str_autosave" xml:space="preserve">
+        <value>Automatisch speichern</value>
+    </data>
+    <data name="str_autosave_balloontext" xml:space="preserve">
+        <value>Inhalt der Zwischenablage wurde als {0} gespeichert</value>
+    </data>
+    <data name="str_autosave_balloontitle" xml:space="preserve">
+        <value>Zwischenablage als Datei gespeichert</value>
+    </data>
+    <data name="str_autosave_infotext" xml:space="preserve">
+        <value>PasteIntoFile wird die Daten automatisch speichern ohne einen Dialog anzuzeigen. Um das rückgängig zu machen und den Dialog wieder anzuzeigen muss die folgende Datei gelöscht werden: {0}</value>
+    </data>
+    <data name="str_noclip_text" xml:space="preserve">
+        <value>Die Zwischenablage ist leer</value>
     </data>
 </root>

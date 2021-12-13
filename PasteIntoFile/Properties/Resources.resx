@@ -137,12 +137,12 @@
     <value>Extension</value>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Current Location</value>
+    <value>Location</value>
   </data>
   <data name="str_ellipsis" xml:space="preserve">
-    <value>…</value>
+    <value>...</value>
   </data>
-  <data name="window_title" xml:space="preserve">
+  <data name="str_main_window_title" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
   <data name="str_message_unregister_context_menu_success" xml:space="preserve">
@@ -154,7 +154,7 @@
   <data name="str_message_register_context_menu_success" xml:space="preserve">
     <value>Explorer context menu entry has been added</value>
   </data>
-  <data name="explorer_context_entry" xml:space="preserve">
+  <data name="str_contextentry" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
   <data name="str_message_first_time" xml:space="preserve">
@@ -169,9 +169,6 @@ do you want to add an entry to the explorer context menu?</value>
   </data>
   <data name="str_type_unknown" xml:space="preserve">
     <value>Unknown file</value>
-  </data>
-  <data name="str_file_saved" xml:space="preserve">
-    <value>File saved :)</value>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file </value>
@@ -190,5 +187,63 @@ To change the format of the default filename, use this argument: /filename "yyyy
 https://gitlab.com/fsorge/PasteIntoFile
 Send Feedback to: contact@francescosorge.com
 Thanks :)</value>
+  </data>
+  <data name="str_autosave" xml:space="preserve">
+    <value>Autosave</value>
+  </data>
+  <data name="str_autosave_balloontext" xml:space="preserve">
+    <value>Clipboard content has been automatically saved as {0}</value>
+  </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>PasteIntoFile will automatically save files without showing a dialog anymore. If you want to show the main window again, you will have to delete this file: {0}</value>
+  </data>
+  <data name="str_noclip_text" xml:space="preserve">
+    <value>Clipboard is empty</value>
+  </data>
+  <data name="str_firstlaunch_welcome" xml:space="preserve">
+    <value>Welcome to
+Paste Into File</value>
+  </data>
+  <data name="str_firstlaunch_maintainer" xml:space="preserve">
+    <value>Improved and maintained by Francesco Sorge</value>
+  </data>
+  <data name="str_firstlaunch_creator" xml:space="preserve">
+    <value>Originally created by Eslam Hamouda</value>
+  </data>
+  <data name="str_contextentry_register" xml:space="preserve">
+    <value>Register context menu entry</value>
+  </data>
+  <data name="str_contextentry_unregister" xml:space="preserve">
+    <value>Unregister context menu entry</value>
+  </data>
+  <data name="str_no" xml:space="preserve">
+    <value>No, thanks</value>
+  </data>
+  <data name="str_clear_clipboard" xml:space="preserve">
+    <value>Clear clipboard</value>
+  </data>
+  <data name="str_main_info" xml:space="preserve">
+    <value>Forked and improved by Francesco Sorge</value>
+  </data>
+  <data name="str_main_info_url" xml:space="preserve">
+    <value>www.francescosorge.com</value>
+  </data>
+  <data name="str_firstlaunch_register_explain" xml:space="preserve">
+    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing '{0}'.</value>
+  </data>
+  <data name="str_firstlaunch_register" xml:space="preserve">
+    <value>Add context menu entry?</value>
+  </data>
+  <data name="str_firstlaunch_windowtitle" xml:space="preserve">
+    <value>Paste Into File – First Launch</value>
+  </data>
+  <data name="str_autosave_balloontitle" xml:space="preserve">
+    <value>Clipboard saved to file</value>
+  </data>
+  <data name="str_firstlaunch_maintainer_link" xml:space="preserve">
+    <value>https://gitlab.com/fsorge/PasteIntoFile</value>
+  </data>
+  <data name="str_firstlaunch_creator_link" xml:space="preserve">
+    <value>https://github.com/EslaMx7/PasteIntoFile</value>
   </data>
 </root>

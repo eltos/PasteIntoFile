@@ -1,3 +1,5 @@
+using System.Drawing;
+using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
@@ -65,10 +67,10 @@ namespace PasteIntoFile
             // imgContent
             // 
             this.imgContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.imgContent.Location = new System.Drawing.Point(24, 203);
-            this.imgContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.imgContent.Location = new System.Drawing.Point(24, 210);
+            this.imgContent.Margin = new System.Windows.Forms.Padding(4, 05, 4, 5);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(728, 411);
+            this.imgContent.Size = new System.Drawing.Size(728, 500);
             this.imgContent.TabIndex = 2;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
@@ -182,7 +184,7 @@ namespace PasteIntoFile
             this.btnBrowseForFolder.Location = new System.Drawing.Point(702, 110);
             this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
-            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 28);
+            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 32);
             this.btnBrowseForFolder.TabIndex = 4;
             this.btnBrowseForFolder.Text = Resources.str_ellipsis;
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
@@ -199,7 +201,7 @@ namespace PasteIntoFile
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 20);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Forked and improved by Francesco Sorge";
+            this.label2.Text = Resources.str_main_info;
             // 
             // linkLabel1
             // 
@@ -210,31 +212,30 @@ namespace PasteIntoFile
             this.linkLabel1.Size = new System.Drawing.Size(190, 20);
             this.linkLabel1.TabIndex = 15;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "www.francescosorge.com";
+            this.linkLabel1.Text = Resources.str_main_info_url;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
             // linkLabel2
             // 
             this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(565, 251);
+            this.linkLabel2.Location = new System.Drawing.Point(507, 251);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(187, 20);
+            this.linkLabel2.Size = new System.Drawing.Size(250, 20);
             this.linkLabel2.TabIndex = 16;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Unregister from Windows";
+            this.linkLabel2.Text = Resources.str_contextentry_unregister;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
+            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // linkLabel3
             // 
             this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linkLabel3.AutoSize = true;
             this.linkLabel3.Location = new System.Drawing.Point(18, 251);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(169, 20);
+            this.linkLabel3.Size = new System.Drawing.Size(250, 20);
             this.linkLabel3.TabIndex = 17;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Register with Windows";
+            this.linkLabel3.Text = Resources.str_contextentry_register;
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel3_LinkClicked);
             // 
             // clrClipboard
@@ -244,7 +245,7 @@ namespace PasteIntoFile
             this.clrClipboard.Name = "clrClipboard";
             this.clrClipboard.Size = new System.Drawing.Size(140, 24);
             this.clrClipboard.TabIndex = 18;
-            this.clrClipboard.Text = "Clear clipboard";
+            this.clrClipboard.Text = Resources.str_clear_clipboard;
             this.clrClipboard.UseVisualStyleBackColor = true;
             this.clrClipboard.CheckedChanged += new System.EventHandler(this.ClrClipboard_CheckedChanged);
             // 
@@ -255,7 +256,7 @@ namespace PasteIntoFile
             this.autoSave.Name = "autoSave";
             this.autoSave.Size = new System.Drawing.Size(102, 24);
             this.autoSave.TabIndex = 19;
-            this.autoSave.Text = "Autosave";
+            this.autoSave.Text = Resources.str_autosave;
             this.autoSave.UseVisualStyleBackColor = true;
             this.autoSave.CheckedChanged += new System.EventHandler(this.AutoSave_CheckedChanged);
             this.autoSave.Click += new System.EventHandler(this.AutoSave_Click);
@@ -290,7 +291,7 @@ namespace PasteIntoFile
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = Resources.window_title;
+            this.Text = Resources.str_main_window_title;
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();

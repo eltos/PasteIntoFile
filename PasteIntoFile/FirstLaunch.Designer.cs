@@ -1,4 +1,6 @@
-﻿namespace PasteIntoFile
+﻿using PasteIntoFile.Properties;
+
+namespace PasteIntoFile
 {
     partial class FirstLaunch
     {
@@ -55,7 +57,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(778, 403);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Welcome to\r\nPaste Into File";
+            this.label1.Text = Resources.str_firstlaunch_welcome;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -112,50 +114,22 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(219, 508);
+            this.linkLabel2.Location = new System.Drawing.Point(13, 508);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(131, 20);
             this.linkLabel2.TabIndex = 18;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Francesco Sorge";
+            this.linkLabel2.Text = Resources.str_firstlaunch_maintainer;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(13, 508);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(208, 20);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Improved and maintained by";
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(161, 475);
+            this.linkLabel1.Location = new System.Drawing.Point(13, 475);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(69, 20);
             this.linkLabel1.TabIndex = 16;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "EslaMx7";
+            this.linkLabel1.Text = Resources.str_firstlaunch_creator;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(13, 475);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(150, 20);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Originally created by";
             // 
             // button3
             // 
@@ -164,7 +138,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(192, 87);
             this.button3.TabIndex = 6;
-            this.button3.Text = "No, thanks";
+            this.button3.Text = Resources.str_no;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
@@ -175,7 +149,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(192, 87);
             this.button2.TabIndex = 5;
-            this.button2.Text = "Register with Windows";
+            this.button2.Text = Resources.str_contextentry_register;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
@@ -188,20 +162,19 @@
             this.label3.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
             this.label3.Size = new System.Drawing.Size(778, 130);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Registering Paste Into File with Windows will allow you to quickly paste clipboar" +
-    "d\'s content into a file, by right-clicking on your desktop or in any folder, and" +
-    " choosing \'Paste Into File\' entry.";
+            this.label3.Text = string.Format(Resources.str_firstlaunch_register_explain, Resources.str_contextentry);
             // 
             // label2
             // 
             this.label2.AutoEllipsis = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Light", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI Light", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(6, 10, 15, 10);
             this.label2.Size = new System.Drawing.Size(778, 99);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Register with Windows?";
+            this.label2.Text = Resources.str_firstlaunch_register;
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FirstLaunch
@@ -216,7 +189,7 @@
             this.MaximizeBox = false;
             this.Name = "FirstLaunch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FirstLaunch";
+            this.Text = Resources.str_firstlaunch_windowtitle;
             this.panel1.ResumeLayout(false);
             this.first.ResumeLayout(false);
             this.second.ResumeLayout(false);

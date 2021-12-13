@@ -100,9 +100,19 @@ namespace PasteIntoFile
                 lblType.Text = Resources.str_type_img;
                 comExt.SelectedItem = "png";
                 imgContent.Show();
-                Height = 751;
-                CenterToScreen();
                 imgContent.BackgroundImage = Clipboard.GetImage();
+                if (imgContent.BackgroundImage.Width*1.0/imgContent.BackgroundImage.Height > imgContent.Width*1.0/imgContent.Height)
+                {
+                    imgContent.Height = imgContent.Width * imgContent.BackgroundImage.Height / imgContent.BackgroundImage.Width;
+                }
+                else
+                {
+                    var newWidth = imgContent.Height * imgContent.BackgroundImage.Width / imgContent.BackgroundImage.Height;
+                    imgContent.Left += (imgContent.Width - newWidth) / 2;
+                    imgContent.Width = newWidth;
+                }
+                Height += imgContent.Height;
+                CenterToScreen();
             }
             else
             {
@@ -158,7 +168,7 @@ namespace PasteIntoFile
 
             if (autoSave.Checked)
             {
-                Program.ShowBalloon("Autosave", "Clipboard content has been automatically saved to " + txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text);
+                Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text));
                 Thread.Sleep(5000);
             }
 
@@ -200,7 +210,7 @@ namespace PasteIntoFile
 
         private void lblHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Resources.str_message_help, Resources.window_title, MessageBoxButtons.OK,
+            MessageBox.Show(Resources.str_message_help, Resources.str_main_window_title, MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 
@@ -214,7 +224,7 @@ namespace PasteIntoFile
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.francescosorge.com/");
+            Process.Start("https://" + Resources.str_main_info_url);
         }
 
         private void LinkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -243,7 +253,7 @@ namespace PasteIntoFile
         {
             if (autoSave.Checked)
             {
-                MessageBox.Show("PasteIntoFile will automatically save files without showing a dialog anymore. If you will want to show the main window again, you will have to delete this file: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Resources.str_autosave_infotext, ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath), Resources.str_autosave, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

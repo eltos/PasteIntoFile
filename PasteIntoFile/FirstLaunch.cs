@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
@@ -34,12 +35,12 @@ namespace PasteIntoFile
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/EslaMx7/PasteIntoFile");
+            Process.Start(Resources.str_firstlaunch_creator_link);
         }
 
         private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.francescosorge.com/");
+            Process.Start(Resources.str_firstlaunch_maintainer_link);
         }
     }
 }

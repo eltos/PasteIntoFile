@@ -44,7 +44,7 @@ namespace PasteIntoFile
 
             if (!Clipboard.ContainsText() && !Clipboard.ContainsImage())
             {
-                DialogResult result = MessageBox.Show("Clipboard is empty", "Warning", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
                 return;
             }
 
@@ -84,12 +84,12 @@ namespace PasteIntoFile
                 key = key.CreateSubKey("filename");
                 key.SetValue("", filename);
 
-                MessageBox.Show(Resources.str_message_register_filename_success, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.str_message_register_filename_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch (Exception ex)
 			{
 				//throw;
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -103,12 +103,12 @@ namespace PasteIntoFile
                 key = OpenDirectoryKey().OpenSubKey("shell", true);
 				key.DeleteSubKeyTree(RegistrySubKey);
 
-				MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch (Exception ex)
             {
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
@@ -118,23 +118,23 @@ namespace PasteIntoFile
             try
             {
 				var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey(RegistrySubKey);
-				key.SetValue("", Resources.explorer_context_entry);
+				key.SetValue("", Resources.str_contextentry);
 				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
 				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
 
 				key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey(RegistrySubKey);
-				key.SetValue("", Resources.explorer_context_entry);
+				key.SetValue("", Resources.str_contextentry);
 				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
 				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%1\"");
-				MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch (Exception ex)
             {
                 //throw;
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
