@@ -38,7 +38,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>paste.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -137,11 +137,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\PasteAsFile.exe" />
     <Content Include="icon.ico" />
     <None Include="Resources\next.png" />
-    <Content Include="paste.ico" />
-    <Content Include="screenshot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
