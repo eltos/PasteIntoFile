@@ -23,16 +23,19 @@ namespace PasteIntoFile
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            bool is_light_mode = true;
+            bool isLightMode = true;
             try
             {
                 var v = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
                 if (v != null && v.ToString() == "0")
-                    is_light_mode = false;
+                    isLightMode = false;
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
-            Settings.Default.darkTheme = !is_light_mode;
+            Settings.Default.darkTheme = !isLightMode;
             Settings.Default.Save();
 
             if (Settings.Default.firstLaunch)
@@ -44,7 +47,7 @@ namespace PasteIntoFile
 
             if (!Clipboard.ContainsText() && !Clipboard.ContainsImage())
             {
-                DialogResult result = MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
+                MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
                 return;
             }
 
@@ -55,18 +58,21 @@ namespace PasteIntoFile
                     RegisterApp();
                     return;
                 }
-                else if (args[0] == "/unreg")
+
+                if (args[0] == "/unreg")
                 {
                     UnRegisterApp();
                     return;
                 }
-                else if (args[0] == "/filename")
+
+                if (args[0] == "/filename")
                 {
                     if (args.Length > 1) {
                         RegisterFilename(args[1]);
                     }
                     return;
                 }
+                
                 Application.Run(new frmMain(args[0]));
             }
             else

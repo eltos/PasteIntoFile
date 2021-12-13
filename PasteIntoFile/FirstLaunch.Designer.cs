@@ -1,4 +1,5 @@
-﻿using PasteIntoFile.Properties;
+﻿using System.Drawing;
+using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {

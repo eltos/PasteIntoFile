@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using WK.Libraries.BetterFolderBrowserNS;
 using PasteIntoFile.Properties;
@@ -17,7 +16,7 @@ namespace PasteIntoFile
 {
     public partial class frmMain : Form
     {
-        public const string DEFAULT_FILENAME_FORMAT = "yyyy-MM-dd HH-mm-ss";
+        public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         public string CurrentLocation { get; set; }
         public bool IsText { get; set; }
         public frmMain()
@@ -38,46 +37,49 @@ namespace PasteIntoFile
         {
             if (Settings.Default.darkTheme)
             {
-                BackColor = Color.FromArgb(0, 0, 0);
+                var dark1 = Color.FromArgb(24, 24, 24);
+                var dark2 = Color.FromArgb(53, 53, 53);
+
+                BackColor = dark1;
 
                 foreach (Label lbl in Controls.OfType<Label>())
                 {
-                    lbl.ForeColor = Color.FromArgb(255, 255, 255);
+                    lbl.ForeColor = Color.White;
                 }
 
                 foreach (TextBox txt in Controls.OfType<TextBox>())
                 {
-                    txt.ForeColor = Color.FromArgb(255, 255, 255);
-                    txt.BackColor = Color.FromArgb(43, 43, 43);
+                    txt.ForeColor = Color.White;
+                    txt.BackColor = dark2;
                 }
 
                 foreach (ComboBox cmb in Controls.OfType<ComboBox>())
                 {
-                    cmb.ForeColor = Color.FromArgb(255, 255, 255);
-                    cmb.BackColor = Color.FromArgb(43, 43, 43);
+                    cmb.ForeColor = Color.White;
+                    cmb.BackColor = dark2;
                 }
 
                 foreach (LinkLabel lnk in Controls.OfType<LinkLabel>())
                 {
-                    lnk.LinkColor = Color.FromArgb(255, 255, 255);
+                    lnk.LinkColor = Color.LightBlue;
                 }
 
                 foreach (CheckBox chb in Controls.OfType<CheckBox>())
                 {
-                    chb.ForeColor = Color.FromArgb(255, 255, 255);
+                    chb.ForeColor = Color.White;
                 }
 
                 foreach (Button btn in Controls.OfType<Button>())
                 {
-                    btn.ForeColor = Color.FromArgb(255, 255, 255);
-                    btn.BackColor = Color.FromArgb(43, 43, 43);
+                    btn.ForeColor = Color.White;
+                    btn.BackColor = dark2;
                 }
             }
 
-            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\"+Program.RegistrySubKey+@"\filename", "", null) ?? DEFAULT_FILENAME_FORMAT;
+            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\"+Program.RegistrySubKey+@"\filename", "", null) ?? DefaultFilenameFormat;
             txtFilename.Text = DateTime.Now.ToString(filename);
             txtCurrentLocation.Text = CurrentLocation ?? @"C:\";
-            txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
+            txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             clrClipboard.Checked = Settings.Default.clrClipboard;
             autoSave.Checked = Settings.Default.autoSave;
 
@@ -116,17 +118,25 @@ namespace PasteIntoFile
                 lblType.Text = Resources.str_type_img;
                 imgContent.Show();
                 imgContent.BackgroundImage = Clipboard.GetImage();
-                if (imgContent.BackgroundImage.Width*1.0/imgContent.BackgroundImage.Height > imgContent.Width*1.0/imgContent.Height)
+                
+                if (imgContent.BackgroundImage != null)
                 {
-                    imgContent.Height = imgContent.Width * imgContent.BackgroundImage.Height / imgContent.BackgroundImage.Width;
+                    if (imgContent.BackgroundImage.Width * 1.0 / imgContent.BackgroundImage.Height >
+                        imgContent.Width * 1.0 / imgContent.Height)
+                    {
+                        imgContent.Height = imgContent.Width * imgContent.BackgroundImage.Height /
+                                            imgContent.BackgroundImage.Width;
+                    }
+                    else
+                    {
+                        var newWidth = imgContent.Height * imgContent.BackgroundImage.Width /
+                                       imgContent.BackgroundImage.Height;
+                        imgContent.Left += (imgContent.Width - newWidth) / 2;
+                        imgContent.Width = newWidth;
+                    }
+                    Height += imgContent.Height;
                 }
-                else
-                {
-                    var newWidth = imgContent.Height * imgContent.BackgroundImage.Width / imgContent.BackgroundImage.Height;
-                    imgContent.Left += (imgContent.Width - newWidth) / 2;
-                    imgContent.Width = newWidth;
-                }
-                Height += imgContent.Height;
+                
                 CenterToScreen();
             }
             else
@@ -145,7 +155,7 @@ namespace PasteIntoFile
         {
             string location = txtCurrentLocation.Text;
             location = location.EndsWith("\\") ? location : location + "\\";
-            string filename = txtFilename.Text + "." + comExt.SelectedItem.ToString();
+            string filename = txtFilename.Text + "." + comExt.SelectedItem;
             if (IsText)
             {
                 File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
@@ -194,7 +204,7 @@ namespace PasteIntoFile
             BetterFolderBrowser betterFolderBrowser = new BetterFolderBrowser();
 
             betterFolderBrowser.Title = Resources.str_select_folder;
-            betterFolderBrowser.RootFolder = @Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
+            betterFolderBrowser.RootFolder = @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             // Allow multi-selection of folders.
             betterFolderBrowser.Multiselect = false;
@@ -203,22 +213,6 @@ namespace PasteIntoFile
             {
                 txtCurrentLocation.Text = betterFolderBrowser.SelectedFolder;
             }
-        }
-
-        private void lblWebsite_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://eslamx.com");
-        }
-
-        private void lblMe_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://twitter.com/EslaMx7");
-        }
-
-        private void lblHelp_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Resources.str_message_help, Resources.str_main_window_title, MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
         }
 
         private void frmMain_KeyUp(object sender, KeyEventArgs e)
