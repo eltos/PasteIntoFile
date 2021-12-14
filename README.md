@@ -28,11 +28,11 @@ See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributor
 
 ## Installation
 
-+ Tested on Windows 10
 + Make sure you have _.NET Framework 4.5+_ installed in your system. (_Included in Windows 10_)
-+ [Download](http://archive.francescosorge.com/paste-into-file) executable as archive (335KB)
++ Download the compiled binary from the [Release page](https://github.com/eltos/PasteIntoFile/releases)
 + Run the executable and follow the first-launch wizard
 
+_Tested on Windows 10_
 
 ## Configuration
 
