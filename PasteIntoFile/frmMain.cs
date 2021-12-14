@@ -81,14 +81,7 @@ namespace PasteIntoFile
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             clrClipboard.Checked = Settings.Default.clrClipboard;
             autoSave.Checked = Settings.Default.autoSave;
-
-            /*if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\"+Program.RegistrySubKey+@"\command", "", null) == null)
-            {
-                if (MessageBox.Show(Resources.str_message_first_time, Resources.window_title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    Program.RegisterApp();
-                }
-            }*/
+            
 
             if (Clipboard.ContainsText())
             {

@@ -2,10 +2,15 @@
 
 A Windows desktop application to paste clipboard contents (text and images) into files
 
-Originally developed by Eslam Hamouda on GitHub: https://github.com/EslaMx7/PasteIntoFile  
-Forked, improved and currently maintained by Francesco Sorge on GitLab: https://gitlab.com/fsorge/PasteIntoFile  
+----------------
+
+This is a fork of [PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile) as originally developed by Eslam Hamouda.  
+Several major contributions from [fsorge](https://gitlab.com/fsorge/PasteIntoFile) where merged into this project.  
+See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributors).
 
 ----------------
+
+## Features
 
 + Supports any type of text, source code and images.
 + Change the current saving location or type it yourself.
@@ -17,9 +22,9 @@ Forked, improved and currently maintained by Francesco Sorge on GitLab: https://
 + Modern folder selector
 + Image preview before saving
 
-#### Screenshots
 ![Paste Into File](screenshot.png)
 ![Paste Into File with image preview](screenshot-2.png)
+
 
 ## Installation
 
@@ -27,6 +32,7 @@ Forked, improved and currently maintained by Francesco Sorge on GitLab: https://
 + Make sure you have _.NET Framework 4.5+_ installed in your system. (_Included in Windows 10_)
 + [Download](http://archive.francescosorge.com/paste-into-file) executable as archive (335KB)
 + Run the executable and follow the first-launch wizard
+
 
 ## Configuration
 

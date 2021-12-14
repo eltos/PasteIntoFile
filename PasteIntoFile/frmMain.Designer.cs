@@ -205,7 +205,7 @@ namespace PasteIntoFile
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(400, 20);
             this.infoLabel.ForeColor = System.Drawing.Color.Gray;
-            this.infoLabel.Text = Resources.str_main_info;
+            this.infoLabel.Text = string.Format(Resources.str_version, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
             // 
             // infoLinkLabel
             // 
@@ -214,10 +214,11 @@ namespace PasteIntoFile
             this.infoLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.infoLinkLabel.Name = "infoLinkLabel";
             this.infoLinkLabel.Size = new System.Drawing.Size(400, 20);
+            this.infoLinkLabel.LinkColor = System.Drawing.Color.Gray;
             this.infoLinkLabel.TabIndex = 17;
             this.infoLinkLabel.TabStop = true;
-            this.infoLinkLabel.Text = Resources.str_main_info_url;
-            this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Process.Start("http://" + Resources.str_main_info_url));
+            this.infoLinkLabel.Text = Resources.str_main_info;
+            this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Process.Start(Resources.str_main_info_url));
             
             // 
             // clrClipboard

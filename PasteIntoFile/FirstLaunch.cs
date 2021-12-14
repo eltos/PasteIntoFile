@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
@@ -31,16 +30,6 @@ namespace PasteIntoFile
             Settings.Default.firstLaunch = false;
             Settings.Default.Save();
             Close();
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(Resources.str_firstlaunch_creator_link);
-        }
-
-        private void LinkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(Resources.str_firstlaunch_maintainer_link);
         }
     }
 }

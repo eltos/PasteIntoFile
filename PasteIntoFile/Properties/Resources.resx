@@ -157,10 +157,6 @@
   <data name="str_contextentry" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
-  <data name="str_message_first_time" xml:space="preserve">
-    <value>It seems that you are running this application for the first time,
-do you want to add an entry to the explorer context menu?</value>
-  </data>
   <data name="str_type_txt" xml:space="preserve">
     <value>Text file</value>
   </data>
@@ -172,21 +168,6 @@ do you want to add an entry to the explorer context menu?</value>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file </value>
-  </data>
-  <data name="str_message_help" xml:space="preserve">
-    <value>Paste Into File helps you paste any text or images in your system clipboard into a file directly instead of creating new file yourself
-      
---------------------
-      
-To Register the application to your system context menu run the program as administrator with this argument : /reg
-to Unregister the application use this argument : /unreg
-To change the format of the default filename, use this argument: /filename "yyyy-MM-dd HH-mm-ss"
-
---------------------
-
-https://gitlab.com/fsorge/PasteIntoFile
-Send Feedback to: contact@francescosorge.com
-Thanks :)</value>
   </data>
   <data name="str_autosave" xml:space="preserve">
     <value>Autosave</value>
@@ -204,12 +185,6 @@ Thanks :)</value>
     <value>Welcome to
 Paste Into File</value>
   </data>
-  <data name="str_firstlaunch_maintainer" xml:space="preserve">
-    <value>Improved and maintained by Francesco Sorge</value>
-  </data>
-  <data name="str_firstlaunch_creator" xml:space="preserve">
-    <value>Originally created by Eslam Hamouda</value>
-  </data>
   <data name="str_contextentry_register" xml:space="preserve">
     <value>Register context menu entry</value>
   </data>
@@ -223,13 +198,13 @@ Paste Into File</value>
     <value>Clear clipboard</value>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Find this project on GitLab</value>
+    <value>Find this project on GitHub</value>
   </data>
   <data name="str_main_info_url" xml:space="preserve">
-    <value>gitlab.com/fsorge/PasteIntoFile</value>
+    <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
   <data name="str_firstlaunch_register_explain" xml:space="preserve">
-    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing '{0}'.</value>
+    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing '{0}'. You can also (un-)register the context menu entry later.</value>
   </data>
   <data name="str_firstlaunch_register" xml:space="preserve">
     <value>Add context menu entry?</value>
@@ -240,10 +215,7 @@ Paste Into File</value>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Clipboard saved to file</value>
   </data>
-  <data name="str_firstlaunch_maintainer_link" xml:space="preserve">
-    <value>https://gitlab.com/fsorge/PasteIntoFile</value>
-  </data>
-  <data name="str_firstlaunch_creator_link" xml:space="preserve">
-    <value>https://github.com/EslaMx7/PasteIntoFile</value>
+  <data name="str_version" xml:space="preserve">
+    <value>Version {0}</value>
   </data>
 </root>

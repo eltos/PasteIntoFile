@@ -37,9 +37,7 @@ namespace PasteIntoFile
             this.first = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.second = new System.Windows.Forms.Panel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -52,11 +50,10 @@ namespace PasteIntoFile
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(778, 403);
+            this.label1.Size = new System.Drawing.Size(778, 300);
             this.label1.TabIndex = 0;
             this.label1.Text = Resources.str_firstlaunch_welcome;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,7 +85,7 @@ namespace PasteIntoFile
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(339, 409);
+            this.button1.Location = new System.Drawing.Point(339, 350);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 86);
             this.button1.TabIndex = 2;
@@ -97,9 +94,7 @@ namespace PasteIntoFile
             // 
             // second
             // 
-            this.second.Controls.Add(this.linkLabel2);
             this.second.Controls.Add(this.label5);
-            this.second.Controls.Add(this.linkLabel1);
             this.second.Controls.Add(this.label4);
             this.second.Controls.Add(this.button3);
             this.second.Controls.Add(this.button2);
@@ -111,26 +106,6 @@ namespace PasteIntoFile
             this.second.Size = new System.Drawing.Size(778, 544);
             this.second.TabIndex = 4;
             this.second.Visible = false;
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(13, 508);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.TabIndex = 18;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = Resources.str_firstlaunch_maintainer;
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel2_LinkClicked);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(13, 475);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabIndex = 16;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = Resources.str_firstlaunch_creator;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
             // button3
             // 
@@ -161,7 +136,7 @@ namespace PasteIntoFile
             this.label3.Location = new System.Drawing.Point(0, 99);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.label3.Size = new System.Drawing.Size(778, 130);
+            this.label3.Size = new System.Drawing.Size(778, 200);
             this.label3.TabIndex = 4;
             this.label3.Text = string.Format(Resources.str_firstlaunch_register_explain, Resources.str_contextentry);
             // 
@@ -182,7 +157,7 @@ namespace PasteIntoFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 544);
+            this.ClientSize = new System.Drawing.Size(778, 444);
             this.Controls.Add(this.second);
             this.Controls.Add(this.first);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -210,9 +185,7 @@ namespace PasteIntoFile
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label5;
     }
 }

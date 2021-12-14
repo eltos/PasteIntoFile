@@ -180,42 +180,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Originally created by Eslam Hamouda.
-        /// </summary>
-        internal static string str_firstlaunch_creator {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_creator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/EslaMx7/PasteIntoFile.
-        /// </summary>
-        internal static string str_firstlaunch_creator_link {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_creator_link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Improved and maintained by Francesco Sorge.
-        /// </summary>
-        internal static string str_firstlaunch_maintainer {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_maintainer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://gitlab.com/fsorge/PasteIntoFile.
-        /// </summary>
-        internal static string str_firstlaunch_maintainer_link {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_maintainer_link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add context menu entry?.
         /// </summary>
         internal static string str_firstlaunch_register {
@@ -225,7 +189,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing &apos;{0}&apos;..
+        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing &apos;{0}&apos;. You can also (un-)register the context menu entry later..
         /// </summary>
         internal static string str_firstlaunch_register_explain {
             get {
@@ -262,7 +226,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find this project on GitLab.
+        ///   Looks up a localized string similar to Find this project on GitHub.
         /// </summary>
         internal static string str_main_info {
             get {
@@ -271,7 +235,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to gitlab.com/fsorge/PasteIntoFile.
+        ///   Looks up a localized string similar to https://github.com/eltos/PasteIntoFile.
         /// </summary>
         internal static string str_main_info_url {
             get {
@@ -285,35 +249,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_main_window_title {
             get {
                 return ResourceManager.GetString("str_main_window_title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It seems that you are running this application for the first time,
-        ///do you want to add an entry to the explorer context menu?.
-        /// </summary>
-        internal static string str_message_first_time {
-            get {
-                return ResourceManager.GetString("str_message_first_time", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paste Into File helps you paste any text or images in your system clipboard into a file directly instead of creating new file yourself
-        ///      
-        ///--------------------
-        ///      
-        ///To Register the application to your system context menu run the program as administrator with this argument : /reg
-        ///to Unregister the application use this argument : /unreg
-        ///To change the format of the default filename, use this argument: /filename &quot;yyyy-MM-dd HH-mm-ss&quot;
-        ///
-        ///--------------------
-        ///
-        ///https://gitlab.com/fsorge/PasteIntoFile        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string str_message_help {
-            get {
-                return ResourceManager.GetString("str_message_help", resourceCulture);
             }
         }
         
@@ -413,6 +348,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_type_unknown {
             get {
                 return ResourceManager.GetString("str_type_unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        internal static string str_version {
+            get {
+                return ResourceManager.GetString("str_version", resourceCulture);
             }
         }
     }
