@@ -170,7 +170,7 @@ namespace PasteIntoFile
             var notification = new NotifyIcon()
             {
                 Visible = true,
-                Icon = System.Drawing.SystemIcons.Information,
+                Icon = Resources.icon,
                 // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
                 BalloonTipTitle = title,
                 BalloonTipText = message,

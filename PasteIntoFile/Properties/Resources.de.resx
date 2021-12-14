@@ -89,13 +89,13 @@ Paste Into File</value>
         <value>Automatisch speichern</value>
     </data>
     <data name="str_autosave_balloontext" xml:space="preserve">
-        <value>Inhalt der Zwischenablage wurde als {0} gespeichert</value>
+        <value>Inhalt der Zwischenablage wurde automatisch als {0} gespeichert. Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
     </data>
     <data name="str_autosave_balloontitle" xml:space="preserve">
         <value>Zwischenablage als Datei gespeichert</value>
     </data>
     <data name="str_autosave_infotext" xml:space="preserve">
-        <value>PasteIntoFile wird die Daten automatisch speichern ohne einen Dialog anzuzeigen. Um das rückgängig zu machen und den Dialog wieder anzuzeigen muss die folgende Datei gelöscht werden: {0}</value>
+        <value>PasteIntoFile wird die Daten beim nächsten Mal automatisch speichern ohne einen Dialog anzuzeigen. Um den Dialog wieder anzuzeigen, halte die Umschalttaste gedrückt wenn du PasteIntoFile im Kontext Menu auswählst.</value>
     </data>
     <data name="str_noclip_text" xml:space="preserve">
         <value>Die Zwischenablage ist leer</value>

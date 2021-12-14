@@ -173,10 +173,10 @@
     <value>Autosave</value>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Clipboard content has been automatically saved as {0}</value>
+    <value>Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>PasteIntoFile will automatically save files without showing a dialog anymore. If you want to show the main window again, you will have to delete this file: {0}</value>
+    <value>Next time, PasteIntoFile will automatically save files without showing a dialog. If you want to show the main window again, hold the shift key while selecting PasteIntoFile from the context menu.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
     <value>Clipboard is empty</value>

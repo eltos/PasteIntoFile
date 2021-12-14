@@ -82,6 +82,16 @@ namespace PasteIntoFile
             clrClipboard.Checked = Settings.Default.clrClipboard;
             autoSave.Checked = Settings.Default.autoSave;
             
+            // Pressed shift key resets autosave option
+            if (ModifierKeys == Keys.Shift)
+            {
+                autoSave.Checked = false;
+                // Make sure to bring window to foreground
+                WindowState = FormWindowState.Minimized;
+                Show();
+                WindowState = FormWindowState.Normal;
+            }
+            
 
             if (Clipboard.ContainsText())
             {
@@ -178,7 +188,8 @@ namespace PasteIntoFile
 
             if (autoSave.Checked && e == EventArgs.Empty)
             {
-                Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text));
+                Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text), 
+                    10_000);
             }
 
             Environment.Exit(0);
@@ -231,7 +242,7 @@ namespace PasteIntoFile
         {
             if (autoSave.Checked)
             {
-                MessageBox.Show(string.Format(Resources.str_autosave_infotext, ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath), Resources.str_autosave, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

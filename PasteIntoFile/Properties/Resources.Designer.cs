@@ -90,7 +90,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}.
+        ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {
             get {
@@ -108,7 +108,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PasteIntoFile will automatically save files without showing a dialog anymore. If you want to show the main window again, you will have to delete this file: {0}.
+        ///   Looks up a localized string similar to Next time, PasteIntoFile will automatically save files without showing a dialog. If you want to show the main window again, hold the shift key while selecting PasteIntoFile from the context menu..
         /// </summary>
         internal static string str_autosave_infotext {
             get {
