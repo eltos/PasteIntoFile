@@ -271,7 +271,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please run the application as Administrator!.
+        ///   Looks up a localized string similar to Please run the application as administrator!.
         /// </summary>
         internal static string str_message_run_as_admin {
             get {

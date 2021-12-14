@@ -156,13 +156,13 @@ namespace PasteIntoFile
         private void btnSave_Click(object sender, EventArgs e)
         {
             string location = txtCurrentLocation.Text;
-            location = location.EndsWith("\\") ? location : location + "\\";
-            string filename = txtFilename.Text + "." + comExt.SelectedItem;
+            string file = location + (location.EndsWith("\\") ? "" : "\\");
+            file += txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.SelectedItem) ? "" : "." + comExt.SelectedItem);
             try
             {
                 if (IsText)
                 {
-                    File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
+                    File.WriteAllText(file, txtContent.Text, Encoding.UTF8);
                 }
                 else
                 {
@@ -179,7 +179,7 @@ namespace PasteIntoFile
                         default: format = ImageFormat.Png; break;
                     }
 
-                    imgContent.BackgroundImage.Save(location + filename, format);
+                    imgContent.BackgroundImage.Save(file, format);
                 }
 
                 if (clrClipboard.Checked)
@@ -200,6 +200,7 @@ namespace PasteIntoFile
             catch (UnauthorizedAccessException ex)
             {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.RestartAppElevated(location);
             }
             catch (Exception ex)
             {

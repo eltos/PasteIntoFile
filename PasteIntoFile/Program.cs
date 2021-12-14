@@ -144,13 +144,14 @@ namespace PasteIntoFile
             }
         }
 
-        public static void RestartApp()
+        public static void RestartAppElevated(string location)
         {
             ProcessStartInfo proc = new ProcessStartInfo();
             proc.UseShellExecute = true;
             proc.WorkingDirectory = Environment.CurrentDirectory;
             proc.FileName = Application.ExecutablePath;
             proc.Verb = "runas";
+            proc.Arguments = "\"" + location + "\"";
 
             try
             {

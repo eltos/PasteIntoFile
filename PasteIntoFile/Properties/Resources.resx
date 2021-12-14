@@ -149,7 +149,7 @@
     <value>Explorer context menu entry has been removed</value>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>Please run the application as Administrator!</value>
+    <value>Please run the application as administrator!</value>
   </data>
   <data name="str_message_register_context_menu_success" xml:space="preserve">
     <value>Explorer context menu entry has been added</value>
