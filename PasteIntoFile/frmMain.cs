@@ -158,41 +158,55 @@ namespace PasteIntoFile
             string location = txtCurrentLocation.Text;
             location = location.EndsWith("\\") ? location : location + "\\";
             string filename = txtFilename.Text + "." + comExt.SelectedItem;
-            if (IsText)
+            try
             {
-                File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
-            }
-            else
-            {
-                ImageFormat format;
-                switch (comExt.SelectedItem.ToString())
+                if (IsText)
                 {
-                    case "bpm": format = ImageFormat.Bmp; break;
-                    case "emf": format = ImageFormat.Emf; break;
-                    case "gif": format = ImageFormat.Gif; break;
-                    case "ico": format = ImageFormat.Icon; break;
-                    case "jpg": format = ImageFormat.Jpeg; break;
-                    case "tif": format = ImageFormat.Tiff; break;
-                    case "wmf": format = ImageFormat.Wmf; break;
-                    default: format = ImageFormat.Png; break;
+                    File.WriteAllText(location + filename, txtContent.Text, Encoding.UTF8);
+                }
+                else
+                {
+                    ImageFormat format;
+                    switch (comExt.SelectedItem.ToString())
+                    {
+                        case "bpm": format = ImageFormat.Bmp; break;
+                        case "emf": format = ImageFormat.Emf; break;
+                        case "gif": format = ImageFormat.Gif; break;
+                        case "ico": format = ImageFormat.Icon; break;
+                        case "jpg": format = ImageFormat.Jpeg; break;
+                        case "tif": format = ImageFormat.Tiff; break;
+                        case "wmf": format = ImageFormat.Wmf; break;
+                        default: format = ImageFormat.Png; break;
+                    }
+
+                    imgContent.BackgroundImage.Save(location + filename, format);
                 }
 
-                imgContent.BackgroundImage.Save(location + filename, format);
-            }
+                if (clrClipboard.Checked)
+                {
+                    Clipboard.Clear();
+                }
 
-            if (clrClipboard.Checked)
+
+                if (autoSave.Checked && e == EventArgs.Empty)
+                {
+                    Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text), 
+                        10_000);
+                }
+
+                Environment.Exit(0);
+                
+            }
+            catch (UnauthorizedAccessException ex)
             {
-                Clipboard.Clear();
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-            if (autoSave.Checked && e == EventArgs.Empty)
+            catch (Exception ex)
             {
-                Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text), 
-                    10_000);
+                MessageBox.Show(ex.Message, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            Environment.Exit(0);
+            
+            
         }
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e)
