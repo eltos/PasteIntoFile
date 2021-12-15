@@ -7,9 +7,8 @@ A Windows desktop application to paste clipboard contents (text and images) into
 
 ----------------
 
-This is a fork of [PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile) as originally developed by Eslam Hamouda.  
-Several major contributions from [fsorge](https://gitlab.com/fsorge/PasteIntoFile) where merged into this project.  
-See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributors).
+_This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile). Several other forks from out in the wild where cherry-picked and merged into this fork._  
+_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._
 
 ----------------
 
