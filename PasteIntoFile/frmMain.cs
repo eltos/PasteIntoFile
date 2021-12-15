@@ -15,6 +15,7 @@ namespace PasteIntoFile
 {
     public partial class frmMain : Form
     {
+        public bool ForceShowDialog = false;
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         public string CurrentLocation { get; set; }
         public bool IsText { get; set; }
@@ -85,7 +86,7 @@ namespace PasteIntoFile
             // Pressed shift key resets autosave option
             if (ModifierKeys == Keys.Shift)
             {
-                autoSave.Checked = false;
+                ForceShowDialog = true;
                 // Make sure to bring window to foreground
                 WindowState = FormWindowState.Minimized;
                 Show();
@@ -147,7 +148,7 @@ namespace PasteIntoFile
                 btnSave.Enabled = false;
             }
 
-            if (autoSave.Checked && btnSave.Enabled)
+            if (autoSave.Checked && btnSave.Enabled && !ForceShowDialog)
             {
                 btnSave.PerformClick();
             }
