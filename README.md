@@ -17,16 +17,15 @@ See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributor
 
 + Shortcut in context menu (right click in any folder)
 + Supports text and images (with preview).
-+ Dialog to adjust filename, filetype and path
-+ Autosave mode (only shows dialog when holding SHIFT)
-+ Automatically clear clipboard after saving to file
++ Resizeable GUI to adjust filename, filetype and path
++ Optional autosave mode (only shows dialog when holding SHIFT)
++ Optional clearing of clipboard after save
 + First launch wizard to register app with Windows Explorer context menu
 + Support for Windows 10 dark theme
 + Support for HiDPI monitors
 + Modern folder selector
 
 ![Paste Into File](screenshot.png)  
-![Paste Into File with image preview](screenshot-2.png)  
 ![Paste Into File kontext menu](screenshot-1.png)
 
 
