@@ -3,7 +3,7 @@
 [![Test Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml)
 [![Release Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-release.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/releases)
 
-A Windows desktop application to paste clipboard contents (text and images) into files
+A Windows desktop application to paste clipboard contents (text and images) into files via the context menu
 
 ----------------
 
@@ -15,9 +15,9 @@ See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributor
 
 ## Features
 
++ Shortcut in context menu (right click)
 + Supports any type of text, source code and images.
 + Change the current saving location or type it yourself.
-+ Shortcut in context menu (right click)
 + Automatically clear clipboard after saving to file
 + First launch wizard to register app with Windows Explorer context menu
 + Support for Windows 10 dark theme
@@ -25,8 +25,9 @@ See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributor
 + Modern folder selector
 + Image preview before saving
 
-![Paste Into File](screenshot.png)
-![Paste Into File with image preview](screenshot-2.png)
+![Paste Into File](screenshot.png)  
+![Paste Into File with image preview](screenshot-2.png)  
+![Paste Into File kontext menu](screenshot-1.png)
 
 
 ## Installation
