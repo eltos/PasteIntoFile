@@ -17,13 +17,12 @@ namespace PasteIntoFile
     public partial class frmMain : Form
     {
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
-        public string CurrentLocation { get; set; }
         private string text;
         private Image image;
         
         public frmMain(string location = null)
         {
-            CurrentLocation = location;
+            location = location ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             
             // Setup GUI
             InitializeComponent();
@@ -55,10 +54,9 @@ namespace PasteIntoFile
 
             //
 
-            var key = @"HKEY_CURRENT_USER\Software\Classes\Directory\shell\" + Program.RegistrySubKey + @"\filename";
-            var filenameFormat = (string) Registry.GetValue(key, "", null) ?? DefaultFilenameFormat;
+            var filenameFormat = Program.GetSetting("filename") ?? DefaultFilenameFormat;
             txtFilename.Text = DateTime.Now.ToString(filenameFormat);
-            txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkAutoSave.Checked = Settings.Default.autoSave;
             
