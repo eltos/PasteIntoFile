@@ -1,6 +1,6 @@
 ﻿# For all pushes and pull_request, this workflow creates a debug build 
 
-name: Test Debug Build
+name: Test Build
 
 on: [ push, pull_request ]
 
