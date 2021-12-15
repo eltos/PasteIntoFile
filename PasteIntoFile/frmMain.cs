@@ -108,12 +108,14 @@ namespace PasteIntoFile
             // otherwise perform autosave if enabled
             else if (chkAutoSave.Checked)
             {
-                save();
+                var file = save();
+                if (file != null)
+                {
+                    var message = string.Format(Resources.str_autosave_balloontext, file);
+                    Program.ShowBalloon(Resources.str_autosave_balloontitle, message, 10_000);
 
-                var message = string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text);
-                Program.ShowBalloon(Resources.str_autosave_balloontitle, message, 10_000);
-
-                Environment.Exit(0);
+                    Environment.Exit(0);
+                }
             }
         }
         
@@ -128,16 +130,30 @@ namespace PasteIntoFile
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            save();
-            Environment.Exit(0);
+            if (save() != null)
+            {
+                Environment.Exit(0);
+            }
         }
         
-        void save()
+        string save()
         {
 
-            string location = txtCurrentLocation.Text;
-            string file = location + (location.EndsWith("\\") ? "" : "\\");
-            file += txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
+
+            string filename = txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
+            string file = Path.Combine(txtCurrentLocation.Text, filename);
+            
+            // check if file exists
+            if (File.Exists(file))
+            {
+                var result = MessageBox.Show(string.Format("The file {0} already exists.\nDo you want to overwrite it?", file), "File exists",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (result != DialogResult.Yes)
+                {
+                    return null;
+                }
+            }
+            
             try
             {
                 if (text != null)
@@ -166,19 +182,21 @@ namespace PasteIntoFile
                 {
                     Clipboard.Clear();
                 }
+                
+                return file;
 
             }
             catch (UnauthorizedAccessException ex)
             {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.RestartAppElevated(location);
+                Program.RestartAppElevated(txtCurrentLocation.Text);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-            
+            return null;
         }
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e)
