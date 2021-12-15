@@ -316,6 +316,24 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image preview ({0}x{1} px).
+        /// </summary>
+        internal static string str_preview_image {
+            get {
+                return ResourceManager.GetString("str_preview_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text preview ({0} chars, {1} lines).
+        /// </summary>
+        internal static string str_preview_text {
+            get {
+                return ResourceManager.GetString("str_preview_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string str_save {

@@ -221,4 +221,10 @@ Paste Into File</value>
   <data name="str_preview" xml:space="preserve">
     <value>Preview</value>
   </data>
+  <data name="str_preview_image" xml:space="preserve">
+    <value>Image preview ({0}x{1} px)</value>
+  </data>
+  <data name="str_preview_text" xml:space="preserve">
+    <value>Text preview ({0} chars, {1} lines)</value>
+  </data>
 </root>

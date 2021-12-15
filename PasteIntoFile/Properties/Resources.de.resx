@@ -106,4 +106,10 @@ Paste Into File</value>
     <data name="str_preview" xml:space="preserve">
         <value>Vorschau</value>
     </data>
+    <data name="str_preview_image" xml:space="preserve">
+        <value>Bildvorschau ({0}x{1} px)</value>
+    </data>
+    <data name="str_preview_text" xml:space="preserve">
+        <value>Textvorschau ({0} Zeichen, {1} Zeilen)</value>
+    </data>
 </root>

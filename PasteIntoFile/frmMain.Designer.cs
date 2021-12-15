@@ -42,25 +42,25 @@ namespace PasteIntoFile
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.lblCurrentLocation = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
-            this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.infoLabel = new System.Windows.Forms.Label();
-            this.linkUnregister = new System.Windows.Forms.LinkLabel();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
+            this.linkUnregister = new System.Windows.Forms.LinkLabel();
+            this.infoLabel = new System.Windows.Forms.Label();
+            this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
             this.chkClrClipboard = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
+            this.box = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.box = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
+            this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.box.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +86,7 @@ namespace PasteIntoFile
             this.txtContent.Size = new System.Drawing.Size(348, 161);
             this.txtContent.TabIndex = 0;
             this.txtContent.TabStop = false;
-            this.txtContent.Text = "abc1\ndef0\nghu|\n@www";
+            this.txtContent.Text = "";
             this.txtContent.Visible = false;
             this.txtContent.WordWrap = false;
             // 
@@ -245,6 +245,21 @@ namespace PasteIntoFile
             this.chkAutoSave.UseVisualStyleBackColor = true;
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
             // 
+            // box
+            // 
+            this.box.AutoSize = true;
+            this.box.Controls.Add(this.txtContent);
+            this.box.Controls.Add(this.imgContent);
+            this.box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.box.Location = new System.Drawing.Point(13, 126);
+            this.box.Name = "box";
+            this.box.Padding = new System.Windows.Forms.Padding(5);
+            this.box.Size = new System.Drawing.Size(358, 184);
+            this.box.TabIndex = 5;
+            this.box.TabStop = false;
+            this.box.Text = "str_preview";
+            // 
             // panel1
             // 
             this.panel1.AutoSize = true;
@@ -340,20 +355,6 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 34);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
-            // box
-            // 
-            this.box.AutoSize = true;
-            this.box.Controls.Add(this.txtContent);
-            this.box.Controls.Add(this.imgContent);
-            this.box.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.box.Location = new System.Drawing.Point(13, 126);
-            this.box.Name = "box";
-            this.box.Padding = new System.Windows.Forms.Padding(5);
-            this.box.Size = new System.Drawing.Size(358, 184);
-            this.box.TabIndex = 5;
-            this.box.TabStop = false;
-            this.box.Text = "str_preview";
-            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.AutoSize = true;
@@ -388,6 +389,7 @@ namespace PasteIntoFile
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();
+            this.box.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -396,7 +398,6 @@ namespace PasteIntoFile
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.box.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
@@ -415,12 +416,12 @@ namespace PasteIntoFile
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label lblCurrentLocation;
         private System.Windows.Forms.Button btnBrowseForFolder;
-        private System.Windows.Forms.LinkLabel infoLinkLabel;
-        private System.Windows.Forms.Label infoLabel;
-        private System.Windows.Forms.LinkLabel linkUnregister;
         private System.Windows.Forms.LinkLabel linkRegister;
-        private System.Windows.Forms.CheckBox chkAutoSave;
+        private System.Windows.Forms.LinkLabel linkUnregister;
+        private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.LinkLabel infoLinkLabel;
         private System.Windows.Forms.CheckBox chkClrClipboard;
+        private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.GroupBox box;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;

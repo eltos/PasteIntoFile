@@ -18,7 +18,8 @@ namespace PasteIntoFile
     {
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         public string CurrentLocation { get; set; }
-        public bool IsText { get; set; }
+        private string text;
+        private Image image;
         
         public frmMain(string location = null)
         {
@@ -64,9 +65,10 @@ namespace PasteIntoFile
             
             if (Clipboard.ContainsText())
             {
-                IsText = true;
-                txtContent.Text = Clipboard.GetText();
+                text = Clipboard.GetText();
+                txtContent.Text = text;
                 txtContent.Show();
+                box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
                 comExt.Items.AddRange(new object[] {
                     "txt", "html", "js", "css", "csv", "json", "cs", "cpp", "java", "php", "py"
                 });
@@ -78,16 +80,19 @@ namespace PasteIntoFile
                 } else {
                     comExt.SelectedItem = "txt";
                 }
+                
             }
             else if (Clipboard.ContainsImage())
             {
+                image = Clipboard.GetImage();
+                imgContent.BackgroundImage = image;
+                imgContent.Show();
+                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
                 comExt.Items.AddRange(new object[] {
                     "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
                 });
                 comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
                 comExt.SelectedItem = "png";
-                imgContent.Show();
-                imgContent.BackgroundImage = Clipboard.GetImage();
 
             }
 
@@ -135,11 +140,11 @@ namespace PasteIntoFile
             file += txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
             try
             {
-                if (IsText)
+                if (text != null)
                 {
-                    File.WriteAllText(file, txtContent.Text, Encoding.UTF8);
+                    File.WriteAllText(file, text, Encoding.UTF8);
                 }
-                else
+                else if (image != null)
                 {
                     ImageFormat format;
                     switch (comExt.Text)
@@ -154,7 +159,7 @@ namespace PasteIntoFile
                         default: format = ImageFormat.Png; break;
                     }
 
-                    imgContent.BackgroundImage.Save(file, format);
+                    image.Save(file, format);
                 }
 
                 if (chkClrClipboard.Checked)
