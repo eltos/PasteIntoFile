@@ -6,7 +6,7 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-    uses: eltos/PasteIntoFile/.github/workflows/dotnet.yml@workflow
+    uses: eltos/PasteIntoFile/.github/workflows/dotnet.yml@main
     with:
       configuration: Debug
       artifact_name: PasteIntoFile_debug

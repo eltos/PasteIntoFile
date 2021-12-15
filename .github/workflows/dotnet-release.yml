@@ -1,0 +1,38 @@
+# When a release is published on github.com, this workflow creates a release build and uploads it to the release page 
+
+name: .NET Application Release Build
+
+on:
+  release:
+    types: [ published ]
+ 
+jobs:
+  
+  build:
+    uses: eltos/PasteIntoFile/.github/workflows/dotnet.yml@main
+    with:
+      configuration: Release
+      artifact_name: release_artifact
+
+  publish:
+    runs-on: windows-2019
+    needs: build
+    steps:
+      - name: Collect artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.artifact_name }}
+      - name: Create zip
+        uses: papeloto/action-zip@v1
+        with:
+          files: release_artifact
+          dest: release_artifact.zip
+      - name: Upload release artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: release_artifact.zip
+          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}.zip
+          asset_content_type: application/zip
