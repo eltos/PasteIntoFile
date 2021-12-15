@@ -98,9 +98,12 @@ Paste Into File</value>
         <value>PasteIntoFile wird die Daten beim nächsten Mal automatisch speichern ohne einen Dialog anzuzeigen. Um den Dialog wieder anzuzeigen, halte die Umschalttaste gedrückt wenn du PasteIntoFile im Kontext Menu auswählst.</value>
     </data>
     <data name="str_noclip_text" xml:space="preserve">
-        <value>Die Zwischenablage ist leer</value>
+        <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>
     </data>
     <data name="str_version" xml:space="preserve">
         <value>Version {0}</value>
+    </data>
+    <data name="str_preview" xml:space="preserve">
+        <value>Vorschau</value>
     </data>
 </root>

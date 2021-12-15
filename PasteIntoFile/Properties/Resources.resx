@@ -179,7 +179,7 @@
     <value>Next time, PasteIntoFile will automatically save files without showing a dialog. If you want to show the main window again, hold the shift key while selecting PasteIntoFile from the context menu.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>Clipboard is empty</value>
+    <value>Clipboard is empty or contains unsupported data</value>
   </data>
   <data name="str_firstlaunch_welcome" xml:space="preserve">
     <value>Welcome to
@@ -217,5 +217,8 @@ Paste Into File</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
+  </data>
+  <data name="str_preview" xml:space="preserve">
+    <value>Preview</value>
   </data>
 </root>

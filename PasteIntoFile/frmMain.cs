@@ -1,6 +1,6 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -8,96 +8,65 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using WK.Libraries.BetterFolderBrowserNS;
+using Microsoft.Win32;
 using PasteIntoFile.Properties;
+using WK.Libraries.BetterFolderBrowserNS;
 
 namespace PasteIntoFile
 {
     public partial class frmMain : Form
     {
-        public bool ForceShowDialog = false;
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         public string CurrentLocation { get; set; }
         public bool IsText { get; set; }
-        public frmMain()
+        
+        public frmMain(string location = null)
         {
-            InitializeComponent();
-        }
-        public frmMain(string location)
-        {
-            InitializeComponent();
             CurrentLocation = location;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void frmMain_Load(object sender, EventArgs e)
-        {
+            
+            // Setup GUI
+            InitializeComponent();
+            
+            foreach (Control element in GetAllChild(this))
+            {
+                element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
+            }
+            
+            Icon = Resources.icon;
+            Text = Resources.str_main_window_title;
+            infoLabel.Text = string.Format(Resources.str_version, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            
+
+            // Dark theme
             if (Settings.Default.darkTheme)
             {
-                var dark1 = Color.FromArgb(24, 24, 24);
-                var dark2 = Color.FromArgb(53, 53, 53);
-
-                BackColor = dark1;
-
-                foreach (Label lbl in Controls.OfType<Label>())
+                foreach (Control element in GetAllChild(this))
                 {
-                    lbl.ForeColor = Color.White;
+                    element.ForeColor = Color.White;
+                    element.BackColor = Color.FromArgb(53, 53, 53);
                 }
+                
+                BackColor = Color.FromArgb(24, 24, 24);
+                linkRegister.ForeColor = Color.LightBlue;
+                linkUnregister.ForeColor = Color.LightBlue;
 
-                foreach (TextBox txt in Controls.OfType<TextBox>())
-                {
-                    txt.ForeColor = Color.White;
-                    txt.BackColor = dark2;
-                }
-
-                foreach (ComboBox cmb in Controls.OfType<ComboBox>())
-                {
-                    cmb.ForeColor = Color.White;
-                    cmb.BackColor = dark2;
-                }
-
-                foreach (LinkLabel lnk in Controls.OfType<LinkLabel>())
-                {
-                    lnk.LinkColor = Color.LightBlue;
-                }
-
-                foreach (CheckBox chb in Controls.OfType<CheckBox>())
-                {
-                    chb.ForeColor = Color.White;
-                }
-
-                foreach (Button btn in Controls.OfType<Button>())
-                {
-                    btn.ForeColor = Color.White;
-                    btn.BackColor = dark2;
-                }
             }
 
-            string filename = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Classes\Directory\shell\"+Program.RegistrySubKey+@"\filename", "", null) ?? DefaultFilenameFormat;
-            txtFilename.Text = DateTime.Now.ToString(filename);
-            txtCurrentLocation.Text = CurrentLocation ?? @"C:\";
+            //
+
+            var key = @"HKEY_CURRENT_USER\Software\Classes\Directory\shell\" + Program.RegistrySubKey + @"\filename";
+            var filenameFormat = (string) Registry.GetValue(key, "", null) ?? DefaultFilenameFormat;
+            txtFilename.Text = DateTime.Now.ToString(filenameFormat);
             txtCurrentLocation.Text = CurrentLocation ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            clrClipboard.Checked = Settings.Default.clrClipboard;
-            autoSave.Checked = Settings.Default.autoSave;
+            chkClrClipboard.Checked = Settings.Default.clrClipboard;
+            chkAutoSave.Checked = Settings.Default.autoSave;
             
-            // Pressed shift key resets autosave option
-            if (ModifierKeys == Keys.Shift)
-            {
-                ForceShowDialog = true;
-                // Make sure to bring window to foreground
-                WindowState = FormWindowState.Minimized;
-                Show();
-                WindowState = FormWindowState.Normal;
-            }
             
-
             if (Clipboard.ContainsText())
             {
-                txtContent.Text = Clipboard.GetText();
                 IsText = true;
+                txtContent.Text = Clipboard.GetText();
+                txtContent.Show();
                 comExt.Items.AddRange(new object[] {
                     "txt", "html", "js", "css", "csv", "json", "cs", "cpp", "java", "php", "py"
                 });
@@ -109,7 +78,6 @@ namespace PasteIntoFile
                 } else {
                     comExt.SelectedItem = "txt";
                 }
-                lblType.Text = Resources.str_type_txt;
             }
             else if (Clipboard.ContainsImage())
             {
@@ -118,47 +86,53 @@ namespace PasteIntoFile
                 });
                 comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
                 comExt.SelectedItem = "png";
-                lblType.Text = Resources.str_type_img;
                 imgContent.Show();
                 imgContent.BackgroundImage = Clipboard.GetImage();
-                
-                if (imgContent.BackgroundImage != null)
-                {
-                    if (imgContent.BackgroundImage.Width * 1.0 / imgContent.BackgroundImage.Height >
-                        imgContent.Width * 1.0 / imgContent.Height)
-                    {
-                        imgContent.Height = imgContent.Width * imgContent.BackgroundImage.Height /
-                                            imgContent.BackgroundImage.Width;
-                    }
-                    else
-                    {
-                        var newWidth = imgContent.Height * imgContent.BackgroundImage.Width /
-                                       imgContent.BackgroundImage.Height;
-                        imgContent.Left += (imgContent.Width - newWidth) / 2;
-                        imgContent.Width = newWidth;
-                    }
-                    Height += imgContent.Height;
-                }
-                
-                CenterToScreen();
-            }
-            else
-            {
-                lblType.Text = Resources.str_type_unknown;
-                btnSave.Enabled = false;
+
             }
 
-            if (autoSave.Checked && btnSave.Enabled && !ForceShowDialog)
+            // Pressed shift key resets autosave option
+            if (ModifierKeys == Keys.Shift)
             {
-                btnSave.PerformClick();
+                // Make sure to bring window to foreground
+                WindowState = FormWindowState.Minimized;
+                Show();
+                BringToFront();
+                WindowState = FormWindowState.Normal;
             }
+            // otherwise perform autosave if enabled
+            else if (chkAutoSave.Checked)
+            {
+                save();
+
+                var message = string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text);
+                Program.ShowBalloon(Resources.str_autosave_balloontitle, message, 10_000);
+
+                Environment.Exit(0);
+            }
+        }
+        
+        public IEnumerable<Control> GetAllChild(Control control, Type type = null)
+        {
+            var controls = control.Controls.Cast<Control>();
+            var enumerable = controls as Control[] ?? controls.ToArray();
+            return enumerable.SelectMany(ctrl => GetAllChild(ctrl, type))
+                .Concat(enumerable)
+                .Where(c => type == null || type == c.GetType());
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            save();
+            Environment.Exit(0);
+        }
+        
+        void save()
+        {
+
             string location = txtCurrentLocation.Text;
             string file = location + (location.EndsWith("\\") ? "" : "\\");
-            file += txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.SelectedItem) ? "" : "." + comExt.SelectedItem);
+            file += txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
             try
             {
                 if (IsText)
@@ -168,7 +142,7 @@ namespace PasteIntoFile
                 else
                 {
                     ImageFormat format;
-                    switch (comExt.SelectedItem.ToString())
+                    switch (comExt.Text)
                     {
                         case "bpm": format = ImageFormat.Bmp; break;
                         case "emf": format = ImageFormat.Emf; break;
@@ -183,20 +157,11 @@ namespace PasteIntoFile
                     imgContent.BackgroundImage.Save(file, format);
                 }
 
-                if (clrClipboard.Checked)
+                if (chkClrClipboard.Checked)
                 {
                     Clipboard.Clear();
                 }
 
-
-                if (autoSave.Checked && e == EventArgs.Empty)
-                {
-                    Program.ShowBalloon(Resources.str_autosave_balloontitle, string.Format(Resources.str_autosave_balloontext, txtCurrentLocation.Text + @"\" + txtFilename.Text + "." + comExt.Text), 
-                        10_000);
-                }
-
-                Environment.Exit(0);
-                
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -213,13 +178,6 @@ namespace PasteIntoFile
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e)
         {
-            /*FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select a folder for saving this file";
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                txtCurrentLocation.Text = fbd.SelectedPath;
-            }*/
-
             BetterFolderBrowser betterFolderBrowser = new BetterFolderBrowser();
 
             betterFolderBrowser.Title = Resources.str_select_folder;
@@ -234,7 +192,7 @@ namespace PasteIntoFile
             }
         }
 
-        private void frmMain_KeyUp(object sender, KeyEventArgs e)
+        private void Main_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -242,24 +200,37 @@ namespace PasteIntoFile
             }
         }
 
-        private void ClrClipboard_CheckedChanged(object sender, EventArgs e)
+        private void ChkClrClipboard_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.clrClipboard = clrClipboard.Checked;
+            Settings.Default.clrClipboard = chkClrClipboard.Checked;
             Settings.Default.Save();
         }
 
-        private void AutoSave_CheckedChanged(object sender, EventArgs e)
+        private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.autoSave = autoSave.Checked;
-            Settings.Default.Save();
-        }
-
-        private void AutoSave_Click(object sender, EventArgs e)
-        {
-            if (autoSave.Checked)
+            if (chkAutoSave.Checked && !Settings.Default.autoSave)
             {
                 MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            
+            Settings.Default.autoSave = chkAutoSave.Checked;
+            Settings.Default.Save();
+
+        }
+
+        private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Program.RegisterApp();
+        }
+
+        private void linkUnregister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Program.UnRegisterApp();
+        }
+
+        private void infoLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Resources.str_main_info_url);
         }
     }
 }

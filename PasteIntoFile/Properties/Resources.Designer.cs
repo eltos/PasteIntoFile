@@ -298,11 +298,20 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard is empty.
+        ///   Looks up a localized string similar to Clipboard is empty or contains unsupported data.
         /// </summary>
         internal static string str_noclip_text {
             get {
                 return ResourceManager.GetString("str_noclip_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        internal static string str_preview {
+            get {
+                return ResourceManager.GetString("str_preview", resourceCulture);
             }
         }
         

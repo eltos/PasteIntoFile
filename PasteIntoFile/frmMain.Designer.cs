@@ -1,6 +1,4 @@
-using System.Diagnostics;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
@@ -10,7 +8,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -22,6 +20,7 @@ namespace PasteIntoFile
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -33,275 +32,402 @@ namespace PasteIntoFile
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.lblType = new System.Windows.Forms.Label();
             this.imgContent = new System.Windows.Forms.PictureBox();
-            this.txtContent = new System.Windows.Forms.TextBox();
+            this.txtContent = new System.Windows.Forms.RichTextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.lblExt = new System.Windows.Forms.Label();
             this.comExt = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCurrentLocation = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
             this.infoLabel = new System.Windows.Forms.Label();
             this.linkUnregister = new System.Windows.Forms.LinkLabel();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
-            this.clrClipboard = new System.Windows.Forms.CheckBox();
-            this.autoSave = new System.Windows.Forms.CheckBox();
+            this.chkClrClipboard = new System.Windows.Forms.CheckBox();
+            this.chkAutoSave = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.box = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.box.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblType
-            // 
-            this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(20, 200);
-            this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(43, 20);
-            this.lblType.TabIndex = 6;
-            this.lblType.Text = "Type";
-            this.lblType.Visible = false;
             // 
             // imgContent
             // 
             this.imgContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.imgContent.Location = new System.Drawing.Point(24, 210);
-            this.imgContent.Margin = new System.Windows.Forms.Padding(4, 05, 4, 5);
+            this.imgContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgContent.Location = new System.Drawing.Point(5, 18);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(728, 500);
-            this.imgContent.TabIndex = 2;
+            this.imgContent.Size = new System.Drawing.Size(348, 161);
+            this.imgContent.TabIndex = 13;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
             // 
             // txtContent
             // 
-            this.txtContent.Location = new System.Drawing.Point(18, 362);
-            this.txtContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtContent.Multiline = true;
+            this.txtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtContent.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContent.Location = new System.Drawing.Point(5, 18);
             this.txtContent.Name = "txtContent";
-            this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(280, 176);
-            this.txtContent.TabIndex = 3;
+            this.txtContent.ReadOnly = true;
+            this.txtContent.Size = new System.Drawing.Size(348, 161);
+            this.txtContent.TabIndex = 0;
+            this.txtContent.TabStop = false;
+            this.txtContent.Text = "abc1\ndef0\nghu|\n@www";
             this.txtContent.Visible = false;
+            this.txtContent.WordWrap = false;
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(19, 20);
-            this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFileName.Location = new System.Drawing.Point(0, 0);
+            this.lblFileName.Margin = new System.Windows.Forms.Padding(0);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(78, 20);
-            this.lblFileName.TabIndex = 4;
-            this.lblFileName.Text = Resources.str_filename;
+            this.lblFileName.Size = new System.Drawing.Size(63, 13);
+            this.lblFileName.TabIndex = 1;
+            this.lblFileName.Text = "str_filename";
             // 
             // txtFilename
             // 
-            this.txtFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilename.Location = new System.Drawing.Point(24, 46);
-            this.txtFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtFilename.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFilename.Location = new System.Drawing.Point(3, 16);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(612, 26);
-            this.txtFilename.TabIndex = 1;
+            this.txtFilename.Size = new System.Drawing.Size(272, 20);
+            this.txtFilename.TabIndex = 0;
+            this.txtFilename.Text = "xxx";
             // 
             // lblExt
             // 
-            this.lblExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblExt.AutoSize = true;
-            this.lblExt.Location = new System.Drawing.Point(639, 20);
-            this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblExt.Location = new System.Drawing.Point(281, 0);
             this.lblExt.Name = "lblExt";
-            this.lblExt.Size = new System.Drawing.Size(83, 20);
-            this.lblExt.TabIndex = 6;
-            this.lblExt.Text = Resources.str_extension;
+            this.lblExt.Size = new System.Drawing.Size(69, 13);
+            this.lblExt.TabIndex = 2;
+            this.lblExt.Text = "str_extension";
             // 
             // comExt
             // 
-            this.comExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comExt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comExt.FormattingEnabled = true;
-            this.comExt.Location = new System.Drawing.Point(644, 46);
-            this.comExt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.comExt.Location = new System.Drawing.Point(281, 16);
             this.comExt.Name = "comExt";
-            this.comExt.Size = new System.Drawing.Size(108, 28);
-            this.comExt.TabIndex = 2;
+            this.comExt.Size = new System.Drawing.Size(80, 21);
+            this.comExt.TabIndex = 1;
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Location = new System.Drawing.Point(276, 148);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSave.AutoSize = true;
+            this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.Location = new System.Drawing.Point(185, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(476, 45);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = Resources.str_save;
+            this.tableLayoutPanel2.SetRowSpan(this.btnSave, 2);
+            this.btnSave.Size = new System.Drawing.Size(176, 28);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "str_save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtCurrentLocation
             // 
-            this.txtCurrentLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCurrentLocation.Location = new System.Drawing.Point(24, 111);
-            this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCurrentLocation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCurrentLocation.Location = new System.Drawing.Point(3, 16);
             this.txtCurrentLocation.Name = "txtCurrentLocation";
-            this.txtCurrentLocation.Size = new System.Drawing.Size(670, 26);
-            this.txtCurrentLocation.TabIndex = 3;
-            this.txtCurrentLocation.Text = "C:\\";
+            this.txtCurrentLocation.Size = new System.Drawing.Size(302, 20);
+            this.txtCurrentLocation.TabIndex = 2;
             // 
-            // label1
+            // lblCurrentLocation
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 85);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = Resources.str_location;
+            this.lblCurrentLocation.AutoSize = true;
+            this.lblCurrentLocation.Location = new System.Drawing.Point(0, 0);
+            this.lblCurrentLocation.Margin = new System.Windows.Forms.Padding(0);
+            this.lblCurrentLocation.Name = "lblCurrentLocation";
+            this.lblCurrentLocation.Size = new System.Drawing.Size(61, 13);
+            this.lblCurrentLocation.TabIndex = 1;
+            this.lblCurrentLocation.Text = "str_location";
             // 
             // btnBrowseForFolder
             // 
-            this.btnBrowseForFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseForFolder.Location = new System.Drawing.Point(702, 110);
-            this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnBrowseForFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBrowseForFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBrowseForFolder.Location = new System.Drawing.Point(311, 16);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
-            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 32);
-            this.btnBrowseForFolder.TabIndex = 4;
-            this.btnBrowseForFolder.Text = Resources.str_ellipsis;
+            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 20);
+            this.btnBrowseForFolder.TabIndex = 3;
+            this.btnBrowseForFolder.Text = "...";
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             // 
             // linkRegister
             // 
-            this.linkRegister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkRegister.Location = new System.Drawing.Point(18, 217);
+            this.linkRegister.AutoSize = true;
+            this.linkRegister.Location = new System.Drawing.Point(0, 3);
+            this.linkRegister.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.linkRegister.Name = "linkRegister";
-            this.linkRegister.Size = new System.Drawing.Size(300, 20);
-            this.linkRegister.TabIndex = 14;
+            this.linkRegister.Size = new System.Drawing.Size(122, 13);
+            this.linkRegister.TabIndex = 7;
             this.linkRegister.TabStop = true;
-            this.linkRegister.Text = Resources.str_contextentry_register;
-            this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Program.RegisterApp());
+            this.linkRegister.Text = "str_contextentry_register";
+            this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRegister_LinkClicked);
             // 
             // linkUnregister
             // 
-            this.linkUnregister.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkUnregister.Location = new System.Drawing.Point(18, 251);
+            this.linkUnregister.AutoSize = true;
+            this.linkUnregister.Location = new System.Drawing.Point(0, 22);
+            this.linkUnregister.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.linkUnregister.Name = "linkUnregister";
-            this.linkUnregister.Size = new System.Drawing.Size(300, 20);
-            this.linkUnregister.TabIndex = 15;
+            this.linkUnregister.Size = new System.Drawing.Size(134, 13);
+            this.linkUnregister.TabIndex = 8;
             this.linkUnregister.TabStop = true;
-            this.linkUnregister.Text = Resources.str_contextentry_unregister;
-            this.linkUnregister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Program.UnRegisterApp());
+            this.linkUnregister.Text = "str_contextentry_unregister";
+            this.linkUnregister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkUnregister_LinkClicked);
             // 
             // infoLabel
             // 
-            this.infoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.infoLabel.Location = new System.Drawing.Point(357, 217);
-            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.infoLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.infoLabel.Location = new System.Drawing.Point(318, 3);
+            this.infoLabel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(400, 20);
-            this.infoLabel.ForeColor = System.Drawing.Color.Gray;
-            this.infoLabel.Text = string.Format(Resources.str_version, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            this.infoLabel.Size = new System.Drawing.Size(46, 13);
+            this.infoLabel.TabIndex = 10;
+            this.infoLabel.Text = "v0.0.0.0";
             // 
             // infoLinkLabel
             // 
-            this.infoLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.infoLinkLabel.Location = new System.Drawing.Point(357, 251);
-            this.infoLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.infoLinkLabel.AutoSize = true;
+            this.infoLinkLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.infoLinkLabel.LinkColor = System.Drawing.SystemColors.ControlDark;
+            this.infoLinkLabel.Location = new System.Drawing.Point(295, 22);
+            this.infoLinkLabel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.infoLinkLabel.Name = "infoLinkLabel";
-            this.infoLinkLabel.Size = new System.Drawing.Size(400, 20);
-            this.infoLinkLabel.LinkColor = System.Drawing.Color.Gray;
-            this.infoLinkLabel.TabIndex = 17;
+            this.infoLinkLabel.Size = new System.Drawing.Size(69, 13);
+            this.infoLinkLabel.TabIndex = 9;
             this.infoLinkLabel.TabStop = true;
-            this.infoLinkLabel.Text = Resources.str_main_info;
-            this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler((sender, e) => Process.Start(Resources.str_main_info_url));
-            
+            this.infoLinkLabel.Text = "str_main_info";
+            this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.infoLinkLabel_LinkClicked);
             // 
-            // clrClipboard
+            // chkClrClipboard
             // 
-            this.clrClipboard.AutoSize = true;
-            this.clrClipboard.Location = new System.Drawing.Point(22, 148);
-            this.clrClipboard.Name = "clrClipboard";
-            this.clrClipboard.Size = new System.Drawing.Size(140, 24);
-            this.clrClipboard.TabIndex = 10;
-            this.clrClipboard.Text = Resources.str_clear_clipboard;
-            this.clrClipboard.UseVisualStyleBackColor = true;
-            this.clrClipboard.CheckedChanged += new System.EventHandler(this.ClrClipboard_CheckedChanged);
+            this.chkClrClipboard.AutoSize = true;
+            this.chkClrClipboard.Location = new System.Drawing.Point(3, 17);
+            this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.chkClrClipboard.Name = "chkClrClipboard";
+            this.chkClrClipboard.Size = new System.Drawing.Size(115, 17);
+            this.chkClrClipboard.TabIndex = 6;
+            this.chkClrClipboard.Text = "str_clear_clipboard";
+            this.chkClrClipboard.UseVisualStyleBackColor = true;
+            this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
             // 
-            // autoSave
+            // chkAutoSave
             // 
-            this.autoSave.AutoSize = true;
-            this.autoSave.Location = new System.Drawing.Point(22, 173);
-            this.autoSave.Name = "autoSave";
-            this.autoSave.Size = new System.Drawing.Size(102, 24);
-            this.autoSave.TabIndex = 11;
-            this.autoSave.Text = Resources.str_autosave;
-            this.autoSave.UseVisualStyleBackColor = true;
-            this.autoSave.CheckedChanged += new System.EventHandler(this.AutoSave_CheckedChanged);
-            this.autoSave.Click += new System.EventHandler(this.AutoSave_Click);
+            this.chkAutoSave.AutoSize = true;
+            this.chkAutoSave.Location = new System.Drawing.Point(3, 0);
+            this.chkAutoSave.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.chkAutoSave.Name = "chkAutoSave";
+            this.chkAutoSave.Size = new System.Drawing.Size(87, 17);
+            this.chkAutoSave.TabIndex = 5;
+            this.chkAutoSave.Text = "str_autosave";
+            this.chkAutoSave.UseVisualStyleBackColor = true;
+            this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Location = new System.Drawing.Point(30, 116);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(10);
+            this.panel1.Size = new System.Drawing.Size(20, 20);
+            this.panel1.TabIndex = 9;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.box, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 4);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 361);
+            this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.AutoSize = true;
+            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.txtFilename, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lblFileName, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lblExt, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.comExt, 1, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(10, 10);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(364, 40);
+            this.tableLayoutPanel3.TabIndex = 11;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.Controls.Add(this.txtCurrentLocation, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.lblCurrentLocation, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnBrowseForFolder, 1, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(10, 50);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(364, 39);
+            this.tableLayoutPanel4.TabIndex = 11;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chkAutoSave, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 89);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 34);
+            this.tableLayoutPanel2.TabIndex = 12;
+            // 
+            // box
+            // 
+            this.box.AutoSize = true;
+            this.box.Controls.Add(this.txtContent);
+            this.box.Controls.Add(this.imgContent);
+            this.box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.box.Location = new System.Drawing.Point(13, 126);
+            this.box.Name = "box";
+            this.box.Padding = new System.Windows.Forms.Padding(5);
+            this.box.Size = new System.Drawing.Size(358, 184);
+            this.box.TabIndex = 5;
+            this.box.TabStop = false;
+            this.box.Text = "str_preview";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.linkRegister, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.linkUnregister, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.infoLinkLabel, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.infoLabel, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(10, 313);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(364, 38);
+            this.tableLayoutPanel5.TabIndex = 14;
             // 
             // frmMain
             // 
             this.AcceptButton = this.btnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(775, 287);
-            this.Controls.Add(this.autoSave);
-            this.Controls.Add(this.clrClipboard);
-            this.Controls.Add(this.linkRegister);
-            this.Controls.Add(this.linkUnregister);
-            this.Controls.Add(this.infoLabel);
-            this.Controls.Add(this.infoLinkLabel);
-            this.Controls.Add(this.btnBrowseForFolder);
-            this.Controls.Add(this.txtCurrentLocation);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.comExt);
-            this.Controls.Add(this.lblExt);
-            this.Controls.Add(this.txtFilename);
-            this.Controls.Add(this.lblFileName);
-            this.Controls.Add(this.txtContent);
-            this.Controls.Add(this.imgContent);
-            this.Controls.Add(this.lblType);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = Resources.icon;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ClientSize = new System.Drawing.Size(384, 361);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel1);
             this.KeyPreview = true;
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = Resources.str_main_window_title;
-            this.Load += new System.EventHandler(this.frmMain_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyUp);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.box.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
+        
         #endregion
 
-        private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.PictureBox imgContent;
-        private System.Windows.Forms.TextBox txtContent;
+        private System.Windows.Forms.RichTextBox txtContent;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.TextBox txtFilename;
         private System.Windows.Forms.Label lblExt;
         private System.Windows.Forms.ComboBox comExt;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtCurrentLocation;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCurrentLocation;
         private System.Windows.Forms.Button btnBrowseForFolder;
         private System.Windows.Forms.LinkLabel infoLinkLabel;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.LinkLabel linkUnregister;
         private System.Windows.Forms.LinkLabel linkRegister;
-        private System.Windows.Forms.CheckBox clrClipboard;
-        private System.Windows.Forms.CheckBox autoSave;
+        private System.Windows.Forms.CheckBox chkAutoSave;
+        private System.Windows.Forms.CheckBox chkClrClipboard;
+        private System.Windows.Forms.GroupBox box;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+
     }
 }
-
