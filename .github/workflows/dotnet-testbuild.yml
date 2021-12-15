@@ -1,6 +1,6 @@
 ﻿# For all pushes and pull_request, this workflow creates a debug build 
 
-name: .NET Application Test Build
+name: Test Debug Build
 
 on: [ push, pull_request ]
 

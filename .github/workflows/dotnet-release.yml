@@ -1,6 +1,6 @@
 # When a release is published on github.com, this workflow creates a release build and uploads it to the release page 
 
-name: .NET Application Release Build
+name: Release Build
 
 on:
   release:
