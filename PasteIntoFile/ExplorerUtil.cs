@@ -49,11 +49,10 @@ namespace PasteIntoFile
         {
             filePath = Path.GetFullPath(filePath);
             var dirPath = Path.GetDirectoryName(filePath);
-            IntPtr hwnd = ILCreateFromPathW(filePath);
 
-            // code below thankfully taken from https://stackoverflow.com/a/8682999/13324744
-            IntPtr folder = PathToAbsolutePIDL(hwnd, dirPath);
-            IntPtr file = PathToAbsolutePIDL(hwnd, filePath);
+            // code below adopted from https://stackoverflow.com/a/8682999/13324744
+            IntPtr folder = PathToPidl(dirPath);
+            IntPtr file = PathToPidl(filePath);
             try
             {
                 SHOpenFolderAndSelectItems(folder, 1, new[] { file }, edit ? 1 : 0);
@@ -65,22 +64,12 @@ namespace PasteIntoFile
             }
         }
 
-        private static IntPtr GetShellFolderChildrenRelativePIDL(IntPtr hwnd, IShellFolder parentFolder, string displayName)
+        private static IntPtr PathToPidl(string path)
         {
-            IBindCtx bindCtx;
-            CreateBindCtx(0, out bindCtx);
-            uint pchEaten;
-            uint pdwAttributes = 0;
-            IntPtr ppidl;
-            parentFolder.ParseDisplayName(hwnd, bindCtx, displayName, out pchEaten, out ppidl, ref pdwAttributes);
+            // documentation: https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
+            SHGetDesktopFolder(out IShellFolder desktopFolder);
+            desktopFolder.ParseDisplayName(IntPtr.Zero, null, path, out var pchEaten, out var ppidl, 0);
             return ppidl;
-        }
-
-        private static IntPtr PathToAbsolutePIDL(IntPtr hwnd, string path)
-        {
-            IShellFolder desktopFolder;
-            SHGetDesktopFolder(out desktopFolder);
-            return GetShellFolderChildrenRelativePIDL(hwnd, desktopFolder, path);
         }
         
         
