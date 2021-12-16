@@ -78,7 +78,7 @@ namespace PasteIntoFile
             }
             else
             {
-                Application.Run(new frmMain());
+                Application.Run(new frmMain(GetActiveExplorerPath()));
             }
 
         }
@@ -179,7 +179,27 @@ namespace PasteIntoFile
         {
             return Registry.CurrentUser.CreateSubKey(@"Software\Classes\Directory");
         }
+        
+        // get path of active or only windows explorer
+        // modified from https://stackoverflow.com/a/5708578/13324744
+        private static string GetActiveExplorerPath()
+        {
+            IntPtr handle = GetForegroundWindow();
+            var shellWindows = new SHDocVw.ShellWindows();
+            foreach (SHDocVw.InternetExplorer window in shellWindows)
+            {
+                if (window.HWND == (int) handle || shellWindows.Count == 1)
+                {
+                    var shellWindow = window.Document as Shell32.IShellFolderViewDual2;
+                    return shellWindow?.Folder.Items().Item().Path;
+                }
+            }
+            return null;
+        }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
     }
