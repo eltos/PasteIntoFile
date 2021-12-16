@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExplorerUtil.cs" />
     <Compile Include="FirstLaunch.cs">
       <SubType>Form</SubType>
     </Compile>

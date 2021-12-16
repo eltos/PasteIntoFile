@@ -118,6 +118,8 @@ namespace PasteIntoFile
                 var file = save();
                 if (file != null)
                 {
+                    ExplorerUtil.RequestFilenameEdit(file);
+                    
                     var message = string.Format(Resources.str_autosave_balloontext, file);
                     Program.ShowBalloon(Resources.str_autosave_balloontitle, message, 10_000);
 
@@ -145,10 +147,9 @@ namespace PasteIntoFile
         
         string save()
         {
-
-
+            string dirname = Path.GetFullPath(txtCurrentLocation.Text);
             string filename = txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
-            string file = Path.Combine(txtCurrentLocation.Text, filename);
+            string file = Path.Combine(dirname, filename);
             
             // check if file exists
             if (File.Exists(file))
@@ -167,7 +168,7 @@ namespace PasteIntoFile
             }
             
             // create folders if required
-            Directory.CreateDirectory(txtCurrentLocation.Text);
+            Directory.CreateDirectory(dirname);
             
             try
             {
@@ -204,7 +205,7 @@ namespace PasteIntoFile
             catch (UnauthorizedAccessException ex)
             {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.RestartAppElevated(txtCurrentLocation.Text);
+                Program.RestartAppElevated(dirname);
             }
             catch (Exception ex)
             {
