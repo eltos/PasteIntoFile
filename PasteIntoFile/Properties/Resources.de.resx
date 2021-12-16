@@ -48,28 +48,6 @@
     <data name="str_contextentry" xml:space="preserve">
         <value>Einfügen als Datei (Paste Into File)</value>
     </data>
-    <data name="str_firstlaunch_windowtitle" xml:space="preserve">
-        <value>Paste Into File – Einrichtungsassistent</value>
-    </data>
-    <data name="str_firstlaunch_welcome" xml:space="preserve">
-        <value>Willkommen bei
-Paste Into File</value>
-    </data>
-    <data name="str_firstlaunch_register" xml:space="preserve">
-        <value>Eintrag im Kontextmenu anlegen?</value>
-    </data>
-    <data name="str_firstlaunch_register_explain" xml:space="preserve">
-        <value>Es kann ein Eintrag im Explorer Kontext Menu hinzugefügt werden. Inhalte aus der Zwischenablage können dann auf dem Desktop und in jedem Ordner einfach durch Rechtsklick und Auswahl des Eintrages '{0}' als Datei gespeichert werden. Der Kontext Menu Eintrag kann auch später noch angelegt und entfernt werden.</value>
-    </data>
-    <data name="str_no" xml:space="preserve">
-        <value>Nein danke</value>
-    </data>
-    <data name="str_contextentry_unregister" xml:space="preserve">
-        <value>Aus Kontextmenu entfernen</value>
-    </data>
-    <data name="str_contextentry_register" xml:space="preserve">
-        <value>Im Kontextmenu eintragen</value>
-    </data>
     <data name="str_main_info" xml:space="preserve">
         <value>Projekt auf GitHub finden</value>
     </data>

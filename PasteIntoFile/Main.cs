@@ -129,7 +129,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Create context menu entry
         /// </summary>
-        public static void RegisterApp()
+        public static bool RegisterApp()
         {
             try
             {
@@ -145,13 +145,14 @@ namespace PasteIntoFile
                 key = key.CreateSubKey("command");
 				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%1\"");
 				MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                return true;
             }
             catch (Exception ex)
             {
                 //throw;
 				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            return false;
         }
 
         /// <summary>

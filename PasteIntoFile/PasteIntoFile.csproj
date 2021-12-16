@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExplorerUtil.cs" />
+    <Compile Include="MasterForm.cs" />
     <Compile Include="Wizzard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,7 +137,6 @@
   <ItemGroup>
     <Content Include="Resources\icon.ico" />
     <Content Include="Resources\icon.png" />
-    <None Include="Resources\next.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SHDocVw">

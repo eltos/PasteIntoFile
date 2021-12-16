@@ -71,16 +71,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap next {
-            get {
-                object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {
@@ -144,24 +134,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register context menu entry.
-        /// </summary>
-        internal static string str_contextentry_register {
-            get {
-                return ResourceManager.GetString("str_contextentry_register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unregister context menu entry.
-        /// </summary>
-        internal static string str_contextentry_unregister {
-            get {
-                return ResourceManager.GetString("str_contextentry_unregister", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {
@@ -195,43 +167,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_filename {
             get {
                 return ResourceManager.GetString("str_filename", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add context menu entry?.
-        /// </summary>
-        internal static string str_firstlaunch_register {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing &apos;{0}&apos;. You can also (un-)register the context menu entry later..
-        /// </summary>
-        internal static string str_firstlaunch_register_explain {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_register_explain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to
-        ///Paste Into File.
-        /// </summary>
-        internal static string str_firstlaunch_welcome {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paste Into File – First Launch.
-        /// </summary>
-        internal static string str_firstlaunch_windowtitle {
-            get {
-                return ResourceManager.GetString("str_firstlaunch_windowtitle", resourceCulture);
             }
         }
         
@@ -308,15 +243,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No, thanks.
-        /// </summary>
-        internal static string str_no {
-            get {
-                return ResourceManager.GetString("str_no", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clipboard is empty or contains unsupported data.
         /// </summary>
         internal static string str_noclip_text {
@@ -376,6 +302,78 @@ namespace PasteIntoFile.Properties {
         internal static string str_version {
             get {
                 return ResourceManager.GetString("str_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable autosave.
+        /// </summary>
+        internal static string str_wizzard_autosave_button {
+            get {
+                return ResourceManager.GetString("str_wizzard_autosave_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later..
+        /// </summary>
+        internal static string str_wizzard_autosave_info {
+            get {
+                return ResourceManager.GetString("str_wizzard_autosave_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autosave file without promt?.
+        /// </summary>
+        internal static string str_wizzard_autosave_title {
+            get {
+                return ResourceManager.GetString("str_wizzard_autosave_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to context menu.
+        /// </summary>
+        internal static string str_wizzard_contextentry_button {
+            get {
+                return ResourceManager.GetString("str_wizzard_contextentry_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose &apos;Paste Into File&apos;. You can change this setting later..
+        /// </summary>
+        internal static string str_wizzard_contextentry_info {
+            get {
+                return ResourceManager.GetString("str_wizzard_contextentry_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add context menu entry?.
+        /// </summary>
+        internal static string str_wizzard_contextentry_title {
+            get {
+                return ResourceManager.GetString("str_wizzard_contextentry_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish setup.
+        /// </summary>
+        internal static string str_wizzard_finish {
+            get {
+                return ResourceManager.GetString("str_wizzard_finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Paste Into File.
+        /// </summary>
+        internal static string str_wizzard_title {
+            get {
+                return ResourceManager.GetString("str_wizzard_title", resourceCulture);
             }
         }
     }

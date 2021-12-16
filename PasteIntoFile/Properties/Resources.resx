@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
@@ -166,18 +163,8 @@
   <data name="str_noclip_text" xml:space="preserve">
     <value>Clipboard is empty or contains unsupported data</value>
   </data>
-  <data name="str_firstlaunch_welcome" xml:space="preserve">
-    <value>Welcome to
-Paste Into File</value>
-  </data>
-  <data name="str_contextentry_register" xml:space="preserve">
-    <value>Register context menu entry</value>
-  </data>
-  <data name="str_contextentry_unregister" xml:space="preserve">
-    <value>Unregister context menu entry</value>
-  </data>
-  <data name="str_no" xml:space="preserve">
-    <value>No, thanks</value>
+  <data name="str_wizzard_title" xml:space="preserve">
+    <value>Welcome to Paste Into File</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
     <value>Clear clipboard</value>
@@ -188,14 +175,11 @@ Paste Into File</value>
   <data name="str_main_info_url" xml:space="preserve">
     <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
-  <data name="str_firstlaunch_register_explain" xml:space="preserve">
-    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file by right-clicking on your desktop or in any folder, and choosing '{0}'. You can also (un-)register the context menu entry later.</value>
+  <data name="str_wizzard_contextentry_info" xml:space="preserve">
+    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose 'Paste Into File'. You can change this setting later.</value>
   </data>
-  <data name="str_firstlaunch_register" xml:space="preserve">
+  <data name="str_wizzard_contextentry_title" xml:space="preserve">
     <value>Add context menu entry?</value>
-  </data>
-  <data name="str_firstlaunch_windowtitle" xml:space="preserve">
-    <value>Paste Into File – First Launch</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Clipboard saved to file</value>
@@ -224,5 +208,20 @@ Do you want to overwrite it?</value>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Context menu entry</value>
+  </data>
+  <data name="str_wizzard_contextentry_button" xml:space="preserve">
+    <value>Add to context menu</value>
+  </data>
+  <data name="str_wizzard_autosave_title" xml:space="preserve">
+    <value>Autosave file without promt?</value>
+  </data>
+  <data name="str_wizzard_autosave_button" xml:space="preserve">
+    <value>Enable autosave</value>
+  </data>
+  <data name="str_wizzard_finish" xml:space="preserve">
+    <value>Finish setup</value>
+  </data>
+  <data name="str_wizzard_autosave_info" xml:space="preserve">
+    <value>You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later.</value>
   </data>
 </root>

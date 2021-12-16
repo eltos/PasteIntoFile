@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using PasteIntoFile.Properties;
 using WK.Libraries.BetterFolderBrowserNS;
 
 namespace PasteIntoFile
 {
-    public partial class Dialog : Form
+    public partial class Dialog : MasterForm
     {
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         private string text;
@@ -128,15 +124,6 @@ namespace PasteIntoFile
                     Environment.Exit(0);
                 }
             }
-        }
-        
-        public IEnumerable<Control> GetAllChild(Control control, Type type = null)
-        {
-            var controls = control.Controls.Cast<Control>();
-            var enumerable = controls as Control[] ?? controls.ToArray();
-            return enumerable.SelectMany(ctrl => GetAllChild(ctrl, type))
-                .Concat(enumerable)
-                .Where(c => type == null || type == c.GetType());
         }
 
         private void btnSave_Click(object sender, EventArgs e)
