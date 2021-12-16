@@ -20,9 +20,10 @@ namespace PasteIntoFile
         private string text;
         private Image image;
         
-        public frmMain(string location = null, string filename = null)
+        public frmMain(string location, string filename = null, bool forceShowDialog = false)
         {
-            location = location ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            // always show GUI if shift pressed during start
+            forceShowDialog |= ModifierKeys == Keys.Shift;
             
             // Setup GUI
             InitializeComponent();
@@ -105,7 +106,7 @@ namespace PasteIntoFile
             
 
             // Pressed shift key resets autosave option
-            if (ModifierKeys == Keys.Shift)
+            if (forceShowDialog)
             {
                 // Make sure to bring window to foreground (holding shift will open window in background)
                 WindowState = FormWindowState.Minimized;

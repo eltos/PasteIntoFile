@@ -81,7 +81,9 @@ namespace PasteIntoFile
             }
             else
             {
-                Application.Run(new frmMain(ExplorerUtil.GetActiveExplorerPath()));
+                // fallback to default location
+                var location = ExplorerUtil.GetActiveExplorerPath() ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                Application.Run(new frmMain(location, default, true));
             }
 
         }
