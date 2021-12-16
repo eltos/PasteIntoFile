@@ -126,6 +126,8 @@ namespace PasteIntoFile
             this.comExt.Name = "comExt";
             this.comExt.Size = new System.Drawing.Size(80, 21);
             this.comExt.TabIndex = 1;
+            this.comExt.SelectedIndexChanged += new System.EventHandler(this.comExt_Update);
+            this.comExt.TextUpdate += new System.EventHandler(this.comExt_Update);
             // 
             // btnSave
             // 

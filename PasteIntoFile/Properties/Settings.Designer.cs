@@ -70,5 +70,41 @@ namespace PasteIntoFile.Properties {
                 this["autoSave"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string filenameTemplate {
+            get {
+                return ((string)(this["filenameTemplate"]));
+            }
+            set {
+                this["filenameTemplate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string extensionImage {
+            get {
+                return ((string)(this["extensionImage"]));
+            }
+            set {
+                this["extensionImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string extensionText {
+            get {
+                return ((string)(this["extensionText"]));
+            }
+            set {
+                this["extensionText"] = value;
+            }
+        }
     }
 }

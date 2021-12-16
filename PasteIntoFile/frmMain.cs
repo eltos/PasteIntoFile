@@ -54,7 +54,7 @@ namespace PasteIntoFile
 
             //
 
-            var filenameFormat = Program.GetSetting("filename") ?? DefaultFilenameFormat;
+            var filenameFormat = Settings.Default.filenameTemplate ?? DefaultFilenameFormat;
             txtFilename.Text = DateTime.Now.ToString(filenameFormat);
             txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
@@ -68,17 +68,10 @@ namespace PasteIntoFile
                 txtContent.Show();
                 box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
                 comExt.Items.AddRange(new object[] {
-                    "txt", "html", "js", "css", "csv", "json", "cs", "cpp", "java", "php", "py"
+                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt"
                 });
-                // heuristic to suggest filetype
-                if (Regex.IsMatch(txtContent.Text, "<html.*>(.|\n)*</html>")) {
-                    comExt.SelectedItem = "html";
-                } else if (Regex.IsMatch(txtContent.Text, "^\\{(.|\n)*:(.|\n)*\\}$")) {
-                    comExt.SelectedItem = "json";
-                } else {
-                    comExt.SelectedItem = "txt";
-                }
-                
+                comExt.Text = Settings.Default.extensionText ?? "txt";
+
             }
             else if (Clipboard.ContainsImage())
             {
@@ -90,8 +83,8 @@ namespace PasteIntoFile
                     "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
                 });
                 comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
-                comExt.SelectedItem = "png";
-
+                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
+                
             }
 
             // Pressed shift key resets autosave option
@@ -252,6 +245,19 @@ namespace PasteIntoFile
         private void infoLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(Resources.str_main_info_url);
+        }
+
+        private void comExt_Update(object sender, EventArgs e)
+        {
+            if (text != null)
+            {
+                Settings.Default.extensionText = comExt.Text;
+            }
+            else if (image != null)
+            {
+                Settings.Default.extensionImage = comExt.Text;
+            }
+            Settings.Default.Save();
         }
     }
 }

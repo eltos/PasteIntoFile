@@ -67,7 +67,10 @@ namespace PasteIntoFile
 
                 if (args[0] == "/filename")
                 {
-                    RegisterSetting("filename", args.Length > 1 ? args[1] : null);
+                    Settings.Default.filenameTemplate = args.Length > 1 ? args[1] : null;
+                    Settings.Default.Save();
+                    MessageBox.Show(Resources.str_message_register_filename_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     return;
                 }
                 
@@ -80,37 +83,6 @@ namespace PasteIntoFile
 
         }
 
-		public static void RegisterSetting(string key, string value)
-		{
-			try
-			{
-                var entry = OpenDirectoryKey().CreateSubKey("shell")
-                    .CreateSubKey(RegistrySubKey)
-                    .CreateSubKey(key);
-                if (value != null)
-                {
-                    entry.SetValue("", value);
-                }
-                else
-                {
-                    entry.DeleteValue("");
-                }
-                    
-
-                MessageBox.Show(Resources.str_message_register_filename_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-			catch (Exception ex)
-			{
-				//throw;
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
-
-        public static string GetSetting(string key)
-        {
-            return OpenDirectoryKey().OpenSubKey("shell")?.OpenSubKey(RegistrySubKey)?.OpenSubKey(key)?.GetValue("") as string;
-        }
-        
 
         public static void UnRegisterApp()
         {
