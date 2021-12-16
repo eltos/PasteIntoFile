@@ -154,7 +154,7 @@ namespace PasteIntoFile
             if (File.Exists(file))
             {
                 var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.str_main_window_title,
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result != DialogResult.Yes)
                 {
                     return null;
