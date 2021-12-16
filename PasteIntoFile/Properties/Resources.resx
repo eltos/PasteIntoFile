@@ -227,4 +227,11 @@ Paste Into File</value>
   <data name="str_preview_text" xml:space="preserve">
     <value>Text preview ({0} chars, {1} lines)</value>
   </data>
+  <data name="str_file_exists_directory" xml:space="preserve">
+    <value>A directory with the same name already exists at {0}.</value>
+  </data>
+  <data name="str_file_exists" xml:space="preserve">
+    <value>The file {0} already exists.
+Do you want to overwrite it?</value>
+  </data>
 </root>

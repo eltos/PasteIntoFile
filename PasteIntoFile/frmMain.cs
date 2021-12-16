@@ -153,12 +153,17 @@ namespace PasteIntoFile
             // check if file exists
             if (File.Exists(file))
             {
-                var result = MessageBox.Show(string.Format("The file {0} already exists.\nDo you want to overwrite it?", file), "File exists",
+                var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.str_main_window_title,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (result != DialogResult.Yes)
                 {
                     return null;
                 }
+            } else if (Directory.Exists(file))
+            {
+                MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.str_main_window_title,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
             
             // create folders if required

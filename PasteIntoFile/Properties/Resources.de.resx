@@ -112,4 +112,10 @@ Paste Into File</value>
     <data name="str_preview_text" xml:space="preserve">
         <value>Textvorschau ({0} Zeichen, {1} Zeilen)</value>
     </data>
+    <data name="str_file_exists" xml:space="preserve">
+        <value>Die Datei {0} existiert bereits. Soll sie überschrieben werden?</value>
+    </data>
+    <data name="str_file_exists_directory" xml:space="preserve">
+        <value>Ein Ordner mit dem gleichen Namen existert bereits unter {0}.</value>
+    </data>
 </root>

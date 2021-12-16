@@ -171,6 +171,25 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file {0} already exists.
+        ///Do you want to overwrite it?.
+        /// </summary>
+        internal static string str_file_exists {
+            get {
+                return ResourceManager.GetString("str_file_exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A directory with the same name already exists at {0}..
+        /// </summary>
+        internal static string str_file_exists_directory {
+            get {
+                return ResourceManager.GetString("str_file_exists_directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filename.
         /// </summary>
         internal static string str_filename {
