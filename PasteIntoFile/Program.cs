@@ -74,8 +74,10 @@ namespace PasteIntoFile
 
                     return;
                 }
-                
-                Application.Run(new frmMain(args[0], args.Length > 1 ? args[1] : null));
+
+                var location = args[0].Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste root dir
+                var filename = args.Length > 1 ? args[1] : null;
+                Application.Run(new frmMain(location, filename));
             }
             else
             {
