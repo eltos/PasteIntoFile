@@ -163,7 +163,7 @@
   <data name="str_noclip_text" xml:space="preserve">
     <value>Clipboard is empty or contains unsupported data</value>
   </data>
-  <data name="str_wizzard_title" xml:space="preserve">
+  <data name="str_wizard_title" xml:space="preserve">
     <value>Welcome to Paste Into File</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
@@ -175,10 +175,10 @@
   <data name="str_main_info_url" xml:space="preserve">
     <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
-  <data name="str_wizzard_contextentry_info" xml:space="preserve">
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
     <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose 'Paste Into File'. You can change this setting later.</value>
   </data>
-  <data name="str_wizzard_contextentry_title" xml:space="preserve">
+  <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Add context menu entry?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
@@ -209,19 +209,19 @@ Do you want to overwrite it?</value>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Context menu entry</value>
   </data>
-  <data name="str_wizzard_contextentry_button" xml:space="preserve">
+  <data name="str_wizard_contextentry_button" xml:space="preserve">
     <value>Add to context menu</value>
   </data>
-  <data name="str_wizzard_autosave_title" xml:space="preserve">
+  <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Autosave file without promt?</value>
   </data>
-  <data name="str_wizzard_autosave_button" xml:space="preserve">
+  <data name="str_wizard_autosave_button" xml:space="preserve">
     <value>Enable autosave</value>
   </data>
-  <data name="str_wizzard_finish" xml:space="preserve">
+  <data name="str_wizard_finish" xml:space="preserve">
     <value>Finish setup</value>
   </data>
-  <data name="str_wizzard_autosave_info" xml:space="preserve">
+  <data name="str_wizard_autosave_info" xml:space="preserve">
     <value>You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later.</value>
   </data>
 </root>

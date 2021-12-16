@@ -41,7 +41,7 @@ namespace PasteIntoFile
 
             if (Settings.Default.firstLaunch)
             {
-                Application.Run(new Wizzard());
+                Application.Run(new Wizard());
                 if (Settings.Default.firstLaunch)
                     return;
             }

@@ -3,7 +3,7 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
-    partial class Wizzard
+    partial class Wizard
     {
         /// <summary>
         /// Required designer variable.
@@ -80,7 +80,7 @@ namespace PasteIntoFile
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(169, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "str_wizzard_autosave_button";
+            this.button2.Text = "str_wizard_autosave_button";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -94,7 +94,7 @@ namespace PasteIntoFile
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(372, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "str_wizzard_autosave_info";
+            this.label2.Text = "str_wizard_autosave_info";
             // 
             // label1
             // 
@@ -106,7 +106,7 @@ namespace PasteIntoFile
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(372, 21);
             this.label1.TabIndex = 5;
-            this.label1.Text = "str_wizzard_autosave_title";
+            this.label1.Text = "str_wizard_autosave_title";
             // 
             // title
             // 
@@ -118,7 +118,7 @@ namespace PasteIntoFile
             this.title.Name = "title";
             this.title.Size = new System.Drawing.Size(372, 37);
             this.title.TabIndex = 0;
-            this.title.Text = "str_wizzard_title";
+            this.title.Text = "str_wizard_title";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // subtitle1
@@ -130,7 +130,7 @@ namespace PasteIntoFile
             this.subtitle1.Name = "subtitle1";
             this.subtitle1.Size = new System.Drawing.Size(239, 21);
             this.subtitle1.TabIndex = 1;
-            this.subtitle1.Text = "str_wizzard_contextentry_title";
+            this.subtitle1.Text = "str_wizard_contextentry_title";
             // 
             // text1
             // 
@@ -142,7 +142,7 @@ namespace PasteIntoFile
             this.text1.Name = "text1";
             this.text1.Size = new System.Drawing.Size(372, 13);
             this.text1.TabIndex = 2;
-            this.text1.Text = "str_wizzard_contextentry_info";
+            this.text1.Text = "str_wizard_contextentry_info";
             // 
             // button1
             // 
@@ -152,7 +152,7 @@ namespace PasteIntoFile
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(169, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "str_wizzard_contextentry_button";
+            this.button1.Text = "str_wizard_contextentry_button";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -165,11 +165,11 @@ namespace PasteIntoFile
             this.finish.Name = "finish";
             this.finish.Size = new System.Drawing.Size(99, 23);
             this.finish.TabIndex = 2;
-            this.finish.Text = "str_wizzard_finish";
+            this.finish.Text = "str_wizard_finish";
             this.finish.UseVisualStyleBackColor = true;
             this.finish.Click += new System.EventHandler(this.finish_Click);
             // 
-            // Wizzard
+            // Wizard
             // 
             this.AcceptButton = this.finish;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -178,9 +178,9 @@ namespace PasteIntoFile
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(400, 400);
-            this.Name = "Wizzard";
+            this.Name = "Wizard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Shown += new System.EventHandler(this.Wizzard_Shown);
+            this.Shown += new System.EventHandler(this.Wizard_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -308,72 +308,72 @@ namespace PasteIntoFile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enable autosave.
         /// </summary>
-        internal static string str_wizzard_autosave_button {
+        internal static string str_wizard_autosave_button {
             get {
-                return ResourceManager.GetString("str_wizzard_autosave_button", resourceCulture);
+                return ResourceManager.GetString("str_wizard_autosave_button", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later..
         /// </summary>
-        internal static string str_wizzard_autosave_info {
+        internal static string str_wizard_autosave_info {
             get {
-                return ResourceManager.GetString("str_wizzard_autosave_info", resourceCulture);
+                return ResourceManager.GetString("str_wizard_autosave_info", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Autosave file without promt?.
         /// </summary>
-        internal static string str_wizzard_autosave_title {
+        internal static string str_wizard_autosave_title {
             get {
-                return ResourceManager.GetString("str_wizzard_autosave_title", resourceCulture);
+                return ResourceManager.GetString("str_wizard_autosave_title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add to context menu.
         /// </summary>
-        internal static string str_wizzard_contextentry_button {
+        internal static string str_wizard_contextentry_button {
             get {
-                return ResourceManager.GetString("str_wizzard_contextentry_button", resourceCulture);
+                return ResourceManager.GetString("str_wizard_contextentry_button", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose &apos;Paste Into File&apos;. You can change this setting later..
         /// </summary>
-        internal static string str_wizzard_contextentry_info {
+        internal static string str_wizard_contextentry_info {
             get {
-                return ResourceManager.GetString("str_wizzard_contextentry_info", resourceCulture);
+                return ResourceManager.GetString("str_wizard_contextentry_info", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add context menu entry?.
         /// </summary>
-        internal static string str_wizzard_contextentry_title {
+        internal static string str_wizard_contextentry_title {
             get {
-                return ResourceManager.GetString("str_wizzard_contextentry_title", resourceCulture);
+                return ResourceManager.GetString("str_wizard_contextentry_title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Finish setup.
         /// </summary>
-        internal static string str_wizzard_finish {
+        internal static string str_wizard_finish {
             get {
-                return ResourceManager.GetString("str_wizzard_finish", resourceCulture);
+                return ResourceManager.GetString("str_wizard_finish", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Welcome to Paste Into File.
         /// </summary>
-        internal static string str_wizzard_title {
+        internal static string str_wizard_title {
             get {
-                return ResourceManager.GetString("str_wizzard_title", resourceCulture);
+                return ResourceManager.GetString("str_wizard_title", resourceCulture);
             }
         }
     }

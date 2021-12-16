@@ -4,16 +4,16 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
-    public partial class Wizzard : MasterForm
+    public partial class Wizard : MasterForm
     {
-        public Wizzard()
+        public Wizard()
         {
             InitializeComponent();
             
             foreach (Control element in GetAllChild(this))
             {
                 // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_wizzard_title, Resources.str_wizzard_contextentry_title, Resources.str_wizzard_contextentry_info, Resources.str_wizzard_contextentry_button, Resources.str_wizzard_autosave_title, Resources.str_wizzard_autosave_info, Resources.str_wizzard_autosave_button, Resources.str_wizzard_finish };
+                string[] usedResourceStrings = { Resources.str_wizard_title, Resources.str_wizard_contextentry_title, Resources.str_wizard_contextentry_info, Resources.str_wizard_contextentry_button, Resources.str_wizard_autosave_title, Resources.str_wizard_autosave_info, Resources.str_wizard_autosave_button, Resources.str_wizard_finish };
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
             
@@ -46,7 +46,7 @@ namespace PasteIntoFile
             button2.Enabled = false;
         }
 
-        private void Wizzard_Shown(object sender, EventArgs e)
+        private void Wizard_Shown(object sender, EventArgs e)
         {
             // Auto size dialog height
             // All tableLayout rows are set to 'autosize' except for the last -> it's height is a measure for leftover space 
