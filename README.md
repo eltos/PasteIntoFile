@@ -19,7 +19,7 @@ _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contr
 + Resizeable GUI to adjust filename, filetype and path
 + Optional autosave mode (only shows dialog when holding SHIFT)
 + Optional clearing of clipboard after save
-+ First launch wizard to register app with Windows Explorer context menu
++ First launch wizard
 + Support for Windows 10 dark theme
 + Support for HiDPI monitors
 + Modern folder selector
@@ -30,8 +30,8 @@ _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contr
 
 ## Installation
 
-+ Make sure you have _.NET Framework 4.5+_ installed in your system. (_Included in Windows 10_)
-+ Download the compiled binary from the [Release page](https://github.com/eltos/PasteIntoFile/releases)
++ Make sure you have _.NET Framework 4.8+_ installed (_Included in Windows 10_)
++ Download the latest PasteIntoFile.zip from the [Release page](https://github.com/eltos/PasteIntoFile/releases) and unzip to a location of your choice
 + Run the executable and follow the first-launch wizard
 
 _Tested on Windows 10_
