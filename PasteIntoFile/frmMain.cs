@@ -54,7 +54,7 @@ namespace PasteIntoFile
 
             //
 
-            var filenameFormat = Settings.Default.filenameTemplate ?? DefaultFilenameFormat;
+            var filenameFormat = string.IsNullOrWhiteSpace(Settings.Default.filenameTemplate) ? DefaultFilenameFormat : Settings.Default.filenameTemplate;
             txtFilename.Text = DateTime.Now.ToString(filenameFormat);
             txtCurrentLocation.Text = Path.GetFullPath(location);
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
@@ -160,6 +160,9 @@ namespace PasteIntoFile
                     return null;
                 }
             }
+            
+            // create folders if required
+            Directory.CreateDirectory(txtCurrentLocation.Text);
             
             try
             {
