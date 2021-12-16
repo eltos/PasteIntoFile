@@ -3,7 +3,7 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
-    partial class FirstLaunch
+    partial class Wizzard
     {
         /// <summary>
         /// Required designer variable.

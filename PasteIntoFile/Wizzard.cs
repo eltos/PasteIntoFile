@@ -4,9 +4,9 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
-    public partial class FirstLaunch : Form
+    public partial class Wizzard : Form
     {
-        public FirstLaunch()
+        public Wizzard()
         {
             InitializeComponent();
         }

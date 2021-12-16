@@ -3,7 +3,7 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
 {
-    partial class frmMain
+    partial class Dialog
     {
         /// <summary>
         /// Required designer variable.
@@ -370,7 +370,7 @@ namespace PasteIntoFile
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 300);
-            this.Name = "frmMain";
+            this.Name = "Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();

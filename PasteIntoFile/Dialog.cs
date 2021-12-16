@@ -14,13 +14,13 @@ using WK.Libraries.BetterFolderBrowserNS;
 
 namespace PasteIntoFile
 {
-    public partial class frmMain : Form
+    public partial class Dialog : Form
     {
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         private string text;
         private Image image;
         
-        public frmMain(string location, string filename = null, bool forceShowDialog = false)
+        public Dialog(string location, string filename = null, bool forceShowDialog = false)
         {
             // always show GUI if shift pressed during start
             forceShowDialog |= ModifierKeys == Keys.Shift;

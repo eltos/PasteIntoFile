@@ -41,7 +41,7 @@ namespace PasteIntoFile
 
             if (Settings.Default.firstLaunch)
             {
-                Application.Run(new FirstLaunch());
+                Application.Run(new Wizzard());
                 if (Settings.Default.firstLaunch)
                     return;
             }
@@ -77,13 +77,13 @@ namespace PasteIntoFile
 
                 var location = args[0].Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste root dir
                 var filename = args.Length > 1 ? args[1] : null;
-                Application.Run(new frmMain(location, filename));
+                Application.Run(new Dialog(location, filename));
             }
             else
             {
                 // fallback to default location
                 var location = ExplorerUtil.GetActiveExplorerPath() ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                Application.Run(new frmMain(location, default, true));
+                Application.Run(new Dialog(location, default, true));
             }
 
         }
