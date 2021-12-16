@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -83,7 +84,23 @@ namespace PasteIntoFile
 
         }
 
-
+        public static RegistryKey OpenDirectoryKey()
+        {
+            return Registry.CurrentUser.CreateSubKey(@"Software\Classes\Directory");
+        }
+        
+        /// <summary>
+        /// Checks if context menu entry is registered
+        /// </summary>
+        /// <returns>app registration status (true/false)</returns>
+        public static bool IsAppRegistered()
+        {
+            return OpenDirectoryKey().GetSubKeyNames().Contains("shell");
+        }
+        
+        /// <summary>
+        /// Remove context menu entry
+        /// </summary>
         public static void UnRegisterApp()
         {
             try
@@ -104,6 +121,9 @@ namespace PasteIntoFile
             }
         }
 
+        /// <summary>
+        /// Create context menu entry
+        /// </summary>
         public static void RegisterApp()
         {
             try
@@ -129,6 +149,10 @@ namespace PasteIntoFile
             }
         }
 
+        /// <summary>
+        /// Restart app in admin mode
+        /// </summary>
+        /// <param name="location">File location to be passed to new instance</param>
         public static void RestartAppElevated(string location)
         {
             ProcessStartInfo proc = new ProcessStartInfo();
@@ -151,6 +175,12 @@ namespace PasteIntoFile
             Application.Exit();
         }
 
+        /// <summary>
+        /// Shows a balloon message in the windows notification bar
+        /// </summary>
+        /// <param name="title">Title of the message</param>
+        /// <param name="message">Body of the message</param>
+        /// <param name="timeout">Duration after which message is dismissed</param>
         public static void ShowBalloon(string title, string message, ushort timeout = 5000)
         {
             var notification = new NotifyIcon()
@@ -175,10 +205,7 @@ namespace PasteIntoFile
             notification.Dispose();
         }
 
-        static RegistryKey OpenDirectoryKey()
-        {
-            return Registry.CurrentUser.CreateSubKey(@"Software\Classes\Directory");
-        }
+        
         
         // get path of active or only windows explorer
         // modified from https://stackoverflow.com/a/5708578/13324744
