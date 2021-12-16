@@ -22,7 +22,7 @@
         <value>Speichern</value>
     </data>
     <data name="str_message_register_filename_success" xml:space="preserve">
-        <value>Dateiname-Vorlage wurde registriert</value>
+        <value>Vorlage für Dateiname wurde registriert</value>
     </data>
     <data name="str_filename" xml:space="preserve">
         <value>Dateiname</value>
@@ -61,7 +61,7 @@
         <value>Zwischenablage als Datei gespeichert</value>
     </data>
     <data name="str_autosave_infotext" xml:space="preserve">
-        <value>PasteIntoFile wird die Daten ab jetzt automatisch speichern. Um den Dialog wieder anzuzeigen führe PasteIntoFile ohne Argumente aus oder halte die Umschalttaste gedrückt wenn du den Kontext Menu Eintrag auswählst.</value>
+        <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenu die Umschalttaste gedrückt gehalten werden.</value>
     </data>
     <data name="str_noclip_text" xml:space="preserve">
         <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>
@@ -83,5 +83,35 @@
     </data>
     <data name="str_file_exists_directory" xml:space="preserve">
         <value>Ein Ordner mit dem gleichen Namen existert bereits unter {0}.</value>
+    </data>
+    <data name="str_autosave_checkbox" xml:space="preserve">
+        <value>Autosave (Dialog überspringen)</value>
+    </data>
+    <data name="str_contextentry_checkbox" xml:space="preserve">
+        <value>Kontextmenu Eintrag</value>
+    </data>
+    <data name="str_wizzard_autosave_button" xml:space="preserve">
+        <value>Autosave aktivieren</value>
+    </data>
+    <data name="str_wizzard_autosave_info" xml:space="preserve">
+        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts die Umschalttaste gedrückt gehalten werden. Diese Einstellung kann später angepasst werden.</value>
+    </data>
+    <data name="str_wizzard_autosave_title" xml:space="preserve">
+        <value>Datei automatisch ohne Dialog speichern?</value>
+    </data>
+    <data name="str_wizzard_contextentry_button" xml:space="preserve">
+        <value>Zum Kontextmenu hinzufügen</value>
+    </data>
+    <data name="str_wizzard_contextentry_info" xml:space="preserve">
+        <value>Indem ein Eintrag zum Kontextmenu hinzugefügt wird, können Inhalte der Zwischenablage einfach mittels Rechtsklick und Auswahl von 'Einfügen als Datei (Paste Into File)' im aktuellen Ordner als Datei gespeichert werden. Diese Einstellung kann später angepasst werden.</value>
+    </data>
+    <data name="str_wizzard_contextentry_title" xml:space="preserve">
+        <value>Eintrag zum Kontextmenu hinzufügen?</value>
+    </data>
+    <data name="str_wizzard_finish" xml:space="preserve">
+        <value>Setup fertigstellen</value>
+    </data>
+    <data name="str_wizzard_title" xml:space="preserve">
+        <value>Paste Into File</value>
     </data>
 </root>
