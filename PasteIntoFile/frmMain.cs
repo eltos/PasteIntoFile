@@ -56,7 +56,7 @@ namespace PasteIntoFile
 
             var filenameFormat = Settings.Default.filenameTemplate ?? DefaultFilenameFormat;
             txtFilename.Text = DateTime.Now.ToString(filenameFormat);
-            txtCurrentLocation.Text = location;
+            txtCurrentLocation.Text = Path.GetFullPath(location);
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkAutoSave.Checked = Settings.Default.autoSave;
             
