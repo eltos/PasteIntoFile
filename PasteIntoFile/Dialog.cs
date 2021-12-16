@@ -156,11 +156,12 @@ namespace PasteIntoFile
                 return null;
             }
             
-            // create folders if required
-            Directory.CreateDirectory(dirname);
             
             try
             {
+                // create folders if required
+                Directory.CreateDirectory(dirname);
+
                 if (text != null)
                 {
                     File.WriteAllText(file, text, Encoding.UTF8);
