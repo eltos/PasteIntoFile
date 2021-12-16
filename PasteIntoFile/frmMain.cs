@@ -29,6 +29,8 @@ namespace PasteIntoFile
             
             foreach (Control element in GetAllChild(this))
             {
+                // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
+                string[] usedResourceStrings = { Resources.str_filename, Resources.str_extension, Resources.str_location, Resources.str_clear_clipboard, Resources.str_save, Resources.str_preview, Resources.str_main_info, Resources.str_autosave_checkbox, Resources.str_contextentry_checkbox };
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
             
@@ -47,8 +49,6 @@ namespace PasteIntoFile
                 }
                 
                 BackColor = Color.FromArgb(24, 24, 24);
-                linkRegister.ForeColor = Color.LightBlue;
-                linkUnregister.ForeColor = Color.LightBlue;
 
             }
 
@@ -59,6 +59,7 @@ namespace PasteIntoFile
             txtCurrentLocation.Text = Path.GetFullPath(location);
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkAutoSave.Checked = Settings.Default.autoSave;
+            chkContextEntry.Checked = Program.IsAppRegistered();
             
             
             if (Clipboard.ContainsText())
@@ -106,7 +107,7 @@ namespace PasteIntoFile
             // Pressed shift key resets autosave option
             if (ModifierKeys == Keys.Shift)
             {
-                // Make sure to bring window to foreground
+                // Make sure to bring window to foreground (holding shift will open window in background)
                 WindowState = FormWindowState.Minimized;
                 Show();
                 BringToFront();
@@ -249,7 +250,7 @@ namespace PasteIntoFile
         {
             if (chkAutoSave.Checked && !Settings.Default.autoSave)
             {
-                MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave_checkbox, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             
             Settings.Default.autoSave = chkAutoSave.Checked;
@@ -257,14 +258,16 @@ namespace PasteIntoFile
 
         }
 
-        private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ChkContextEntry_CheckedChanged(object sender, EventArgs e)
         {
-            Program.RegisterApp();
-        }
-
-        private void linkUnregister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Program.UnRegisterApp();
+            if (chkContextEntry.Checked && !Program.IsAppRegistered())
+            {
+                Program.RegisterApp();
+            }
+            else if (!chkContextEntry.Checked && Program.IsAppRegistered())
+            {
+                Program.UnRegisterApp();
+            }
         }
 
         private void infoLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

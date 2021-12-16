@@ -36,15 +36,6 @@
     <data name="str_select_folder" xml:space="preserve">
         <value>Speicherort auswählen</value>
     </data>
-    <data name="str_type_img" xml:space="preserve">
-        <value>Bilddatei</value>
-    </data>
-    <data name="str_type_txt" xml:space="preserve">
-        <value>Textdatei</value>
-    </data>
-    <data name="str_type_unknown" xml:space="preserve">
-        <value>Unbekannte Datei</value>
-    </data>
     <data name="str_message_register_context_menu_success" xml:space="preserve">
         <value>Eintrag im Kontextmenu wurde hinzugefügt</value>
     </data>
@@ -85,9 +76,6 @@ Paste Into File</value>
     <data name="str_clear_clipboard" xml:space="preserve">
         <value>Zwischenablage leeren</value>
     </data>
-    <data name="str_autosave" xml:space="preserve">
-        <value>Automatisch speichern</value>
-    </data>
     <data name="str_autosave_balloontext" xml:space="preserve">
         <value>Inhalt der Zwischenablage wurde automatisch als {0} gespeichert. Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
     </data>
@@ -95,7 +83,7 @@ Paste Into File</value>
         <value>Zwischenablage als Datei gespeichert</value>
     </data>
     <data name="str_autosave_infotext" xml:space="preserve">
-        <value>PasteIntoFile wird die Daten beim nächsten Mal automatisch speichern ohne einen Dialog anzuzeigen. Um den Dialog wieder anzuzeigen, halte die Umschalttaste gedrückt wenn du PasteIntoFile im Kontext Menu auswählst.</value>
+        <value>PasteIntoFile wird die Daten ab jetzt automatisch speichern. Um den Dialog wieder anzuzeigen führe PasteIntoFile ohne Argumente aus oder halte die Umschalttaste gedrückt wenn du den Kontext Menu Eintrag auswählst.</value>
     </data>
     <data name="str_noclip_text" xml:space="preserve">
         <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>

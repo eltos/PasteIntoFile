@@ -139,9 +139,6 @@
   <data name="str_location" xml:space="preserve">
     <value>Location</value>
   </data>
-  <data name="str_ellipsis" xml:space="preserve">
-    <value>...</value>
-  </data>
   <data name="str_main_window_title" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
@@ -157,26 +154,14 @@
   <data name="str_contextentry" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
-  <data name="str_type_txt" xml:space="preserve">
-    <value>Text file</value>
-  </data>
-  <data name="str_type_img" xml:space="preserve">
-    <value>Image file</value>
-  </data>
-  <data name="str_type_unknown" xml:space="preserve">
-    <value>Unknown file</value>
-  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file </value>
-  </data>
-  <data name="str_autosave" xml:space="preserve">
-    <value>Autosave</value>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
     <value>Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>Next time, PasteIntoFile will automatically save files without showing a dialog. If you want to show the main window again, hold the shift key while selecting PasteIntoFile from the context menu.</value>
+    <value>PasteIntoFile will now automatically save files without promt. If you want to show the dialog again, run PasteIntoFile without arguments or hold the SHIFT key while selecting the context menu entry.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
     <value>Clipboard is empty or contains unsupported data</value>
@@ -233,5 +218,11 @@ Paste Into File</value>
   <data name="str_file_exists" xml:space="preserve">
     <value>The file {0} already exists.
 Do you want to overwrite it?</value>
+  </data>
+  <data name="str_autosave_checkbox" xml:space="preserve">
+    <value>Autosave (skip dialog)</value>
+  </data>
+  <data name="str_contextentry_checkbox" xml:space="preserve">
+    <value>Context menu entry</value>
   </data>
 </root>

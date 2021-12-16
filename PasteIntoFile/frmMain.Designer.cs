@@ -42,8 +42,6 @@ namespace PasteIntoFile
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.lblCurrentLocation = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
-            this.linkRegister = new System.Windows.Forms.LinkLabel();
-            this.linkUnregister = new System.Windows.Forms.LinkLabel();
             this.infoLabel = new System.Windows.Forms.Label();
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
             this.chkClrClipboard = new System.Windows.Forms.CheckBox();
@@ -55,6 +53,7 @@ namespace PasteIntoFile
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.chkContextEntry = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
             this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -70,7 +69,7 @@ namespace PasteIntoFile
             this.imgContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgContent.Location = new System.Drawing.Point(5, 18);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(348, 161);
+            this.imgContent.Size = new System.Drawing.Size(348, 166);
             this.imgContent.TabIndex = 13;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
@@ -83,7 +82,7 @@ namespace PasteIntoFile
             this.txtContent.Location = new System.Drawing.Point(5, 18);
             this.txtContent.Name = "txtContent";
             this.txtContent.ReadOnly = true;
-            this.txtContent.Size = new System.Drawing.Size(348, 161);
+            this.txtContent.Size = new System.Drawing.Size(348, 166);
             this.txtContent.TabIndex = 0;
             this.txtContent.TabStop = false;
             this.txtContent.Text = "";
@@ -136,8 +135,7 @@ namespace PasteIntoFile
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(185, 3);
             this.btnSave.Name = "btnSave";
-            this.tableLayoutPanel2.SetRowSpan(this.btnSave, 2);
-            this.btnSave.Size = new System.Drawing.Size(176, 28);
+            this.btnSave.Size = new System.Drawing.Size(176, 23);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "str_save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -173,30 +171,6 @@ namespace PasteIntoFile
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             // 
-            // linkRegister
-            // 
-            this.linkRegister.AutoSize = true;
-            this.linkRegister.Location = new System.Drawing.Point(0, 3);
-            this.linkRegister.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.linkRegister.Name = "linkRegister";
-            this.linkRegister.Size = new System.Drawing.Size(122, 13);
-            this.linkRegister.TabIndex = 7;
-            this.linkRegister.TabStop = true;
-            this.linkRegister.Text = "str_contextentry_register";
-            this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRegister_LinkClicked);
-            // 
-            // linkUnregister
-            // 
-            this.linkUnregister.AutoSize = true;
-            this.linkUnregister.Location = new System.Drawing.Point(0, 22);
-            this.linkUnregister.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.linkUnregister.Name = "linkUnregister";
-            this.linkUnregister.Size = new System.Drawing.Size(134, 13);
-            this.linkUnregister.TabIndex = 8;
-            this.linkUnregister.TabStop = true;
-            this.linkUnregister.Text = "str_contextentry_unregister";
-            this.linkUnregister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkUnregister_LinkClicked);
-            // 
             // infoLabel
             // 
             this.infoLabel.AutoSize = true;
@@ -226,8 +200,7 @@ namespace PasteIntoFile
             // chkClrClipboard
             // 
             this.chkClrClipboard.AutoSize = true;
-            this.chkClrClipboard.Location = new System.Drawing.Point(3, 17);
-            this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.chkClrClipboard.Location = new System.Drawing.Point(3, 3);
             this.chkClrClipboard.Name = "chkClrClipboard";
             this.chkClrClipboard.Size = new System.Drawing.Size(115, 17);
             this.chkClrClipboard.TabIndex = 6;
@@ -241,9 +214,9 @@ namespace PasteIntoFile
             this.chkAutoSave.Location = new System.Drawing.Point(3, 0);
             this.chkAutoSave.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.chkAutoSave.Name = "chkAutoSave";
-            this.chkAutoSave.Size = new System.Drawing.Size(87, 17);
+            this.chkAutoSave.Size = new System.Drawing.Size(140, 17);
             this.chkAutoSave.TabIndex = 5;
-            this.chkAutoSave.Text = "str_autosave";
+            this.chkAutoSave.Text = "str_autosave_checkbox";
             this.chkAutoSave.UseVisualStyleBackColor = true;
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
             // 
@@ -254,10 +227,10 @@ namespace PasteIntoFile
             this.box.Controls.Add(this.imgContent);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.box.Location = new System.Drawing.Point(13, 126);
+            this.box.Location = new System.Drawing.Point(13, 121);
             this.box.Name = "box";
             this.box.Padding = new System.Windows.Forms.Padding(5);
-            this.box.Size = new System.Drawing.Size(358, 184);
+            this.box.Size = new System.Drawing.Size(358, 189);
             this.box.TabIndex = 5;
             this.box.TabStop = false;
             this.box.Text = "str_preview";
@@ -345,16 +318,14 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.chkAutoSave, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 89);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 34);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 29);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
             // tableLayoutPanel5
@@ -363,10 +334,10 @@ namespace PasteIntoFile
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.linkRegister, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.linkUnregister, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.infoLinkLabel, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.chkAutoSave, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.infoLabel, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.chkContextEntry, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(10, 313);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
@@ -376,6 +347,18 @@ namespace PasteIntoFile
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(364, 38);
             this.tableLayoutPanel5.TabIndex = 14;
+            // 
+            // chkContextEntry
+            // 
+            this.chkContextEntry.AutoSize = true;
+            this.chkContextEntry.Location = new System.Drawing.Point(3, 19);
+            this.chkContextEntry.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.chkContextEntry.Name = "chkContextEntry";
+            this.chkContextEntry.Size = new System.Drawing.Size(154, 17);
+            this.chkContextEntry.TabIndex = 5;
+            this.chkContextEntry.Text = "str_contextentry_checkbox";
+            this.chkContextEntry.UseVisualStyleBackColor = true;
+            this.chkContextEntry.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             // 
             // frmMain
             // 
@@ -405,7 +388,9 @@ namespace PasteIntoFile
             this.ResumeLayout(false);
             this.PerformLayout();
         }
-        
+
+        private System.Windows.Forms.CheckBox chkContextEntry;
+
         #endregion
 
         private System.Windows.Forms.PictureBox imgContent;
@@ -418,8 +403,6 @@ namespace PasteIntoFile
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label lblCurrentLocation;
         private System.Windows.Forms.Button btnBrowseForFolder;
-        private System.Windows.Forms.LinkLabel linkRegister;
-        private System.Windows.Forms.LinkLabel linkUnregister;
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.LinkLabel infoLinkLabel;
         private System.Windows.Forms.CheckBox chkClrClipboard;

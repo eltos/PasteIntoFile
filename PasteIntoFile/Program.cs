@@ -97,7 +97,8 @@ namespace PasteIntoFile
         /// <returns>app registration status (true/false)</returns>
         public static bool IsAppRegistered()
         {
-            return OpenDirectoryKey().GetSubKeyNames().Contains("shell");
+            var key = OpenDirectoryKey().OpenSubKey("shell");
+            return key != null && key.GetSubKeyNames().Contains(RegistrySubKey);
         }
         
         /// <summary>

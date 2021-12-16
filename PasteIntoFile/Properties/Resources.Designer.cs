@@ -81,15 +81,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autosave.
-        /// </summary>
-        internal static string str_autosave {
-            get {
-                return ResourceManager.GetString("str_autosave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {
@@ -108,7 +99,16 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next time, PasteIntoFile will automatically save files without showing a dialog. If you want to show the main window again, hold the shift key while selecting PasteIntoFile from the context menu..
+        ///   Looks up a localized string similar to Autosave (skip dialog).
+        /// </summary>
+        internal static string str_autosave_checkbox {
+            get {
+                return ResourceManager.GetString("str_autosave_checkbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PasteIntoFile will now automatically save files without promt. If you want to show the dialog again, run PasteIntoFile without arguments or hold the SHIFT key while selecting the context menu entry..
         /// </summary>
         internal static string str_autosave_infotext {
             get {
@@ -135,6 +135,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Context menu entry.
+        /// </summary>
+        internal static string str_contextentry_checkbox {
+            get {
+                return ResourceManager.GetString("str_contextentry_checkbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register context menu entry.
         /// </summary>
         internal static string str_contextentry_register {
@@ -149,15 +158,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_contextentry_unregister {
             get {
                 return ResourceManager.GetString("str_contextentry_unregister", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ....
-        /// </summary>
-        internal static string str_ellipsis {
-            get {
-                return ResourceManager.GetString("str_ellipsis", resourceCulture);
             }
         }
         
@@ -367,33 +367,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_select_folder {
             get {
                 return ResourceManager.GetString("str_select_folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Image file.
-        /// </summary>
-        internal static string str_type_img {
-            get {
-                return ResourceManager.GetString("str_type_img", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Text file.
-        /// </summary>
-        internal static string str_type_txt {
-            get {
-                return ResourceManager.GetString("str_type_txt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown file.
-        /// </summary>
-        internal static string str_type_unknown {
-            get {
-                return ResourceManager.GetString("str_type_unknown", resourceCulture);
             }
         }
         
