@@ -20,7 +20,7 @@ namespace PasteIntoFile
         private string text;
         private Image image;
         
-        public frmMain(string location = null)
+        public frmMain(string location = null, string filename = null)
         {
             location = location ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             
@@ -70,7 +70,7 @@ namespace PasteIntoFile
                 comExt.Items.AddRange(new object[] {
                     "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt"
                 });
-                comExt.Text = Settings.Default.extensionText ?? "txt";
+                comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
 
             }
             else if (Clipboard.ContainsImage())
@@ -86,6 +86,22 @@ namespace PasteIntoFile
                 comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
                 
             }
+
+            // second parameter can overwrite filename and -type
+            if (filename != null)
+            {
+                var i = filename.LastIndexOf('.');
+                if (i < 0)
+                {
+                    txtFilename.Text = filename;
+                }
+                else
+                {
+                    txtFilename.Text = filename.Substring(0, i);
+                    comExt.Text = filename.Substring(i+1);
+                }
+            }
+            
 
             // Pressed shift key resets autosave option
             if (ModifierKeys == Keys.Shift)

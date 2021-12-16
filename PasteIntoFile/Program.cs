@@ -74,7 +74,7 @@ namespace PasteIntoFile
                     return;
                 }
                 
-                Application.Run(new frmMain(args[0]));
+                Application.Run(new frmMain(args[0], args.Length > 1 ? args[1] : null));
             }
             else
             {

@@ -37,7 +37,7 @@ See [all contributors](https://github.com/eltos/PasteIntoFile/graphs/contributor
 
 _Tested on Windows 10_
 
-## Configuration
+## Command Line Use
 
 Run the following commands in a terminal (Command Prompt or PowerShell).
 - To add the *Paste Into File* entry in the File Explorer context menu:
@@ -48,9 +48,13 @@ Run the following commands in a terminal (Command Prompt or PowerShell).
    ```powershell
    PasteIntoFile /unreg
    ``` 
-- To change the default filename format:
+- To configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
    ```powershell
-   PasteIntoFile /filename yyyyMMdd_HHmmss
-   ``` 
-   For more information on the format specifiers, see [Custom date and time format strings](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings).
+   PasteIntoFile /filename "yyyy-MM-dd HH-mm-ss"
+   ```
+- To explicitly set the target path (and optionally also filename) once:
+  ```powershell
+  PasteIntoFile \path\to\directory [filename.ext]
+  ``` 
+
 
