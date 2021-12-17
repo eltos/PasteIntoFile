@@ -224,4 +224,7 @@ Do you want to overwrite it?</value>
   <data name="str_wizard_autosave_info" xml:space="preserve">
     <value>You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later.</value>
   </data>
+  <data name="str_text_is_no_uri" xml:space="preserve">
+    <value>Text is no well formed url and can not be saved as internet shortcut.</value>
+  </data>
 </root>

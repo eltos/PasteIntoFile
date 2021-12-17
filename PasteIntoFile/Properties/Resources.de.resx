@@ -114,4 +114,7 @@
     <data name="str_wizard_title" xml:space="preserve">
         <value>Paste Into File</value>
     </data>
+    <data name="str_text_is_no_uri" xml:space="preserve">
+        <value>Der Text entspricht nicht dem Format einer URL und kann nicht als Internetverknüpfung gespeichert werden.</value>
+    </data>
 </root>

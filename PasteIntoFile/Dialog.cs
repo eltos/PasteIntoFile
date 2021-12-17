@@ -66,7 +66,7 @@ namespace PasteIntoFile
                 txtContent.Show();
                 box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
                 comExt.Items.AddRange(new object[] {
-                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt"
+                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt", "url"
                 });
                 comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
 
@@ -137,7 +137,10 @@ namespace PasteIntoFile
         string save()
         {
             string dirname = Path.GetFullPath(txtCurrentLocation.Text);
-            string filename = txtFilename.Text + (txtFilename.Text.EndsWith("." + comExt.Text) ? "" : "." + comExt.Text);
+            string ext = comExt.Text.ToLowerInvariant();
+            string filename = txtFilename.Text;
+            if (!filename.EndsWith("." + ext))
+                filename += "." + ext;
             string file = Path.Combine(dirname, filename);
             
             // check if file exists
@@ -164,12 +167,33 @@ namespace PasteIntoFile
 
                 if (text != null)
                 {
-                    File.WriteAllText(file, text, Encoding.UTF8);
+                    switch (ext)
+                    {
+                        case "url":
+                            if (!Uri.IsWellFormedUriString(text.Trim(), UriKind.RelativeOrAbsolute))
+                            {
+                                MessageBox.Show(Resources.str_text_is_no_uri, Resources.str_main_window_title,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return null;
+                            }
+                            
+                            File.WriteAllLines(file, new[] {
+                                @"[InternetShortcut]",
+                                @"URL=" + text.Trim()
+                            }, Encoding.UTF8);
+                            break;
+                        
+                        default:
+                            File.WriteAllText(file, text, Encoding.UTF8);
+                            break;
+                    }
+
+                    
                 }
                 else if (image != null)
                 {
                     ImageFormat format;
-                    switch (comExt.Text)
+                    switch (ext)
                     {
                         case "bpm": format = ImageFormat.Bmp; break;
                         case "emf": format = ImageFormat.Emf; break;

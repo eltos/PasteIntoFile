@@ -297,6 +297,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text is no well formed url and can not be saved as internet shortcut..
+        /// </summary>
+        internal static string str_text_is_no_uri {
+            get {
+                return ResourceManager.GetString("str_text_is_no_uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         internal static string str_version {

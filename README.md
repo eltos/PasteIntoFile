@@ -15,7 +15,7 @@ _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contr
 ## Features
 
 + Shortcut in context menu (right click in any folder)
-+ Supports text and images (with preview).
++ Supports text, images and url links (with preview).
 + Resizeable GUI to adjust filename, filetype and path
 + Optional autosave mode (only shows dialog when holding SHIFT)
 + Optional clearing of clipboard after save
