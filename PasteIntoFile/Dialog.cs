@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 using WK.Libraries.BetterFolderBrowserNS;
+using WK.Libraries.SharpClipboardNS;
 
 namespace PasteIntoFile
 {
@@ -15,6 +16,7 @@ namespace PasteIntoFile
         public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         private string text;
         private Image image;
+        private readonly SharpClipboard clipboard = new SharpClipboard();
         
         public Dialog(string location, string filename = null, bool forceShowDialog = false)
         {
@@ -58,32 +60,9 @@ namespace PasteIntoFile
             chkAutoSave.Checked = Settings.Default.autoSave;
             chkContextEntry.Checked = Program.IsAppRegistered();
             
-            
-            if (Clipboard.ContainsText())
-            {
-                text = Clipboard.GetText();
-                txtContent.Text = text;
-                txtContent.Show();
-                box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
-                comExt.Items.AddRange(new object[] {
-                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt", "url"
-                });
-                comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
 
-            }
-            else if (Clipboard.ContainsImage())
-            {
-                image = Clipboard.GetImage();
-                imgContent.BackgroundImage = image;
-                imgContent.Show();
-                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
-                comExt.Items.AddRange(new object[] {
-                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
-                });
-                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
-                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
-                
-            }
+            if (!readClipboard())
+                Environment.Exit(1);
 
             // second parameter can overwrite filename and -type
             if (filename != null)
@@ -111,7 +90,7 @@ namespace PasteIntoFile
                 WindowState = FormWindowState.Normal;
             }
             // otherwise perform autosave if enabled
-            else if (chkAutoSave.Checked)
+            else if (Settings.Default.autoSave)
             {
                 var file = save();
                 if (file != null)
@@ -124,6 +103,57 @@ namespace PasteIntoFile
                     Environment.Exit(0);
                 }
             }
+            
+            // register clipboard monitor
+            clipboard.ClipboardChanged += ClipboardChanged;
+            
+        }
+
+        private bool readClipboard()
+        {
+            // reset GUI elements
+            text = null;
+            txtContent.Hide();
+            image = null;
+            imgContent.Hide();
+            comExt.Items.Clear();
+
+            if (Clipboard.ContainsText())
+            {
+                text = Clipboard.GetText();
+                txtContent.Text = text;
+                txtContent.Show();
+                box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
+                comExt.Items.AddRange(new object[] {
+                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt", "url"
+                });
+                comExt.DropDownStyle = ComboBoxStyle.DropDown;
+                comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
+                return true;
+            }
+            
+            if (Clipboard.ContainsImage())
+            {
+                image = Clipboard.GetImage();
+                imgContent.BackgroundImage = image;
+                imgContent.Show();
+                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
+                comExt.Items.AddRange(new object[] {
+                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
+                });
+                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
+                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
+                return true;
+            }
+            
+            MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
+            return false;
+            
+        }
+        
+        private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        {
+            readClipboard();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -208,7 +238,7 @@ namespace PasteIntoFile
                     image.Save(file, format);
                 }
 
-                if (chkClrClipboard.Checked)
+                if (Settings.Default.clrClipboard)
                 {
                     Clipboard.Clear();
                 }
@@ -249,7 +279,7 @@ namespace PasteIntoFile
         {
             if (e.KeyChar == (char) Keys.Escape)
             {
-                Environment.Exit(0);
+                Environment.Exit(1);
             }
         }
 

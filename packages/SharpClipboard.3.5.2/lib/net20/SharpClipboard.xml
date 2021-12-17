@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpClipboard</name>
+    </assembly>
+    <members>
+        <member name="T:WK.Libraries.SharpClipboardNS.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.SharpClipboard">
+            <summary>
+            Assists in anonymously monitoring the system clipboard by
+            detecting any copied/cut data and the type of data it is.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:WK.Libraries.SharpClipboardNS.SharpClipboard"/>.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new instance of <see cref="T:WK.Libraries.SharpClipboardNS.SharpClipboard"/>.
+            </summary>
+            <param name="container">
+            The container hosting the component.
+            </param>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes">
+            <summary>
+            Provides a list of the supported clipboard content types.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes.Text">
+            <summary>
+            Represents <see cref="T:System.String"/> content.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes.Image">
+            <summary>
+            Represents <see cref="F:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes.Image"/> content.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes.Files">
+            <summary>
+            Represents content as a <see cref="!:List&lt;string&gt;"/> of files.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes.Other">
+            <summary>
+            Represents any complex objects.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.MonitorClipboard">
+            <summary>
+            Gets or sets a value indicating whether the clipboard
+            will be monitored once the application launches.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ObserveLastEntry">
+            <summary>
+            When set to true, the last cut/copied clipboard item will
+            not be auto-picked once monitoring is enabled. However when 
+            set to false, the last cut/copied clipboard item will be 
+            auto-picked once monitoring is enabled.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ObservableFormats">
+            <summary>
+            Gets or sets the data formats that will be observed
+            or monitored when cut/copy actions are triggered.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.Tag">
+            <summary>
+            Gets or sets the object that contains programmer-
+            supplied data associated with the component.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardText">
+            <summary>
+            Gets the currently cut/copied clipboard text.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardObject">
+            <summary>
+            Gets the currently cut/copied clipboard <see cref="T:System.Object"/>.
+            This is necessary when handling complex content copied to the clipboard.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardFile">
+            <summary>
+            Gets the currently cut/copied clipboard file-path.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardFiles">
+            <summary>
+            Gets the currently cut/copied clipboard file-paths.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardImage">
+            <summary>
+            Gets the currently cut/copied clipboard image.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.HandleCaption">
+            <summary>
+            Lets you change the invisible clipboard-window-handle's title 
+            that is designed to receive broadcasted clipboard messages. This is 
+            however unnecessary for normal users but may be essential if you're 
+            working under special circumstances that require supervision.
+            The window will however remain hidden from all users.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.ForegroundWindowHandle">
+            <summary>
+            Gets the current foreground window's handle.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.StartMonitoring">
+            <summary>
+            Starts the clipboard-monitoring process and
+            initializes the system clipboard-access handle.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.StopMonitoring">
+            <summary>
+            Ends the clipboard-monitoring process and
+            shuts the system clipboard-access handle.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.SetDefaults">
+            <summary>
+            Apply library-default settings and launch code.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.Invoke(System.Object,WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes,WK.Libraries.SharpClipboardNS.SourceApplication)">
+            <summary>
+            Invokes the <see cref="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChanged"/> event with formal parameters.
+            </summary>
+            <param name="content">The current clipboard content.</param>
+            <param name="type">The current clipboard content-type.</param>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.GetForegroundWindow">
+            <summary>
+            Gets the foreground or currently active window handle.
+            </summary>
+        </member>
+        <member name="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChanged">
+            <summary>
+            This event is triggered whenever the
+            system clipboard has been modified.
+            </summary>
+        </member>
+        <member name="E:WK.Libraries.SharpClipboardNS.SharpClipboard.MonitorClipboardChanged">
+            <summary>
+            Occurs whenever the clipboard-monitoring status has been changed.
+            </summary>
+        </member>
+        <member name="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ObservableFormatsChanged">
+            <summary>
+            Occurs whenever the allowed observable formats have been changed.
+            </summary>
+        </member>
+        <member name="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ObserveLastEntryChanged">
+            <summary>
+            Occurs whenever the 'ObserveLastEntry' property has been changed.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs.#ctor(System.Object,WK.Libraries.SharpClipboardNS.SharpClipboard.ContentTypes,WK.Libraries.SharpClipboardNS.SourceApplication)">
+            <summary>
+            Provides data for the <see cref="E:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChanged"/> event.
+            </summary>
+            <param name="content">The current clipboard content.</param>
+            <param name="contentType">The current clipboard-content-type.</param>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs.Content">
+            <summary>
+            Gets the currently copied clipboard content.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs.ContentType">
+            <summary>
+            Gets the currently copied clipboard content-type.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SharpClipboard.ClipboardChangedEventArgs.SourceApplication">
+            <summary>
+            Gets the application from where the
+            clipboard's content were copied.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.OnLoad(System.Object,System.EventArgs)">
+            <summary>
+            This initiates a Timer that then begins the 
+            clipboard-monitoring service. The Timer will 
+            auto-shutdown once the service has started.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.SharpClipboard.WKComponentActionList">
+            <summary>
+            Initializes a new instance of the <see cref="T:WK.Libraries.SharpClipboardNS.SharpClipboard.WKComponentActionList"/> class.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.WKComponentActionList.GetSortedActionItems">
+            <summary>
+            Implementation of this abstract method creates Smart Tag items,
+            associates their targets, and collects them into a list.
+            </summary>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.SharpClipboard.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SharpClipboard.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.ObservableDataFormats">
+            <summary>
+            Provides a list of supported observable data formats
+            that can be monitored from the system clipboard.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.ObservableDataFormats.#ctor">
+            <summary>
+            Creates a new <see cref="T:WK.Libraries.SharpClipboardNS.ObservableDataFormats"/> options class-instance.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.ObservableDataFormats.All">
+            <summary>
+            Gets or sets a value indicating whether all the
+            supported observable formats will be monitored.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.ObservableDataFormats.Texts">
+            <summary>
+            Gets or sets a value indicating whether texts will be monitored.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.ObservableDataFormats.Files">
+            <summary>
+            Gets or sets a value indicating whether files will be monitored.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.ObservableDataFormats.Images">
+            <summary>
+            Gets or sets a value indicating whether images will be monitored.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.ObservableDataFormats.Others">
+            <summary>
+            Gets or sets a value indicating whether other 
+            complex object-types will be monitored.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.ObservableDataFormats.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> containing the list of observable data
+            formats provided and their applied statuses separated by semi-colons.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.SourceApplication">
+            <summary>
+            Stores details of the application from
+            where the clipboard's content were copied.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SourceApplication.#ctor(System.Int32,System.IntPtr,System.String,System.String,System.String)">
+            <summary>
+            Creates a new <see cref="T:WK.Libraries.SharpClipboardNS.SourceApplication"/> class-instance.
+            </summary>
+            <param name="id">The application's ID.</param>
+            <param name="handle">The application's handle.</param>
+            <param name="name">The application's name.</param>
+            <param name="title">The application's title.</param>
+            <param name="path">The application's path.</param>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SourceApplication.ID">
+            <summary>
+            Gets the application's process-ID.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SourceApplication.Handle">
+            <summary>
+            Gets the appliation's window-handle.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SourceApplication.Name">
+            <summary>
+            Gets the application's name.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SourceApplication.Title">
+            <summary>
+            Gets the application's title-text.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.SourceApplication.Path">
+            <summary>
+            Gets the application's absolute path.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.SourceApplication.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> containing the list 
+            of application details provided.
+            </summary>
+        </member>
+        <member name="T:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle">
+            <summary>
+            This window acts as a handle to the clipboard-monitoring process and
+            thus will be launched in the background once the component has started
+            the monitoring service. However, it won't be visible to anyone even via
+            the Task Manager.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle"/>.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.Ready">
+            <summary>
+            Checks if the handle is ready to monitor the system clipboard.
+            It is used to provide a final value for use whenever the property
+            'ObserveLastEntry' is enabled.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.SharpClipboardInstance">
+            <summary>
+            Gets or sets an active <see cref="T:WK.Libraries.SharpClipboardNS.SharpClipboard"/> instance
+            for use when managing the current clipboard handle.
+            </summary>
+        </member>
+        <member name="P:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.CreateParams">
+            <summary>
+            Modifications in this overriden method have
+            been added to disable viewing of the handle-
+            window in the Task Manager.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            This is the main clipboard detection method.
+            Algorithmic customizations are most welcome.
+            </summary>
+            <param name="m">The processed window-reference message.</param>
+        </member>
+        <member name="F:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WK.Libraries.SharpClipboardNS.Views.ClipboardHandle.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

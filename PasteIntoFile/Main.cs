@@ -46,12 +46,6 @@ namespace PasteIntoFile
                     return;
             }
 
-            if (!Clipboard.ContainsText() && !Clipboard.ContainsImage())
-            {
-                MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
-                return;
-            }
-
             if (args.Length > 0)
             {
                 if (args[0] == "/reg")
