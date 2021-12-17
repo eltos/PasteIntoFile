@@ -210,7 +210,7 @@ namespace PasteIntoFile
             BetterFolderBrowser betterFolderBrowser = new BetterFolderBrowser();
 
             betterFolderBrowser.Title = Resources.str_select_folder;
-            betterFolderBrowser.RootFolder = @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            betterFolderBrowser.RootFolder = txtCurrentLocation.Text ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             // Allow multi-selection of folders.
             betterFolderBrowser.Multiselect = false;
