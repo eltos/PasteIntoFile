@@ -215,7 +215,7 @@ namespace PasteIntoFile
             // Allow multi-selection of folders.
             betterFolderBrowser.Multiselect = false;
 
-            if (betterFolderBrowser.ShowDialog() == DialogResult.OK)
+            if (betterFolderBrowser.ShowDialog(this) == DialogResult.OK)
             {
                 txtCurrentLocation.Text = betterFolderBrowser.SelectedFolder;
             }
