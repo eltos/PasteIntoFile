@@ -360,7 +360,7 @@ namespace PasteIntoFile
             this.chkContextEntry.UseVisualStyleBackColor = true;
             this.chkContextEntry.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             // 
-            // frmMain
+            // Dialog
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -372,7 +372,7 @@ namespace PasteIntoFile
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_KeyUp);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).EndInit();
             this.box.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

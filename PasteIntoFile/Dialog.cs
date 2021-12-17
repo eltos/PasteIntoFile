@@ -221,9 +221,9 @@ namespace PasteIntoFile
             }
         }
 
-        private void Main_KeyUp(object sender, KeyEventArgs e)
+        private void Main_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (e.KeyChar == (char) Keys.Escape)
             {
                 Environment.Exit(0);
             }
