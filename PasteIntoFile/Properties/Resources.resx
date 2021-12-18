@@ -227,4 +227,10 @@ Do you want to overwrite it?</value>
   <data name="str_text_is_no_uri" xml:space="preserve">
     <value>Text is no well formed url and can not be saved as internet shortcut.</value>
   </data>
+  <data name="str_continuous_mode" xml:space="preserve">
+    <value>Batch mode</value>
+  </data>
+  <data name="str_n_saved" xml:space="preserve">
+    <value>{0} saved</value>
+  </data>
 </root>

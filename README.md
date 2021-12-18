@@ -18,6 +18,7 @@ _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contr
 + Supports text, images and url links (with preview).
 + Resizeable GUI to adjust filename, filetype and path
 + Optional autosave mode (only shows dialog when holding SHIFT)
++ Optional batch mode (monitors clipboard and saves on change)
 + Optional clearing of clipboard after save
 + First launch wizard
 + Support for Windows 10 dark theme

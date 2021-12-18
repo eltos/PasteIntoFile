@@ -17,7 +17,10 @@ namespace PasteIntoFile
         private string text;
         private Image image;
         private readonly SharpClipboard clipboard = new SharpClipboard();
-        
+        private bool continuousMode = false;
+        private int saveCount = 0;
+        private DateTime clipboardTimestamp;
+
         public Dialog(string location, string filename = null, bool forceShowDialog = false)
         {
             // always show GUI if shift pressed during start
@@ -29,7 +32,7 @@ namespace PasteIntoFile
             foreach (Control element in GetAllChild(this))
             {
                 // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_filename, Resources.str_extension, Resources.str_location, Resources.str_clear_clipboard, Resources.str_save, Resources.str_preview, Resources.str_main_info, Resources.str_autosave_checkbox, Resources.str_contextentry_checkbox };
+                string[] usedResourceStrings = { Resources.str_filename, Resources.str_extension, Resources.str_location, Resources.str_clear_clipboard, Resources.str_save, Resources.str_preview, Resources.str_main_info, Resources.str_autosave_checkbox, Resources.str_contextentry_checkbox, Resources.str_continuous_mode };
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
             
@@ -51,18 +54,19 @@ namespace PasteIntoFile
 
             }
 
-            //
-
-            var filenameFormat = string.IsNullOrWhiteSpace(Settings.Default.filenameTemplate) ? DefaultFilenameFormat : Settings.Default.filenameTemplate;
-            txtFilename.Text = DateTime.Now.ToString(filenameFormat);
-            txtCurrentLocation.Text = Path.GetFullPath(location);
-            chkClrClipboard.Checked = Settings.Default.clrClipboard;
-            chkAutoSave.Checked = Settings.Default.autoSave;
-            chkContextEntry.Checked = Program.IsAppRegistered();
-            
+            // read clipboard and populate GUI
 
             if (!readClipboard())
                 Environment.Exit(1);
+            
+            updateFilename();
+            txtCurrentLocation.Text = Path.GetFullPath(location);
+            chkClrClipboard.Checked = Settings.Default.clrClipboard;
+            chkContinuousMode.Checked = continuousMode;
+            btnSave.Enabled = txtFilename.Enabled = !continuousMode; 
+            chkAutoSave.Checked = Settings.Default.autoSave;
+            chkContextEntry.Checked = Program.IsAppRegistered();
+            
 
             // second parameter can overwrite filename and -type
             if (filename != null)
@@ -109,8 +113,16 @@ namespace PasteIntoFile
             
         }
 
+        private void updateFilename()
+        {
+            var filenameFormat = string.IsNullOrWhiteSpace(Settings.Default.filenameTemplate) ? DefaultFilenameFormat : Settings.Default.filenameTemplate;
+            txtFilename.Text = clipboardTimestamp.ToString(filenameFormat);
+        }
+        
         private bool readClipboard()
         {
+            clipboardTimestamp = DateTime.Now;
+                
             // reset GUI elements
             text = null;
             txtContent.Hide();
@@ -146,16 +158,31 @@ namespace PasteIntoFile
                 return true;
             }
             
-            MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK);
+            MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;
             
         }
         
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
+            var previousClipboardTimestamp = clipboardTimestamp;
             readClipboard();
+
+            // ignore duplicate clipboard content updates within 100ms
+            if (continuousMode && (clipboardTimestamp - previousClipboardTimestamp).TotalMilliseconds > 100)
+            {
+                updateFilename();
+                save();
+                updateSavebutton();
+            }
         }
 
+        private void updateSavebutton()
+        {
+            btnSave.Enabled = txtFilename.Enabled = !continuousMode;
+            btnSave.Text = continuousMode ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
+        }
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (save() != null)
@@ -166,32 +193,31 @@ namespace PasteIntoFile
         
         string save()
         {
-            string dirname = Path.GetFullPath(txtCurrentLocation.Text);
-            string ext = comExt.Text.ToLowerInvariant();
-            string filename = txtFilename.Text;
-            if (!filename.EndsWith("." + ext))
-                filename += "." + ext;
-            string file = Path.Combine(dirname, filename);
-            
-            // check if file exists
-            if (File.Exists(file))
-            {
-                var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.str_main_window_title,
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result != DialogResult.Yes)
+            try {
+                string dirname = Path.GetFullPath(txtCurrentLocation.Text);
+                string ext = comExt.Text.ToLowerInvariant();
+                string filename = txtFilename.Text;
+                if (!filename.EndsWith("." + ext))
+                    filename += "." + ext;
+                string file = Path.Combine(dirname, filename);
+                
+                // check if file exists
+                if (File.Exists(file))
                 {
+                    var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.str_main_window_title,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result != DialogResult.Yes)
+                    {
+                        return null;
+                    }
+                } else if (Directory.Exists(file))
+                {
+                    MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.str_main_window_title,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
-            } else if (Directory.Exists(file))
-            {
-                MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.str_main_window_title,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
             
             
-            try
-            {
                 // create folders if required
                 Directory.CreateDirectory(dirname);
 
@@ -237,19 +263,24 @@ namespace PasteIntoFile
 
                     image.Save(file, format);
                 }
-
+                else
+                {
+                    return null;
+                }
+                
                 if (Settings.Default.clrClipboard)
                 {
                     Clipboard.Clear();
                 }
-                
+
+                saveCount++;
                 return file;
 
             }
             catch (UnauthorizedAccessException ex)
             {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.RestartAppElevated(dirname);
+                Program.RestartAppElevated(txtCurrentLocation.Text);
             }
             catch (Exception ex)
             {
@@ -287,6 +318,17 @@ namespace PasteIntoFile
         {
             Settings.Default.clrClipboard = chkClrClipboard.Checked;
             Settings.Default.Save();
+        }
+
+        private void chkContinuousMode_CheckedChanged(object sender, EventArgs e)
+        {
+            continuousMode = chkContinuousMode.Checked;
+            
+            if (continuousMode) // save current clipboard now
+                save();
+            
+            updateSavebutton();
+                
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)

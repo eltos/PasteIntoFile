@@ -117,4 +117,10 @@
     <data name="str_text_is_no_uri" xml:space="preserve">
         <value>Der Text entspricht nicht dem Format einer URL und kann nicht als Internetverknüpfung gespeichert werden.</value>
     </data>
+    <data name="str_continuous_mode" xml:space="preserve">
+        <value>Stapelverarbeitung</value>
+    </data>
+    <data name="str_n_saved" xml:space="preserve">
+        <value>{0} gespeichert</value>
+    </data>
 </root>

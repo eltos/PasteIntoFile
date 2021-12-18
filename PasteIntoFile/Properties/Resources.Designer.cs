@@ -134,6 +134,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Batch mode.
+        /// </summary>
+        internal static string str_continuous_mode {
+            get {
+                return ResourceManager.GetString("str_continuous_mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {
@@ -239,6 +248,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_message_unregister_context_menu_success {
             get {
                 return ResourceManager.GetString("str_message_unregister_context_menu_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} saved.
+        /// </summary>
+        internal static string str_n_saved {
+            get {
+                return ResourceManager.GetString("str_n_saved", resourceCulture);
             }
         }
         

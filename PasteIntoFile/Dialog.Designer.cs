@@ -47,11 +47,11 @@ namespace PasteIntoFile
             this.chkClrClipboard = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.box = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.chkContinuousMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.chkContextEntry = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgContent)).BeginInit();
@@ -69,7 +69,7 @@ namespace PasteIntoFile
             this.imgContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgContent.Location = new System.Drawing.Point(5, 18);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(348, 166);
+            this.imgContent.Size = new System.Drawing.Size(348, 158);
             this.imgContent.TabIndex = 13;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
@@ -82,7 +82,7 @@ namespace PasteIntoFile
             this.txtContent.Location = new System.Drawing.Point(5, 18);
             this.txtContent.Name = "txtContent";
             this.txtContent.ReadOnly = true;
-            this.txtContent.Size = new System.Drawing.Size(348, 166);
+            this.txtContent.Size = new System.Drawing.Size(348, 158);
             this.txtContent.TabIndex = 0;
             this.txtContent.TabStop = false;
             this.txtContent.Text = "";
@@ -135,7 +135,8 @@ namespace PasteIntoFile
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSave.Location = new System.Drawing.Point(185, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(176, 23);
+            this.tableLayoutPanel2.SetRowSpan(this.btnSave, 2);
+            this.btnSave.Size = new System.Drawing.Size(176, 31);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "str_save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -200,7 +201,8 @@ namespace PasteIntoFile
             // chkClrClipboard
             // 
             this.chkClrClipboard.AutoSize = true;
-            this.chkClrClipboard.Location = new System.Drawing.Point(3, 3);
+            this.chkClrClipboard.Location = new System.Drawing.Point(3, 0);
+            this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.chkClrClipboard.Name = "chkClrClipboard";
             this.chkClrClipboard.Size = new System.Drawing.Size(115, 17);
             this.chkClrClipboard.TabIndex = 6;
@@ -227,23 +229,13 @@ namespace PasteIntoFile
             this.box.Controls.Add(this.imgContent);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.box.Location = new System.Drawing.Point(13, 121);
+            this.box.Location = new System.Drawing.Point(13, 129);
             this.box.Name = "box";
             this.box.Padding = new System.Windows.Forms.Padding(5);
-            this.box.Size = new System.Drawing.Size(358, 189);
+            this.box.Size = new System.Drawing.Size(358, 181);
             this.box.TabIndex = 5;
             this.box.TabStop = false;
             this.box.Text = "str_preview";
-            // 
-            // panel1
-            // 
-            this.panel1.AutoSize = true;
-            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.Location = new System.Drawing.Point(30, 116);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10);
-            this.panel1.Size = new System.Drawing.Size(20, 20);
-            this.panel1.TabIndex = 9;
             // 
             // tableLayoutPanel1
             // 
@@ -319,14 +311,28 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 89);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 29);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(364, 37);
             this.tableLayoutPanel2.TabIndex = 12;
+            // 
+            // chkContinuousMode
+            // 
+            this.chkContinuousMode.AutoSize = true;
+            this.chkContinuousMode.Location = new System.Drawing.Point(3, 17);
+            this.chkContinuousMode.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.chkContinuousMode.Name = "chkContinuousMode";
+            this.chkContinuousMode.Size = new System.Drawing.Size(127, 17);
+            this.chkContinuousMode.TabIndex = 6;
+            this.chkContinuousMode.Text = "str_continuous_mode";
+            this.chkContinuousMode.UseVisualStyleBackColor = true;
+            this.chkContinuousMode.CheckedChanged += new System.EventHandler(this.chkContinuousMode_CheckedChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -367,7 +373,6 @@ namespace PasteIntoFile
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(384, 361);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.panel1);
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "Dialog";
@@ -389,10 +394,8 @@ namespace PasteIntoFile
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.CheckBox chkContinuousMode;
         private System.Windows.Forms.CheckBox chkContextEntry;
-
-        #endregion
-
         private System.Windows.Forms.PictureBox imgContent;
         private System.Windows.Forms.RichTextBox txtContent;
         private System.Windows.Forms.Label lblFileName;
@@ -408,12 +411,13 @@ namespace PasteIntoFile
         private System.Windows.Forms.CheckBox chkClrClipboard;
         private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.GroupBox box;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+
+        #endregion
 
     }
 }
