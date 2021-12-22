@@ -332,9 +332,18 @@ namespace PasteIntoFile
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e)
         {
             continuousMode = chkContinuousMode.Checked;
-            
-            if (continuousMode) // save current clipboard now
-                save();
+
+            if (continuousMode)
+            {
+                var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (saveNow == DialogResult.Yes) // save current clipboard now
+                {
+                    updateFilename();
+                    save();
+                }
+                else if (saveNow != DialogResult.No)
+                    continuousMode = chkContinuousMode.Checked = false;
+            } 
             
             updateSavebutton();
                 
