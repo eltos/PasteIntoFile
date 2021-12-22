@@ -419,7 +419,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autosave file without promt?.
+        ///   Looks up a localized string similar to Automatically save file without prompt?.
         /// </summary>
         internal static string str_wizard_autosave_title {
             get {

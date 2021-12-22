@@ -213,7 +213,7 @@ Do you want to overwrite it?</value>
     <value>Add to context menu</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>Autosave file without promt?</value>
+    <value>Automatically save file without prompt?</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
     <value>Enable autosave</value>
