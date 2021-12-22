@@ -62,7 +62,7 @@ namespace PasteIntoFile
             txtCurrentLocation.Text = Path.GetFullPath(location);
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkContinuousMode.Checked = continuousMode;
-            btnSave.Enabled = txtFilename.Enabled = !continuousMode; 
+            updateSavebutton(); 
             chkAutoSave.Checked = Settings.Default.autoSave;
             chkContextEntry.Checked = Program.IsAppRegistered();
             
@@ -331,9 +331,7 @@ namespace PasteIntoFile
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e)
         {
-            continuousMode = chkContinuousMode.Checked;
-
-            if (continuousMode)
+            if (chkContinuousMode.Checked)
             {
                 var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (saveNow == DialogResult.Yes) // save current clipboard now
@@ -342,9 +340,10 @@ namespace PasteIntoFile
                     save();
                 }
                 else if (saveNow != DialogResult.No)
-                    continuousMode = chkContinuousMode.Checked = false;
+                    chkContinuousMode.Checked = false;
             } 
             
+            continuousMode = chkContinuousMode.Checked;
             updateSavebutton();
                 
         }
