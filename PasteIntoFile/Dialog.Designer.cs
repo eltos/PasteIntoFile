@@ -71,7 +71,7 @@ namespace PasteIntoFile
             this.imgContent.Location = new System.Drawing.Point(8, 27);
             this.imgContent.Margin = new System.Windows.Forms.Padding(4);
             this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(522, 236);
+            this.imgContent.Size = new System.Drawing.Size(522, 249);
             this.imgContent.TabIndex = 13;
             this.imgContent.TabStop = false;
             this.imgContent.Visible = false;
@@ -85,7 +85,7 @@ namespace PasteIntoFile
             this.txtContent.Margin = new System.Windows.Forms.Padding(4);
             this.txtContent.Name = "txtContent";
             this.txtContent.ReadOnly = true;
-            this.txtContent.Size = new System.Drawing.Size(522, 236);
+            this.txtContent.Size = new System.Drawing.Size(522, 249);
             this.txtContent.TabIndex = 0;
             this.txtContent.TabStop = false;
             this.txtContent.Text = "";
@@ -109,14 +109,14 @@ namespace PasteIntoFile
             this.txtFilename.Location = new System.Drawing.Point(4, 24);
             this.txtFilename.Margin = new System.Windows.Forms.Padding(4);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(376, 26);
+            this.txtFilename.Size = new System.Drawing.Size(426, 26);
             this.txtFilename.TabIndex = 0;
             this.txtFilename.Text = "xxx";
             // 
             // lblExt
             // 
             this.lblExt.AutoSize = true;
-            this.lblExt.Location = new System.Drawing.Point(388, 0);
+            this.lblExt.Location = new System.Drawing.Point(438, 0);
             this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExt.Name = "lblExt";
             this.lblExt.Size = new System.Drawing.Size(104, 20);
@@ -127,10 +127,10 @@ namespace PasteIntoFile
             // 
             this.comExt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comExt.FormattingEnabled = true;
-            this.comExt.Location = new System.Drawing.Point(388, 24);
+            this.comExt.Location = new System.Drawing.Point(438, 24);
             this.comExt.Margin = new System.Windows.Forms.Padding(4);
             this.comExt.Name = "comExt";
-            this.comExt.Size = new System.Drawing.Size(154, 28);
+            this.comExt.Size = new System.Drawing.Size(104, 28);
             this.comExt.TabIndex = 1;
             this.comExt.SelectedIndexChanged += new System.EventHandler(this.comExt_Update);
             this.comExt.TextUpdate += new System.EventHandler(this.comExt_Update);
@@ -156,7 +156,7 @@ namespace PasteIntoFile
             this.txtCurrentLocation.Location = new System.Drawing.Point(4, 24);
             this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4);
             this.txtCurrentLocation.Name = "txtCurrentLocation";
-            this.txtCurrentLocation.Size = new System.Drawing.Size(455, 26);
+            this.txtCurrentLocation.Size = new System.Drawing.Size(480, 26);
             this.txtCurrentLocation.TabIndex = 2;
             // 
             // lblCurrentLocation
@@ -173,10 +173,10 @@ namespace PasteIntoFile
             // 
             this.btnBrowseForFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBrowseForFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnBrowseForFolder.Location = new System.Drawing.Point(467, 24);
+            this.btnBrowseForFolder.Location = new System.Drawing.Point(492, 24);
             this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
-            this.btnBrowseForFolder.Size = new System.Drawing.Size(75, 39);
+            this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 26);
             this.btnBrowseForFolder.TabIndex = 3;
             this.btnBrowseForFolder.Text = "...";
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
@@ -196,6 +196,7 @@ namespace PasteIntoFile
             // 
             // infoLinkLabel
             // 
+            this.infoLinkLabel.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
             this.infoLinkLabel.AutoSize = true;
             this.infoLinkLabel.Dock = System.Windows.Forms.DockStyle.Right;
             this.infoLinkLabel.LinkColor = System.Drawing.SystemColors.ControlDark;
@@ -239,11 +240,11 @@ namespace PasteIntoFile
             this.box.Controls.Add(this.imgContent);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.box.Location = new System.Drawing.Point(19, 196);
+            this.box.Location = new System.Drawing.Point(19, 183);
             this.box.Margin = new System.Windows.Forms.Padding(4);
             this.box.Name = "box";
             this.box.Padding = new System.Windows.Forms.Padding(8);
-            this.box.Size = new System.Drawing.Size(538, 271);
+            this.box.Size = new System.Drawing.Size(538, 284);
             this.box.TabIndex = 5;
             this.box.TabStop = false;
             this.box.Text = "str_preview";
@@ -298,10 +299,11 @@ namespace PasteIntoFile
             // 
             // linkLabel1
             // 
+            this.linkLabel1.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.SystemColors.ControlDark;
-            this.linkLabel1.Location = new System.Drawing.Point(251, 0);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(301, 0);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(133, 20);
             this.linkLabel1.TabIndex = 10;
@@ -327,7 +329,7 @@ namespace PasteIntoFile
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(546, 67);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(546, 54);
             this.tableLayoutPanel4.TabIndex = 11;
             // 
             // tableLayoutPanel2
@@ -340,7 +342,7 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 138);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 125);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
