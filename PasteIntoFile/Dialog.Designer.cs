@@ -110,7 +110,7 @@ namespace PasteIntoFile
             this.txtFilename.Margin = new System.Windows.Forms.Padding(4);
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.Size = new System.Drawing.Size(426, 26);
-            this.txtFilename.TabIndex = 0;
+            this.txtFilename.TabIndex = 1;
             this.txtFilename.Text = "xxx";
             // 
             // lblExt
@@ -131,7 +131,7 @@ namespace PasteIntoFile
             this.comExt.Margin = new System.Windows.Forms.Padding(4);
             this.comExt.Name = "comExt";
             this.comExt.Size = new System.Drawing.Size(104, 28);
-            this.comExt.TabIndex = 1;
+            this.comExt.TabIndex = 2;
             this.comExt.SelectedIndexChanged += new System.EventHandler(this.comExt_Update);
             this.comExt.TextUpdate += new System.EventHandler(this.comExt_Update);
             // 
@@ -216,7 +216,7 @@ namespace PasteIntoFile
             this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.chkClrClipboard.Name = "chkClrClipboard";
             this.chkClrClipboard.Size = new System.Drawing.Size(169, 24);
-            this.chkClrClipboard.TabIndex = 6;
+            this.chkClrClipboard.TabIndex = 5;
             this.chkClrClipboard.Text = "str_clear_clipboard";
             this.chkClrClipboard.UseVisualStyleBackColor = true;
             this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
@@ -228,7 +228,7 @@ namespace PasteIntoFile
             this.chkAutoSave.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.chkAutoSave.Name = "chkAutoSave";
             this.chkAutoSave.Size = new System.Drawing.Size(203, 24);
-            this.chkAutoSave.TabIndex = 5;
+            this.chkAutoSave.TabIndex = 7;
             this.chkAutoSave.Text = "str_autosave_checkbox";
             this.chkAutoSave.UseVisualStyleBackColor = true;
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
@@ -306,7 +306,7 @@ namespace PasteIntoFile
             this.linkLabel1.Margin = new System.Windows.Forms.Padding(0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(133, 20);
-            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "str_edit_template";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
@@ -390,7 +390,7 @@ namespace PasteIntoFile
             this.chkContextEntry.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.chkContextEntry.Name = "chkContextEntry";
             this.chkContextEntry.Size = new System.Drawing.Size(225, 24);
-            this.chkContextEntry.TabIndex = 5;
+            this.chkContextEntry.TabIndex = 8;
             this.chkContextEntry.Text = "str_contextentry_checkbox";
             this.chkContextEntry.UseVisualStyleBackColor = true;
             this.chkContextEntry.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);

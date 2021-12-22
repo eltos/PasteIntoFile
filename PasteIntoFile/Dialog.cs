@@ -82,8 +82,9 @@ namespace PasteIntoFile
                 }
             }
             
+            txtFilename.Select();
 
-            // Pressed shift key resets autosave option
+            // show dialog or autosave option
             if (forceShowDialog)
             {
                 // Make sure to bring window to foreground (holding shift will open window in background)
