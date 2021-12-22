@@ -85,7 +85,7 @@ namespace PasteIntoFile.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("png")]
         public string extensionImage {
             get {
                 return ((string)(this["extensionImage"]));
@@ -97,7 +97,7 @@ namespace PasteIntoFile.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("txt")]
         public string extensionText {
             get {
                 return ((string)(this["extensionText"]));

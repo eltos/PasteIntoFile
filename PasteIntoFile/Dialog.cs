@@ -146,7 +146,7 @@ namespace PasteIntoFile
                 txtContent.Show();
                 box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
                 comExt.Items.AddRange(new object[] {
-                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "php", "ps1", "py", "txt", "url"
+                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "md", "php", "ps1", "py", "txt", "url"
                 });
                 comExt.DropDownStyle = ComboBoxStyle.DropDown;
                 comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
@@ -206,7 +206,7 @@ namespace PasteIntoFile
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
                 string ext = comExt.Text.ToLowerInvariant();
                 string filename = txtFilename.Text;
-                if (!filename.EndsWith("." + ext))
+                if (!string.IsNullOrWhiteSpace(ext) && !filename.EndsWith("." + ext))
                     filename += "." + ext;
                 string file = Path.Combine(dirname, filename);
                 

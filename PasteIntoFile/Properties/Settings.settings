@@ -18,10 +18,10 @@
       <Value Profile="(Default)">{0:yyyy-MM-dd HH-mm-ss}</Value>
     </Setting>
     <Setting Name="extensionImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">png</Value>
     </Setting>
     <Setting Name="extensionText" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>
