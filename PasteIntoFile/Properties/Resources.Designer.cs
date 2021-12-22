@@ -71,6 +71,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string str_accept {
+            get {
+                return ResourceManager.GetString("str_accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {
@@ -103,6 +112,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_autosave_infotext {
             get {
                 return ResourceManager.GetString("str_autosave_infotext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string str_cancel {
+            get {
+                return ResourceManager.GetString("str_cancel", resourceCulture);
             }
         }
         
@@ -143,6 +161,26 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In batch mode, clipboard contents will be saved instantly when new data is copied.
+        ///
+        ///Save current clipboard contents now?.
+        /// </summary>
+        internal static string str_continuous_mode_enabled_ask_savenow {
+            get {
+                return ResourceManager.GetString("str_continuous_mode_enabled_ask_savenow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit template.
+        /// </summary>
+        internal static string str_edit_template {
+            get {
+                return ResourceManager.GetString("str_edit_template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {
@@ -176,6 +214,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_filename {
             get {
                 return ResourceManager.GetString("str_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename template.
+        /// </summary>
+        internal static string str_filename_template {
+            get {
+                return ResourceManager.GetString("str_filename_template", resourceCulture);
             }
         }
         
@@ -311,6 +358,27 @@ namespace PasteIntoFile.Properties {
         internal static string str_select_folder {
             get {
                 return ResourceManager.GetString("str_select_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The template is used to format the filename. The following variables are supported:
+        ///  {0} - Date and time
+        ///  {1} - Save count in batch mode
+        ///For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;..
+        /// </summary>
+        internal static string str_template_edit_info {
+            get {
+                return ResourceManager.GetString("str_template_edit_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings.
+        /// </summary>
+        internal static string str_template_edit_info_url {
+            get {
+                return ResourceManager.GetString("str_template_edit_info_url", resourceCulture);
             }
         }
         

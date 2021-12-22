@@ -73,7 +73,7 @@ namespace PasteIntoFile.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0:yyyy-MM-dd HH-mm-ss}")]
         public string filenameTemplate {
             get {
                 return ((string)(this["filenameTemplate"]));

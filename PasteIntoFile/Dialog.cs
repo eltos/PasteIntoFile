@@ -13,7 +13,6 @@ namespace PasteIntoFile
 {
     public partial class Dialog : MasterForm
     {
-        public const string DefaultFilenameFormat = "yyyy-MM-dd HH-mm-ss";
         private string text;
         private Image image;
         private readonly SharpClipboard clipboard = new SharpClipboard();
@@ -113,10 +112,20 @@ namespace PasteIntoFile
             
         }
 
-        private void updateFilename()
+        public string formatFilenameTemplate(string template)
         {
-            var filenameFormat = string.IsNullOrWhiteSpace(Settings.Default.filenameTemplate) ? DefaultFilenameFormat : Settings.Default.filenameTemplate;
-            txtFilename.Text = clipboardTimestamp.ToString(filenameFormat);
+            return String.Format(template, clipboardTimestamp, saveCount);
+        }
+        public void updateFilename()
+        {
+            try
+            {
+                txtFilename.Text = formatFilenameTemplate(Settings.Default.filenameTemplate);
+            }
+            catch (FormatException)
+            {
+                txtFilename.Text = "filename_template_invalid";
+            }
         }
         
         private bool readClipboard()
@@ -371,6 +380,18 @@ namespace PasteIntoFile
                 Settings.Default.extensionImage = comExt.Text;
             }
             Settings.Default.Save();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var dialog = new TemplateEdit();
+            dialog.FormClosed += DialogOnFormClosed;
+            dialog.ShowDialog(this);
+        }
+
+        private void DialogOnFormClosed(object sender, FormClosedEventArgs e)
+        {
+            updateFilename();
         }
     }
 }

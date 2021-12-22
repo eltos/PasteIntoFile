@@ -233,4 +233,30 @@ Do you want to overwrite it?</value>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} saved</value>
   </data>
+  <data name="str_edit_template" xml:space="preserve">
+    <value>Edit template</value>
+  </data>
+  <data name="str_accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="str_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>The template is used to format the filename. The following variables are supported:
+  {0} - Date and time
+  {1} - Save count in batch mode
+For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
+  </data>
+  <data name="str_template_edit_info_url" xml:space="preserve">
+    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>Filename template</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>In batch mode, clipboard contents will be saved instantly when new data is copied.
+
+Save current clipboard contents now?</value>
+  </data>
 </root>
