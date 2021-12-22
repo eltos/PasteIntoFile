@@ -3,27 +3,24 @@
 [![Test Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml)
 [![Release Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-release.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/releases)
 
-A Windows desktop application to paste clipboard contents (text and images) into files via the context menu
+A Windows desktop application to paste clipboard contents (text, images and URLs) into files via the context menu
 
 ----------------
 
-_This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile). Several other forks from out in the wild where cherry-picked and merged here and many improvements implemented._  
-_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._
+_This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
+_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._  
+
+_This fork contains many new core functionalities such as clipboard monitoring, batch mode and rename inside the file explorer. In addition, the GUI was completely redesigned to make the layout resizeable and allow for comfortable text and image preview._
+_The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
 
 ----------------
 
 ## Features
 
-+ Shortcut in context menu (right click in any folder)
-+ Supports text, images and url links (with preview).
-+ Resizeable GUI to adjust filename, filetype and path
-+ Optional autosave mode (only shows dialog when holding SHIFT)
-+ Optional batch mode (monitors clipboard and saves on change)
-+ Optional clearing of clipboard after save
++ Explorer context menu entry
++ [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
++ [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
 + First launch wizard
-+ Support for Windows 10 dark theme
-+ Support for HiDPI monitors
-+ Modern folder selector
 
 ![Paste Into File](screenshot.png)  
 ![Paste Into File kontext menu](screenshot-1.png)
