@@ -227,6 +227,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid character: {0}.
+        /// </summary>
+        internal static string str_invalid_character {
+            get {
+                return ResourceManager.GetString("str_invalid_character", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         internal static string str_location {

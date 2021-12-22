@@ -149,4 +149,7 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
   {1} - Zahl gespeicherter Dateien (Stapelverarbeitung)
 Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     </data>
+    <data name="str_invalid_character" xml:space="preserve">
+        <value>Ungültiges Zeichen: {0}</value>
+    </data>
 </root>

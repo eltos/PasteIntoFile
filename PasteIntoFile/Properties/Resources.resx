@@ -259,4 +259,7 @@ For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
 
 Save current clipboard contents now?</value>
   </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>Invalid character: {0}</value>
+  </data>
 </root>
