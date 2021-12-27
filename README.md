@@ -29,8 +29,10 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 ## Installation
 
 + Make sure you have _.NET Framework 4.8+_ installed (_Included in Windows 10_)
-+ Download the latest PasteIntoFile.zip from the [Release page](https://github.com/eltos/PasteIntoFile/releases) and unzip to a location of your choice
-+ Run the executable and follow the first-launch wizard
++ **[Download the latest version from the release page](https://github.com/eltos/PasteIntoFile/releases)**
+  + You can use the installer (.msi file)  
+    _Note: since it's unsigned, windows will "protect" you from installing an unknown app. Click "More info" and "Run anyway" to proceed._
+  + Or you can download the portable PasteIntoFile.zip, unzip it's contents to a location of your choice and launch the executable to bring up the first-launch wizard
 
 _Tested on Windows 10_
 

@@ -23,6 +23,9 @@
     <Setting Name="extensionText" Type="System.String" Scope="User">
       <Value Profile="(Default)">txt</Value>
     </Setting>
+    <Setting Name="upgradePerformed" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 

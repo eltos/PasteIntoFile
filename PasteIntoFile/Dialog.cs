@@ -37,7 +37,7 @@ namespace PasteIntoFile
             
             Icon = Resources.icon;
             Text = Resources.str_main_window_title;
-            infoLabel.Text = string.Format(Resources.str_version, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            infoLabel.Text = string.Format(Resources.str_version, ProductVersion);
             
 
             // Dark theme

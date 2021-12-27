@@ -106,5 +106,17 @@ namespace PasteIntoFile.Properties {
                 this["extensionText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool upgradePerformed {
+            get {
+                return ((bool)(this["upgradePerformed"]));
+            }
+            set {
+                this["upgradePerformed"] = value;
+            }
+        }
     }
 }

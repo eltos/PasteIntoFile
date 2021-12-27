@@ -36,3 +36,39 @@ jobs:
           asset_path: release_artifact.zip
           asset_name: PasteIntoFile_${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
+
+  installer:
+    runs-on: windows-2019
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Collect artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.artifact_name }}
+      - name: Set path for candle and light
+        run: echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" >> $GITHUB_PATH
+        shell: bash
+      - name: Build MSI file with WiX toolchain
+        run: |
+          cd Installer
+          heat dir ../release_artifact -dr INSTALLFOLDER -ag -cg ReleaseFragment -ke -srd -sfrag -nologo -pog:Binaries -pog:Documents -pog: Satellites -pog:Sources -pog:Content -t releaseFiles.xslt -out releaseFiles.wxs
+          candle releaseFiles.wxs
+          candle PasteIntoFile.wxs
+          light -b ../release_artifact releaseFiles.wixobj PasteIntoFile.wixobj -ext WixNetFxExtension -out Installer.msi
+      #- name: Upload build artifacts
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: PasteIntoFile_Installer_Unsigned.msi
+      #    path: Installer/Installer.msi
+      - name: Upload release artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: Installer/Installer.msi
+          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer_unsigned.msi
+          asset_content_type: application/msi
+  

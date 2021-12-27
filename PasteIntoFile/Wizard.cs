@@ -20,14 +20,28 @@ namespace PasteIntoFile
             Icon = Resources.icon;
             Text = Resources.str_main_window_title;
 
+            version.Text = string.Format(Resources.str_version, ProductVersion);
+
+            chkAutoSave.Checked = Settings.Default.autoSave;
+            chkContextEntry.Checked = Program.IsAppRegistered();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)
         {
-            if (Program.RegisterApp())
+            Settings.Default.autoSave = chkAutoSave.Checked;
+            Settings.Default.Save();
+
+        }
+
+        private void ChkContextEntry_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkContextEntry.Checked && !Program.IsAppRegistered())
             {
-                button1.Text += " ✓";
-                button1.Enabled = false;
+                Program.RegisterApp();
+            }
+            else if (!chkContextEntry.Checked && Program.IsAppRegistered())
+            {
+                Program.UnRegisterApp();
             }
         }
 
@@ -36,14 +50,6 @@ namespace PasteIntoFile
             Settings.Default.firstLaunch = false;
             Settings.Default.Save();
             Close();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Settings.Default.autoSave = true;
-            Settings.Default.Save();
-            button2.Text += " ✓";
-            button2.Enabled = false;
         }
 
         private void Wizard_Shown(object sender, EventArgs e)

@@ -1,0 +1,106 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Language='1033'
+           Id='*'
+           UpgradeCode='D3BEE3F0-4EC0-44CC-ADDC-E7A3E133B9D2'
+           Name='Paste Into File'
+           Manufacturer='PasteIntoFile'
+           Version='3.10'>
+
+    <Package InstallerVersion='100' Compressed='yes' />
+    <MediaTemplate EmbedCab="yes"/>
+    <Icon Id="icon.ico" SourceFile="SourceDir\PasteIntoFile.exe" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <!-- Check system requirements -->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED"/>
+    <Condition Message='This program requires the .NET Framework 4.8 or later to be installed.'>
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
+    </Condition>
+    
+    <!-- Components to be installed -->
+    <Feature Id="ProductFeature" Title="Paste Into File" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="StartmenuShortcut" />
+      <ComponentRef Id="ContextMenuEntry" />
+    </Feature>
+
+    <!-- Upgrade: uninstall previous version before installing new one -->
+    <MajorUpgrade AllowDowngrades="no" DowngradeErrorMessage="A more recent version is already installed." 
+                  AllowSameVersionUpgrades="no" />
+
+    <!-- After install: launch wizard -->
+    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='/wizard' Return='asyncNoWait' />
+
+    <InstallExecuteSequence>
+      <Custom Action='LaunchProgram' After='InstallFinalize'>NOT Installed</Custom>
+    </InstallExecuteSequence>
+    
+  </Product>
+
+  
+  <!-- define installation folders -->
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="PasteIntoFile" />
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <!--<Directory Id="AppProgramMenuFolder" Name="PasteIntoFile" />-->
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  
+  <!-- copy program files -->
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentGroupRef Id="ReleaseFragment" />
+    </ComponentGroup>
+  </Fragment>
+
+
+  <!-- register start menu shortcut -->
+  <Fragment>
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="StartmenuShortcut" Guid="21886147-1E8F-47A1-94A3-8D4FF182AB0D">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="Paste Into File"
+                  Target="[INSTALLFOLDER]PasteIntoFile.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="icon.ico"/>
+        <!--<RemoveFolder Id="CleanupShortcut" Directory="AppProgramMenuFolder" On="uninstall" />-->
+        <RegistryValue Root="HKCU" Key="Software\PasteInfoFile\[ProductName]"
+                       Name="startmenushortcutinstalled" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+  
+  <!-- register context menu entry (and remove on uninstall) -->
+  <Fragment>
+    <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
+      <RegistryKey Root='HKCU' Key='Software\Classes\Directory'>
+        <RegistryKey Key='shell\PasteIntoFile'>
+          <RegistryValue Type='string' Value='[ProductName]'/>
+          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
+          <RegistryKey Key='command'>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" "%V"'/>
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Key='Background\shell\PasteIntoFile'>
+          <RegistryValue Type='string' Value='[ProductName]'/>
+          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
+          <RegistryKey Key='command'>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" "%V"'/>
+          </RegistryKey>
+        </RegistryKey>
+      </RegistryKey>
+    </Component>
+  </Fragment>
+
+
+
+</Wix>

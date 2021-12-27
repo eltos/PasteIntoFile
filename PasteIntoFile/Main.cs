@@ -10,7 +10,6 @@ namespace PasteIntoFile
 {
     static class Program
     {
-		public static readonly string RegistrySubKey = "Paste Into File";
 
         /// <summary>
         /// The main entry point for the application.
@@ -18,6 +17,14 @@ namespace PasteIntoFile
         [STAThread]
         static void Main(string[] args)
         {
+            if (!Settings.Default.upgradePerformed)
+            {
+                // New app version was installed
+                Settings.Default.Upgrade();
+                Settings.Default.upgradePerformed = true;
+                Settings.Default.Save();
+            }
+            
             if (Environment.OSVersion.Version.Major >= 6)
                 SetProcessDPIAware();
 
@@ -39,7 +46,7 @@ namespace PasteIntoFile
             Settings.Default.darkTheme = !isLightMode;
             Settings.Default.Save();
 
-            if (Settings.Default.firstLaunch)
+            if (Settings.Default.firstLaunch || (args.Length > 0 && args[0] == "/wizard"))
             {
                 Application.Run(new Wizard());
                 if (Settings.Default.firstLaunch)
@@ -81,6 +88,12 @@ namespace PasteIntoFile
             }
 
         }
+        
+        
+        // Context Menu integration
+        //
+        // Please note that registry keys are also created by installer
+        // and removed upon uninstall
 
         public static RegistryKey OpenDirectoryKey()
         {
@@ -94,7 +107,7 @@ namespace PasteIntoFile
         public static bool IsAppRegistered()
         {
             var key = OpenDirectoryKey().OpenSubKey("shell");
-            return key != null && key.GetSubKeyNames().Contains(RegistrySubKey);
+            return key != null && key.GetSubKeyNames().Contains("PasteIntoFile");
         }
         
         /// <summary>
@@ -105,10 +118,10 @@ namespace PasteIntoFile
             try
             {
                 var key = OpenDirectoryKey().OpenSubKey(@"Background\shell", true);
-				key.DeleteSubKeyTree(RegistrySubKey);
+				key.DeleteSubKeyTree("PasteIntoFile");
 
                 key = OpenDirectoryKey().OpenSubKey("shell", true);
-				key.DeleteSubKeyTree(RegistrySubKey);
+				key.DeleteSubKeyTree("PasteIntoFile");
 
 				MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -127,13 +140,13 @@ namespace PasteIntoFile
         {
             try
             {
-				var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey(RegistrySubKey);
+				var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey("PasteIntoFile");
 				key.SetValue("", Resources.str_contextentry);
 				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
 				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
 
-				key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey(RegistrySubKey);
+				key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey("PasteIntoFile");
 				key.SetValue("", Resources.str_contextentry);
 				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");

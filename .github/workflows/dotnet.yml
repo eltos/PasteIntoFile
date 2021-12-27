@@ -43,6 +43,9 @@ jobs:
       - name: Build
         run: msbuild /p:Configuration=${{ inputs.configuration }}
       
+      - name: Copy files
+        run: copy LICENSE ${{ env.Project_Directory }}\bin\${{ inputs.Configuration }}
+      
       # Upload the binary: https://github.com/marketplace/actions/upload-a-build-artifact
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
