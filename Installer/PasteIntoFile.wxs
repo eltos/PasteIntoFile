@@ -6,7 +6,7 @@
            UpgradeCode='D3BEE3F0-4EC0-44CC-ADDC-E7A3E133B9D2'
            Name='Paste Into File'
            Manufacturer='PasteIntoFile'
-           Version='3.10'>
+           Version='!(bind.FileVersion.mainExecutable)'>
 
     <Package InstallerVersion='100' Compressed='yes' />
     <MediaTemplate EmbedCab="yes"/>
