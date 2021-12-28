@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using CommandLine;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
@@ -11,11 +12,60 @@ namespace PasteIntoFile
     static class Program
     {
 
+        class ArgsCommon
+        {
+            [Option('f', "filename", HelpText = "Filename template (may contain format variables such as {0:yyyyMMdd HHmmSS})")]
+            public string Filename { get; set; }
+
+            [Option("text-extension", HelpText = "File extension for text contents")]
+            public string TextExtension { get; set; }
+        
+            [Option("image-extension", HelpText = "File extension for image contents")]
+            public string ImageExtension { get; set; }
+            
+            [Option('c', "clear", HelpText = "Clear clipboard after save (true/false)")]
+            public bool? ClearClipboard { get; set; }
+            
+            [Option('a', "autosave", HelpText = "Autosave file without prompt (true/false)")]
+            public bool? Autosave { get; set; }
+
+        }
+        
+        [Verb("save", true, HelpText = "Save clipboard contents")]
+        class ArgsMain : ArgsCommon
+        {
+            [Option('d', "directory", HelpText = "Path of directory to save file into")]
+            public string Directory { get; set; }
+
+            [Value(0, Hidden = true)]
+            public string HiddenDirectory { get; set; }
+            
+        }
+
+        [Verb("config", HelpText = "Change configuration (without saving clipboard)")]
+        class ArgsConfig : ArgsCommon
+        {
+            [Option("register", HelpText = "Register context menu entry", SetName = "register")]
+            public bool Register { get; set; }
+
+            [Option("unregister", HelpText = "Unregister context menu entry", SetName = "register")]
+            public bool Unregister { get; set; }
+            
+        }
+
+        [Verb("wizard", HelpText = "Open the first-launch wizard")]
+        class ArgsWizard 
+        {
+            
+        }
+
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             if (!Settings.Default.upgradePerformed)
             {
@@ -24,7 +74,32 @@ namespace PasteIntoFile
                 Settings.Default.upgradePerformed = true;
                 Settings.Default.Save();
             }
+
+            return Parser.Default.ParseArguments<ArgsMain, ArgsConfig, ArgsWizard>(args)
+                .MapResult(
+                    (ArgsMain opts) => RunMain(opts),
+                    (ArgsConfig opts) => RunConfig(opts),
+                    (ArgsWizard opts) => RunWizard(opts),
+                    errs => 1);
+
+        }
+
+        /// <summary>
+        /// Run main program in default mode to save clipboard contents
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Exit code</returns>
+        static int RunMain(ArgsMain args)
+        {
+            ApplyConfig(args);
             
+            if (Settings.Default.firstLaunch)
+            {
+                RunWizard();
+            }
+
+
+
             if (Environment.OSVersion.Version.Major >= 6)
                 SetProcessDPIAware();
 
@@ -46,49 +121,57 @@ namespace PasteIntoFile
             Settings.Default.darkTheme = !isLightMode;
             Settings.Default.Save();
 
-            if (Settings.Default.firstLaunch || (args.Length > 0 && args[0] == "/wizard"))
-            {
-                Application.Run(new Wizard());
-                if (Settings.Default.firstLaunch)
-                    return;
-            }
+            
+            var location = (args.Directory?? args.HiddenDirectory??
+                           ExplorerUtil.GetActiveExplorerPath()??
+                           Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
+            
+            Application.Run(new Dialog(location, default, args.Directory == null));
+            return 0;
+        }
 
-            if (args.Length > 0)
-            {
-                if (args[0] == "/reg")
-                {
-                    RegisterApp();
-                    return;
-                }
+        /// <summary>
+        /// Run wizard
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Exit code</returns>
+        static int RunWizard(ArgsWizard args = null)
+        {
+            Application.Run(new Wizard());
+            return 0;
+        }
 
-                if (args[0] == "/unreg")
-                {
-                    UnRegisterApp();
-                    return;
-                }
+        static void ApplyConfig(ArgsCommon args)
+        {
+            if (args.Filename != null)
+                Settings.Default.filenameTemplate = args.Filename;
+            if (args.TextExtension != null)
+                Settings.Default.extensionText = args.TextExtension;
+            if (args.ImageExtension != null)
+                Settings.Default.extensionImage = args.ImageExtension;
+            if (args.ClearClipboard != null)
+                Settings.Default.clrClipboard = (bool) args.ClearClipboard;
+            if (args.Autosave != null)
+                Settings.Default.autoSave = (bool) args.Autosave;
 
-                if (args[0] == "/filename")
-                {
-                    Settings.Default.filenameTemplate = args.Length > 1 ? args[1] : null;
-                    Settings.Default.Save();
-                    MessageBox.Show(Resources.str_message_register_filename_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    return;
-                }
-
-                var location = args[0].Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste root dir
-                var filename = args.Length > 1 ? args[1] : null;
-                Application.Run(new Dialog(location, filename));
-            }
-            else
-            {
-                // fallback to default location
-                var location = ExplorerUtil.GetActiveExplorerPath() ?? @Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                Application.Run(new Dialog(location, default, true));
-            }
-
+            Settings.Default.Save();
         }
         
+        /// <summary>
+        /// Run only config update
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Exit code</returns>
+        static int RunConfig(ArgsConfig args)
+        {
+            ApplyConfig(args);
+            if (args.Register)
+                return RegisterApp() ? 0 : 1;
+            if (args.Unregister)
+                return UnRegisterApp() ? 0 : 1;
+            return 0;
+        }
         
         // Context Menu integration
         //
@@ -113,7 +196,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Remove context menu entry
         /// </summary>
-        public static void UnRegisterApp()
+        public static bool UnRegisterApp(bool silent = false)
         {
             try
             {
@@ -124,13 +207,14 @@ namespace PasteIntoFile
 				key.DeleteSubKeyTree("PasteIntoFile");
 
 				MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                return true;
             }
             catch (Exception ex)
             {
 				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+            return false;
         }
 
         /// <summary>
