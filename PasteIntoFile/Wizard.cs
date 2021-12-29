@@ -23,7 +23,7 @@ namespace PasteIntoFile
             version.Text = string.Format(Resources.str_version, ProductVersion);
 
             chkAutoSave.Checked = Settings.Default.autoSave;
-            chkContextEntry.Checked = Program.IsAppRegistered();
+            chkContextEntry.Checked = RegistryUtil.IsAppRegistered();
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)
@@ -35,13 +35,22 @@ namespace PasteIntoFile
 
         private void ChkContextEntry_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkContextEntry.Checked && !Program.IsAppRegistered())
+            try
             {
-                Program.RegisterApp();
+                if (chkContextEntry.Checked && !RegistryUtil.IsAppRegistered())
+                {
+                    RegistryUtil.RegisterApp();
+                    MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (!chkContextEntry.Checked && RegistryUtil.IsAppRegistered())
+                {
+                    RegistryUtil.UnRegisterApp();
+                    MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else if (!chkContextEntry.Checked && Program.IsAppRegistered())
+            catch (Exception ex)
             {
-                Program.UnRegisterApp();
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

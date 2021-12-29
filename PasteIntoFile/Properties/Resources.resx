@@ -121,9 +121,6 @@
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
-  <data name="str_message_register_filename_success" xml:space="preserve">
-    <value>Filename-template has been registered</value>
-  </data>
   <data name="str_save" xml:space="preserve">
     <value>Save</value>
   </data>

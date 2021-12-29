@@ -21,9 +21,6 @@
     <data name="str_save" xml:space="preserve">
         <value>Speichern</value>
     </data>
-    <data name="str_message_register_filename_success" xml:space="preserve">
-        <value>Vorlage für Dateiname wurde registriert</value>
-    </data>
     <data name="str_filename" xml:space="preserve">
         <value>Dateiname</value>
     </data>

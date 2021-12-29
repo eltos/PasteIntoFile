@@ -281,15 +281,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filename-template has been registered.
-        /// </summary>
-        internal static string str_message_register_filename_success {
-            get {
-                return ResourceManager.GetString("str_message_register_filename_success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please run the application as administrator!.
         /// </summary>
         internal static string str_message_run_as_admin {

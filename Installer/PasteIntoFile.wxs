@@ -31,7 +31,7 @@
                   AllowSameVersionUpgrades="no" />
 
     <!-- After install: launch wizard -->
-    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='/wizard' Return='asyncNoWait' />
+    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='wizard' Return='asyncNoWait' />
 
     <InstallExecuteSequence>
       <Custom Action='LaunchProgram' After='InstallFinalize'>NOT Installed</Custom>

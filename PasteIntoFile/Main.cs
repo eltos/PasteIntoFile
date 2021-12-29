@@ -74,6 +74,12 @@ namespace PasteIntoFile
                 Settings.Default.upgradePerformed = true;
                 Settings.Default.Save();
             }
+            
+            if (Environment.OSVersion.Version.Major >= 6)
+                SetProcessDPIAware();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
             return Parser.Default.ParseArguments<ArgsMain, ArgsConfig, ArgsWizard>(args)
                 .MapResult(
@@ -91,43 +97,22 @@ namespace PasteIntoFile
         /// <returns>Exit code</returns>
         static int RunMain(ArgsMain args)
         {
-            ApplyConfig(args);
+            ApplyCommonArgs(args);
+            var forceShowDialog = args.Directory == null;
             
             if (Settings.Default.firstLaunch)
             {
                 RunWizard();
+                forceShowDialog = true;
             }
 
 
-
-            if (Environment.OSVersion.Version.Major >= 6)
-                SetProcessDPIAware();
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            bool isLightMode = true;
-            try
-            {
-                var v = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
-                if (v != null && v.ToString() == "0")
-                    isLightMode = false;
-            }
-            catch
-            {
-                // ignored
-            }
-
-            Settings.Default.darkTheme = !isLightMode;
-            Settings.Default.Save();
-
-            
             var location = (args.Directory?? args.HiddenDirectory??
-                           ExplorerUtil.GetActiveExplorerPath()??
-                           Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                    ExplorerUtil.GetActiveExplorerPath()??
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                 .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
             
-            Application.Run(new Dialog(location, default, args.Directory == null));
+            Application.Run(new Dialog(location, forceShowDialog));
             return 0;
         }
 
@@ -142,7 +127,7 @@ namespace PasteIntoFile
             return 0;
         }
 
-        static void ApplyConfig(ArgsCommon args)
+        static void ApplyCommonArgs(ArgsCommon args)
         {
             if (args.Filename != null)
                 Settings.Default.filenameTemplate = args.Filename;
@@ -165,86 +150,22 @@ namespace PasteIntoFile
         /// <returns>Exit code</returns>
         static int RunConfig(ArgsConfig args)
         {
-            ApplyConfig(args);
-            if (args.Register)
-                return RegisterApp() ? 0 : 1;
-            if (args.Unregister)
-                return UnRegisterApp() ? 0 : 1;
+            ApplyCommonArgs(args);
+            try
+            {
+                if (args.Register)
+                    RegistryUtil.RegisterApp();
+                if (args.Unregister)
+                    RegistryUtil.UnRegisterApp();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message + "\n" + Resources.str_message_run_as_admin);
+                return 1;
+            }
             return 0;
         }
         
-        // Context Menu integration
-        //
-        // Please note that registry keys are also created by installer
-        // and removed upon uninstall
-
-        public static RegistryKey OpenDirectoryKey()
-        {
-            return Registry.CurrentUser.CreateSubKey(@"Software\Classes\Directory");
-        }
-        
-        /// <summary>
-        /// Checks if context menu entry is registered
-        /// </summary>
-        /// <returns>app registration status (true/false)</returns>
-        public static bool IsAppRegistered()
-        {
-            var key = OpenDirectoryKey().OpenSubKey("shell");
-            return key != null && key.GetSubKeyNames().Contains("PasteIntoFile");
-        }
-        
-        /// <summary>
-        /// Remove context menu entry
-        /// </summary>
-        public static bool UnRegisterApp(bool silent = false)
-        {
-            try
-            {
-                var key = OpenDirectoryKey().OpenSubKey(@"Background\shell", true);
-				key.DeleteSubKeyTree("PasteIntoFile");
-
-                key = OpenDirectoryKey().OpenSubKey("shell", true);
-				key.DeleteSubKeyTree("PasteIntoFile");
-
-				MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-            }
-            catch (Exception ex)
-            {
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Create context menu entry
-        /// </summary>
-        public static bool RegisterApp()
-        {
-            try
-            {
-				var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey("PasteIntoFile");
-				key.SetValue("", Resources.str_contextentry);
-				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                key = key.CreateSubKey("command");
-				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
-
-				key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey("PasteIntoFile");
-				key.SetValue("", Resources.str_contextentry);
-				key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                key = key.CreateSubKey("command");
-				key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%1\"");
-				MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //throw;
-				MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return false;
-        }
 
         /// <summary>
         /// Restart app in admin mode
@@ -280,7 +201,7 @@ namespace PasteIntoFile
         /// <param name="timeout">Duration after which message is dismissed</param>
         public static void ShowBalloon(string title, string message, ushort timeout = 5000)
         {
-            var notification = new NotifyIcon()
+            var notification = new NotifyIcon
             {
                 Visible = true,
                 Icon = Resources.icon,

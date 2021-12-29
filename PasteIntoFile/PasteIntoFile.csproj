@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="ExplorerUtil.cs" />
     <Compile Include="MasterForm.cs" />
+    <Compile Include="RegistryUtil.cs" />
     <Compile Include="TemplateEdit.cs">
       <SubType>Form</SubType>
     </Compile>
