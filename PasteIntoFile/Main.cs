@@ -38,7 +38,7 @@ namespace PasteIntoFile
             public string Directory { get; set; }
 
             [Value(0, Hidden = true)]
-            public string HiddenDirectory { get; set; }
+            public string HiddenDirectory { get; set; } // for backwards compatibility: directory as first value argument
             
         }
 

@@ -38,22 +38,44 @@ _Tested on Windows 10_
 
 ## Command Line Use
 
-Run the following commands in a terminal (Command Prompt or PowerShell).
-- To add the *Paste Into File* entry in the File Explorer context menu:
+Use `help`, `help save`, `help config` etc. to show available command line options, e.g.:
+```powershell
+> .\PasteIntoFile.exe help
+PasteIntoFile 3.11.0.0
+Copyright © PasteIntoFile GitHub contributors
+
+  save       (Default Verb) Save clipboard contents
+  config     Change configuration (without saving clipboard)
+  wizard     Open the first-launch wizard
+  help       Display more information on a specific command.
+  version    Display version information.
+
+> .\PasteIntoFile.exe help save
+PasteIntoFile 3.11.0.0
+Copyright © PasteIntoFile GitHub contributors
+
+  -d, --directory      Path of directory to save file into
+  -f, --filename       Filename template (may contain format variables such as {0:yyyyMMdd HHmmSS})
+  --text-extension     File extension for text contents
+  --image-extension    File extension for image contents
+  -c, --clear          Clear clipboard after save (true/false)
+  -a, --autosave       Autosave file without prompt (true/false)
+  --help               Display this help screen.
+  --version            Display version information.
+```
+
+**Examples:**
+- Add the *Paste Into File* entry in the File Explorer context menu:
    ```powershell
-   PasteIntoFile /reg
+   PasteIntoFile config --register
    ``` 
-- To remove the *Paste Into File* entry from the File Explorer context menu:
+- Configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
    ```powershell
-   PasteIntoFile /unreg
-   ``` 
-- To configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
-   ```powershell
-   PasteIntoFile /filename "yyyy-MM-dd HH-mm-ss"
+   PasteIntoFile config -f "{0:yyyy-MM-dd HH-mm-ss}"
    ```
-- To explicitly set the target path (and optionally also filename) once:
+- Save clipboard contents in autosave mode to specific location:
   ```powershell
-  PasteIntoFile \path\to\directory [filename.ext]
+  PasteIntoFile -d the/directory -f the_filename --autosave=true
   ``` 
 
 
