@@ -41,7 +41,7 @@ _Tested on Windows 10_
 Use `help`, `help paste`, `help config` etc. to show available command line options, e.g.:
 ```powershell
 > .\PasteIntoFile.exe help
-PasteIntoFile 3.11.0.0
+PasteIntoFile 4.0.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   paste      (Default Verb) Paste clipboard contents into file
@@ -50,13 +50,15 @@ Copyright © PasteIntoFile GitHub contributors
   wizard     Open the first-launch wizard
   help       Display more information on a specific command.
   version    Display version information.
-
+```
+```
 > .\PasteIntoFile.exe help paste
-PasteIntoFile 3.11.0.0
+PasteIntoFile 4.0.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   -d, --directory      Path of directory to save file into
-  -f, --filename       Filename template (may contain format variables such as {0:yyyyMMdd HHmmSS})
+  -f, --filename       Filename template with optional date format variable such
+                       as {0:yyyyMMdd HHmmSS}
   --text-extension     File extension for text contents
   --image-extension    File extension for image contents
   -c, --clear          Clear clipboard after save (true/false)
