@@ -1,7 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using CommandLine;
@@ -14,7 +12,7 @@ namespace PasteIntoFile
 
         class ArgsCommon
         {
-            [Option('f', "filename", HelpText = "Filename template (may contain format variables such as {0:yyyyMMdd HHmmSS})")]
+            [Option('f', "filename", HelpText = "Filename template with optional date format variable such as {0:yyyyMMdd HHmmSS}")]
             public string Filename { get; set; }
 
             [Option("text-extension", HelpText = "File extension for text contents")]
@@ -67,6 +65,10 @@ namespace PasteIntoFile
         [STAThread]
         static int Main(string[] args)
         {
+            // redirect console output to parent process, for command line help etc.
+            // not perfect, but probably as good as it can be: https://stackoverflow.com/a/11058118
+            AttachConsole( ATTACH_PARENT_PROCESS );
+            
             if (!Settings.Default.upgradePerformed)
             {
                 // New app version was installed
@@ -81,13 +83,28 @@ namespace PasteIntoFile
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            return Parser.Default.ParseArguments<ArgsMain, ArgsConfig, ArgsWizard>(args)
-                .MapResult(
-                    (ArgsMain opts) => RunMain(opts),
-                    (ArgsConfig opts) => RunConfig(opts),
-                    (ArgsWizard opts) => RunWizard(opts),
-                    errs => 1);
-
+            // parse command line arguments
+            var parseResult = new Parser(with => with.HelpWriter = null)
+                .ParseArguments<ArgsMain, ArgsConfig, ArgsWizard>(args);
+            return parseResult.MapResult(
+                (ArgsMain opts) => RunMain(opts),
+                (ArgsConfig opts) => RunConfig(opts),
+                (ArgsWizard opts) => RunWizard(opts),
+                errs => DisplayHelp(parseResult));
+            
+        }
+        
+        static int DisplayHelp<T>(ParserResult<T> result)
+        {  
+            var helpText = CommandLine.Text.HelpText.AutoBuild(result, h =>
+            {
+                // customized help text
+                h.AdditionalNewLineAfterOption = false;
+                h.AddPostOptionsLine(Resources.str_main_info_url);
+                return CommandLine.Text.HelpText.DefaultParsingErrorsHandler(result, h);
+            }, e => e);
+            Console.WriteLine("\n\n" + helpText);
+            return 1;
         }
 
         /// <summary>
@@ -226,5 +243,10 @@ namespace PasteIntoFile
         
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
+
+        [System.Runtime.InteropServices.DllImport( "kernel32.dll" )]
+        static extern bool AttachConsole( int dwProcessId );
+        private const int ATTACH_PARENT_PROCESS = -1;
+
     }
 }
