@@ -82,19 +82,37 @@
   <!-- register context menu entry (and remove on uninstall) -->
   <Fragment>
     <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
+      <!-- for directory: paste into file -->
       <RegistryKey Root='HKCU' Key='Software\Classes\Directory'>
         <RegistryKey Key='shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='[ProductName]'/>
+          <RegistryValue Type='string' Value='Paste into file'/>
           <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
           <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" "%V"'/>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste "%V"'/>
           </RegistryKey>
         </RegistryKey>
         <RegistryKey Key='Background\shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='[ProductName]'/>
+          <RegistryValue Type='string' Value='Paste into file'/>
           <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
           <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" "%V"'/>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste "%V"'/>
+          </RegistryKey>
+        </RegistryKey>
+      </RegistryKey>
+      <!-- for files: copy from file -->
+      <RegistryKey Root='HKCU' Key='Software\Classes\*'>
+        <RegistryKey Key='shell\PasteIntoFile'>
+          <RegistryValue Type='string' Value='Copy file content'/>
+          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
+          <RegistryKey Key='command'>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Key='Background\shell\PasteIntoFile'>
+          <RegistryValue Type='string' Value='Copy file content'/>
+          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
+          <RegistryKey Key='command'>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
           </RegistryKey>
         </RegistryKey>
       </RegistryKey>

@@ -134,7 +134,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paste Into File.
+        ///   Looks up a localized string similar to Paste into file.
         /// </summary>
         internal static string str_contextentry {
             get {
@@ -148,6 +148,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_contextentry_checkbox {
             get {
                 return ResourceManager.GetString("str_contextentry_checkbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy file content.
+        /// </summary>
+        internal static string str_contextentry_copyfromfile {
+            get {
+                return ResourceManager.GetString("str_contextentry_copyfromfile", resourceCulture);
             }
         }
         
@@ -168,6 +177,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_continuous_mode_enabled_ask_savenow {
             get {
                 return ResourceManager.GetString("str_continuous_mode_enabled_ask_savenow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file {0} contains binary data which cannot be copied to the clipboard..
+        /// </summary>
+        internal static string str_copy_failed_binary_data {
+            get {
+                return ResourceManager.GetString("str_copy_failed_binary_data", resourceCulture);
             }
         }
         

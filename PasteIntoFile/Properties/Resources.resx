@@ -146,7 +146,7 @@
     <value>Explorer context menu entry has been added</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Paste Into File</value>
+    <value>Paste into file</value>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file </value>
@@ -258,5 +258,11 @@ Save current clipboard contents now?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
     <value>Invalid character: {0}</value>
+  </data>
+  <data name="str_contextentry_copyfromfile" xml:space="preserve">
+    <value>Copy file content</value>
+  </data>
+  <data name="str_copy_failed_binary_data" xml:space="preserve">
+    <value>The file {0} contains binary data which cannot be copied to the clipboard.</value>
   </data>
 </root>

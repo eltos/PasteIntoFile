@@ -44,13 +44,14 @@ Use `help`, `help save`, `help config` etc. to show available command line optio
 PasteIntoFile 3.11.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  save       (Default Verb) Save clipboard contents
+  paste      (Default Verb) Paste clipboard contents into file
+  copy       Copy file contents to clipboard
   config     Change configuration (without saving clipboard)
   wizard     Open the first-launch wizard
   help       Display more information on a specific command.
   version    Display version information.
 
-> .\PasteIntoFile.exe help save
+> .\PasteIntoFile.exe help paste
 PasteIntoFile 3.11.0.0
 Copyright © PasteIntoFile GitHub contributors
 
@@ -76,6 +77,10 @@ Copyright © PasteIntoFile GitHub contributors
 - Save clipboard contents in autosave mode to specific location:
   ```powershell
   PasteIntoFile -d the/directory -f the_filename --autosave=true
+  ``` 
+- Copy file contents to clipboard:
+  ```powershell
+  PasteIntoFile copy path_to/the_file
   ``` 
 
 

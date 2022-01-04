@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using PasteIntoFile.Properties;
@@ -10,9 +11,17 @@ namespace PasteIntoFile
         // Please note that registry keys are also created by installer
         // and removed upon uninstall
 
-        public static RegistryKey OpenDirectoryKey()
-        {
-            return Registry.CurrentUser.CreateSubKey(@"Software\Classes\Directory");
+        private static string PRIMARY_KEY_NAME = "PasteIntoFile";
+        private static IEnumerable<RegistryKey> OpenClassKeys(string type = null) {
+	        if (type == null) // return all class type keys (dirs and files)
+	        {
+		        return OpenClassKeys("Directory").Concat(OpenClassKeys("*"));
+	        }
+	        var node = Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + type);
+	        return new[] {
+		        node.CreateSubKey(@"Background\shell"),
+		        node.CreateSubKey(@"shell"),
+            } ;
         }
 
 
@@ -38,13 +47,11 @@ namespace PasteIntoFile
         /// <returns>app registration status (true/false)</returns>
         public static bool IsAppRegistered()
         {
-            var key = OpenDirectoryKey().OpenSubKey("shell");
-            if (key == null || !key.GetSubKeyNames().Contains("PasteIntoFile")) return false;
-            
-            key = OpenDirectoryKey().OpenSubKey(@"Background\shell");
-            if (key == null || !key.GetSubKeyNames().Contains("PasteIntoFile")) return false;
-            
-            return true;
+	        foreach (var classKey in OpenClassKeys())
+	        {
+		        if (classKey == null || !classKey.GetSubKeyNames().Contains(PRIMARY_KEY_NAME)) return false;
+	        }
+	        return true;
         }
         
         /// <summary>
@@ -52,12 +59,10 @@ namespace PasteIntoFile
         /// </summary>
         public static void UnRegisterApp()
         {
-            var key = OpenDirectoryKey().OpenSubKey(@"Background\shell", true);
-			key.DeleteSubKeyTree("PasteIntoFile");
-
-            key = OpenDirectoryKey().OpenSubKey("shell", true);
-			key.DeleteSubKeyTree("PasteIntoFile");
-			
+	        foreach (var classKey in OpenClassKeys())
+	        {
+		        classKey.DeleteSubKeyTree(PRIMARY_KEY_NAME);
+	        }
         }
 
         /// <summary>
@@ -65,17 +70,27 @@ namespace PasteIntoFile
         /// </summary>
         public static void RegisterApp(bool silent = false)
         {
-	        var key = OpenDirectoryKey().CreateSubKey(@"Background\shell").CreateSubKey("PasteIntoFile");
-			key.SetValue("", Resources.str_contextentry);
-			key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-            key = key.CreateSubKey("command");
-			key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
+	        // register "paste into file" for directory context menu
+	        foreach (var classKey in OpenClassKeys("Directory"))
+	        {
+		        var key = classKey.CreateSubKey(PRIMARY_KEY_NAME);
+		        key.SetValue("", Resources.str_contextentry);
+		        key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
+		        key = key.CreateSubKey("command");
+		        key.SetValue("", "\"" + Application.ExecutablePath + "\" paste \"%V\"");
 
-			key = OpenDirectoryKey().CreateSubKey("shell").CreateSubKey("PasteIntoFile");
-			key.SetValue("", Resources.str_contextentry);
-			key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-            key = key.CreateSubKey("command");
-			key.SetValue("" , "\"" + Application.ExecutablePath + "\" \"%V\"");
+	        }
+
+	        // register "copy from file" for file context menu (any extension)
+	        foreach (var classKey in OpenClassKeys("*"))
+	        {
+		        var key = classKey.CreateSubKey(PRIMARY_KEY_NAME);
+		        key.SetValue("", Resources.str_contextentry_copyfromfile);
+		        key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
+		        key = key.CreateSubKey("command");
+		        key.SetValue("", "\"" + Application.ExecutablePath + "\" copy \"%V\"");
+
+	        }
 
         }
 

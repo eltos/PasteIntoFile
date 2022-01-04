@@ -43,7 +43,7 @@
         <value>Eintrag im Kontextmenü wurde entfernt</value>
     </data>
     <data name="str_contextentry" xml:space="preserve">
-        <value>Einfügen als Datei (Paste Into File)</value>
+        <value>Einfügen als Datei</value>
     </data>
     <data name="str_main_info" xml:space="preserve">
         <value>Projekt auf GitHub finden</value>
@@ -148,5 +148,11 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     </data>
     <data name="str_invalid_character" xml:space="preserve">
         <value>Ungültiges Zeichen: {0}</value>
+    </data>
+    <data name="str_contextentry_copyfromfile" xml:space="preserve">
+        <value>Dateiinhalt kopieren</value>
+    </data>
+    <data name="str_copy_failed_binary_data" xml:space="preserve">
+        <value>Die Datei {0} enthält Binärdaten, die nicht in die Zwischenablage kopiert werden können.</value>
     </data>
 </root>

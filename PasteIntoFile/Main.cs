@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using CommandLine;
+using CommandLine.Text;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
@@ -29,14 +33,22 @@ namespace PasteIntoFile
 
         }
         
-        [Verb("save", true, HelpText = "Save clipboard contents")]
-        class ArgsMain : ArgsCommon
+        [Verb("paste", true, HelpText = "Paste clipboard contents into file")]
+        class ArgsPaste : ArgsCommon
         {
             [Option('d', "directory", HelpText = "Path of directory to save file into")]
             public string Directory { get; set; }
 
             [Value(0, Hidden = true)]
             public string HiddenDirectory { get; set; } // for backwards compatibility: directory as first value argument
+            
+        }
+        
+        [Verb("copy", HelpText = "Copy file contents to clipboard")]
+        class ArgsCopy
+        {
+            [Value(0, HelpText = "Path of file to copy from")]
+            public string FilePath { get; set; }
             
         }
 
@@ -85,24 +97,31 @@ namespace PasteIntoFile
 
             // parse command line arguments
             var parseResult = new Parser(with => with.HelpWriter = null)
-                .ParseArguments<ArgsMain, ArgsConfig, ArgsWizard>(args);
+                .ParseArguments<ArgsPaste, ArgsCopy, ArgsConfig, ArgsWizard>(args);
             return parseResult.MapResult(
-                (ArgsMain opts) => RunMain(opts),
+                (ArgsPaste opts) => RunPaste(opts),
+                (ArgsCopy opts) => RunCopy(opts),
                 (ArgsConfig opts) => RunConfig(opts),
                 (ArgsWizard opts) => RunWizard(opts),
-                errs => DisplayHelp(parseResult));
+                errs => DisplayHelp(parseResult, errs));
             
         }
         
-        static int DisplayHelp<T>(ParserResult<T> result)
+        static int DisplayHelp<T>(ParserResult<T> result, IEnumerable<Error> errs)
         {  
-            var helpText = CommandLine.Text.HelpText.AutoBuild(result, h =>
+            HelpText helpText;
+            if (errs.IsVersion())
+                helpText = HelpText.AutoBuild(result);
+            else
             {
-                // customized help text
-                h.AdditionalNewLineAfterOption = false;
-                h.AddPostOptionsLine(Resources.str_main_info_url);
-                return CommandLine.Text.HelpText.DefaultParsingErrorsHandler(result, h);
-            }, e => e);
+                helpText = HelpText.AutoBuild(result, h =>
+                {
+                    // customize help text
+                    h.AdditionalNewLineAfterOption = false;
+                    h.AddPostOptionsLine(Resources.str_main_info_url);
+                    return HelpText.DefaultParsingErrorsHandler(result, h);
+                });
+            }
             Console.WriteLine("\n\n" + helpText);
             return 1;
         }
@@ -112,7 +131,7 @@ namespace PasteIntoFile
         /// </summary>
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
-        static int RunMain(ArgsMain args)
+        static int RunPaste(ArgsPaste args)
         {
             ApplyCommonArgs(args);
             var forceShowDialog = args.Directory == null;
@@ -131,6 +150,42 @@ namespace PasteIntoFile
             
             Application.Run(new Dialog(location, forceShowDialog));
             return 0;
+        }
+
+        static int RunCopy(ArgsCopy args)
+        {
+            try
+            {
+                string path = Path.GetFullPath(args.FilePath);
+                
+                // if it's an image (try&catch instead of maintaining a list of supported extensions)
+                try
+                {
+                    Image imagecontents = Image.FromFile(path);
+                    Clipboard.SetImage(imagecontents);
+                    return 0;
+                }
+                catch (Exception e){}
+                
+                // if it's text (check for absence of zero byte)
+                if (!IsBinaryFile(path))
+                {
+                    String textcontents = File.ReadAllText(path);
+                    Clipboard.SetText(textcontents);
+                    return 0;
+                }
+                            
+                // else: binary
+                MessageBox.Show(String.Format(Resources.str_copy_failed_binary_data, path),
+                    Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return 1;
         }
 
         /// <summary>
@@ -238,6 +293,23 @@ namespace PasteIntoFile
             // The notification should be disposed when you don't need it anymore,
             // but doing so will immediately close the balloon if it's visible.
             notification.Dispose();
+        }
+        
+        /// <summary>
+        /// Heuristically determines if a file is binary by checking for NULL values
+        /// </summary>
+        /// <param name="filepath">Path to file</param>
+        /// <returns>true if most likely binary</returns>
+        public static bool IsBinaryFile(string filepath)
+        {
+            var stream = File.OpenRead(filepath);
+            int b;
+            do
+            {
+                b = stream.ReadByte();
+            } 
+            while (b > 0);
+            return b == 0;
         }
 
         
