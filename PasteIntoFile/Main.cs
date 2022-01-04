@@ -195,6 +195,9 @@ namespace PasteIntoFile
         /// <returns>Exit code</returns>
         static int RunWizard(ArgsWizard args = null)
         {
+            if (RegistryUtil.IsAppRegistered())
+                RegistryUtil.RegisterApp(); // overwrites default entry with localized strings
+            
             Application.Run(new Wizard());
             return 0;
         }
