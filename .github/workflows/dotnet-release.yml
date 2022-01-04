@@ -23,10 +23,7 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
       - name: Create zip
-        uses: papeloto/action-zip@v1
-        with:
-          files: release_artifact
-          dest: release_artifact.zip
+        run: tar -cf release_artifact.zip -C release_artifact *
       - name: Upload release artifact
         uses: actions/upload-release-asset@v1
         env:
