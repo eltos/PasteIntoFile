@@ -3,7 +3,7 @@
 [![Test Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-testbuild.yml)
 [![Release Build](https://github.com/eltos/PasteIntoFile/actions/workflows/dotnet-release.yml/badge.svg)](https://github.com/eltos/PasteIntoFile/releases)
 
-A Windows desktop application to paste clipboard contents (text, images and URLs) into files via the context menu
+A Windows desktop application to paste clipboard contents into files and copy file contents to the clipboard via the context menu
 
 ----------------
 
@@ -17,7 +17,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ## Features
 
-+ Explorer context menu entry
++ Explorer context menu entry: "Paste into file" or "Copy file contents"
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
 + First launch wizard
@@ -38,7 +38,7 @@ _Tested on Windows 10_
 
 ## Command Line Use
 
-Use `help`, `help save`, `help config` etc. to show available command line options, e.g.:
+Use `help`, `help paste`, `help config` etc. to show available command line options, e.g.:
 ```powershell
 > .\PasteIntoFile.exe help
 PasteIntoFile 3.11.0.0
