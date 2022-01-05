@@ -40,7 +40,7 @@ namespace PasteIntoFile
             public string Directory { get; set; }
 
             [Value(0, Hidden = true)]
-            public string HiddenDirectory { get; set; } // for backwards compatibility: directory as first value argument
+            public string DirectoryFallback { get; set; } // alternative: directory as first value argument
             
         }
         
@@ -134,7 +134,9 @@ namespace PasteIntoFile
         static int RunPaste(ArgsPaste args)
         {
             ApplyCommonArgs(args);
-            var forceShowDialog = args.Directory == null;
+            
+            var directory = args.Directory ?? args.DirectoryFallback;
+            var forceShowDialog = directory == null;
             
             if (Settings.Default.firstLaunch)
             {
@@ -143,9 +145,9 @@ namespace PasteIntoFile
             }
 
 
-            var location = (args.Directory?? args.HiddenDirectory??
-                    ExplorerUtil.GetActiveExplorerPath()??
-                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+            var location = (directory??
+                            ExplorerUtil.GetActiveExplorerPath()??
+                            Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                 .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
             
             Application.Run(new Dialog(location, forceShowDialog));
