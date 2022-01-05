@@ -108,13 +108,6 @@
             <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
           </RegistryKey>
         </RegistryKey>
-        <RegistryKey Key='Background\shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='Copy file content'/>
-          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
-          <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
-          </RegistryKey>
-        </RegistryKey>
       </RegistryKey>
     </Component>
   </Fragment>

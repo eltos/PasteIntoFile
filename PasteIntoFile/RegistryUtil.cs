@@ -8,20 +8,26 @@ namespace PasteIntoFile
 {
     public class RegistryUtil
     {
-        // Please note that registry keys are also created by installer
-        // and removed upon uninstall
+        // Please note that registry keys are also created by installer and removed upon uninstall
+        // Always keep the "Installer/PasteIntoFile.wxs" up to date with the keys used below!
+        
 
         private static string PRIMARY_KEY_NAME = "PasteIntoFile";
+        
+        /// <summary>
+        /// Opens a number of class sub keys according to the requested type.
+        /// Passing type=null (default) will return all keys for all types
+        /// </summary>
+        /// <param name="type">Class type, one of "Directory", "*" or null</param>
+        /// <returns>List of registry keys</returns>
         private static IEnumerable<RegistryKey> OpenClassKeys(string type = null) {
-	        if (type == null) // return all class type keys (dirs and files)
-	        {
-		        return OpenClassKeys("Directory").Concat(OpenClassKeys("*"));
-	        }
-	        var node = Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + type);
-	        return new[] {
-		        node.CreateSubKey(@"Background\shell"),
-		        node.CreateSubKey(@"shell"),
-            } ;
+	        var classes = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
+	        var keys = new List<RegistryKey>();
+	        if (type == null || type == "Directory")
+		        keys.AddRange(new [] {classes.CreateSubKey(@"Directory\shell"), classes.CreateSubKey(@"Directory\Background\shell")});
+	        if (type == null || type == "*")
+		        keys.Add(classes.CreateSubKey(@"*\shell"));
+	        return keys;
         }
 
 
