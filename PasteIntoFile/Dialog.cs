@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -131,6 +132,15 @@ namespace PasteIntoFile
             if (Clipboard.ContainsText())
             {
                 text = Clipboard.GetText();
+            }
+            else if (Clipboard.ContainsFileDropList())
+            {
+                var files = Clipboard.GetFileDropList();
+                text = string.Join("\n", files.Cast<string>().ToList());
+            }
+
+            if (text != null) 
+            {
                 txtContent.Text = text;
                 txtContent.Show();
                 box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
