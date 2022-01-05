@@ -54,9 +54,7 @@ namespace PasteIntoFile
             }
 
             // read clipboard and populate GUI
-
-            if (!readClipboard())
-                Environment.Exit(1);
+            var clipRead = readClipboard();
             
             updateFilename();
             txtCurrentLocation.Text = Path.GetFullPath(location);
@@ -81,7 +79,7 @@ namespace PasteIntoFile
             // otherwise perform autosave if enabled
             else if (Settings.Default.autoSave)
             {
-                var file = save();
+                var file = clipRead ? save() : null;
                 if (file != null)
                 {
                     ExplorerUtil.RequestFilenameEdit(file);
@@ -91,6 +89,11 @@ namespace PasteIntoFile
 
                     Environment.Exit(0);
                 }
+                else
+                {
+                    Environment.Exit(1);
+                }
+
             }
             
             // register clipboard monitor
