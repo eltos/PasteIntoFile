@@ -1,0 +1,67 @@
+# This action will build a .NET Windows Forms desktop application
+# It must be executed from a job using windows-2019
+
+
+name: Build
+description: Builds the .NET Application
+inputs:
+  configuration:
+    description: 'Build configuration: Debug or Release'
+    required: true
+    type: string
+  solution_name:
+    required: false
+    default: PasteIntoFile.sln
+  project_directory:
+    required: false
+    default: PasteIntoFile
+  build_options:
+    description: 'Additional options passed to msbuild'
+    required: false
+    default: ''
+    type: string
+  artifact:
+    description: 'Name of build artifact to upload'
+    required: false
+    default: ''
+    type: string
+outputs:
+  path:
+    description: 'Build output path'
+    value: ${{ steps.build.outputs.path }}
+
+runs:
+  using: 'composite'
+  steps:
+    ## Install the .NET Core workload
+    ## This is not required since the windows-2019 runner comes with pre-installed .NET Framework
+    #- name: Install .NET Core
+    #  uses: actions/setup-dotnet@v1
+    #  with:
+    #    dotnet-version: 5.0.x
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Install dependencies
+    - name: Restore packages
+      run: nuget restore ${{ inputs.solution_name }}
+      shell: pwsh
+
+    # Build the app
+    - name: Build
+      id: build
+      run: |
+        msbuild /p:Configuration=${{ inputs.configuration }} ${{ inputs.build_options }}
+        copy LICENSE ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}
+        echo "::set-output name=path::${{ inputs.project_directory }}\bin\${{ inputs.configuration }}"
+      shell: pwsh
+
+    - name: Upload build artifacts
+      if: ${{ inputs.artifact != '' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.artifact }}
+        path: ${{ steps.build.outputs.path }}
+    
