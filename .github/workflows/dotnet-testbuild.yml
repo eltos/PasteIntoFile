@@ -6,10 +6,13 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-    uses: eltos/PasteIntoFile/.github/workflows/dotnet.yml@main
-    with:
-      configuration: Debug
-      artifact_name: PasteIntoFile_debug
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/build
+        with:
+          configuration: Debug
+          artifact: PasteIntoFile_debug
 
 #  test:
 #    runs-on: windows-2019    # For a list of available runner types, refer to https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on

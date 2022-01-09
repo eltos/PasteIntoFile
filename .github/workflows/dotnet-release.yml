@@ -9,10 +9,13 @@ on:
 jobs:
   
   build:
-    uses: eltos/PasteIntoFile/.github/workflows/dotnet.yml@main
-    with:
-      configuration: Release
-      artifact_name: release_artifact
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/build
+        with:
+          configuration: Release
+          artifact: release_artifact
 
   publish:
     runs-on: windows-2019
