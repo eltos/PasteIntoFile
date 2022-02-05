@@ -266,6 +266,7 @@ namespace PasteIntoFile
             try {
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
                 string ext = comExt.Text.ToLowerInvariant();
+                if (ext.StartsWith(".")) ext = ext.Substring(1);
                 string filename = txtFilename.Text;
                 if (!string.IsNullOrWhiteSpace(ext) && !filename.EndsWith("." + ext))
                     filename += "." + ext;
