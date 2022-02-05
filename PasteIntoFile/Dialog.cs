@@ -129,6 +129,22 @@ namespace PasteIntoFile
             imgContent.Hide();
             comExt.Items.Clear();
 
+            
+            if (Clipboard.ContainsImage())
+            {
+                image = Clipboard.GetImage();
+                imgContent.BackgroundImage = image;
+                imgContent.Show();
+                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
+                comExt.Items.AddRange(new object[] {
+                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
+                });
+                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
+                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
+                return true;
+            }
+            
+            
             if (Clipboard.ContainsText())
             {
                 text = Clipboard.GetText();
@@ -149,20 +165,6 @@ namespace PasteIntoFile
                 });
                 comExt.DropDownStyle = ComboBoxStyle.DropDown;
                 comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
-                return true;
-            }
-            
-            if (Clipboard.ContainsImage())
-            {
-                image = Clipboard.GetImage();
-                imgContent.BackgroundImage = image;
-                imgContent.Show();
-                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
-                comExt.Items.AddRange(new object[] {
-                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
-                });
-                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
-                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
                 return true;
             }
             
