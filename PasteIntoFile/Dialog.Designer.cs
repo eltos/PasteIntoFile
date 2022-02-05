@@ -34,6 +34,7 @@ namespace PasteIntoFile
         {
             this.imgContent = new System.Windows.Forms.PictureBox();
             this.txtContent = new System.Windows.Forms.RichTextBox();
+            this.htmlContent = new System.Windows.Forms.WebBrowser();
             this.lblFileName = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.lblExt = new System.Windows.Forms.Label();
@@ -91,6 +92,15 @@ namespace PasteIntoFile
             this.txtContent.Text = "";
             this.txtContent.Visible = false;
             this.txtContent.WordWrap = false;
+            // 
+            // htmlContent
+            // 
+            this.htmlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.htmlContent.Location = new System.Drawing.Point(8, 27);
+            this.htmlContent.Name = "htmlContent";
+            this.htmlContent.Size = new System.Drawing.Size(522, 249);
+            this.htmlContent.TabIndex = 14;
+            this.htmlContent.Visible = false;
             // 
             // lblFileName
             // 
@@ -238,6 +248,7 @@ namespace PasteIntoFile
             this.box.AutoSize = true;
             this.box.Controls.Add(this.txtContent);
             this.box.Controls.Add(this.imgContent);
+            this.box.Controls.Add(this.htmlContent);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.box.Location = new System.Drawing.Point(19, 183);
@@ -430,6 +441,7 @@ namespace PasteIntoFile
         private System.Windows.Forms.CheckBox chkContextEntry;
         private System.Windows.Forms.PictureBox imgContent;
         private System.Windows.Forms.RichTextBox txtContent;
+        private System.Windows.Forms.WebBrowser htmlContent;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.TextBox txtFilename;
         private System.Windows.Forms.Label lblExt;

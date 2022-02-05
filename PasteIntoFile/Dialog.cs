@@ -14,12 +14,28 @@ namespace PasteIntoFile
 {
     public partial class Dialog : MasterForm
     {
-        private string text;
-        private Image image;
-        private readonly SharpClipboard clipboard = new SharpClipboard();
+        private ClipboardDataContainer clipData = new ClipboardDataContainer();
+        private readonly SharpClipboard clipMonitor = new SharpClipboard();
         private bool continuousMode = false;
         private int saveCount = 0;
-        private DateTime clipboardTimestamp;
+        
+        
+        private static readonly string[] IMAGE_FORMATS = {
+            "png", "bpm", "emf", "gif", "ico", "jpg", "tif", "wmf"
+        };
+
+        private static readonly string[] HTML_FORMATS = {
+            "html", "htm"
+        };
+
+        private static readonly string[] URL_FORMATS = {
+            "url"
+        };
+
+        private static readonly string[] DEFAULT_TEXT_FORMATS = {
+            "txt", "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "md", "php", "ps1", "py"
+        };
+
 
         public Dialog(string location, bool forceShowDialog = false)
         {
@@ -31,6 +47,7 @@ namespace PasteIntoFile
             
             foreach (Control element in GetAllChild(this))
             {
+                if (element is WebBrowser) continue;
                 // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
                 string[] usedResourceStrings = { Resources.str_filename, Resources.str_extension, Resources.str_location, Resources.str_clear_clipboard, Resources.str_save, Resources.str_preview, Resources.str_main_info, Resources.str_autosave_checkbox, Resources.str_contextentry_checkbox, Resources.str_continuous_mode };
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
@@ -55,6 +72,7 @@ namespace PasteIntoFile
             }
 
             // read clipboard and populate GUI
+            comExt.Text = "*"; // force to use extension based on format type
             var clipRead = readClipboard();
             
             updateFilename();
@@ -98,13 +116,13 @@ namespace PasteIntoFile
             }
             
             // register clipboard monitor
-            clipboard.ClipboardChanged += ClipboardChanged;
+            clipMonitor.ClipboardChanged += ClipboardChanged;
             
         }
 
         public string formatFilenameTemplate(string template)
         {
-            return String.Format(template, clipboardTimestamp, saveCount);
+            return String.Format(template, clipData.timestamp, saveCount);
         }
         public void updateFilename()
         {
@@ -118,53 +136,63 @@ namespace PasteIntoFile
             }
         }
         
-        private bool readClipboard()
-        {
-            clipboardTimestamp = DateTime.Now;
-                
-            // reset GUI elements
-            text = null;
-            txtContent.Hide();
-            image = null;
-            imgContent.Hide();
+        private bool readClipboard() {
+            
+            clipData = ClipboardDataContainer.fromCliboardData();
+
+            // Update GUI elements
             comExt.Items.Clear();
-
             
-            if (Clipboard.ContainsImage())
-            {
-                image = Clipboard.GetImage();
-                imgContent.BackgroundImage = image;
-                imgContent.Show();
-                box.Text = string.Format(Resources.str_preview_image, image.Width, image.Height);
-                comExt.Items.AddRange(new object[] {
-                    "bpm", "emf", "gif", "ico", "jpg", "png", "tif", "wmf"
-                });
-                comExt.DropDownStyle = ComboBoxStyle.DropDownList; // prevent custom formats
-                comExt.SelectedItem = comExt.Items.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : "png";
-                return true;
+            if (clipData.hasImage) {
+                imgContent.BackgroundImage = clipData.image;
+                comExt.Items.AddRange(IMAGE_FORMATS);
+                comExt.Items.Add(""); // separator
             }
             
-            
-            if (Clipboard.ContainsText())
-            {
-                text = Clipboard.GetText();
-            }
-            else if (Clipboard.ContainsFileDropList())
-            {
-                var files = Clipboard.GetFileDropList();
-                text = string.Join("\n", files.Cast<string>().ToList());
+            if (clipData.hasHtml) {
+                htmlContent.DocumentText = clipData.html;
+                comExt.Items.AddRange(HTML_FORMATS);
+                comExt.Items.Add(""); // separator
             }
 
-            if (text != null) 
+            if (clipData.hasFiles && !clipData.hasText) {
+                // use list of file paths as text
+                clipData.text = string.Join("\n", clipData.files.Cast<string>().ToList());
+            }
+            
+            if (clipData.hasText) {
+                txtContent.Text = clipData.text;
+                if (clipData.hasTextUrl) {
+                    comExt.Items.AddRange(URL_FORMATS); 
+                    comExt.Items.Add(""); // separator
+                }
+                comExt.Items.AddRange(DEFAULT_TEXT_FORMATS);
+                comExt.Items.Add(""); // separator
+            }
+            
+            
+            
+            // if selected extension does not match available contents, adjust it
+            if (comExt.Text == "*" || comExt.Text == null ||
+                saveAsImage() && !clipData.hasImage ||
+                saveAsHtml() && !clipData.hasHtml && !clipData.hasText || // allow to save text as html file
+                saveAsUrl() && !clipData.hasTextUrl ||
+                saveAsText() && !clipData.hasText) 
             {
-                txtContent.Text = text;
-                txtContent.Show();
-                box.Text = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
-                comExt.Items.AddRange(new object[] {
-                    "bat", "java", "js", "json", "cpp", "cs", "css", "csv", "html", "md", "php", "ps1", "py", "txt", "url"
-                });
-                comExt.DropDownStyle = ComboBoxStyle.DropDown;
-                comExt.Text = Settings.Default.extensionText == null ? "txt" : Settings.Default.extensionText;
+                // chose file extension based on available contents in this order
+                if (clipData.hasImage)
+                    comExt.Text = IMAGE_FORMATS.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : IMAGE_FORMATS[0];
+                else if (clipData.hasText)
+                    comExt.Text = Settings.Default.extensionText == null ? DEFAULT_TEXT_FORMATS[0] : Settings.Default.extensionText;
+                else if (clipData.hasHtml)
+                    comExt.Text = HTML_FORMATS[0];
+                else
+                    comExt.Text = "";
+            }
+
+            if (comExt.Items.Count > 0)
+            {
+                updateContents();
                 return true;
             }
             
@@ -172,14 +200,16 @@ namespace PasteIntoFile
             return false;
             
         }
+
+        
         
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
-            var previousClipboardTimestamp = clipboardTimestamp;
+            var previousClipboardTimestamp = clipData.timestamp;
             readClipboard();
 
             // ignore duplicate clipboard content updates within 100ms
-            if (continuousMode && (clipboardTimestamp - previousClipboardTimestamp).TotalMilliseconds > 100)
+            if (continuousMode && (clipData.timestamp - previousClipboardTimestamp).TotalMilliseconds > 100)
             {
                 updateFilename();
                 save();
@@ -187,6 +217,36 @@ namespace PasteIntoFile
             }
         }
 
+        /// <summary>
+        /// Update content preview depending on available clipboard data and selected file extension
+        /// </summary>
+        private void updateContents() {
+            
+            txtContent.Hide();
+            htmlContent.Hide();
+            imgContent.Hide();
+
+            if (saveAsImage() && clipData.hasImage) {
+                imgContent.Show();
+                box.Text = string.Format(Resources.str_preview_image, clipData.image.Width, clipData.image.Height);
+            }
+            else if (saveAsHtml() && clipData.hasHtml) {
+                htmlContent.Show();
+                box.Text = Resources.str_preview_html;
+            }
+            else if (saveAsUrl() && clipData.hasTextUrl) {
+                txtContent.Show();
+                box.Text = Resources.str_preview_url;
+            }
+            else if (saveAsTextLike() && clipData.hasText) { // text like, e.g. allow to save text as html file
+                txtContent.Show();
+                box.Text = string.Format(Resources.str_preview_text, clipData.text.Length, clipData.text.Split('\n').Length);
+            }
+            else {
+                box.Text = Resources.str_error_cliboard_format_missmatch;
+            }
+            
+        }
         private void updateSavebutton()
         {
             btnSave.Enabled = txtFilename.Enabled = !continuousMode;
@@ -231,47 +291,51 @@ namespace PasteIntoFile
                 // create folders if required
                 Directory.CreateDirectory(dirname);
 
-                if (text != null)
-                {
+                if (saveAsImage()) {
+                    if (!clipData.hasImage) {
+                        MessageBox.Show(string.Format(Resources.str_error_save_no_image_data, ext), Resources.str_main_window_title,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                    
+                    ImageFormat imageFormat;
                     switch (ext)
                     {
-                        case "url":
-                            if (!Uri.IsWellFormedUriString(text.Trim(), UriKind.RelativeOrAbsolute))
-                            {
-                                MessageBox.Show(Resources.str_text_is_no_uri, Resources.str_main_window_title,
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return null;
-                            }
-                            
-                            File.WriteAllLines(file, new[] {
-                                @"[InternetShortcut]",
-                                @"URL=" + text.Trim()
-                            }, Encoding.UTF8);
-                            break;
-                        
-                        default:
-                            File.WriteAllText(file, text, Encoding.UTF8);
-                            break;
+                        case "bpm": imageFormat = ImageFormat.Bmp; break;
+                        case "emf": imageFormat = ImageFormat.Emf; break;
+                        case "gif": imageFormat = ImageFormat.Gif; break;
+                        case "ico": imageFormat = ImageFormat.Icon; break;
+                        case "jpg": imageFormat = ImageFormat.Jpeg; break;
+                        case "tif": imageFormat = ImageFormat.Tiff; break;
+                        case "wmf": imageFormat = ImageFormat.Wmf; break;
+                        default: imageFormat = ImageFormat.Png; break;
                     }
-
+                    clipData.image.Save(file, imageFormat);                        
                     
                 }
-                else if (image != null)
-                {
-                    ImageFormat format;
-                    switch (ext)
-                    {
-                        case "bpm": format = ImageFormat.Bmp; break;
-                        case "emf": format = ImageFormat.Emf; break;
-                        case "gif": format = ImageFormat.Gif; break;
-                        case "ico": format = ImageFormat.Icon; break;
-                        case "jpg": format = ImageFormat.Jpeg; break;
-                        case "tif": format = ImageFormat.Tiff; break;
-                        case "wmf": format = ImageFormat.Wmf; break;
-                        default: format = ImageFormat.Png; break;
+                else if (saveAsUrl()) {
+                    if (!clipData.hasTextUrl) {
+                        MessageBox.Show(Resources.str_error_save_no_uri, Resources.str_main_window_title,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
                     }
-
-                    image.Save(file, format);
+                            
+                    File.WriteAllLines(file, new[] {
+                        @"[InternetShortcut]",
+                        @"URL=" + clipData.textUrl
+                    }, Encoding.UTF8);
+                    
+                }
+                else if (saveAsHtml() && clipData.hasHtml) {
+                    var data = clipData.html;
+                    if (!data.StartsWith("<!DOCTYPE html>"))
+                        data = "<!DOCTYPE html>\n" + data;
+                    File.WriteAllText(file, data, Encoding.UTF8);
+                    
+                }
+                else if (saveAsTextLike() && clipData.hasText) // text like, e.g. allow to save text as html file
+                {
+                    File.WriteAllText(file, clipData.text, Encoding.UTF8);
                 }
                 else
                 {
@@ -387,17 +451,36 @@ namespace PasteIntoFile
             Process.Start(Resources.str_main_info_url);
         }
 
-        private void comExt_Update(object sender, EventArgs e)
-        {
-            if (text != null)
-            {
+        private void comExt_Update(object sender, EventArgs e) {
+
+            updateContents();
+
+            // remember user selected defaults for certain content types
+            if (saveAsTextLike() && clipData.hasText)
                 Settings.Default.extensionText = comExt.Text;
-            }
-            else if (image != null)
-            {
+            if (saveAsImage() && clipData.hasImage)
                 Settings.Default.extensionImage = comExt.Text;
-            }
+            
             Settings.Default.Save();
+        }
+        
+        private bool saveAsImage() => IMAGE_FORMATS.Contains(comExt.Text);
+
+        private bool saveAsHtml() => HTML_FORMATS.Contains(comExt.Text);
+
+        private bool saveAsUrl() => URL_FORMATS.Contains(comExt.Text);
+
+        /// <summary>
+        /// Checks for strict text extensions, i.e. no other known formats
+        /// </summary>
+        private bool saveAsText() {
+            return saveAsTextLike() && !saveAsHtml() ;
+        }
+        /// <summary>
+        /// Checks for text like extensions, i.e. including html formats, which can also contain text
+        /// </summary>
+        private bool saveAsTextLike() {
+            return comExt.Text != null && comExt.Text != "*" && !saveAsImage() && !saveAsUrl();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

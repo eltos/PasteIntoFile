@@ -199,6 +199,33 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clipboard contains no data matching selected extension.
+        /// </summary>
+        internal static string str_error_cliboard_format_missmatch {
+            get {
+                return ResourceManager.GetString("str_error_cliboard_format_missmatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard contains no image data and can not be saved as {0} file..
+        /// </summary>
+        internal static string str_error_save_no_image_data {
+            get {
+                return ResourceManager.GetString("str_error_save_no_image_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard contains no well formed url and can not be saves as internet shortcut..
+        /// </summary>
+        internal static string str_error_save_no_uri {
+            get {
+                return ResourceManager.GetString("str_error_save_no_uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {
@@ -344,6 +371,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HTML preview.
+        /// </summary>
+        internal static string str_preview_html {
+            get {
+                return ResourceManager.GetString("str_preview_html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image preview ({0}x{1} px).
         /// </summary>
         internal static string str_preview_image {
@@ -358,6 +394,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_preview_text {
             get {
                 return ResourceManager.GetString("str_preview_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL preview.
+        /// </summary>
+        internal static string str_preview_url {
+            get {
+                return ResourceManager.GetString("str_preview_url", resourceCulture);
             }
         }
         
@@ -397,15 +442,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_template_edit_info_url {
             get {
                 return ResourceManager.GetString("str_template_edit_info_url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Text is no well formed url and can not be saved as internet shortcut..
-        /// </summary>
-        internal static string str_text_is_no_uri {
-            get {
-                return ResourceManager.GetString("str_text_is_no_uri", resourceCulture);
             }
         }
         
