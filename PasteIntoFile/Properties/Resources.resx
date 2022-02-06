@@ -286,4 +286,7 @@ Save current clipboard contents now?</value>
   <data name="str_preview_rtf" xml:space="preserve">
     <value>Rich Text Preview</value>
   </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Data Interchange preview</value>
+  </data>
 </root>

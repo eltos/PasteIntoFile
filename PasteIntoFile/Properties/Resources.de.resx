@@ -176,4 +176,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_preview_rtf" xml:space="preserve">
         <value>Rich Text Vorschau</value>
     </data>
+    <data name="str_preview_dif" xml:space="preserve">
+        <value>Data Interchange Vorschau</value>
+    </data>
 </root>

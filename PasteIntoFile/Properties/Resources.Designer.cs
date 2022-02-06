@@ -380,6 +380,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Interchange preview.
+        /// </summary>
+        internal static string str_preview_dif {
+            get {
+                return ResourceManager.GetString("str_preview_dif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HTML preview.
         /// </summary>
         internal static string str_preview_html {

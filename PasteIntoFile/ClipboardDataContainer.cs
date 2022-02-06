@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace PasteIntoFile {
 
     public enum Type {
-        IMAGE, HTML, CSV, SYLK, RTF, URL, FILES,
+        IMAGE, HTML, CSV, SYLK, DIF, RTF, URL, FILES,
         TEXT // text is last since it catches all unknown extensions
     }
     
@@ -19,7 +19,7 @@ namespace PasteIntoFile {
         /// Returns true if the format is text like, i.e. text from clipboard can be saved as this format
         /// </summary>
         public static bool IsLikeText(this Type f) {
-            return new[] { Type.TEXT, Type.HTML, Type.CSV, Type.SYLK, Type.RTF}.Contains(f);
+            return new[] { Type.TEXT, Type.HTML, Type.CSV, Type.SYLK, Type.DIF, Type.RTF}.Contains(f);
         }
         
         public static string[] Extensions(this Type f) {
@@ -29,9 +29,11 @@ namespace PasteIntoFile {
                 case Type.HTML:
                     return new[] { "html", "htm" };
                 case Type.CSV:
-                    return new[] { "csv" };
+                    return new[] { "csv", "tsv", "tab" };
                 case Type.SYLK:
                     return new[] { "slk" };
+                case Type.DIF:
+                    return new[] { "dif" };
                 case Type.RTF:
                     return new[] { "rtf" };
                 case Type.URL:
@@ -74,16 +76,19 @@ namespace PasteIntoFile {
         public string Html => Data.ContainsKey(Type.HTML) ? Data[Type.HTML] as string : null;
         public string Csv => Data.ContainsKey(Type.CSV) ? Data[Type.CSV] as string : null;
         public string Sylk => Data.ContainsKey(Type.SYLK) ? Data[Type.SYLK] as string : null;
+        public string Dif => Data.ContainsKey(Type.DIF) ? Data[Type.DIF] as string : null;
         public string Rtf => Data.ContainsKey(Type.RTF) ? Data[Type.RTF] as string : null;
         public Image Image => Data.ContainsKey(Type.IMAGE) ? Data[Type.IMAGE] as Image : null;
         public StringCollection Files => Data.ContainsKey(Type.FILES) ? Data[Type.FILES] as StringCollection : null;
         public string TextUrl => Text != null && Uri.IsWellFormedUriString(Text.Trim(), UriKind.RelativeOrAbsolute) ? Text.Trim() : null;
 
         public bool Has(Type type) {
-            return Data.ContainsKey(type) ||
-                   type == Type.URL && TextUrl != null;
+            return this[type] != null;
         }
         
+        public object this[Type t] => Data.ContainsKey(t) ? Data[t] : t == Type.URL ? TextUrl : null;
+
+
         public bool HasDataThatCanBeSaveAs(Type type) {
             return Has(type) ||
                    Has(Type.TEXT) && type.IsLikeText(); // allow to save text as html, csv, etc.
@@ -107,6 +112,8 @@ namespace PasteIntoFile {
         public static ClipboardDataContainer fromCliboardData() {
             var container = new ClipboardDataContainer();
             container.Timestamp = DateTime.Now;
+            
+            // https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
             if (Clipboard.ContainsImage())
                 container.Data.Add(Type.IMAGE, Clipboard.GetImage());
             if (Clipboard.ContainsData(DataFormats.Html))
@@ -121,6 +128,8 @@ namespace PasteIntoFile {
                 container.Data.Add(Type.SYLK, readClipboardString(DataFormats.SymbolicLink));
             if (Clipboard.ContainsData(DataFormats.Rtf))
                 container.Data.Add(Type.RTF, readClipboardString(DataFormats.Rtf));
+            if (Clipboard.ContainsData(DataFormats.Dif))
+                container.Data.Add(Type.DIF, readClipboardString(DataFormats.Dif));
 
             return container;
         }

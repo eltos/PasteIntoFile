@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -193,48 +194,48 @@ namespace PasteIntoFile
 
             Type saveAs = TypeMethods.FromExtension(comExt.Text);
 
-            if (clipData.HasDataThatCanBeSaveAs(saveAs)) {
-                if (saveAs == Type.IMAGE && clipData.Image != null) {
-                    imgContent.BackgroundImage = clipData.Image;
-                    imgContent.Show();
-                    box.Text = string.Format(Resources.str_preview_image, clipData.Image.Width, clipData.Image.Height);
-                }
-                else if (saveAs == Type.HTML && clipData.Html != null) {
-                    htmlContent.DocumentText = clipData.Html;
-                    htmlContent.Show();
-                    box.Text = Resources.str_preview_html;
-                }
-                else if (saveAs == Type.URL && clipData.TextUrl != null) {
-                    txtContent.Text = clipData.TextUrl;
-                    txtContent.Show();
-                    box.Text = Resources.str_preview_url;
-                }
-                else if (saveAs == Type.CSV && clipData.Csv != null) {
-                    txtContent.Text = clipData.Csv;
-                    txtContent.Show();
-                    box.Text = Resources.str_preview_csv;
-                }
-                else if (saveAs == Type.SYLK && clipData.Sylk != null) {
-                    txtContent.Text = clipData.Sylk;
-                    txtContent.Show();
-                    box.Text = Resources.str_preview_sylk;
-                }
-                else if (saveAs == Type.RTF && clipData.Rtf != null) {
-                    txtContent.Rtf = clipData.Rtf;
-                    txtContent.Show();
-                    box.Text = Resources.str_preview_rtf;
-                }
-                else if (saveAs.IsLikeText()) {
-                    txtContent.Text = clipData.Text;
-                    txtContent.Show();
-                    box.Text = string.Format(Resources.str_preview_text, clipData.Text.Length, clipData.Text.Split('\n').Length);
-                }
-                
+            if (saveAs == Type.IMAGE && clipData.Image != null) {
+                imgContent.BackgroundImage = clipData.Image;
+                imgContent.Show();
+                box.Text = string.Format(Resources.str_preview_image, clipData.Image.Width, clipData.Image.Height);
+                return;
             }
-            else {
-                box.Text = Resources.str_error_cliboard_format_missmatch;
+
+            if (saveAs == Type.HTML && clipData.Html != null) {
+                htmlContent.DocumentText = clipData.Html;
+                htmlContent.Show();
+                box.Text = Resources.str_preview_html;
+                return;
+            }
+
+            // text like formats which are show in txtContent preview
+            foreach (var t in new Dictionary<Type, string> {
+                         { Type.URL, Resources.str_preview_url },
+                         { Type.CSV, Resources.str_preview_csv },
+                         { Type.SYLK, Resources.str_preview_sylk },
+                         { Type.DIF, Resources.str_preview_dif },
+                         { Type.RTF, Resources.str_preview_rtf },
+                     })
+            {
+                if (saveAs == t.Key && clipData[t.Key] is string) {
+                    txtContent.Text = clipData[t.Key] as string;
+                    txtContent.Show();
+                    box.Text = t.Value;
+                    return;
+                }
+            }
+
+            if (saveAs.IsLikeText() && clipData.Text != null) {
+                txtContent.Text = clipData.Text;
+                txtContent.Show();
+                box.Text = string.Format(Resources.str_preview_text, clipData.Text.Length,
+                    clipData.Text.Split('\n').Length);
+                return;
             }
             
+            // no matching data found
+            box.Text = Resources.str_error_cliboard_format_missmatch;
+
         }
         private void updateSavebutton()
         {
@@ -320,6 +321,9 @@ namespace PasteIntoFile
                 }
                 else if (saveAs == Type.SYLK && clipData.Sylk != null) {
                     File.WriteAllText(file, clipData.Sylk, Encoding.ASCII);
+                }
+                else if (saveAs == Type.DIF && clipData.Dif != null) {
+                    File.WriteAllText(file, clipData.Dif, Encoding.ASCII);
                 }
                 else if (saveAs == Type.RTF && clipData.Rtf != null) {
                     File.WriteAllText(file, clipData.Rtf, Encoding.ASCII);
