@@ -167,4 +167,13 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_preview_url" xml:space="preserve">
         <value>URL Vorschau</value>
     </data>
+    <data name="str_preview_csv" xml:space="preserve">
+        <value>CSV Vorschau</value>
+    </data>
+    <data name="str_preview_sylk" xml:space="preserve">
+        <value>Symbolic Link (SYLK) Vorschau</value>
+    </data>
+    <data name="str_preview_rtf" xml:space="preserve">
+        <value>Rich Text Vorschau</value>
+    </data>
 </root>

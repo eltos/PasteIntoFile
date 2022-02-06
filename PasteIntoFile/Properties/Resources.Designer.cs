@@ -371,6 +371,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CSV preview.
+        /// </summary>
+        internal static string str_preview_csv {
+            get {
+                return ResourceManager.GetString("str_preview_csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HTML preview.
         /// </summary>
         internal static string str_preview_html {
@@ -385,6 +394,24 @@ namespace PasteIntoFile.Properties {
         internal static string str_preview_image {
             get {
                 return ResourceManager.GetString("str_preview_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rich Text Preview.
+        /// </summary>
+        internal static string str_preview_rtf {
+            get {
+                return ResourceManager.GetString("str_preview_rtf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbolic Link (SYLK) preview.
+        /// </summary>
+        internal static string str_preview_sylk {
+            get {
+                return ResourceManager.GetString("str_preview_sylk", resourceCulture);
             }
         }
         

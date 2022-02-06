@@ -9,7 +9,7 @@ namespace PasteIntoFile
     {
         
         
-        public IEnumerable<Control> GetAllChild(Control control, Type type = null)
+        public IEnumerable<Control> GetAllChild(Control control, System.Type type = null)
         {
             var controls = control.Controls.Cast<Control>();
             var enumerable = controls as Control[] ?? controls.ToArray();

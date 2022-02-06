@@ -96,6 +96,9 @@
     <Compile Include="ExplorerUtil.cs" />
     <Compile Include="MasterForm.cs" />
     <Compile Include="RegistryUtil.cs" />
+    <Compile Include="SeparableComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TemplateEdit.cs">
       <SubType>Form</SubType>
     </Compile>

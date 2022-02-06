@@ -38,7 +38,7 @@ namespace PasteIntoFile
             this.lblFileName = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.lblExt = new System.Windows.Forms.Label();
-            this.comExt = new System.Windows.Forms.ComboBox();
+            this.comExt = new SeparableComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.lblCurrentLocation = new System.Windows.Forms.Label();
@@ -445,7 +445,7 @@ namespace PasteIntoFile
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.TextBox txtFilename;
         private System.Windows.Forms.Label lblExt;
-        private System.Windows.Forms.ComboBox comExt;
+        private SeparableComboBox comExt;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label lblCurrentLocation;

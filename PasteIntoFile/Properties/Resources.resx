@@ -277,4 +277,13 @@ Save current clipboard contents now?</value>
   <data name="str_preview_url" xml:space="preserve">
     <value>URL preview</value>
   </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>CSV preview</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>Symbolic Link (SYLK) preview</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Rich Text Preview</value>
+  </data>
 </root>
