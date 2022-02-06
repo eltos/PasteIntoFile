@@ -208,24 +208,6 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard contains no image data and can not be saved as {0} file..
-        /// </summary>
-        internal static string str_error_save_no_image_data {
-            get {
-                return ResourceManager.GetString("str_error_save_no_image_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clipboard contains no well formed url and can not be saves as internet shortcut..
-        /// </summary>
-        internal static string str_error_save_no_uri {
-            get {
-                return ResourceManager.GetString("str_error_save_no_uri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {

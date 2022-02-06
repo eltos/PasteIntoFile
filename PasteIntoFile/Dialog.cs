@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 using WK.Libraries.BetterFolderBrowserNS;
@@ -15,7 +12,7 @@ namespace PasteIntoFile
 {
     public partial class Dialog : MasterForm
     {
-        private ClipboardDataContainer clipData = new ClipboardDataContainer();
+        private ClipboardContents clipData = new ClipboardContents();
         private readonly SharpClipboard clipMonitor = new SharpClipboard();
         private bool continuousMode = false;
         private int saveCount = 0;
@@ -121,44 +118,36 @@ namespace PasteIntoFile
             }
         }
         
+        /// <summary>
+        /// Read the clipboard and update the UI
+        /// </summary>
+        /// <returns></returns>
         private bool readClipboard() {
             
-            clipData = ClipboardDataContainer.fromCliboardData();
-            
-            // use list of file paths as text
-            if (clipData.Has(Type.FILES) && !clipData.Has(Type.TEXT)) {
-                clipData.Data.Add(Type.TEXT, string.Join("\n", clipData.Files.Cast<string>().ToList()));
-            }
-
+            clipData = ClipboardContents.FromClipboard();
 
             // Update extension dropdown list
             comExt.Items.Clear();
-            foreach (Type f in Enum.GetValues(typeof(Type))) {
-                if (clipData.Has(f) && f != Type.FILES)
-                    comExt.AddWithSeparator(f.Extensions().Except(comExt.ItemArray()));
+            foreach (var content in clipData.Contents) {
+                comExt.AddWithSeparator(content.Extensions.Except(comExt.ItemArray()));
             }
 
-
-
             // if selected extension does not match available contents, adjust it
-            if (comExt.Text == "*" || comExt.Text == null ||
-                !clipData.HasDataThatCanBeSaveAs(TypeMethods.FromExtension(comExt.Text)))
-            {
+            if (comExt.Text == "*" || comExt.Text == null || clipData.ForExtension(comExt.Text) == null) {
                 // chose file extension based on available contents in this order
-                Type? t = clipData.PrimaryType();
-                if (t == Type.IMAGE)
-                    comExt.Text = Type.IMAGE.Extensions().Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : Type.IMAGE.DefaultExtension();
-                else if (t == Type.TEXT)
-                    comExt.Text = Settings.Default.extensionText == null ? Type.TEXT.DefaultExtension() : Settings.Default.extensionText;
-                else if (t != null)
-                    comExt.Text = ((Type) t).DefaultExtension();
+                BaseContent content = clipData.PrimaryContent;
+                if (content is ImageContent)
+                    comExt.Text = content.Extensions.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : content.DefaultExtension;
+                else if (content is TextContent)
+                    comExt.Text = Settings.Default.extensionText == null ? content.DefaultExtension : Settings.Default.extensionText;
+                else if (content != null)
+                    comExt.Text = content.DefaultExtension;
                 else
                     comExt.Text = "";
             }
 
-            if (comExt.Items.Count > 0)
-            {
-                updateContents();
+            if (comExt.Items.Count > 0) {
+                updateContentPreview();
                 return true;
             }
             
@@ -183,60 +172,49 @@ namespace PasteIntoFile
             }
         }
 
+        
         /// <summary>
         /// Update content preview depending on available clipboard data and selected file extension
         /// </summary>
-        private void updateContents() {
+        private void updateContentPreview() {
             
-            txtContent.Hide();
-            htmlContent.Hide();
-            imgContent.Hide();
+            textPreview.Hide();
+            htmlPreview.Hide();
+            imagePreview.Hide();
 
-            Type saveAs = TypeMethods.FromExtension(comExt.Text);
-
-            if (saveAs == Type.IMAGE && clipData.Image != null) {
-                imgContent.BackgroundImage = clipData.Image;
-                imgContent.Show();
-                box.Text = string.Format(Resources.str_preview_image, clipData.Image.Width, clipData.Image.Height);
-                return;
-            }
-
-            if (saveAs == Type.HTML && clipData.Html != null) {
-                htmlContent.DocumentText = clipData.Html;
-                htmlContent.Show();
-                box.Text = Resources.str_preview_html;
-                return;
-            }
-
-            // text like formats which are show in txtContent preview
-            foreach (var t in new Dictionary<Type, string> {
-                         { Type.URL, Resources.str_preview_url },
-                         { Type.CSV, Resources.str_preview_csv },
-                         { Type.SYLK, Resources.str_preview_sylk },
-                         { Type.DIF, Resources.str_preview_dif },
-                         { Type.RTF, Resources.str_preview_rtf },
-                     })
-            {
-                if (saveAs == t.Key && clipData[t.Key] is string) {
-                    txtContent.Text = clipData[t.Key] as string;
-                    txtContent.Show();
-                    box.Text = t.Value;
+            BaseContent content = clipData.ForExtension(comExt.Text);
+            
+            if (content != null) {
+                box.Text = content.Description;
+                
+                if (content is ImageContent imageContent) {
+                    imagePreview.BackgroundImage = imageContent.Image;
+                    imagePreview.Show();
+                    return;
+                }
+                
+                if (content is HtmlContent htmlContent) {
+                    htmlPreview.DocumentText = htmlContent.Text;
+                    htmlPreview.Show();
+                    return;
+                }
+                
+                if (content is TextLikeContent textLikeContent) {
+                    if (content is RtfContent)
+                        textPreview.Rtf = textLikeContent.Text;
+                    else
+                        textPreview.Text = textLikeContent.Text;
+                    textPreview.Show();
                     return;
                 }
             }
 
-            if (saveAs.IsLikeText() && clipData.Text != null) {
-                txtContent.Text = clipData.Text;
-                txtContent.Show();
-                box.Text = string.Format(Resources.str_preview_text, clipData.Text.Length,
-                    clipData.Text.Split('\n').Length);
-                return;
-            }
-            
             // no matching data found
             box.Text = Resources.str_error_cliboard_format_missmatch;
 
         }
+        
+        
         private void updateSavebutton()
         {
             btnSave.Enabled = txtFilename.Enabled = !continuousMode;
@@ -282,30 +260,12 @@ namespace PasteIntoFile
                 // create folders if required
                 Directory.CreateDirectory(dirname);
 
-                Type saveAs = TypeMethods.FromExtension(comExt.Text);
+                BaseContent contentToSave = clipData.ForExtension(comExt.Text);
 
-                if (saveAs == Type.IMAGE) {
-                    if (clipData.Image == null) {
-                        MessageBox.Show(string.Format(Resources.str_error_save_no_image_data, ext), Resources.str_main_window_title,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-                    
-                    ImageFormat imageFormat;
-                    switch (ext)
-                    {
-                        case "bpm": imageFormat = ImageFormat.Bmp; break;
-                        case "emf": imageFormat = ImageFormat.Emf; break;
-                        case "gif": imageFormat = ImageFormat.Gif; break;
-                        case "ico": imageFormat = ImageFormat.Icon; break;
-                        case "jpg": imageFormat = ImageFormat.Jpeg; break;
-                        case "tif": imageFormat = ImageFormat.Tiff; break;
-                        case "wmf": imageFormat = ImageFormat.Wmf; break;
-                        default: imageFormat = ImageFormat.Png; break;
-                    }
-                    clipData.Image.Save(file, imageFormat);                        
-                    
+                if (contentToSave != null) {
+                    contentToSave.SaveAs(file, ext);
                 }
+                /*
                 else if (saveAs == Type.URL) {
                     if (clipData.TextUrl == null) {
                         MessageBox.Show(Resources.str_error_save_no_uri, Resources.str_main_window_title,
@@ -341,7 +301,7 @@ namespace PasteIntoFile
                 else if (saveAs.IsLikeText() && clipData.Text != null) // text like, e.g. allow to save text as html
                 {
                     File.WriteAllText(file, clipData.Text, Encoding.UTF8);
-                }
+                }*/
                 else
                 {
                     return null;
@@ -458,14 +418,13 @@ namespace PasteIntoFile
 
         private void comExt_Update(object sender, EventArgs e) {
 
-            updateContents();
+            updateContentPreview();
 
             // remember user selected defaults for certain content types
-            Type saveAs = TypeMethods.FromExtension(comExt.Text);
-
-            if (saveAs.IsLikeText() && clipData.Has(Type.TEXT))
+            BaseContent content = clipData.ForExtension(comExt.Text);
+            if (content is TextLikeContent)
                 Settings.Default.extensionText = comExt.Text;
-            if (saveAs == Type.IMAGE && clipData.Has(Type.IMAGE))
+            if (content is ImageContent)
                 Settings.Default.extensionImage = comExt.Text;
             
             Settings.Default.Save();

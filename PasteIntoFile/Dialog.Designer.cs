@@ -32,9 +32,9 @@ namespace PasteIntoFile
         /// </summary>
         private void InitializeComponent()
         {
-            this.imgContent = new System.Windows.Forms.PictureBox();
-            this.txtContent = new System.Windows.Forms.RichTextBox();
-            this.htmlContent = new System.Windows.Forms.WebBrowser();
+            this.imagePreview = new System.Windows.Forms.PictureBox();
+            this.textPreview = new System.Windows.Forms.RichTextBox();
+            this.htmlPreview = new System.Windows.Forms.WebBrowser();
             this.lblFileName = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.lblExt = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@ namespace PasteIntoFile
             this.chkContinuousMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.chkContextEntry = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize) (this.imgContent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.imagePreview)).BeginInit();
             this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -67,40 +67,40 @@ namespace PasteIntoFile
             // 
             // imgContent
             // 
-            this.imgContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.imgContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgContent.Location = new System.Drawing.Point(8, 27);
-            this.imgContent.Margin = new System.Windows.Forms.Padding(4);
-            this.imgContent.Name = "imgContent";
-            this.imgContent.Size = new System.Drawing.Size(522, 249);
-            this.imgContent.TabIndex = 13;
-            this.imgContent.TabStop = false;
-            this.imgContent.Visible = false;
+            this.imagePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.imagePreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imagePreview.Location = new System.Drawing.Point(8, 27);
+            this.imagePreview.Margin = new System.Windows.Forms.Padding(4);
+            this.imagePreview.Name = "imagePreview";
+            this.imagePreview.Size = new System.Drawing.Size(522, 249);
+            this.imagePreview.TabIndex = 13;
+            this.imagePreview.TabStop = false;
+            this.imagePreview.Visible = false;
             // 
             // txtContent
             // 
-            this.txtContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtContent.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.txtContent.Location = new System.Drawing.Point(8, 27);
-            this.txtContent.Margin = new System.Windows.Forms.Padding(4);
-            this.txtContent.Name = "txtContent";
-            this.txtContent.ReadOnly = true;
-            this.txtContent.Size = new System.Drawing.Size(522, 249);
-            this.txtContent.TabIndex = 0;
-            this.txtContent.TabStop = false;
-            this.txtContent.Text = "";
-            this.txtContent.Visible = false;
-            this.txtContent.WordWrap = false;
+            this.textPreview.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textPreview.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.textPreview.Location = new System.Drawing.Point(8, 27);
+            this.textPreview.Margin = new System.Windows.Forms.Padding(4);
+            this.textPreview.Name = "textPreview";
+            this.textPreview.ReadOnly = true;
+            this.textPreview.Size = new System.Drawing.Size(522, 249);
+            this.textPreview.TabIndex = 0;
+            this.textPreview.TabStop = false;
+            this.textPreview.Text = "";
+            this.textPreview.Visible = false;
+            this.textPreview.WordWrap = false;
             // 
             // htmlContent
             // 
-            this.htmlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.htmlContent.Location = new System.Drawing.Point(8, 27);
-            this.htmlContent.Name = "htmlContent";
-            this.htmlContent.Size = new System.Drawing.Size(522, 249);
-            this.htmlContent.TabIndex = 14;
-            this.htmlContent.Visible = false;
+            this.htmlPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.htmlPreview.Location = new System.Drawing.Point(8, 27);
+            this.htmlPreview.Name = "htmlPreview";
+            this.htmlPreview.Size = new System.Drawing.Size(522, 249);
+            this.htmlPreview.TabIndex = 14;
+            this.htmlPreview.Visible = false;
             // 
             // lblFileName
             // 
@@ -246,9 +246,9 @@ namespace PasteIntoFile
             // box
             // 
             this.box.AutoSize = true;
-            this.box.Controls.Add(this.txtContent);
-            this.box.Controls.Add(this.imgContent);
-            this.box.Controls.Add(this.htmlContent);
+            this.box.Controls.Add(this.textPreview);
+            this.box.Controls.Add(this.imagePreview);
+            this.box.Controls.Add(this.htmlPreview);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.box.Location = new System.Drawing.Point(19, 183);
@@ -419,7 +419,7 @@ namespace PasteIntoFile
             this.Name = "Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_KeyPress);
-            ((System.ComponentModel.ISupportInitialize) (this.imgContent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.imagePreview)).EndInit();
             this.box.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -439,9 +439,9 @@ namespace PasteIntoFile
 
         private System.Windows.Forms.CheckBox chkContinuousMode;
         private System.Windows.Forms.CheckBox chkContextEntry;
-        private System.Windows.Forms.PictureBox imgContent;
-        private System.Windows.Forms.RichTextBox txtContent;
-        private System.Windows.Forms.WebBrowser htmlContent;
+        private System.Windows.Forms.PictureBox imagePreview;
+        private System.Windows.Forms.RichTextBox textPreview;
+        private System.Windows.Forms.WebBrowser htmlPreview;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.TextBox txtFilename;
         private System.Windows.Forms.Label lblExt;

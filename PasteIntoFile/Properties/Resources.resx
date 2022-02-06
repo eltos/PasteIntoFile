@@ -221,9 +221,6 @@ Do you want to overwrite it?</value>
   <data name="str_wizard_autosave_info" xml:space="preserve">
     <value>You can configure Paste Into File to automatically save the file without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry. You can change this setting later.</value>
   </data>
-  <data name="str_error_save_no_uri" xml:space="preserve">
-    <value>Clipboard contains no well formed url and can not be saves as internet shortcut.</value>
-  </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Batch mode</value>
   </data>
@@ -264,9 +261,6 @@ Save current clipboard contents now?</value>
   </data>
   <data name="str_copy_failed_binary_data" xml:space="preserve">
     <value>The file {0} contains binary data which cannot be copied to the clipboard.</value>
-  </data>
-  <data name="str_error_save_no_image_data" xml:space="preserve">
-    <value>Clipboard contains no image data and can not be saved as {0} file.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
     <value>Clipboard contains no data matching selected extension</value>

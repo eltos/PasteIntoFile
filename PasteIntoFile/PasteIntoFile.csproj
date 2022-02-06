@@ -92,7 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClipboardDataContainer.cs" />
+    <Compile Include="ClipboardContents.cs" />
     <Compile Include="ExplorerUtil.cs" />
     <Compile Include="MasterForm.cs" />
     <Compile Include="RegistryUtil.cs" />
