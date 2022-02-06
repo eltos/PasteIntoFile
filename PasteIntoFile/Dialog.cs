@@ -146,8 +146,9 @@ namespace PasteIntoFile
                     comExt.Text = "";
             }
 
+            updateContentPreview();
+                
             if (comExt.Items.Count > 0) {
-                updateContentPreview();
                 return true;
             }
             
