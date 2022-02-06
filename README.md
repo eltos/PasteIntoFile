@@ -22,9 +22,10 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + Explorer context menu entry: "Paste into file" or "Copy file contents"
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
++ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format, Data Interchange Format, Symbolic Link
 + First launch wizard
 
-![Paste Into File](screenshot.png)  
+![Paste Into File](screenshot.png)
 ![Paste Into File kontext menu](screenshot-1.png)
 
 
@@ -37,6 +38,8 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
   + Or you can download the portable PasteIntoFile.zip, unzip it's contents to a location of your choice and launch the executable to bring up the first-launch wizard
 
 _Tested on Windows 10_
+
+
 
 ## Command Line Use
 
