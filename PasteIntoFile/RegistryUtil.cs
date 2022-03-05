@@ -76,6 +76,10 @@ namespace PasteIntoFile
         /// </summary>
         public static void RegisterApp(bool silent = false)
         {
+	        // Documentation:
+	        // https://docs.microsoft.com/en-us/windows/win32/shell/context
+	        // https://docs.microsoft.com/en-us/windows/win32/shell/context-menu
+	        
 	        // register "paste into file" for directory context menu
 	        foreach (var classKey in OpenClassKeys("Directory"))
 	        {

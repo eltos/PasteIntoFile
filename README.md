@@ -39,6 +39,13 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 _Tested on Windows 10_
 
+## Usage
+
+The first launch wizard will be shown when running Paste Into File for the first time after installation.
+It guides through the most important configuration.
+Further options can be accessed through the main GUI or via command line options (see below).
+
+Help is available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a) 
 
 
 ## Command Line Use
