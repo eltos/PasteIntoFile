@@ -149,7 +149,12 @@ namespace PasteIntoFile
                             ExplorerUtil.GetActiveExplorerPath()??
                             Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                 .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
-            
+            try {
+                location = Path.GetFullPath(location);
+            }
+            catch { // ignored
+            }
+
             Application.Run(new Dialog(location, forceShowDialog));
             return 0;
         }
