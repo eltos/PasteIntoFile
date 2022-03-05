@@ -21,8 +21,9 @@ namespace PasteIntoFile
         
         public Dialog(string location, bool forceShowDialog = false)
         {
-            // always show GUI if shift pressed during start
-            forceShowDialog |= ModifierKeys == Keys.Shift;
+            // invert autosave flag if shift is pressed during start
+            bool shiftPressed = (ModifierKeys & Keys.Shift) == Keys.Shift;
+            bool showDialog = forceShowDialog || !(Settings.Default.autoSave ^ shiftPressed);
             
             // Setup GUI
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace PasteIntoFile
             var clipRead = readClipboard();
             
             updateFilename();
-            txtCurrentLocation.Text = Path.GetFullPath(location);
+            txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkContinuousMode.Checked = continuousMode;
             updateSavebutton(); 
@@ -68,18 +69,15 @@ namespace PasteIntoFile
 
             txtFilename.Select();
 
-            // show dialog or autosave option
-            if (forceShowDialog)
-            {
+            // show dialog or perform autosave
+            if (showDialog) {
                 // Make sure to bring window to foreground (holding shift will open window in background)
                 WindowState = FormWindowState.Minimized;
                 Show();
                 BringToFront();
                 WindowState = FormWindowState.Normal;
             }
-            // otherwise perform autosave if enabled
-            else if (Settings.Default.autoSave)
-            {
+            else {
                 var file = clipRead ? save() : null;
                 if (file != null)
                 {

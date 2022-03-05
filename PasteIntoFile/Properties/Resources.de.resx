@@ -91,7 +91,7 @@
         <value>Autosave aktivieren</value>
     </data>
     <data name="str_wizard_autosave_info" xml:space="preserve">
-        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts die Umschalttaste gedrückt gehalten werden. Diese Einstellung kann später angepasst werden.</value>
+        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann später angepasst und jederzeit durch halten der Umschalttaste einmalig umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
     </data>
     <data name="str_wizard_autosave_title" xml:space="preserve">
         <value>Datei automatisch ohne Dialog speichern?</value>
