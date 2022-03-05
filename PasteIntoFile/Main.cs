@@ -16,7 +16,9 @@ namespace PasteIntoFile
 
         class ArgsCommon
         {
-            [Option('f', "filename", HelpText = "Filename template with optional date format variable such as {0:yyyyMMdd HHmmSS}")]
+            [Option('f', "filename", HelpText = "Filename template with optional format variables such as\n" +
+                                                "{0:yyyyMMdd HHmmSS} for current date and time\n" +
+                                                "{1:000} for batch-mode save counter")]
             public string Filename { get; set; }
 
             [Option("text-extension", HelpText = "File extension for text contents")]
@@ -24,6 +26,9 @@ namespace PasteIntoFile
         
             [Option("image-extension", HelpText = "File extension for image contents")]
             public string ImageExtension { get; set; }
+            
+            [Option("subdir", HelpText = "Template for name of subfolder to create when holding CTRL (see filename for format variables)")]
+            public string Subdir { get; set; }
             
             [Option('c', "clear", HelpText = "Clear clipboard after save (true/false)")]
             public bool? ClearClipboard { get; set; }
@@ -217,6 +222,8 @@ namespace PasteIntoFile
                 Settings.Default.extensionText = args.TextExtension;
             if (args.ImageExtension != null)
                 Settings.Default.extensionImage = args.ImageExtension;
+            if (args.Subdir != null)
+                Settings.Default.subdirTemplate = args.Subdir;
             if (args.ClearClipboard != null)
                 Settings.Default.clrClipboard = (bool) args.ClearClipboard;
             if (args.Autosave != null)

@@ -23,6 +23,9 @@
     <Setting Name="upgradePerformed" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="subdirTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0:yyyy-MM-dd}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 

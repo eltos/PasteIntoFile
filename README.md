@@ -69,10 +69,13 @@ PasteIntoFile 4.0.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   -d, --directory      Path of directory to save file into
-  -f, --filename       Filename template with optional date format variable such
-                       as {0:yyyyMMdd HHmmSS}
+  -f, --filename       Filename template with optional format variables such as
+                       {0:yyyyMMdd HHmmSS} for current date and time
+                       {1:000} for batch-mode save counter
   --text-extension     File extension for text contents
   --image-extension    File extension for image contents
+  --subdir             Template for name of subfolder to create when holding
+                       CTRL (see filename for format variables)
   -c, --clear          Clear clipboard after save (true/false)
   -a, --autosave       Autosave file without prompt (true/false)
   --help               Display this help screen.

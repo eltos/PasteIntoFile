@@ -106,5 +106,17 @@ namespace PasteIntoFile.Properties {
                 this["upgradePerformed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0:yyyy-MM-dd}")]
+        public string subdirTemplate {
+            get {
+                return ((string)(this["subdirTemplate"]));
+            }
+            set {
+                this["subdirTemplate"] = value;
+            }
+        }
     }
 }

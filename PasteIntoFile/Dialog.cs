@@ -21,9 +21,9 @@ namespace PasteIntoFile
         
         public Dialog(string location, bool forceShowDialog = false)
         {
-            // invert autosave flag if shift is pressed during start
-            bool shiftPressed = (ModifierKeys & Keys.Shift) == Keys.Shift;
-            bool showDialog = forceShowDialog || !(Settings.Default.autoSave ^ shiftPressed);
+            // flag if key is pressed during start
+            bool invertAutosave = (ModifierKeys & Keys.Shift) == Keys.Shift;
+            bool saveIntoSubdir = (ModifierKeys & Keys.Control) == Keys.Control;
             
             // Setup GUI
             InitializeComponent();
@@ -59,6 +59,7 @@ namespace PasteIntoFile
             var clipRead = readClipboard();
             
             updateFilename();
+            if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkContinuousMode.Checked = continuousMode;
@@ -70,6 +71,7 @@ namespace PasteIntoFile
             txtFilename.Select();
 
             // show dialog or perform autosave
+            bool showDialog = forceShowDialog || !(Settings.Default.autoSave ^ invertAutosave);
             if (showDialog) {
                 // Make sure to bring window to foreground (holding shift will open window in background)
                 WindowState = FormWindowState.Minimized;
@@ -81,7 +83,8 @@ namespace PasteIntoFile
                 var file = clipRead ? save() : null;
                 if (file != null)
                 {
-                    ExplorerUtil.RequestFilenameEdit(file);
+                    if (!saveIntoSubdir)
+                        ExplorerUtil.RequestFilenameEdit(file);
                     
                     Program.ShowBalloon(Resources.str_autosave_balloontitle, 
                         new []{file, Resources.str_autosave_balloontext}, 10);
