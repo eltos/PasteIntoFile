@@ -80,7 +80,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window..
+        ///   Looks up a localized string similar to Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {
             get {

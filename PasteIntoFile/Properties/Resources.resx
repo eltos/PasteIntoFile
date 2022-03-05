@@ -152,7 +152,7 @@
     <value>Select a folder for saving this file </value>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Clipboard content has been automatically saved as {0}. Hold shift key during save to show option window.</value>
+    <value>Hold shift key during save to show option window.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
     <value>Files are now automatically saved without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry.</value>

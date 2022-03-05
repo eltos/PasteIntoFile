@@ -52,7 +52,7 @@
         <value>Zwischenablage leeren</value>
     </data>
     <data name="str_autosave_balloontext" xml:space="preserve">
-        <value>Inhalt der Zwischenablage wurde automatisch als {0} gespeichert. Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
+        <value>Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
     </data>
     <data name="str_autosave_balloontitle" xml:space="preserve">
         <value>Zwischenablage als Datei gespeichert</value>

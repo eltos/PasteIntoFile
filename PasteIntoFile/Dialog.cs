@@ -85,8 +85,8 @@ namespace PasteIntoFile
                 {
                     ExplorerUtil.RequestFilenameEdit(file);
                     
-                    var message = string.Format(Resources.str_autosave_balloontext, file);
-                    Program.ShowBalloon(Resources.str_autosave_balloontitle, message, 10_000);
+                    Program.ShowBalloon(Resources.str_autosave_balloontitle, 
+                        new []{file, Resources.str_autosave_balloontext}, 10);
 
                     Environment.Exit(0);
                 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using CommandLine;
 using CommandLine.Text;
+using Microsoft.Toolkit.Uwp.Notifications;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile
@@ -280,29 +280,15 @@ namespace PasteIntoFile
         /// </summary>
         /// <param name="title">Title of the message</param>
         /// <param name="message">Body of the message</param>
-        /// <param name="timeout">Duration after which message is dismissed</param>
-        public static void ShowBalloon(string title, string message, ushort timeout = 5000)
-        {
-            var notification = new NotifyIcon
-            {
-                Visible = true,
-                Icon = Resources.icon,
-                // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
-                BalloonTipTitle = title,
-                BalloonTipText = message,
-            };
-
-            // Display for 5 seconds.
-            notification.ShowBalloonTip(timeout);
-
-            // This will let the balloon close after it's 5 second timeout
-            // for demonstration purposes. Comment this out to see what happens
-            // when dispose is called while a balloon is still visible.
-            Thread.Sleep(timeout);
-
-            // The notification should be disposed when you don't need it anymore,
-            // but doing so will immediately close the balloon if it's visible.
-            notification.Dispose();
+        /// <param name="expire">Duration after which message is dismissed in second</param>
+        public static void ShowBalloon(string title, string[] message, ushort expire = 5) {
+            var builder = new ToastContentBuilder().AddText(title);
+            foreach (var s in message) {
+                builder.AddText(s);
+            }
+            builder.Show(toast => {
+                toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
+            });
         }
         
         /// <summary>
