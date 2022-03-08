@@ -109,6 +109,10 @@
           </RegistryKey>
         </RegistryKey>
       </RegistryKey>
+      <!-- for autostart -->
+      <RegistryKey Root='HKCU' Key='Software\Microsoft\Windows\CurrentVersion\Run'>
+        <RegistryValue Type='string' Name='PasteIntoFile' Value='"[INSTALLFOLDER]PasteIntoFile.exe" tray'/>
+      </RegistryKey>
     </Component>
   </Fragment>
 
