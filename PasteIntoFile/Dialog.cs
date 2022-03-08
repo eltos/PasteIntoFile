@@ -280,45 +280,7 @@ namespace PasteIntoFile
                 if (contentToSave != null) {
                     contentToSave.SaveAs(file, ext);
                 }
-                /*
-                else if (saveAs == Type.URL) {
-                    if (clipData.TextUrl == null) {
-                        MessageBox.Show(Resources.str_error_save_no_uri, Resources.str_main_window_title,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-                            
-                    File.WriteAllLines(file, new[] {
-                        @"[InternetShortcut]",
-                        @"URL=" + clipData.TextUrl
-                    }, Encoding.UTF8);
-                    
-                }
-                else if (saveAs == Type.SYLK && clipData.Sylk != null) {
-                    File.WriteAllText(file, clipData.Sylk, Encoding.ASCII);
-                }
-                else if (saveAs == Type.DIF && clipData.Dif != null) {
-                    File.WriteAllText(file, clipData.Dif, Encoding.ASCII);
-                }
-                else if (saveAs == Type.RTF && clipData.Rtf != null) {
-                    File.WriteAllText(file, clipData.Rtf, Encoding.ASCII);
-                }
-                else if (saveAs == Type.CSV && clipData.Csv != null) {
-                    File.WriteAllText(file, clipData.Csv, Encoding.UTF8);
-                }
-                else if (saveAs == Type.HTML && clipData.Html != null) {
-                    var data = clipData.Html;
-                    if (!data.StartsWith("<!DOCTYPE html>"))
-                        data = "<!DOCTYPE html>\n" + data;
-                    File.WriteAllText(file, data, Encoding.UTF8);
-                    
-                }
-                else if (saveAs.IsLikeText() && clipData.Text != null) // text like, e.g. allow to save text as html
-                {
-                    File.WriteAllText(file, clipData.Text, Encoding.UTF8);
-                }*/
-                else
-                {
+                else {
                     return null;
                 }
                 
