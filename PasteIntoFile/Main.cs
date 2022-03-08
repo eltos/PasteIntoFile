@@ -74,6 +74,12 @@ namespace PasteIntoFile
             
         }
 
+        [Verb("tray", HelpText = "Open in tray and wait for hotkey Win + Alt + V")]
+        class ArgsTray 
+        {
+            
+        }
+
 
 
         /// <summary>
@@ -102,12 +108,13 @@ namespace PasteIntoFile
 
             // parse command line arguments
             var parseResult = new Parser(with => with.HelpWriter = null)
-                .ParseArguments<ArgsPaste, ArgsCopy, ArgsConfig, ArgsWizard>(args);
+                .ParseArguments<ArgsPaste, ArgsCopy, ArgsConfig, ArgsWizard, ArgsTray>(args);
             return parseResult.MapResult(
                 (ArgsPaste opts) => RunPaste(opts),
                 (ArgsCopy opts) => RunCopy(opts),
                 (ArgsConfig opts) => RunConfig(opts),
                 (ArgsWizard opts) => RunWizard(opts),
+                (ArgsTray opts) => RunTray(opts),
                 errs => DisplayHelp(parseResult, errs));
             
         }
@@ -150,18 +157,8 @@ namespace PasteIntoFile
             }
 
 
-            var location = (directory??
-                            ExplorerUtil.GetActiveExplorerPath()??
-                            Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
-                .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
-            try {
-                location = Path.GetFullPath(location);
-            }
-            catch { // ignored
-            }
-
-            Application.Run(new Dialog(location, forceShowDialog));
-            return 0;
+            Application.Run(new Dialog(directory, forceShowDialog));
+            return Environment.ExitCode;
         }
 
         static int RunCopy(ArgsCopy args)
@@ -213,6 +210,41 @@ namespace PasteIntoFile
             Application.Run(new Wizard());
             return 0;
         }
+
+        /// <summary>
+        /// Run program in system tray and wait for hotkey press
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Exit code</returns>
+        static int RunTray(ArgsTray args = null)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Register hotkeys
+            KeyboardHook hook = new KeyboardHook();
+            hook.KeyPressed += (s, e) => new Dialog().Show();
+            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
+            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
+            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
+            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+
+            // Tray icon
+            NotifyIcon icon = new NotifyIcon();
+            icon.Icon = Resources.icon;
+            icon.Text = Resources.str_main_window_title;
+            icon.ContextMenu = new ContextMenu(new[] {
+                new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(forceShowDialog: true).Show()),
+                new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
+            });
+            icon.Visible = true;
+
+            Application.Run();
+            
+            icon.Visible = false;
+            return 0;
+        }
+
 
         static void ApplyCommonArgs(ArgsCommon args)
         {

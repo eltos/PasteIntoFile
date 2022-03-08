@@ -71,6 +71,7 @@ Copyright © PasteIntoFile GitHub contributors
   copy       Copy file contents to clipboard
   config     Change configuration (without saving clipboard)
   wizard     Open the first-launch wizard
+  tray       Open in tray and wait for hotkey Win + Alt + V
   help       Display more information on a specific command.
   version    Display version information.
 ```
@@ -97,6 +98,10 @@ Copyright © PasteIntoFile GitHub contributors
 - Add the *Paste Into File* entry in the File Explorer context menu:
    ```powershell
    PasteIntoFile config --register
+   ``` 
+- Start *Paste Into File* in system tray and wait for hotkey Win + Alt + V:
+   ```powershell
+   PasteIntoFile tray
    ``` 
 - Configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
    ```powershell

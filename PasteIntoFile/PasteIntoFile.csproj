@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="ClipboardContents.cs" />
     <Compile Include="ExplorerUtil.cs" />
+    <Compile Include="KeyboardHook.cs" />
     <Compile Include="MasterForm.cs" />
     <Compile Include="RegistryUtil.cs" />
     <Compile Include="SeparableComboBox.cs">

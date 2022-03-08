@@ -283,4 +283,10 @@ Save current clipboard contents now?</value>
   <data name="str_preview_dif" xml:space="preserve">
     <value>Data Interchange preview</value>
   </data>
+  <data name="str_exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>Open Paste Into File</value>
+  </data>
 </root>

@@ -208,6 +208,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string str_exit {
+            get {
+                return ResourceManager.GetString("str_exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         internal static string str_extension {
@@ -340,6 +349,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_noclip_text {
             get {
                 return ResourceManager.GetString("str_noclip_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Paste Into File.
+        /// </summary>
+        internal static string str_open_paste_into_file {
+            get {
+                return ResourceManager.GetString("str_open_paste_into_file", resourceCulture);
             }
         }
         

@@ -19,8 +19,18 @@ namespace PasteIntoFile
         
         
         
-        public Dialog(string location, bool forceShowDialog = false)
+        public Dialog(string location = null, bool forceShowDialog = false)
         {
+            // Fallback to default path
+            location = (location?? ExplorerUtil.GetActiveExplorerPath()?? 
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                .Trim().Trim("\"".ToCharArray()); // remove trailing " fixes paste in root dir
+            try {
+                location = Path.GetFullPath(location);
+            }
+            catch { // ignored
+            }
+            
             // flag if key is pressed during start
             bool invertAutosave = (ModifierKeys & Keys.Shift) == Keys.Shift;
             bool saveIntoSubdir = (ModifierKeys & Keys.Control) == Keys.Control;
@@ -89,11 +99,13 @@ namespace PasteIntoFile
                     Program.ShowBalloon(Resources.str_autosave_balloontitle, 
                         new []{file, Resources.str_autosave_balloontext}, 10);
 
-                    Environment.Exit(0);
+                    Environment.ExitCode = 0;
+                    Close();
                 }
                 else
                 {
-                    Environment.Exit(1);
+                    Environment.ExitCode = 1;
+                    Close();
                 }
 
             }
@@ -227,7 +239,8 @@ namespace PasteIntoFile
         {
             if (save() != null)
             {
-                Environment.Exit(0);
+                Environment.ExitCode = 0;
+                Close();
             }
         }
         
@@ -351,7 +364,8 @@ namespace PasteIntoFile
         {
             if (e.KeyChar == (char) Keys.Escape)
             {
-                Environment.Exit(1);
+                Environment.ExitCode = 0;
+                Close();
             }
         }
 
