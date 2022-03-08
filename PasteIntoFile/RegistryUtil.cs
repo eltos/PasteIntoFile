@@ -50,8 +50,8 @@ namespace PasteIntoFile
         /// <summary>
         /// Checks if context menu entry is registered
         /// </summary>
-        /// <returns>app registration status (true/false)</returns>
-        public static bool IsAppRegistered()
+        /// <returns>context menu entry registration status (true/false)</returns>
+        public static bool IsContextMenuEntryRegistered()
         {
 	        foreach (var classKey in OpenClassKeys())
 	        {
@@ -63,7 +63,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Remove context menu entry
         /// </summary>
-        public static void UnRegisterApp()
+        public static void UnRegisterContextMenuEntry()
         {
 	        foreach (var classKey in OpenClassKeys())
 	        {
@@ -74,7 +74,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Create context menu entry
         /// </summary>
-        public static void RegisterApp(bool silent = false)
+        public static void RegisterContextMenuEntry(bool silent = false)
         {
 	        // Documentation:
 	        // https://docs.microsoft.com/en-us/windows/win32/shell/context
@@ -102,6 +102,33 @@ namespace PasteIntoFile
 
 	        }
 
+        }
+
+        /// <summary>
+        /// Checks if autostart is registered
+        /// </summary>
+        /// <returns>autostart registration status (true/false)</returns>
+        public static bool IsAutostartRegistered() {
+	        return Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
+		        .GetValue(PRIMARY_KEY_NAME) != null;
+        }
+        
+        /// <summary>
+        /// Register autostart
+        /// </summary>
+        public static void RegisterAutostart() {
+	        // The path to the key where Windows looks for startup applications
+	        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
+		        .SetValue(PRIMARY_KEY_NAME, "\"" + Application.ExecutablePath + "\" tray");
+        }
+        
+        /// <summary>
+        /// Remove autostart registration
+        /// </summary>
+        public static void UnRegisterAutostart() {
+	        // The path to the key where Windows looks for startup applications
+	        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
+		        .DeleteValue(PRIMARY_KEY_NAME, false);
         }
 
     }

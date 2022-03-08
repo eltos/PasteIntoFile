@@ -75,7 +75,7 @@ namespace PasteIntoFile
             chkContinuousMode.Checked = continuousMode;
             updateSavebutton(); 
             chkAutoSave.Checked = Settings.Default.autoSave;
-            chkContextEntry.Checked = RegistryUtil.IsAppRegistered();
+            chkContextEntry.Checked = RegistryUtil.IsContextMenuEntryRegistered();
             
 
             txtFilename.Select();
@@ -372,14 +372,14 @@ namespace PasteIntoFile
         {
             try
             {
-                if (chkContextEntry.Checked && !RegistryUtil.IsAppRegistered())
+                if (chkContextEntry.Checked && !RegistryUtil.IsContextMenuEntryRegistered())
                 {
-                    RegistryUtil.RegisterApp();
+                    RegistryUtil.RegisterContextMenuEntry();
                     MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (!chkContextEntry.Checked && RegistryUtil.IsAppRegistered())
+                else if (!chkContextEntry.Checked && RegistryUtil.IsContextMenuEntryRegistered())
                 {
-                    RegistryUtil.UnRegisterApp();
+                    RegistryUtil.UnRegisterContextMenuEntry();
                     MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

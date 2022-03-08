@@ -61,7 +61,7 @@ Hold the following keys while launching Paste Into File
 
 ## Command Line Use
 
-Use `help`, `help paste`, `help config` etc. to show available command line options, e.g.:
+Use `help`, `help paste`, `help config` etc. as argument to show available command line options, e.g.:
 ```
 > .\PasteIntoFile.exe help
 PasteIntoFile 4.2.0.0
@@ -95,13 +95,19 @@ Copyright © PasteIntoFile GitHub contributors
 ```
 
 **Examples:**
-- Add the *Paste Into File* entry in the File Explorer context menu:
+- Add/remove the *Paste Into File* entry in the File Explorer context menu:
    ```powershell
    PasteIntoFile config --register
+   PasteIntoFile config --unregister
    ``` 
-- Start *Paste Into File* in system tray and wait for hotkey Win + Alt + V:
+- Start *Paste Into File* manually in system tray and wait for hotkey Win + Alt + V:
    ```powershell
    PasteIntoFile tray
+   ``` 
+- En-/disable autostart of *Paste Into File* in system tray on windows startup:
+   ```powershell
+   PasteIntoFile config --enable-autostart
+   PasteIntoFile config --disable-autostart
    ``` 
 - Configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
    ```powershell

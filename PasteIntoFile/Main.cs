@@ -61,10 +61,16 @@ namespace PasteIntoFile
         class ArgsConfig : ArgsCommon
         {
             [Option("register", HelpText = "Register context menu entry", SetName = "register")]
-            public bool Register { get; set; }
+            public bool RegisterContextMenu { get; set; }
 
             [Option("unregister", HelpText = "Unregister context menu entry", SetName = "register")]
-            public bool Unregister { get; set; }
+            public bool UnregisterContextMenu { get; set; }
+            
+            [Option("enable-autostart", HelpText = "Register program to run in system tray on windows startup", SetName = "autostart")]
+            public bool RegisterAutostart { get; set; }
+
+            [Option("disable-autostart", HelpText = "Remove autostart on windows startup registration", SetName = "autostart")]
+            public bool UnregisterAutostart { get; set; }
             
         }
 
@@ -204,8 +210,8 @@ namespace PasteIntoFile
         /// <returns>Exit code</returns>
         static int RunWizard(ArgsWizard args = null)
         {
-            if (RegistryUtil.IsAppRegistered())
-                RegistryUtil.RegisterApp(); // overwrites default entry with localized strings
+            if (RegistryUtil.IsContextMenuEntryRegistered())
+                RegistryUtil.RegisterContextMenuEntry(); // overwrites default entry with localized strings
             
             Application.Run(new Wizard());
             return 0;
@@ -274,10 +280,14 @@ namespace PasteIntoFile
             ApplyCommonArgs(args);
             try
             {
-                if (args.Register)
-                    RegistryUtil.RegisterApp();
-                if (args.Unregister)
-                    RegistryUtil.UnRegisterApp();
+                if (args.RegisterContextMenu)
+                    RegistryUtil.RegisterContextMenuEntry();
+                if (args.UnregisterContextMenu)
+                    RegistryUtil.UnRegisterContextMenuEntry();
+                if (args.RegisterAutostart)
+                    RegistryUtil.RegisterAutostart();
+                if (args.UnregisterAutostart)
+                    RegistryUtil.UnRegisterAutostart();
             }
             catch (Exception ex)
             {
