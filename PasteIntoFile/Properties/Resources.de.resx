@@ -179,4 +179,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_open_paste_into_file" xml:space="preserve">
         <value>Paste Into File öffnen</value>
     </data>
+    <data name="str_settings" xml:space="preserve">
+        <value>Einstellungen</value>
+    </data>
 </root>

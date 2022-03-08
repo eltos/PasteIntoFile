@@ -289,4 +289,7 @@ Save current clipboard contents now?</value>
   <data name="str_open_paste_into_file" xml:space="preserve">
     <value>Open Paste Into File</value>
   </data>
+  <data name="str_settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

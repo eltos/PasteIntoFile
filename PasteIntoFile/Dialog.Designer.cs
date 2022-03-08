@@ -55,7 +55,7 @@ namespace PasteIntoFile
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.chkContinuousMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.chkContextEntry = new System.Windows.Forms.CheckBox();
+            this.settingsLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize) (this.imagePreview)).BeginInit();
             this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -383,7 +383,7 @@ namespace PasteIntoFile
             this.tableLayoutPanel5.Controls.Add(this.infoLinkLabel, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.chkAutoSave, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.infoLabel, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.chkContextEntry, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.settingsLinkLabel, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(15, 471);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
@@ -394,17 +394,18 @@ namespace PasteIntoFile
             this.tableLayoutPanel5.Size = new System.Drawing.Size(546, 56);
             this.tableLayoutPanel5.TabIndex = 14;
             // 
-            // chkContextEntry
+            // settingsLinkLabel
             // 
-            this.chkContextEntry.AutoSize = true;
-            this.chkContextEntry.Location = new System.Drawing.Point(4, 28);
-            this.chkContextEntry.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.chkContextEntry.Name = "chkContextEntry";
-            this.chkContextEntry.Size = new System.Drawing.Size(225, 24);
-            this.chkContextEntry.TabIndex = 8;
-            this.chkContextEntry.Text = "str_contextentry_checkbox";
-            this.chkContextEntry.UseVisualStyleBackColor = true;
-            this.chkContextEntry.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            this.settingsLinkLabel.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
+            this.settingsLinkLabel.AutoSize = true;
+            this.settingsLinkLabel.LinkColor = System.Drawing.SystemColors.ControlDark;
+            this.settingsLinkLabel.Location = new System.Drawing.Point(4, 28);
+            this.settingsLinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.settingsLinkLabel.Name = "settingsLinkLabel";
+            this.settingsLinkLabel.Size = new System.Drawing.Size(225, 24);
+            this.settingsLinkLabel.TabIndex = 8;
+            this.settingsLinkLabel.Text = "str_settings";
+            this.settingsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.settingsLinkLabel_LinkClicked);
             // 
             // Dialog
             // 
@@ -438,7 +439,7 @@ namespace PasteIntoFile
         private System.Windows.Forms.LinkLabel linkLabel1;
 
         private System.Windows.Forms.CheckBox chkContinuousMode;
-        private System.Windows.Forms.CheckBox chkContextEntry;
+        private System.Windows.Forms.LinkLabel settingsLinkLabel;
         private System.Windows.Forms.PictureBox imagePreview;
         private System.Windows.Forms.RichTextBox textPreview;
         private System.Windows.Forms.WebBrowser htmlPreview;

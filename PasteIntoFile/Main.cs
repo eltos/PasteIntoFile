@@ -241,6 +241,7 @@ namespace PasteIntoFile
             icon.Text = Resources.str_main_window_title;
             icon.ContextMenu = new ContextMenu(new[] {
                 new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(forceShowDialog: true).Show()),
+                new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
                 new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
             });
             icon.Visible = true;

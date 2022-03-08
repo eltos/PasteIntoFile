@@ -461,6 +461,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string str_settings {
+            get {
+                return ResourceManager.GetString("str_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The template is used to format the filename. The following variables are supported:
         ///  {0} - Date and time
         ///  {1} - Save count in batch mode
