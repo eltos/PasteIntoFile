@@ -13,7 +13,7 @@ A Windows desktop application to paste clipboard contents into files and copy fi
 
 _This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
 _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._  
-_This fork comes with many new features such as clipboard monitoring, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
+_This fork comes with many new features such as clipboard monitoring, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, system tray mode, listen to hotkey, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
 _The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
 
 
@@ -24,6 +24,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
 + Many formats: Image, Text, HTML, CSV, URL, Rich Text Format, Data Interchange Format, Symbolic Link
++ Hotkey `Win`+`Alt`+`V`
 + First launch wizard
 
 ![Paste Into File](screenshot.png)
