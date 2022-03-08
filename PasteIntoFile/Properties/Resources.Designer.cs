@@ -308,6 +308,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autostart registered.
+        /// </summary>
+        internal static string str_message_register_autostart_success {
+            get {
+                return ResourceManager.GetString("str_message_register_autostart_success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Explorer context menu entry has been added.
         /// </summary>
         internal static string str_message_register_context_menu_success {
@@ -322,6 +331,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_message_run_as_admin {
             get {
                 return ResourceManager.GetString("str_message_run_as_admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autostart unregistered.
+        /// </summary>
+        internal static string str_message_unregister_autostart_success {
+            get {
+                return ResourceManager.GetString("str_message_unregister_autostart_success", resourceCulture);
             }
         }
         
@@ -523,6 +541,33 @@ namespace PasteIntoFile.Properties {
         internal static string str_wizard_autosave_title {
             get {
                 return ResourceManager.GetString("str_wizard_autosave_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register autostart.
+        /// </summary>
+        internal static string str_wizard_autostart_button {
+            get {
+                return ResourceManager.GetString("str_wizard_autostart_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To paste clipboard contents by pressing WIN+ALT+V, Paste Into File needs to run in the system tray. If enabled, it will run automatically on windows startup and listen for the hotkey. This setting will take effect on the next login..
+        /// </summary>
+        internal static string str_wizard_autostart_info {
+            get {
+                return ResourceManager.GetString("str_wizard_autostart_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable autostart and hotkey WIN+ALT+V?.
+        /// </summary>
+        internal static string str_wizard_autostart_title {
+            get {
+                return ResourceManager.GetString("str_wizard_autostart_title", resourceCulture);
             }
         }
         

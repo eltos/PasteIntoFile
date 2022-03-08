@@ -32,13 +32,16 @@ namespace PasteIntoFile
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.chkAutoSave = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.autoSaveCheckBox = new System.Windows.Forms.CheckBox();
+            this.autoSaveInfoLabel = new System.Windows.Forms.Label();
+            this.autoSaveTitleLabel = new System.Windows.Forms.Label();
+            this.autostartCheckBox = new System.Windows.Forms.CheckBox();
+            this.autostartInfoLabel = new System.Windows.Forms.Label();
+            this.autostartTitleLabel = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
-            this.subtitle1 = new System.Windows.Forms.Label();
-            this.text1 = new System.Windows.Forms.Label();
-            this.chkContextEntry = new System.Windows.Forms.CheckBox();
+            this.contextEntryTitleLabel = new System.Windows.Forms.Label();
+            this.contextEntryInfoLabel = new System.Windows.Forms.Label();
+            this.contextEntryCheckBox = new System.Windows.Forms.CheckBox();
             this.finish = new System.Windows.Forms.Button();
             this.version = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
@@ -48,15 +51,18 @@ namespace PasteIntoFile
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.chkAutoSave, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.title, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.subtitle1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.text1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.chkContextEntry, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.version, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryTitleLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryInfoLabel, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBox, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -72,47 +78,50 @@ namespace PasteIntoFile
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(576, 542);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 800);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // chkAutoSave
+            // autoSaveCheckBox
             // 
-            this.chkAutoSave.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkAutoSave.AutoSize = true;
-            this.chkAutoSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.chkAutoSave.Location = new System.Drawing.Point(301, 331);
-            this.chkAutoSave.Margin = new System.Windows.Forms.Padding(9);
-            this.chkAutoSave.Name = "chkAutoSave";
-            this.chkAutoSave.Size = new System.Drawing.Size(262, 24);
-            this.chkAutoSave.TabIndex = 1;
-            this.chkAutoSave.Text = "str_wizard_autosave_button";
-            this.chkAutoSave.UseVisualStyleBackColor = true;
-            this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
+            this.autoSaveCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoSaveCheckBox.AutoSize = true;
+            this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveCheckBox.Location = new System.Drawing.Point(301, 331);
+            this.autoSaveCheckBox.Margin = new System.Windows.Forms.Padding(9);
+            this.autoSaveCheckBox.Name = "autoSaveCheckBox";
+            this.autoSaveCheckBox.Size = new System.Drawing.Size(262, 24);
+            this.autoSaveCheckBox.TabIndex = 1;
+            this.autoSaveCheckBox.Text = "str_wizard_autosave_button";
+            this.autoSaveCheckBox.UseVisualStyleBackColor = true;
+            this.autoSaveCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
             // 
-            // label2
+            // autoSaveInfoLabel
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label2.Location = new System.Drawing.Point(8, 295);
-            this.label2.Margin = new System.Windows.Forms.Padding(4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(560, 23);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "str_wizard_autosave_info";
+            this.autoSaveInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoSaveInfoLabel.AutoSize = true;
+            this.autoSaveInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveInfoLabel.Location = new System.Drawing.Point(8, 295);
+            this.autoSaveInfoLabel.Margin = new System.Windows.Forms.Padding(4);
+            this.autoSaveInfoLabel.Name = "autoSaveInfoLabel";
+            this.autoSaveInfoLabel.Size = new System.Drawing.Size(560, 23);
+            this.autoSaveInfoLabel.TabIndex = 6;
+            this.autoSaveInfoLabel.Text = "str_wizard_autosave_info";
             // 
-            // label1
+            // autoSaveTitleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label1.Location = new System.Drawing.Point(8, 255);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(560, 32);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "str_wizard_autosave_title";
+            this.autoSaveTitleLabel.AutoSize = true;
+            this.autoSaveTitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.autoSaveTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveTitleLabel.Location = new System.Drawing.Point(8, 255);
+            this.autoSaveTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
+            this.autoSaveTitleLabel.Name = "autoSaveTitleLabel";
+            this.autoSaveTitleLabel.Size = new System.Drawing.Size(560, 32);
+            this.autoSaveTitleLabel.TabIndex = 5;
+            this.autoSaveTitleLabel.Text = "str_wizard_autosave_title";
             // 
             // title
             // 
@@ -127,42 +136,79 @@ namespace PasteIntoFile
             this.title.Text = "str_wizard_title";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // subtitle1
+            // contextEntryTitleLabel
             // 
-            this.subtitle1.AutoSize = true;
-            this.subtitle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.subtitle1.Location = new System.Drawing.Point(8, 116);
-            this.subtitle1.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
-            this.subtitle1.Name = "subtitle1";
-            this.subtitle1.Size = new System.Drawing.Size(343, 32);
-            this.subtitle1.TabIndex = 1;
-            this.subtitle1.Text = "str_wizard_contextentry_title";
+            this.contextEntryTitleLabel.AutoSize = true;
+            this.contextEntryTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryTitleLabel.Location = new System.Drawing.Point(8, 116);
+            this.contextEntryTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
+            this.contextEntryTitleLabel.Name = "contextEntryTitleLabel";
+            this.contextEntryTitleLabel.Size = new System.Drawing.Size(343, 32);
+            this.contextEntryTitleLabel.TabIndex = 1;
+            this.contextEntryTitleLabel.Text = "str_wizard_contextentry_title";
             // 
-            // text1
+            // contextEntryInfoLabel
             // 
-            this.text1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.text1.AutoSize = true;
-            this.text1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.text1.Location = new System.Drawing.Point(8, 156);
-            this.text1.Margin = new System.Windows.Forms.Padding(4);
-            this.text1.Name = "text1";
-            this.text1.Size = new System.Drawing.Size(560, 23);
-            this.text1.TabIndex = 2;
-            this.text1.Text = "str_wizard_contextentry_info";
+            this.contextEntryInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.contextEntryInfoLabel.AutoSize = true;
+            this.contextEntryInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryInfoLabel.Location = new System.Drawing.Point(8, 156);
+            this.contextEntryInfoLabel.Margin = new System.Windows.Forms.Padding(4);
+            this.contextEntryInfoLabel.Name = "contextEntryInfoLabel";
+            this.contextEntryInfoLabel.Size = new System.Drawing.Size(560, 23);
+            this.contextEntryInfoLabel.TabIndex = 2;
+            this.contextEntryInfoLabel.Text = "str_wizard_contextentry_info";
             // 
-            // chkContextEntry
+            // contextEntryCheckBox
             // 
-            this.chkContextEntry.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkContextEntry.AutoSize = true;
-            this.chkContextEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.chkContextEntry.Location = new System.Drawing.Point(275, 192);
-            this.chkContextEntry.Margin = new System.Windows.Forms.Padding(9);
-            this.chkContextEntry.Name = "chkContextEntry";
-            this.chkContextEntry.Size = new System.Drawing.Size(288, 24);
-            this.chkContextEntry.TabIndex = 0;
-            this.chkContextEntry.Text = "str_wizard_contextentry_button";
-            this.chkContextEntry.UseVisualStyleBackColor = true;
-            this.chkContextEntry.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            this.contextEntryCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.contextEntryCheckBox.AutoSize = true;
+            this.contextEntryCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryCheckBox.Location = new System.Drawing.Point(275, 192);
+            this.contextEntryCheckBox.Margin = new System.Windows.Forms.Padding(9);
+            this.contextEntryCheckBox.Name = "contextEntryCheckBox";
+            this.contextEntryCheckBox.Size = new System.Drawing.Size(288, 24);
+            this.contextEntryCheckBox.TabIndex = 0;
+            this.contextEntryCheckBox.Text = "str_wizard_contextentry_button";
+            this.contextEntryCheckBox.UseVisualStyleBackColor = true;
+            this.contextEntryCheckBox.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            // 
+            // autostartTitleLabel
+            // 
+            this.autostartTitleLabel.AutoSize = true;
+            this.autostartTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartTitleLabel.Location = new System.Drawing.Point(8, 116);
+            this.autostartTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
+            this.autostartTitleLabel.Name = "autostartTitleLabel";
+            this.autostartTitleLabel.Size = new System.Drawing.Size(343, 32);
+            this.autostartTitleLabel.TabIndex = 1;
+            this.autostartTitleLabel.Text = "str_wizard_autostart_title";
+            // 
+            // autostartInfoLabel
+            // 
+            this.autostartInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.autostartInfoLabel.AutoSize = true;
+            this.autostartInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartInfoLabel.Location = new System.Drawing.Point(8, 156);
+            this.autostartInfoLabel.Margin = new System.Windows.Forms.Padding(4);
+            this.autostartInfoLabel.Name = "autostartInfoLabel";
+            this.autostartInfoLabel.Size = new System.Drawing.Size(560, 23);
+            this.autostartInfoLabel.TabIndex = 2;
+            this.autostartInfoLabel.Text = "str_wizard_autostart_info";
+            // 
+            // autostartCheckBox
+            // 
+            this.autostartCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autostartCheckBox.AutoSize = true;
+            this.autostartCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartCheckBox.Location = new System.Drawing.Point(275, 192);
+            this.autostartCheckBox.Margin = new System.Windows.Forms.Padding(9);
+            this.autostartCheckBox.Name = "autostartCheckBox";
+            this.autostartCheckBox.Size = new System.Drawing.Size(288, 24);
+            this.autostartCheckBox.TabIndex = 0;
+            this.autostartCheckBox.Text = "str_wizard_autostart_button";
+            this.autostartCheckBox.UseVisualStyleBackColor = true;
+            this.autostartCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutostart_CheckedChanged);
             // 
             // finish
             // 
@@ -194,9 +240,9 @@ namespace PasteIntoFile
             this.AcceptButton = this.finish;
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(576, 542);
+            this.ClientSize = new System.Drawing.Size(700, 850);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(589, 572);
+            this.MinimumSize = new System.Drawing.Size(700, 850);
             this.Name = "Wizard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Shown += new System.EventHandler(this.Wizard_Shown);
@@ -207,13 +253,16 @@ namespace PasteIntoFile
 
         private System.Windows.Forms.Label version;
         private System.Windows.Forms.Button finish;
-        private System.Windows.Forms.CheckBox chkContextEntry;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label text1;
+        private System.Windows.Forms.CheckBox contextEntryCheckBox;
+        private System.Windows.Forms.Label autoSaveTitleLabel;
+        private System.Windows.Forms.Label contextEntryInfoLabel;
         private System.Windows.Forms.Label title;
-        private System.Windows.Forms.CheckBox chkAutoSave;
-        private System.Windows.Forms.Label subtitle1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox autoSaveCheckBox;
+        private System.Windows.Forms.Label contextEntryTitleLabel;
+        private System.Windows.Forms.Label autostartTitleLabel;
+        private System.Windows.Forms.CheckBox autostartCheckBox;
+        private System.Windows.Forms.Label autostartInfoLabel;
+        private System.Windows.Forms.Label autoSaveInfoLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 
         #endregion

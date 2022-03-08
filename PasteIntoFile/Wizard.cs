@@ -22,13 +22,14 @@ namespace PasteIntoFile
 
             version.Text = string.Format(Resources.str_version, ProductVersion);
 
-            chkAutoSave.Checked = Settings.Default.autoSave;
-            chkContextEntry.Checked = RegistryUtil.IsContextMenuEntryRegistered();
+            autoSaveCheckBox.Checked = Settings.Default.autoSave;
+            contextEntryCheckBox.Checked = RegistryUtil.IsContextMenuEntryRegistered();
+            autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.autoSave = chkAutoSave.Checked;
+            Settings.Default.autoSave = autoSaveCheckBox.Checked;
             Settings.Default.Save();
 
         }
@@ -37,15 +38,36 @@ namespace PasteIntoFile
         {
             try
             {
-                if (chkContextEntry.Checked && !RegistryUtil.IsContextMenuEntryRegistered())
+                if (contextEntryCheckBox.Checked && !RegistryUtil.IsContextMenuEntryRegistered())
                 {
                     RegistryUtil.RegisterContextMenuEntry();
                     MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (!chkContextEntry.Checked && RegistryUtil.IsContextMenuEntryRegistered())
+                else if (!contextEntryCheckBox.Checked && RegistryUtil.IsContextMenuEntryRegistered())
                 {
                     RegistryUtil.UnRegisterContextMenuEntry();
                     MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ChkAutostart_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (autostartCheckBox.Checked && !RegistryUtil.IsAutostartRegistered())
+                {
+                    RegistryUtil.RegisterAutostart();
+                    MessageBox.Show(Resources.str_message_register_autostart_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (!autostartCheckBox.Checked && RegistryUtil.IsAutostartRegistered())
+                {
+                    RegistryUtil.UnRegisterAutostart();
+                    MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

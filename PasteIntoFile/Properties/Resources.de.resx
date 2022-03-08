@@ -182,4 +182,19 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_settings" xml:space="preserve">
         <value>Einstellungen</value>
     </data>
+    <data name="str_wizard_autostart_button" xml:space="preserve">
+        <value>Autostart registieren</value>
+    </data>
+    <data name="str_wizard_autostart_title" xml:space="preserve">
+        <value>Autostart und Tastenkürzel WIN+ALT+V aktivieren?</value>
+    </data>
+    <data name="str_wizard_autostart_info" xml:space="preserve">
+        <value>Um Inhalte der Zwischenablage durch Drücken von WIN+ALT+V als Datei einzufügen muss Paste Into File im System-Tray laufen. Wenn diese Option aktiviert ist, wird das Program ab dem nächsten Systemstart automatisch mit Windows gestartet und auf das Tastenkürzel reagieren.</value>
+    </data>
+    <data name="str_message_register_autostart_success" xml:space="preserve">
+        <value>Autostart aktiviert</value>
+    </data>
+    <data name="str_message_unregister_autostart_success" xml:space="preserve">
+        <value>Autostart deaktiviert</value>
+    </data>
 </root>
