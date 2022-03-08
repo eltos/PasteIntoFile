@@ -5,17 +5,18 @@
 [![Latest release](https://img.shields.io/github/v/release/eltos/PasteIntoFile)](https://github.com/eltos/PasteIntoFile/releases/latest)
 [![Total downloads](https://img.shields.io/github/downloads/eltos/PasteIntoFile/total)](https://github.com/eltos/PasteIntoFile/releases)
 
+## About
+
 A Windows desktop application to paste clipboard contents into files and copy file contents to the clipboard via the context menu
 
-----------------
+
 
 _This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
 _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._  
-
-_This fork contains many new core functionalities such as clipboard monitoring, batch mode and rename inside the file explorer. In addition, the GUI was completely redesigned to make the layout resizeable and allow for comfortable text and image preview._
+_This fork comes with many new features such as clipboard monitoring, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
 _The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
 
-----------------
+
 
 ## Features
 
@@ -47,13 +48,23 @@ Further options can be accessed through the main GUI or via command line options
 
 Help is available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a) 
 
+### Key modifiers
+
+Hold the following keys while launching Paste Into File
+- **SHIFT** inverts autosave settings once  
+  When autosave is enabled, holding SHIFT will show the dialog anyways  
+  When autosave is disabled, holding SHIFT will skip the dialog anyways
+- **CTRL** saves to a subdirectory  
+  Holding CTRL will save to an intermediate subdirectory  
+  The subfolder name supports templates and can be configured via command line options
+
 
 ## Command Line Use
 
 Use `help`, `help paste`, `help config` etc. to show available command line options, e.g.:
-```powershell
+```
 > .\PasteIntoFile.exe help
-PasteIntoFile 4.0.0.0
+PasteIntoFile 4.2.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   paste      (Default Verb) Paste clipboard contents into file
@@ -65,7 +76,7 @@ Copyright © PasteIntoFile GitHub contributors
 ```
 ```
 > .\PasteIntoFile.exe help paste
-PasteIntoFile 4.0.0.0
+PasteIntoFile 4.2.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   -d, --directory      Path of directory to save file into
