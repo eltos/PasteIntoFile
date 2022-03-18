@@ -181,6 +181,15 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a single file to copy file contents.
+        /// </summary>
+        internal static string str_copy_failed_not_single_file {
+            get {
+                return ResourceManager.GetString("str_copy_failed_not_single_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file {0} contains data of unknown format which cannot be copied to the clipboard..
         /// </summary>
         internal static string str_copy_failed_unknown_format {

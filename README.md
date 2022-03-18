@@ -24,7 +24,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
 + Many formats: Image, Text, HTML, CSV, URL, Rich Text Format, Data Interchange Format, Symbolic Link
-+ Hotkey `Win`+`Alt`+`V`
++ Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + First launch wizard
 
 ![Paste Into File](screenshot.png)

@@ -23,6 +23,20 @@ namespace PasteIntoFile
             return (explorer?.Document as Shell32.IShellFolderViewDual2)?.Folder.Items().Item().Path;
         }
 
+
+        /// <summary>
+        /// Get path of file selected in active or only windows explorer window
+        /// </summary>
+        /// <returns>file path string or null</returns>
+        public static Shell32.FolderItems GetActiveExplorerSelectedFiles()
+        {
+            return GetSelectedFiles(GetActiveExplorer());
+        }
+
+        private static Shell32.FolderItems GetSelectedFiles(SHDocVw.InternetExplorer explorer) {
+            return (explorer?.Document as Shell32.IShellFolderViewDual2)?.SelectedItems();
+        }
+
         private static SHDocVw.InternetExplorer GetActiveExplorer()
         {
             // modified from https://stackoverflow.com/a/5708578/13324744

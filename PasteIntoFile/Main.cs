@@ -217,12 +217,30 @@ namespace PasteIntoFile
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Register hotkeys
-            KeyboardHook hook = new KeyboardHook();
-            hook.KeyPressed += (s, e) => new Dialog().Show();
-            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
-            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
-            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
-            hook.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+            KeyboardHook paste = new KeyboardHook();
+            paste.KeyPressed += (s, e) => {
+                var arg = new ArgsPaste();
+                arg.Directory = ExplorerUtil.GetActiveExplorerPath();
+                RunPaste(arg);
+            };
+            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
+            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
+            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
+            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+            
+            KeyboardHook copy = new KeyboardHook();
+            copy.KeyPressed += (s, e) => {
+                var files = ExplorerUtil.GetActiveExplorerSelectedFiles();
+                if (files.Count == 1) {
+                    var arg = new ArgsCopy();
+                    arg.FilePath = files.Item(0).Path;
+                    RunCopy(arg);
+                }
+                else {
+                    MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
             // Tray icon
             NotifyIcon icon = new NotifyIcon();

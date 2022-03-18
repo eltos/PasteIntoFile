@@ -307,4 +307,7 @@ Save current clipboard contents now?</value>
   <data name="str_wizard_autostart_info" xml:space="preserve">
     <value>To paste clipboard contents by pressing WIN+ALT+V, Paste Into File needs to run in the system tray. If enabled, it will run automatically on windows startup and listen for the hotkey. This setting will take effect on the next login.</value>
   </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>Please select a single file to copy file contents</value>
+  </data>
 </root>

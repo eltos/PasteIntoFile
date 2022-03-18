@@ -197,4 +197,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_message_unregister_autostart_success" xml:space="preserve">
         <value>Autostart deaktiviert</value>
     </data>
+    <data name="str_copy_failed_not_single_file" xml:space="preserve">
+        <value>Bitte eine einzelne Datei auswählen um den Dateiinhalt zu kopieren.</value>
+    </data>
 </root>
