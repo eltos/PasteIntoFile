@@ -81,6 +81,10 @@ namespace PasteIntoFile {
             Data = text;
         }
         public string Text => Data as string;
+        protected readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
+        public override void SaveAs(string path, string extension) {
+            File.WriteAllText(path, Text, Encoding);
+        }
     }
 
     
@@ -88,9 +92,6 @@ namespace PasteIntoFile {
         public TextContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv"};
         public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding.UTF8);
-        }
     }
 
     
@@ -102,7 +103,7 @@ namespace PasteIntoFile {
             var html = Text;
             if (!html.StartsWith("<!DOCTYPE html>"))
                 html = "<!DOCTYPE html>\n" + html;
-            File.WriteAllText(path, html, Encoding.UTF8);
+            File.WriteAllText(path, html, Encoding);
         }
     }
 
@@ -111,9 +112,6 @@ namespace PasteIntoFile {
         public CsvContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "csv", "tsv", "tab" };
         public override string Description => Resources.str_preview_csv;
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding.UTF8);
-        }
     }
     
 
@@ -121,9 +119,6 @@ namespace PasteIntoFile {
         public SylkContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "slk" };
         public override string Description => Resources.str_preview_sylk;
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding.ASCII);
-        }
     }
     
 
@@ -131,9 +126,6 @@ namespace PasteIntoFile {
         public DifContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "dif" };
         public override string Description => Resources.str_preview_dif;
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding.ASCII);
-        }
     }
     
 
@@ -141,9 +133,6 @@ namespace PasteIntoFile {
         public RtfContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "rtf" };
         public override string Description => Resources.str_preview_rtf;
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding.ASCII);
-        }
     }
     
 
@@ -155,7 +144,7 @@ namespace PasteIntoFile {
             File.WriteAllLines(path, new[] {
                 @"[InternetShortcut]",
                 @"URL=" + Text
-            }, Encoding.UTF8);
+            }, Encoding);
         }
     }
     
