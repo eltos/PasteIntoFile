@@ -536,7 +536,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. This setting can be changed later. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments..
+        ///   Looks up a localized string similar to You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments..
         /// </summary>
         internal static string str_wizard_autosave_info {
             get {
@@ -563,7 +563,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To paste clipboard contents by pressing WIN+ALT+V, Paste Into File needs to run in the system tray. If enabled, it will run automatically on windows startup and listen for the hotkey. This setting will take effect on the next login..
+        ///   Looks up a localized string similar to If Paste Into File is running in the system tray, you can paste clipboard contents by pressing WIN+ALT+V, and copy file contents by pressing WIN+ALT+C. If enabled, the program will run automatically on windows startup and listen for the hotkeys. This setting will take effect on the next login..
         /// </summary>
         internal static string str_wizard_autostart_info {
             get {
@@ -572,7 +572,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable autostart and hotkey WIN+ALT+V?.
+        ///   Looks up a localized string similar to Enable autostart and hotkeys?.
         /// </summary>
         internal static string str_wizard_autostart_title {
             get {
@@ -590,7 +590,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose &apos;Paste Into File&apos;. You can change this setting later..
+        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose &apos;Paste Into File&apos;..
         /// </summary>
         internal static string str_wizard_contextentry_info {
             get {

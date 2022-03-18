@@ -173,7 +173,7 @@
     <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose 'Paste Into File'. You can change this setting later.</value>
+    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose 'Paste Into File'.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Add context menu entry?</value>
@@ -219,7 +219,7 @@ Do you want to overwrite it?</value>
     <value>Finish setup</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. This setting can be changed later. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
+    <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Batch mode</value>
@@ -299,13 +299,13 @@ Save current clipboard contents now?</value>
     <value>Autostart unregistered</value>
   </data>
   <data name="str_wizard_autostart_title" xml:space="preserve">
-    <value>Enable autostart and hotkey WIN+ALT+V?</value>
+    <value>Enable autostart and hotkeys?</value>
   </data>
   <data name="str_wizard_autostart_button" xml:space="preserve">
     <value>Register autostart</value>
   </data>
   <data name="str_wizard_autostart_info" xml:space="preserve">
-    <value>To paste clipboard contents by pressing WIN+ALT+V, Paste Into File needs to run in the system tray. If enabled, it will run automatically on windows startup and listen for the hotkey. This setting will take effect on the next login.</value>
+    <value>If Paste Into File is running in the system tray, you can paste clipboard contents by pressing WIN+ALT+V, and copy file contents by pressing WIN+ALT+C. If enabled, the program will run automatically on windows startup and listen for the hotkeys. This setting will take effect on the next login.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
     <value>Please select a single file to copy file contents</value>

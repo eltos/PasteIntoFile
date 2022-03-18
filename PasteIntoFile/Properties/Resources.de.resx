@@ -91,7 +91,7 @@
         <value>Autosave aktivieren</value>
     </data>
     <data name="str_wizard_autosave_info" xml:space="preserve">
-        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann später angepasst und jederzeit durch halten der Umschalttaste einmalig umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
+        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
     </data>
     <data name="str_wizard_autosave_title" xml:space="preserve">
         <value>Datei automatisch ohne Dialog speichern?</value>
@@ -100,7 +100,7 @@
         <value>Zum Kontextmenü hinzufügen</value>
     </data>
     <data name="str_wizard_contextentry_info" xml:space="preserve">
-        <value>Indem ein Eintrag zum Kontextmenü hinzugefügt wird, können Inhalte der Zwischenablage einfach mittels Rechtsklick und Auswahl von 'Einfügen als Datei (Paste Into File)' im aktuellen Ordner als Datei gespeichert werden. Diese Einstellung kann später angepasst werden.</value>
+        <value>Indem ein Eintrag zum Kontextmenü hinzugefügt wird, können Inhalte der Zwischenablage einfach mittels Rechtsklick und Auswahl von 'Einfügen als Datei (Paste Into File)' im aktuellen Ordner als Datei gespeichert werden.</value>
     </data>
     <data name="str_wizard_contextentry_title" xml:space="preserve">
         <value>Eintrag zum Kontextmenü hinzufügen?</value>
@@ -186,10 +186,10 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
         <value>Autostart registieren</value>
     </data>
     <data name="str_wizard_autostart_title" xml:space="preserve">
-        <value>Autostart und Tastenkürzel WIN+ALT+V aktivieren?</value>
+        <value>Autostart und Tastenkürzel aktivieren?</value>
     </data>
     <data name="str_wizard_autostart_info" xml:space="preserve">
-        <value>Um Inhalte der Zwischenablage durch Drücken von WIN+ALT+V als Datei einzufügen muss Paste Into File im System-Tray laufen. Wenn diese Option aktiviert ist, wird das Program ab dem nächsten Systemstart automatisch mit Windows gestartet und auf das Tastenkürzel reagieren.</value>
+        <value>Wenn Paste Into File im System-Tray aktiv ist, können Inhalte der Zwischenablage durch Drücken von WIN+ALT+V als Datei einzufügt werden, und Dateiinhalte durch Drücken von WIN+ALT+C kopiert werden. Wenn diese Option aktiviert ist, wird das Program ab dem nächsten Login automatisch gestartet und auf die Tastenkürzel reagieren.</value>
     </data>
     <data name="str_message_register_autostart_success" xml:space="preserve">
         <value>Autostart aktiviert</value>
