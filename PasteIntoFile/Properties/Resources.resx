@@ -259,8 +259,8 @@ Save current clipboard contents now?</value>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>Copy file content</value>
   </data>
-  <data name="str_copy_failed_binary_data" xml:space="preserve">
-    <value>The file {0} contains binary data which cannot be copied to the clipboard.</value>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
     <value>Clipboard contains no data matching selected extension</value>

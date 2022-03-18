@@ -181,11 +181,11 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file {0} contains binary data which cannot be copied to the clipboard..
+        ///   Looks up a localized string similar to The file {0} contains data of unknown format which cannot be copied to the clipboard..
         /// </summary>
-        internal static string str_copy_failed_binary_data {
+        internal static string str_copy_failed_unknown_format {
             get {
-                return ResourceManager.GetString("str_copy_failed_binary_data", resourceCulture);
+                return ResourceManager.GetString("str_copy_failed_unknown_format", resourceCulture);
             }
         }
         

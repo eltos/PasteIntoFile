@@ -49,6 +49,12 @@ namespace PasteIntoFile {
         /// <param name="extension">format to use for saving</param>
         public abstract void SaveAs(string path, string extension);
 
+        /// <summary>
+        /// Add the content to the data object
+        /// </summary>
+        /// <param name="data">The data object to place contents to</param>
+        public abstract void AddTo(IDataObject data);
+
     }
 
     
@@ -73,6 +79,9 @@ namespace PasteIntoFile {
             }
             Image.Save(path, imageFormat);
         }
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Bitmap, Image);
+        }
     }
     
 
@@ -92,6 +101,9 @@ namespace PasteIntoFile {
         public TextContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv"};
         public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Text, Text);
+        }
     }
 
     
@@ -105,6 +117,9 @@ namespace PasteIntoFile {
                 html = "<!DOCTYPE html>\n" + html;
             File.WriteAllText(path, html, Encoding);
         }
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Html, Text);
+        }
     }
 
     
@@ -112,6 +127,9 @@ namespace PasteIntoFile {
         public CsvContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "csv", "tsv", "tab" };
         public override string Description => Resources.str_preview_csv;
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.CommaSeparatedValue, Text);
+        }
     }
     
 
@@ -119,6 +137,9 @@ namespace PasteIntoFile {
         public SylkContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "slk" };
         public override string Description => Resources.str_preview_sylk;
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.SymbolicLink, Text);
+        }
     }
     
 
@@ -126,6 +147,9 @@ namespace PasteIntoFile {
         public DifContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "dif" };
         public override string Description => Resources.str_preview_dif;
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Dif, Text);
+        }
     }
     
 
@@ -133,6 +157,9 @@ namespace PasteIntoFile {
         public RtfContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "rtf" };
         public override string Description => Resources.str_preview_rtf;
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Rtf, Text);
+        }
     }
     
 
@@ -145,6 +172,9 @@ namespace PasteIntoFile {
                 @"[InternetShortcut]",
                 @"URL=" + Text
             }, Encoding);
+        }
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.Text, Text);
         }
     }
     
@@ -262,6 +292,57 @@ namespace PasteIntoFile {
                 default:
                     return null;
             }
+        }
+
+        public static ClipboardContents FromFile(string path) {
+            var container = new ClipboardContents {
+                Timestamp = DateTime.Now
+            };
+            
+            // if it's an image (try&catch instead of maintaining a list of supported extensions)
+            try {
+                container.Contents.Add(new ImageContent(Image.FromFile(path)));
+            }
+            catch (Exception e){}
+                
+            // if it's text like (check for absence of zero byte)
+            if (!LooksLikeBinaryFile(path)) {
+                container.Contents.Add(new TextContent(File.ReadAllText(path)));
+            
+                string firstLine = File.ReadLines(path).First();
+                if (firstLine.StartsWith("<!DOCTYPE html>")) {
+                    container.Contents.Add(new HtmlContent(File.ReadAllText(path)));
+                }
+                
+            }
+
+            return container.Contents.Count > 0 ? container : null;
+        }
+
+        /// <summary>
+        /// Heuristically determines if a file is binary by checking for NULL values
+        /// </summary>
+        /// <param name="filepath">Path to file</param>
+        /// <returns>true if most likely binary</returns>
+        private static bool LooksLikeBinaryFile(string filepath)
+        {
+            var stream = File.OpenRead(filepath);
+            int b;
+            do
+            {
+                b = stream.ReadByte();
+            } 
+            while (b > 0);
+            return b == 0;
+        }
+
+        public void CopyToClipboard(string fileDropPath = null) {
+            IDataObject data = new DataObject();
+            foreach (var content in Contents) {
+                content.AddTo(data);
+            }
+            if (fileDropPath != null) data.SetData(DataFormats.FileDrop, new[]{fileDropPath});
+            Clipboard.SetDataObject(data, true);
         }
 
     }

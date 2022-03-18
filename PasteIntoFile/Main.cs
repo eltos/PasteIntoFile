@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using CommandLine;
@@ -172,26 +171,16 @@ namespace PasteIntoFile
             try
             {
                 string path = Path.GetFullPath(args.FilePath);
+
+                var contents = ClipboardContents.FromFile(path);
                 
-                // if it's an image (try&catch instead of maintaining a list of supported extensions)
-                try
+                if (contents != null)
                 {
-                    Image imagecontents = Image.FromFile(path);
-                    Clipboard.SetImage(imagecontents);
+                    contents.CopyToClipboard(path);
                     return 0;
                 }
-                catch (Exception e){}
-                
-                // if it's text (check for absence of zero byte)
-                if (!IsBinaryFile(path))
-                {
-                    String textcontents = File.ReadAllText(path);
-                    Clipboard.SetText(textcontents);
-                    return 0;
-                }
-                            
-                // else: binary
-                MessageBox.Show(String.Format(Resources.str_copy_failed_binary_data, path),
+
+                MessageBox.Show(String.Format(Resources.str_copy_failed_unknown_format, path),
                     Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
@@ -339,23 +328,6 @@ namespace PasteIntoFile
             builder.Show(toast => {
                 toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
             });
-        }
-        
-        /// <summary>
-        /// Heuristically determines if a file is binary by checking for NULL values
-        /// </summary>
-        /// <param name="filepath">Path to file</param>
-        /// <returns>true if most likely binary</returns>
-        public static bool IsBinaryFile(string filepath)
-        {
-            var stream = File.OpenRead(filepath);
-            int b;
-            do
-            {
-                b = stream.ReadByte();
-            } 
-            while (b > 0);
-            return b == 0;
         }
 
         

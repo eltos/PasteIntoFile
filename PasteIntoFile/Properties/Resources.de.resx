@@ -149,8 +149,8 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_contextentry_copyfromfile" xml:space="preserve">
         <value>Dateiinhalt kopieren</value>
     </data>
-    <data name="str_copy_failed_binary_data" xml:space="preserve">
-        <value>Die Datei {0} enthält Binärdaten, die nicht in die Zwischenablage kopiert werden können.</value>
+    <data name="str_copy_failed_unknown_format" xml:space="preserve">
+        <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
     </data>
     <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
         <value>Die Zwischenablage enthält keine zum Dateityp passenden Daten.</value>
