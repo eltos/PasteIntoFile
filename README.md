@@ -60,14 +60,21 @@ When holding `CTRL` while the program starts, the file will be saved to a subdir
 The corresponding template can be configured via command line.
 
 The available **file extensions** depend on the formats available in the clipboard.
-For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot. 
+For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot.
 Either select one of the suggested or enter a custom extension (which will be remembered).
-An appropriate format is then chosen and a preview shown.
+An appropriate format is then chosen automatically[^save_plain_text] and a preview shown.  
 In autosave mode, the clipboard is saved as image, if available, or else as text.
 The file extension is then determined by the last used extension for the respective filetype (which can also be set via command line).
 
 A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
+
+[^save_plain_text]: To force saving plain text data to a file with a special extension,
+use uppercase letters or prepend a dot to the file extension (neither will change the actual filename).
+For example, when copying syntax highlighted HTML code snippets from a browser,
+using `html` will cause the html-formatted text to be saved,
+while using `HTML` will save the plain text.
+
 
 ### Copy file contents
 Run the program with the hotkey, from the file explorer context menu, the start menu or the command line.
