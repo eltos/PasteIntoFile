@@ -554,7 +554,7 @@ namespace PasteIntoFile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register autostart.
+        ///   Looks up a localized string similar to Register autostart into tray.
         /// </summary>
         internal static string str_wizard_autostart_button {
             get {

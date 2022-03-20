@@ -302,7 +302,7 @@ Save current clipboard contents now?</value>
     <value>Enable autostart and hotkeys?</value>
   </data>
   <data name="str_wizard_autostart_button" xml:space="preserve">
-    <value>Register autostart</value>
+    <value>Register autostart into tray</value>
   </data>
   <data name="str_wizard_autostart_info" xml:space="preserve">
     <value>If Paste Into File is running in the system tray, you can paste clipboard contents by pressing WIN+ALT+V, and copy file contents by pressing WIN+ALT+C. If enabled, the program will run automatically on windows startup and listen for the hotkeys. This setting will take effect on the next login.</value>

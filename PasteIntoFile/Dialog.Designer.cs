@@ -400,7 +400,7 @@ namespace PasteIntoFile
             this.settingsLinkLabel.AutoSize = true;
             this.settingsLinkLabel.LinkColor = System.Drawing.SystemColors.ControlDark;
             this.settingsLinkLabel.Location = new System.Drawing.Point(4, 28);
-            this.settingsLinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.settingsLinkLabel.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.settingsLinkLabel.Name = "settingsLinkLabel";
             this.settingsLinkLabel.Size = new System.Drawing.Size(225, 24);
             this.settingsLinkLabel.TabIndex = 8;
