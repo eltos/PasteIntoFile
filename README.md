@@ -18,12 +18,12 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 
 
-## Features
+### Features
 
 + Explorer context menu entry: "Paste into file" or "Copy file contents"
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
-+ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format, Data Interchange Format, Symbolic Link
++ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format (RTF), Data Interchange Format (DIF), Symbolic Link (SLK)
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + First launch wizard
 
@@ -33,7 +33,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ## Installation
 
-+ Make sure you have _.NET Framework 4.8+_ installed (_Included in Windows 10_)
++ Make sure you have _.NET Framework 4.8+_ installed (_Included since Windows 10_)
 + **[Download the latest version from the release page](https://github.com/eltos/PasteIntoFile/releases)**
   + You can use the installer (.msi file)  
     _Note: since it's unsigned, windows will "protect" you from installing an unknown app. Click "More info" and "Run anyway" to proceed._
@@ -43,24 +43,40 @@ _Tested on Windows 10_
 
 ## Usage
 
-The first launch wizard will be shown when running Paste Into File for the first time after installation.
-It guides through the most important configuration.
-Further options can be accessed through the main GUI or via command line options (see below).
+When starting Paste Into File for the first time or after an update, the first launch wizard will guide through the configuration of context menu entry, hotkey, etc.
 
-Help is available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a) 
-
-### Key modifiers
-
-Hold the following keys while launching Paste Into File
-- **SHIFT** inverts autosave settings once  
-  When autosave is enabled, holding SHIFT will show the dialog anyways  
-  When autosave is disabled, holding SHIFT will skip the dialog anyways
-- **CTRL** saves to a subdirectory  
-  Holding CTRL will save to an intermediate subdirectory  
-  The subfolder name supports templates and can be configured via command line options
+In addition to the instructions given below, help is also available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a).
 
 
-## Command Line Use
+### Paste clipboard contents
+Run the program with the hotkey, from the file explorer context menu, the start menu or the command line.
+
+In **autosave mode**, the file will directly be created and selected for renaming.
+Otherwise the dialog will prompt for filename and type.
+By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
+
+The **filename template** can be edited from the dialog or via command line.  
+When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
+The corresponding template can be configured via command line.
+
+The available **file extensions** depend on the formats available in the clipboard.
+For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot. 
+Either select one of the suggested or enter a custom extension (which will be remembered).
+An appropriate format is then chosen and a preview shown.
+In autosave mode, the clipboard is saved as image, if available, or else as text.
+The file extension is then determined by the last used extension for the respective filetype (which can also be set via command line).
+
+A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
+If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
+
+### Copy file contents
+Run the program with the hotkey, from the file explorer context menu, the start menu or the command line.
+
+Currently, image and text files are supported. If the file format is not understood, an error message will be shown.
+
+
+
+### Command Line
 
 Use `help`, `help paste`, `help config` etc. as argument to show available command line options, e.g.:
 ```
@@ -77,22 +93,26 @@ Copyright © PasteIntoFile GitHub contributors
   version    Display version information.
 ```
 ```
-> .\PasteIntoFile.exe help paste
+> .\PasteIntoFile.exe help config
 PasteIntoFile 4.2.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  -d, --directory      Path of directory to save file into
-  -f, --filename       Filename template with optional format variables such as
-                       {0:yyyyMMdd HHmmSS} for current date and time
-                       {1:000} for batch-mode save counter
-  --text-extension     File extension for text contents
-  --image-extension    File extension for image contents
-  --subdir             Template for name of subfolder to create when holding
-                       CTRL (see filename for format variables)
-  -c, --clear          Clear clipboard after save (true/false)
-  -a, --autosave       Autosave file without prompt (true/false)
-  --help               Display this help screen.
-  --version            Display version information.
+  --register             Register context menu entry
+  --unregister           Unregister context menu entry
+  --enable-autostart     Register program to run in system tray on windows
+                         startup
+  --disable-autostart    Remove autostart on windows startup registration
+  -f, --filename         Filename template with optional format variables such as
+                         {0:yyyyMMdd HHmmSS} for current date and time
+                         {1:000} for batch-mode save counter
+  --text-extension       File extension for text contents
+  --image-extension      File extension for image contents
+  --subdir               Template for name of subfolder to create when holding
+                         CTRL (see filename for format variables)
+  -c, --clear            Clear clipboard after save (true/false)
+  -a, --autosave         Autosave file without prompt (true/false)
+  --help                 Display this help screen.
+  --version              Display version information.
 ```
 
 **Examples:**
@@ -101,7 +121,7 @@ Copyright © PasteIntoFile GitHub contributors
    PasteIntoFile config --register
    PasteIntoFile config --unregister
    ``` 
-- Start *Paste Into File* manually in system tray and wait for hotkey Win + Alt + V:
+- Start *Paste Into File* manually in system tray and react to hotkeys:
    ```powershell
    PasteIntoFile tray
    ``` 
