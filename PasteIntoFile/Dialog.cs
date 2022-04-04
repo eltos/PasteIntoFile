@@ -361,9 +361,8 @@ namespace PasteIntoFile
             {
                 MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave_checkbox, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
-            Settings.Default.autoSave = chkAutoSave.Checked;
-            Settings.Default.Save();
+
+            Wizard.SetAutosaveMode(chkAutoSave.Checked);
 
         }
 

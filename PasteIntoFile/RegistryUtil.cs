@@ -74,7 +74,7 @@ namespace PasteIntoFile
         /// <summary>
         /// Create context menu entry
         /// </summary>
-        public static void RegisterContextMenuEntry(bool silent = false)
+        public static void RegisterContextMenuEntry(bool hasDialog = false)
         {
 	        // Documentation:
 	        // https://docs.microsoft.com/en-us/windows/win32/shell/context
@@ -84,7 +84,7 @@ namespace PasteIntoFile
 	        foreach (var classKey in OpenClassKeys("Directory"))
 	        {
 		        var key = classKey.CreateSubKey(PRIMARY_KEY_NAME);
-		        key.SetValue("", Resources.str_contextentry);
+		        key.SetValue("", Resources.str_contextentry + (hasDialog ? "…" : ""));
 		        key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
 		        key = key.CreateSubKey("command");
 		        key.SetValue("", "\"" + Application.ExecutablePath + "\" paste \"%V\"");

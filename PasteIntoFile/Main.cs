@@ -200,7 +200,7 @@ namespace PasteIntoFile
         static int RunWizard(ArgsWizard args = null)
         {
             if (RegistryUtil.IsContextMenuEntryRegistered())
-                RegistryUtil.RegisterContextMenuEntry(); // overwrites default entry with localized strings
+                RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave); // overwrites default entry with localized strings
             
             Application.Run(new Wizard());
             return 0;
@@ -273,7 +273,7 @@ namespace PasteIntoFile
             if (args.ClearClipboard != null)
                 Settings.Default.clrClipboard = (bool) args.ClearClipboard;
             if (args.Autosave != null)
-                Settings.Default.autoSave = (bool) args.Autosave;
+                Wizard.SetAutosaveMode((bool) args.Autosave);
 
             Settings.Default.Save();
         }
@@ -289,7 +289,7 @@ namespace PasteIntoFile
             try
             {
                 if (args.RegisterContextMenu)
-                    RegistryUtil.RegisterContextMenuEntry();
+                    RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
                 if (args.UnregisterContextMenu)
                     RegistryUtil.UnRegisterContextMenuEntry();
                 if (args.RegisterAutostart)

@@ -27,11 +27,17 @@ namespace PasteIntoFile
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
         }
 
+        public static void SetAutosaveMode(bool enabled) {
+            Settings.Default.autoSave = enabled;
+            Settings.Default.Save();
+            // update context menu entry
+            if (RegistryUtil.IsContextMenuEntryRegistered())
+                RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
+        }
+
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.autoSave = autoSaveCheckBox.Checked;
-            Settings.Default.Save();
-
+            SetAutosaveMode(autoSaveCheckBox.Checked);
         }
 
         private void ChkContextEntry_CheckedChanged(object sender, EventArgs e)
@@ -40,7 +46,7 @@ namespace PasteIntoFile
             {
                 if (contextEntryCheckBox.Checked && !RegistryUtil.IsContextMenuEntryRegistered())
                 {
-                    RegistryUtil.RegisterContextMenuEntry();
+                    RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
                     MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (!contextEntryCheckBox.Checked && RegistryUtil.IsContextMenuEntryRegistered())
