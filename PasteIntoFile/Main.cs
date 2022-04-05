@@ -343,6 +343,8 @@ namespace PasteIntoFile
             foreach (var s in message) {
                 builder.AddText(s);
             }
+            builder.AddAudio(null, null, true); // silent
+            
             builder.Show(toast => {
                 toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
             });
