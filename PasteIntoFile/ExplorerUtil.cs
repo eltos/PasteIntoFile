@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using Shell32;
 
 namespace PasteIntoFile
 {
@@ -50,37 +51,82 @@ namespace PasteIntoFile
                 }
             }
             return null;
-        } 
+        }
         
+        public static event EventHandler FilenameEditComplete;
         
+        /// <summary>
+        /// Searches the file with given path in the given shell window and selects it if found
+        /// </summary>
+        /// <param name="window">The shell window</param>
+        /// <param name="path">The path of the file to select</param>
+        /// <param name="edit">Select in edit mode if true, otherwise just select</param>
+        private static void SelectFileInWindow(SHDocVw.InternetExplorer window, string path, bool edit = true) {
+            if (!(window?.Document is IShellFolderViewDual view)) return;
+            window.DocumentComplete += (object disp, ref object url) => {
+                foreach (FolderItem folderItem in view.Folder.Items()) {
+                    if (folderItem.Path == path){
+                        SetForegroundWindow((IntPtr)window.HWND);
+                        // https://docs.microsoft.com/en-us/windows/win32/shell/shellfolderview-selectitem
+                        view.SelectItem(folderItem, 16 /* focus it, */ + 8 /* ensure it's visible, */ 
+                                                                       + 4 /* deselect all other and */ 
+                                                                       + (edit ? 3 : 1) /* select or edit */);
+                        break;
+                    }
+                }
+                FilenameEditComplete?.Invoke(null, EventArgs.Empty);
+            }; 
+            window.Refresh();
+        }
         
         /// <summary>
         /// Request file name edit by user in active explorer path
         /// </summary>
         /// <param name="filePath">Path of file to select/edit</param>
         /// <param name="edit">can be set to false to select only (without entering edit mode)</param>
-        public static void RequestFilenameEdit(string filePath, bool edit = true)
-        {
+        public static void AsyncRequestFilenameEdit(string filePath, bool edit = true) {
             filePath = Path.GetFullPath(filePath);
             var dirPath = Path.GetDirectoryName(filePath);
-
-            // code below adopted from https://stackoverflow.com/a/8682999/13324744
-            IntPtr folder = PathToPidl(dirPath);
-            IntPtr file = PathToPidl(filePath);
-            try
-            {
-                SHOpenFolderAndSelectItems(folder, 1, new[] { file }, edit ? 1 : 0);
+            
+            // check current shell window first
+            var focussedWindow = GetActiveExplorer();
+            if (GetExplorerPath(focussedWindow) == dirPath) {
+                SelectFileInWindow(focussedWindow, filePath, edit);
+                return;
             }
-            finally
-            {
-                ILFree(folder);
+            
+            // then check other open shell windows
+            var shellWindows = new SHDocVw.ShellWindows();
+            foreach (SHDocVw.InternetExplorer window in shellWindows) {
+                if (GetExplorerPath(window) == dirPath) {
+                    SelectFileInWindow(window, filePath, edit);
+                    return;
+                }
+            }
+            
+            // or open a new shell window
+            IntPtr file;
+            SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
+            try {
+                SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
+                FilenameEditComplete?.Invoke(null, EventArgs.Empty);
+            } finally {
                 ILFree(file);
             }
         }
+        
 
-        private static IntPtr PathToPidl(string path)
+        private static IntPtr PathToPidl(string path, bool special = false)
         {
-            // documentation: https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
+            if (special) {
+                // Will use special paths, e.g. "::{374DE290-123F-4565-9164-39C4925E467B}" for Downloads
+                IntPtr fileSpecial;
+                SHParseDisplayName(path, IntPtr.Zero, out fileSpecial, 0, out _);
+                return fileSpecial;
+            }
+            
+            // Will use full paths, e.g. "C:\Users\User\Downloads" for Downloads
+            // https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
             SHGetDesktopFolder(out IShellFolder desktopFolder);
             desktopFolder.ParseDisplayName(IntPtr.Zero, null, path, out var pchEaten, out var ppidl, 0);
             return ppidl;
@@ -89,6 +135,13 @@ namespace PasteIntoFile
         
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
+        
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+        
+        [DllImport("shell32.dll", SetLastError = true)]
+        public static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string name, IntPtr bindingContext,
+            [Out] out IntPtr pidl, uint sfgaoIn, [Out] out uint psfgaoOut);
         
         [DllImport("shell32.dll")]
         private static extern int SHOpenFolderAndSelectItems(IntPtr pidlFolder, uint cidl, IntPtr[] apidl, int dwFlags);

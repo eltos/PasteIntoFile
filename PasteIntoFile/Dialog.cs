@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 using WK.Libraries.BetterFolderBrowserNS;
@@ -87,30 +88,46 @@ namespace PasteIntoFile
                 Show();
                 BringToFront();
                 WindowState = FormWindowState.Normal;
-            }
-            else {
+                
+                // register clipboard monitor
+                clipMonitor.ClipboardChanged += ClipboardChanged;
+                
+            } else {
+                // directly save without showing a dialog
+                Opacity = 0; // prevent dialog from showing up for a fraction of a second
+                
                 var file = clipRead ? save() : null;
-                if (file != null)
-                {
-                    if (!saveIntoSubdir)
-                        ExplorerUtil.RequestFilenameEdit(file);
+                if (file != null) {
                     
-                    Program.ShowBalloon(Resources.str_autosave_balloontitle, 
-                        new []{file, Resources.str_autosave_balloontext}, 10);
+                    if (!saveIntoSubdir) {
+                        // select file in explorer for rename and exit afterwards
+                        ExplorerUtil.FilenameEditComplete += (sender, args) => {
+                            Program.ShowBalloon(Resources.str_autosave_balloontitle,
+                                new []{file, Resources.str_autosave_balloontext}, 10);
+                            Environment.ExitCode = 0;
+                            Close();
+                        };
+                        
+                        ExplorerUtil.AsyncRequestFilenameEdit(file);
+                        
+                        // Timeout in case filename edit fails
+                        Task.Delay(new TimeSpan(0, 0, 0, 10)).ContinueWith(o => Close());
 
-                    Environment.ExitCode = 0;
-                    Close();
-                }
-                else
-                {
+                    } else {
+                        // exit immediately
+                        Program.ShowBalloon(Resources.str_autosave_balloontitle,
+                            new []{file, Resources.str_autosave_balloontext}, 10);
+                        Environment.ExitCode = 0;
+                        Close();
+                    }
+
+                } else {
+                    // save failed, exit with error code
                     Environment.ExitCode = 1;
                     Close();
                 }
 
             }
-            
-            // register clipboard monitor
-            clipMonitor.ClipboardChanged += ClipboardChanged;
             
         }
 
