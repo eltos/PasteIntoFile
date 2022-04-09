@@ -1,13 +1,7 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
-namespace PasteIntoFile
-
-
-
-
-{
-    partial class TemplateEdit
-    {
+namespace PasteIntoFile {
+    partial class TemplateEdit {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -17,10 +11,8 @@ namespace PasteIntoFile
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
 
@@ -33,8 +25,7 @@ namespace PasteIntoFile
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelTemplate = new System.Windows.Forms.Label();
             this.textTemplate = new System.Windows.Forms.ComboBox();
@@ -83,7 +74,7 @@ namespace PasteIntoFile
             // 
             // textTemplate
             // 
-            this.textTemplate.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textTemplate, 2);
             this.textTemplate.FormattingEnabled = true;
             this.textTemplate.Location = new System.Drawing.Point(8, 67);
@@ -96,10 +87,10 @@ namespace PasteIntoFile
             // 
             // labelInfo
             // 
-            this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfo.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.labelInfo, 2);
-            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelInfo.Location = new System.Drawing.Point(8, 8);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 14);
             this.labelInfo.Name = "labelInfo";
@@ -111,7 +102,7 @@ namespace PasteIntoFile
             // 
             // labelPreview
             // 
-            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoEllipsis = true;
             this.tableLayoutPanel1.SetColumnSpan(this.labelPreview, 2);
             this.labelPreview.Location = new System.Drawing.Point(8, 103);
@@ -123,7 +114,7 @@ namespace PasteIntoFile
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.AutoSize = true;
             this.buttonCancel.Location = new System.Drawing.Point(276, 141);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);

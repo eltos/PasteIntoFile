@@ -12,7 +12,7 @@ A Windows desktop application to paste clipboard contents into files and copy fi
 
 
 _This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
-_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._  
+_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._
 _This fork comes with many new features such as clipboard monitoring, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, system tray mode, listen to hotkey, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
 _The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
 
@@ -35,7 +35,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 + Make sure you have _.NET Framework 4.8+_ installed (_Included since Windows 10_)
 + **[Download the latest version from the release page](https://github.com/eltos/PasteIntoFile/releases)**
-  + You can use the installer (.msi file)  
+  + You can use the installer (.msi file)
     _Note: since it's unsigned, windows will "protect" you from installing an unknown app. Click "More info" and "Run anyway" to proceed._
   + Or you can download the portable PasteIntoFile.zip, unzip it's contents to a location of your choice and launch the executable to bring up the first-launch wizard
 
@@ -55,14 +55,14 @@ In **autosave mode**, the file will directly be created and selected for renamin
 Otherwise the dialog will prompt for filename and type.
 By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
 
-The **filename template** can be edited from the dialog or via command line.  
+The **filename template** can be edited from the dialog or via command line.
 When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
 The corresponding template can be configured via command line.
 
 The available **file extensions** depend on the formats available in the clipboard.
 For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot.
 Either select one of the suggested or enter a custom extension (which will be remembered).
-An appropriate format is then chosen automatically[^save_plain_text] and a preview shown.  
+An appropriate format is then chosen automatically[^save_plain_text] and a preview shown.
 In autosave mode, the clipboard is saved as image, if available, or else as text.
 The file extension is then determined by the last used extension for the respective filetype (which can also be set via command line).
 
@@ -127,16 +127,16 @@ Copyright © PasteIntoFile GitHub contributors
    ```powershell
    PasteIntoFile config --register
    PasteIntoFile config --unregister
-   ``` 
+   ```
 - Start *Paste Into File* manually in system tray and react to hotkeys:
    ```powershell
    PasteIntoFile tray
-   ``` 
+   ```
 - En-/disable autostart of *Paste Into File* in system tray on windows startup:
    ```powershell
    PasteIntoFile config --enable-autostart
    PasteIntoFile config --disable-autostart
-   ``` 
+   ```
 - Configure the default filename template format (see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings)):
    ```powershell
    PasteIntoFile config -f "{0:yyyy-MM-dd HH-mm-ss}"
@@ -144,10 +144,29 @@ Copyright © PasteIntoFile GitHub contributors
 - Save clipboard contents in autosave mode to specific location:
   ```powershell
   PasteIntoFile -d the/directory -f the_filename --autosave=true
-  ``` 
+  ```
 - Copy file contents to clipboard:
   ```powershell
   PasteIntoFile copy path_to/the_file
-  ``` 
+  ```
+
+## Developer notes
+
+### Contributing
+This project uses [pre-commit](https://pre-commit.com) with [dotnet-format](https://github.com/dotnet/format) to ensure consistent file formatting and clean diffs.
+Install these tools before committing:
+```bash
+dotnet tool install --global dotnet-format --version 5.1.250801
+pip install pre-commit
+pre-commit install
+```
+
+### CI/CD
+This project uses GitHub actions for test builds and releases.
+
+A new version is released simply by creating a release on GitHub's release page.
+This will trigger the release workflow, which will autonomously build the binary and installer and attach it to the release.
+
+
 
 

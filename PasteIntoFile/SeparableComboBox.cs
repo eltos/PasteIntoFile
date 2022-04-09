@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,22 +6,22 @@ using System.Windows.Forms;
 
 namespace PasteIntoFile {
     public class SeparableComboBox : ComboBox {
-        
+
         public static readonly object SEPARATOR = new object();
-        
+
         public SeparableComboBox() {
             DrawMode = DrawMode.OwnerDrawVariable;
             DrawItem += DoDrawItem;
             SelectedIndexChanged += DoSelectedIndexChanged;
             MeasureItem += DoMeasureItem;
-            
+
         }
 
         public void AddWithSeparator(IEnumerable<object> items) {
-            if (Items.Count > 0) 
+            if (Items.Count > 0)
                 Items.Add(SEPARATOR);
             Items.AddRange(items.ToArray());
-            
+
             UpdateDropDownHeight();
         }
 
@@ -53,8 +53,8 @@ namespace PasteIntoFile {
             var item = Items[e.Index];
             if (item == SEPARATOR)
                 e.Graphics.DrawLine(Pens.DarkGray,
-                    new Point(e.Bounds.Left + 2, (e.Bounds.Top + e.Bounds.Bottom)/2),
-                    new Point(e.Bounds.Right - 3, (e.Bounds.Top + e.Bounds.Bottom)/2));
+                    new Point(e.Bounds.Left + 2, (e.Bounds.Top + e.Bounds.Bottom) / 2),
+                    new Point(e.Bounds.Right - 3, (e.Bounds.Top + e.Bounds.Bottom) / 2));
             else {
                 e.DrawBackground();
                 TextRenderer.DrawText(e.Graphics, item.ToString(), e.Font, e.Bounds, e.ForeColor, TextFormatFlags.Left);

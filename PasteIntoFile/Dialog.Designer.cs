@@ -1,10 +1,8 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using PasteIntoFile.Properties;
 
-namespace PasteIntoFile
-{
-    partial class Dialog
-    {
+namespace PasteIntoFile {
+    partial class Dialog {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -14,10 +12,8 @@ namespace PasteIntoFile
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
 
@@ -30,8 +26,7 @@ namespace PasteIntoFile
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.imagePreview = new System.Windows.Forms.PictureBox();
             this.textPreview = new System.Windows.Forms.RichTextBox();
             this.htmlPreview = new System.Windows.Forms.WebBrowser();
@@ -56,7 +51,7 @@ namespace PasteIntoFile
             this.chkContinuousMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.settingsLinkLabel = new System.Windows.Forms.LinkLabel();
-            ((System.ComponentModel.ISupportInitialize) (this.imagePreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -64,9 +59,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // imgContent
-            // 
+            //
             this.imagePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imagePreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imagePreview.Location = new System.Drawing.Point(8, 27);
@@ -76,12 +71,12 @@ namespace PasteIntoFile
             this.imagePreview.TabIndex = 13;
             this.imagePreview.TabStop = false;
             this.imagePreview.Visible = false;
-            // 
+            //
             // txtContent
-            // 
+            //
             this.textPreview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textPreview.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.textPreview.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textPreview.Location = new System.Drawing.Point(8, 27);
             this.textPreview.Margin = new System.Windows.Forms.Padding(4);
             this.textPreview.Name = "textPreview";
@@ -92,18 +87,18 @@ namespace PasteIntoFile
             this.textPreview.Text = "";
             this.textPreview.Visible = false;
             this.textPreview.WordWrap = false;
-            // 
+            //
             // htmlContent
-            // 
+            //
             this.htmlPreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htmlPreview.Location = new System.Drawing.Point(8, 27);
             this.htmlPreview.Name = "htmlPreview";
             this.htmlPreview.Size = new System.Drawing.Size(522, 249);
             this.htmlPreview.TabIndex = 14;
             this.htmlPreview.Visible = false;
-            // 
+            //
             // lblFileName
-            // 
+            //
             this.lblFileName.AutoSize = true;
             this.lblFileName.Location = new System.Drawing.Point(0, 0);
             this.lblFileName.Margin = new System.Windows.Forms.Padding(0);
@@ -111,9 +106,9 @@ namespace PasteIntoFile
             this.lblFileName.Size = new System.Drawing.Size(96, 20);
             this.lblFileName.TabIndex = 1;
             this.lblFileName.Text = "str_filename";
-            // 
+            //
             // txtFilename
-            // 
+            //
             this.tableLayoutPanel3.SetColumnSpan(this.txtFilename, 2);
             this.txtFilename.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFilename.Location = new System.Drawing.Point(4, 24);
@@ -122,9 +117,9 @@ namespace PasteIntoFile
             this.txtFilename.Size = new System.Drawing.Size(426, 26);
             this.txtFilename.TabIndex = 1;
             this.txtFilename.Text = "xxx";
-            // 
+            //
             // lblExt
-            // 
+            //
             this.lblExt.AutoSize = true;
             this.lblExt.Location = new System.Drawing.Point(438, 0);
             this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -132,9 +127,9 @@ namespace PasteIntoFile
             this.lblExt.Size = new System.Drawing.Size(104, 20);
             this.lblExt.TabIndex = 2;
             this.lblExt.Text = "str_extension";
-            // 
+            //
             // comExt
-            // 
+            //
             this.comExt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comExt.FormattingEnabled = true;
             this.comExt.Location = new System.Drawing.Point(438, 24);
@@ -144,9 +139,9 @@ namespace PasteIntoFile
             this.comExt.TabIndex = 2;
             this.comExt.SelectedIndexChanged += new System.EventHandler(this.comExt_Update);
             this.comExt.TextUpdate += new System.EventHandler(this.comExt_Update);
-            // 
+            //
             // btnSave
-            // 
+            //
             this.btnSave.AutoSize = true;
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -159,18 +154,18 @@ namespace PasteIntoFile
             this.btnSave.Text = "str_save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
+            //
             // txtCurrentLocation
-            // 
+            //
             this.txtCurrentLocation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCurrentLocation.Location = new System.Drawing.Point(4, 24);
             this.txtCurrentLocation.Margin = new System.Windows.Forms.Padding(4);
             this.txtCurrentLocation.Name = "txtCurrentLocation";
             this.txtCurrentLocation.Size = new System.Drawing.Size(480, 26);
             this.txtCurrentLocation.TabIndex = 2;
-            // 
+            //
             // lblCurrentLocation
-            // 
+            //
             this.lblCurrentLocation.AutoSize = true;
             this.lblCurrentLocation.Location = new System.Drawing.Point(0, 0);
             this.lblCurrentLocation.Margin = new System.Windows.Forms.Padding(0);
@@ -178,9 +173,9 @@ namespace PasteIntoFile
             this.lblCurrentLocation.Size = new System.Drawing.Size(91, 20);
             this.lblCurrentLocation.TabIndex = 1;
             this.lblCurrentLocation.Text = "str_location";
-            // 
+            //
             // btnBrowseForFolder
-            // 
+            //
             this.btnBrowseForFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBrowseForFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBrowseForFolder.Location = new System.Drawing.Point(492, 24);
@@ -191,9 +186,9 @@ namespace PasteIntoFile
             this.btnBrowseForFolder.Text = "...";
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
-            // 
+            //
             // infoLabel
-            // 
+            //
             this.infoLabel.AutoSize = true;
             this.infoLabel.Dock = System.Windows.Forms.DockStyle.Right;
             this.infoLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
@@ -203,9 +198,9 @@ namespace PasteIntoFile
             this.infoLabel.Size = new System.Drawing.Size(64, 20);
             this.infoLabel.TabIndex = 10;
             this.infoLabel.Text = "v0.0.0.0";
-            // 
+            //
             // infoLinkLabel
-            // 
+            //
             this.infoLinkLabel.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
             this.infoLinkLabel.AutoSize = true;
             this.infoLinkLabel.Dock = System.Windows.Forms.DockStyle.Right;
@@ -218,9 +213,9 @@ namespace PasteIntoFile
             this.infoLinkLabel.TabStop = true;
             this.infoLinkLabel.Text = "str_main_info";
             this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.infoLinkLabel_LinkClicked);
-            // 
+            //
             // chkClrClipboard
-            // 
+            //
             this.chkClrClipboard.AutoSize = true;
             this.chkClrClipboard.Location = new System.Drawing.Point(4, 0);
             this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -230,9 +225,9 @@ namespace PasteIntoFile
             this.chkClrClipboard.Text = "str_clear_clipboard";
             this.chkClrClipboard.UseVisualStyleBackColor = true;
             this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
-            // 
+            //
             // chkAutoSave
-            // 
+            //
             this.chkAutoSave.AutoSize = true;
             this.chkAutoSave.Location = new System.Drawing.Point(4, 0);
             this.chkAutoSave.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -242,9 +237,9 @@ namespace PasteIntoFile
             this.chkAutoSave.Text = "str_autosave_checkbox";
             this.chkAutoSave.UseVisualStyleBackColor = true;
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
-            // 
+            //
             // box
-            // 
+            //
             this.box.AutoSize = true;
             this.box.Controls.Add(this.textPreview);
             this.box.Controls.Add(this.imagePreview);
@@ -259,9 +254,9 @@ namespace PasteIntoFile
             this.box.TabIndex = 5;
             this.box.TabStop = false;
             this.box.Text = "str_preview";
-            // 
+            //
             // tableLayoutPanel1
-            // 
+            //
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -284,9 +279,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(576, 542);
             this.tableLayoutPanel1.TabIndex = 8;
-            // 
+            //
             // tableLayoutPanel3
-            // 
+            //
             this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel3.ColumnCount = 3;
@@ -307,9 +302,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.Size = new System.Drawing.Size(546, 56);
             this.tableLayoutPanel3.TabIndex = 11;
-            // 
+            //
             // linkLabel1
-            // 
+            //
             this.linkLabel1.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.SystemColors.ControlDark;
@@ -321,9 +316,9 @@ namespace PasteIntoFile
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "str_edit_template";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
+            //
             // tableLayoutPanel4
-            // 
+            //
             this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.Control;
@@ -342,9 +337,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.Size = new System.Drawing.Size(546, 54);
             this.tableLayoutPanel4.TabIndex = 11;
-            // 
+            //
             // tableLayoutPanel2
-            // 
+            //
             this.tableLayoutPanel2.AutoSize = true;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -361,9 +356,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(546, 54);
             this.tableLayoutPanel2.TabIndex = 12;
-            // 
+            //
             // chkContinuousMode
-            // 
+            //
             this.chkContinuousMode.AutoSize = true;
             this.chkContinuousMode.Location = new System.Drawing.Point(4, 24);
             this.chkContinuousMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -373,9 +368,9 @@ namespace PasteIntoFile
             this.chkContinuousMode.Text = "str_continuous_mode";
             this.chkContinuousMode.UseVisualStyleBackColor = true;
             this.chkContinuousMode.CheckedChanged += new System.EventHandler(this.chkContinuousMode_CheckedChanged);
-            // 
+            //
             // tableLayoutPanel5
-            // 
+            //
             this.tableLayoutPanel5.AutoSize = true;
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -393,9 +388,9 @@ namespace PasteIntoFile
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(546, 56);
             this.tableLayoutPanel5.TabIndex = 14;
-            // 
+            //
             // settingsLinkLabel
-            // 
+            //
             this.settingsLinkLabel.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
             this.settingsLinkLabel.AutoSize = true;
             this.settingsLinkLabel.LinkColor = System.Drawing.SystemColors.ControlDark;
@@ -406,9 +401,9 @@ namespace PasteIntoFile
             this.settingsLinkLabel.TabIndex = 8;
             this.settingsLinkLabel.Text = "str_settings";
             this.settingsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.settingsLinkLabel_LinkClicked);
-            // 
+            //
             // Dialog
-            // 
+            //
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -420,7 +415,7 @@ namespace PasteIntoFile
             this.Name = "Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_KeyPress);
-            ((System.ComponentModel.ISupportInitialize) (this.imagePreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).EndInit();
             this.box.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

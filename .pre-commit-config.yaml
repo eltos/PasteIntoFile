@@ -1,0 +1,9 @@
+﻿
+repos:
+  - repo: local
+    hooks:
+      - id: dotnet-format
+        name: dotnet-format
+        language: system
+        entry: dotnet format --include-generated --include
+        types_or: [ "c#", "vb" ]

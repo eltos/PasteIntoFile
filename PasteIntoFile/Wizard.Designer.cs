@@ -1,10 +1,8 @@
-﻿using System.Drawing;
+using System.Drawing;
 using PasteIntoFile.Properties;
 
-namespace PasteIntoFile
-{
-    partial class Wizard
-    {
+namespace PasteIntoFile {
+    partial class Wizard {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -14,10 +12,8 @@ namespace PasteIntoFile
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -29,8 +25,7 @@ namespace PasteIntoFile
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.autoSaveCheckBox = new System.Windows.Forms.CheckBox();
             this.autoSaveInfoLabel = new System.Windows.Forms.Label();
@@ -87,9 +82,9 @@ namespace PasteIntoFile
             // 
             // autoSaveCheckBox
             // 
-            this.autoSaveCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoSaveCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.autoSaveCheckBox.AutoSize = true;
-            this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoSaveCheckBox.Location = new System.Drawing.Point(301, 331);
             this.autoSaveCheckBox.Margin = new System.Windows.Forms.Padding(9);
             this.autoSaveCheckBox.Name = "autoSaveCheckBox";
@@ -101,9 +96,9 @@ namespace PasteIntoFile
             // 
             // autoSaveInfoLabel
             // 
-            this.autoSaveInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoSaveInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.autoSaveInfoLabel.AutoSize = true;
-            this.autoSaveInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoSaveInfoLabel.Location = new System.Drawing.Point(8, 295);
             this.autoSaveInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.autoSaveInfoLabel.Name = "autoSaveInfoLabel";
@@ -115,7 +110,7 @@ namespace PasteIntoFile
             // 
             this.autoSaveTitleLabel.AutoSize = true;
             this.autoSaveTitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.autoSaveTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autoSaveTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoSaveTitleLabel.Location = new System.Drawing.Point(8, 255);
             this.autoSaveTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.autoSaveTitleLabel.Name = "autoSaveTitleLabel";
@@ -125,9 +120,9 @@ namespace PasteIntoFile
             // 
             // title
             // 
-            this.title.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.title.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.title.AutoSize = true;
-            this.title.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.title.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.Location = new System.Drawing.Point(8, 8);
             this.title.Margin = new System.Windows.Forms.Padding(4);
             this.title.Name = "title";
@@ -139,7 +134,7 @@ namespace PasteIntoFile
             // contextEntryTitleLabel
             // 
             this.contextEntryTitleLabel.AutoSize = true;
-            this.contextEntryTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contextEntryTitleLabel.Location = new System.Drawing.Point(8, 116);
             this.contextEntryTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.contextEntryTitleLabel.Name = "contextEntryTitleLabel";
@@ -149,9 +144,9 @@ namespace PasteIntoFile
             // 
             // contextEntryInfoLabel
             // 
-            this.contextEntryInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.contextEntryInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.contextEntryInfoLabel.AutoSize = true;
-            this.contextEntryInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contextEntryInfoLabel.Location = new System.Drawing.Point(8, 156);
             this.contextEntryInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.contextEntryInfoLabel.Name = "contextEntryInfoLabel";
@@ -161,9 +156,9 @@ namespace PasteIntoFile
             // 
             // contextEntryCheckBox
             // 
-            this.contextEntryCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.contextEntryCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.contextEntryCheckBox.AutoSize = true;
-            this.contextEntryCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.contextEntryCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contextEntryCheckBox.Location = new System.Drawing.Point(275, 192);
             this.contextEntryCheckBox.Margin = new System.Windows.Forms.Padding(9);
             this.contextEntryCheckBox.Name = "contextEntryCheckBox";
@@ -176,7 +171,7 @@ namespace PasteIntoFile
             // autostartTitleLabel
             // 
             this.autostartTitleLabel.AutoSize = true;
-            this.autostartTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartTitleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autostartTitleLabel.Location = new System.Drawing.Point(8, 116);
             this.autostartTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.autostartTitleLabel.Name = "autostartTitleLabel";
@@ -186,9 +181,9 @@ namespace PasteIntoFile
             // 
             // autostartInfoLabel
             // 
-            this.autostartInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.autostartInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.autostartInfoLabel.AutoSize = true;
-            this.autostartInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartInfoLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autostartInfoLabel.Location = new System.Drawing.Point(8, 156);
             this.autostartInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.autostartInfoLabel.Name = "autostartInfoLabel";
@@ -198,9 +193,9 @@ namespace PasteIntoFile
             // 
             // autostartCheckBox
             // 
-            this.autostartCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autostartCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.autostartCheckBox.AutoSize = true;
-            this.autostartCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.autostartCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autostartCheckBox.Location = new System.Drawing.Point(275, 192);
             this.autostartCheckBox.Margin = new System.Windows.Forms.Padding(9);
             this.autostartCheckBox.Name = "autostartCheckBox";
