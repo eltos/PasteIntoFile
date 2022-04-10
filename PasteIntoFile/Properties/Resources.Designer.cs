@@ -416,6 +416,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to File list preview ({0} files and folders).
+        /// </summary>
+        internal static string str_preview_files {
+            get {
+                return ResourceManager.GetString("str_preview_files", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to HTML preview.
         /// </summary>
         internal static string str_preview_html {

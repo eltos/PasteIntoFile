@@ -310,4 +310,7 @@ Save current clipboard contents now?</value>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
     <value>Please select a single file to copy file contents</value>
   </data>
+  <data name="str_preview_files" xml:space="preserve">
+      <value>File list preview ({0} files and folders)</value>
+  </data>
 </root>

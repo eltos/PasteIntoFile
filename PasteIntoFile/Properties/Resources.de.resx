@@ -200,4 +200,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_copy_failed_not_single_file" xml:space="preserve">
         <value>Bitte eine einzelne Datei auswählen um den Dateiinhalt zu kopieren.</value>
     </data>
+    <data name="str_preview_files" xml:space="preserve">
+        <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
+    </data>
 </root>

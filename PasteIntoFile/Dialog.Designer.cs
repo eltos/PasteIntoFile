@@ -30,6 +30,7 @@ namespace PasteIntoFile {
             this.imagePreview = new System.Windows.Forms.PictureBox();
             this.textPreview = new System.Windows.Forms.RichTextBox();
             this.htmlPreview = new System.Windows.Forms.WebBrowser();
+            this.treePreview = new System.Windows.Forms.TreeView();
             this.lblFileName = new System.Windows.Forms.Label();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.lblExt = new System.Windows.Forms.Label();
@@ -96,6 +97,13 @@ namespace PasteIntoFile {
             this.htmlPreview.Size = new System.Drawing.Size(522, 249);
             this.htmlPreview.TabIndex = 14;
             this.htmlPreview.Visible = false;
+            //
+            // treeContent
+            //
+            this.treePreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treePreview.Name = "treePreview";
+            this.treePreview.TabIndex = 15;
+            this.treePreview.Visible = false;
             //
             // lblFileName
             //
@@ -244,6 +252,7 @@ namespace PasteIntoFile {
             this.box.Controls.Add(this.textPreview);
             this.box.Controls.Add(this.imagePreview);
             this.box.Controls.Add(this.htmlPreview);
+            this.box.Controls.Add(this.treePreview);
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.box.Location = new System.Drawing.Point(19, 183);
@@ -438,6 +447,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.PictureBox imagePreview;
         private System.Windows.Forms.RichTextBox textPreview;
         private System.Windows.Forms.WebBrowser htmlPreview;
+        private System.Windows.Forms.TreeView treePreview;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.TextBox txtFilename;
         private System.Windows.Forms.Label lblExt;

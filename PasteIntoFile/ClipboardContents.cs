@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -179,6 +181,59 @@ namespace PasteIntoFile {
     }
 
 
+    public class FilesContent : BaseContent {
+        public FilesContent(StringCollection files) {
+            Data = files;
+        }
+        public StringCollection Files => Data as StringCollection;
+        public List<string> FileList {
+            get {
+                var list = Files.Cast<string>().ToList();
+                list.Sort();
+                return list;
+            }
+        }
+
+        public override string[] Extensions => new[] { "zip", "m3u", "txt" };
+        public override string Description => string.Format(Resources.str_preview_files, Files.Count);
+        public override void SaveAs(string path, string extension) {
+            switch (extension) {
+                case "zip":
+                    // TODO: since zipping can take a while depending on file size, this should show a progress to the user
+                    var archive = ZipFile.Open(path, ZipArchiveMode.Create);
+                    foreach (var file in Files) {
+                        if ((File.GetAttributes(file) & FileAttributes.Directory) == FileAttributes.Directory) {
+                            AddToZipArchive(archive, Path.GetFileName(file), new DirectoryInfo(file));
+                        } else {
+                            archive.CreateEntryFromFile(file, Path.GetFileName(file));
+                        }
+                    }
+                    break;
+
+                case "m3u":
+                case "txt":
+                    File.WriteAllLines(path, FileList, new UTF8Encoding(false));
+                    break;
+            }
+        }
+
+        private void AddToZipArchive(ZipArchive archive, string node, DirectoryInfo dir) {
+            foreach (var file in dir.GetFiles()) {
+                archive.CreateEntryFromFile(file.FullName, Path.Combine(node, file.Name));
+            }
+            foreach (var directory in dir.GetDirectories()) {
+                AddToZipArchive(archive, Path.Combine(node, directory.Name), directory);
+            }
+        }
+
+        public override void AddTo(IDataObject data) {
+            string[] strArray = new string[Files.Count];
+            Files.CopyTo(strArray, 0);
+            data.SetData(DataFormats.FileDrop, true, strArray);
+        }
+    }
+
+
 
 
 
@@ -257,8 +312,7 @@ namespace PasteIntoFile {
                 container.Contents.Add(new DifContent(ReadClipboardString(DataFormats.Dif)));
 
             if (Clipboard.ContainsFileDropList() && !Clipboard.ContainsText())
-                // save list of file paths instead
-                container.Contents.Add(new TextContent(string.Join("\n", Clipboard.GetFileDropList().Cast<string>().ToList())));
+                container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.RelativeOrAbsolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));

@@ -197,6 +197,7 @@ namespace PasteIntoFile {
             textPreview.Hide();
             htmlPreview.Hide();
             imagePreview.Hide();
+            treePreview.Hide();
 
             BaseContent content = clipData.ForExtension(comExt.Text);
 
@@ -221,6 +222,17 @@ namespace PasteIntoFile {
                     else
                         textPreview.Text = textLikeContent.Text;
                     textPreview.Show();
+                    return;
+                }
+
+                if (content is FilesContent filesContent) {
+                    treePreview.BeginUpdate();
+                    treePreview.Nodes.Clear();
+                    foreach (var file in filesContent.FileList) {
+                        treePreview.Nodes.Add(file);
+                    }
+                    treePreview.EndUpdate();
+                    treePreview.Show();
                     return;
                 }
             }
