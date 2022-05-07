@@ -77,10 +77,7 @@ namespace PasteIntoFile {
             bool showDialog = forceShowDialog || !(Settings.Default.autoSave ^ invertAutosave);
             if (showDialog) {
                 // Make sure to bring window to foreground (holding shift will open window in background)
-                WindowState = FormWindowState.Minimized;
-                Show();
-                BringToFront();
-                WindowState = FormWindowState.Normal;
+                BringToFrontForced();
 
                 // register clipboard monitor
                 clipMonitor.ClipboardChanged += ClipboardChanged;
