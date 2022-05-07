@@ -183,7 +183,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
         <value>Einstellungen</value>
     </data>
     <data name="str_wizard_autostart_button" xml:space="preserve">
-        <value>Try Autostart registieren</value>
+        <value>Tray Autostart registieren</value>
     </data>
     <data name="str_wizard_autostart_title" xml:space="preserve">
         <value>Autostart und Tastenkürzel aktivieren?</value>
