@@ -14,5 +14,12 @@ namespace PasteIntoFile {
                 .Concat(enumerable)
                 .Where(c => type == null || type == c.GetType());
         }
+
+        protected void BringToFrontForced() {
+            WindowState = FormWindowState.Minimized;
+            Show();
+            BringToFront();
+            WindowState = FormWindowState.Normal;
+        }
     }
 }

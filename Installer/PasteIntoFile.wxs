@@ -24,6 +24,7 @@
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="StartmenuShortcut" />
       <ComponentRef Id="ContextMenuEntry" />
+      <ComponentRef Id="AutostartTray" />
     </Feature>
 
     <!-- Upgrade: uninstall previous version before installing new one -->
@@ -109,7 +110,13 @@
           </RegistryKey>
         </RegistryKey>
       </RegistryKey>
-      <!-- for autostart -->
+    </Component>
+  </Fragment>
+
+
+  <!-- register autostart into tray -->
+  <Fragment>
+    <Component Id="AutostartTray" Directory="INSTALLFOLDER" Guid="744f34d7-5086-4c28-97f1-375dc8658256">
       <RegistryKey Root='HKCU' Key='Software\Microsoft\Windows\CurrentVersion\Run'>
         <RegistryValue Type='string' Name='PasteIntoFile' Value='"[INSTALLFOLDER]PasteIntoFile.exe" tray'/>
       </RegistryKey>
