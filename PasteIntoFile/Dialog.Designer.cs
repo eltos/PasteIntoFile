@@ -64,6 +64,7 @@ namespace PasteIntoFile {
             // imgContent
             //
             this.imagePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imagePreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imagePreview.Location = new System.Drawing.Point(8, 27);
             this.imagePreview.Margin = new System.Windows.Forms.Padding(4);
