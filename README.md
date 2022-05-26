@@ -164,7 +164,7 @@ pre-commit install
 ### CI/CD
 This project uses GitHub actions for test builds and releases.
 
-A new version is released simply by creating a release on GitHub's release page.
+A new version is released simply by incrementing the version number in `AssemblyInfo.cs` and then creating a release on GitHub's release page.
 This will trigger the release workflow, which will autonomously build the binary and installer and attach it to the release.
 
 
