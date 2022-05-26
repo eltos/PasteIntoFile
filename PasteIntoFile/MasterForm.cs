@@ -15,7 +15,7 @@ namespace PasteIntoFile {
                 .Where(c => type == null || type == c.GetType());
         }
 
-        protected void BringToFrontForced() {
+        public void BringToFrontForced() {
             WindowState = FormWindowState.Minimized;
             Show();
             BringToFront();

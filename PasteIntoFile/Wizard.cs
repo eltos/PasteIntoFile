@@ -7,8 +7,6 @@ namespace PasteIntoFile {
         public Wizard() {
             InitializeComponent();
 
-            // Make sure to bring window to foreground (installer will open window in background)
-            BringToFrontForced();
 
             foreach (Control element in GetAllChild(this)) {
                 // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)

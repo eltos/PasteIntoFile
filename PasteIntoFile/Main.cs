@@ -181,7 +181,10 @@ namespace PasteIntoFile {
             if (RegistryUtil.IsContextMenuEntryRegistered())
                 RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave); // overwrites default entry with localized strings
 
-            Application.Run(new Wizard());
+            var wizard = new Wizard();
+            // Make sure to bring window to foreground (installer will open window in background)
+            wizard.BringToFrontForced();
+            Application.Run(wizard);
             return 0;
         }
 
