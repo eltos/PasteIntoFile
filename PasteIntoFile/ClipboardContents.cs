@@ -87,6 +87,11 @@ namespace PasteIntoFile {
         }
     }
 
+    public class BitmapContent : ImageContent {
+        public BitmapContent(Image image) : base(image) { }
+        public override string[] Extensions => new[] { "bmp" };
+    }
+
 
     public abstract class TextLikeContent : BaseContent {
         public TextLikeContent(string text) {
@@ -300,22 +305,30 @@ namespace PasteIntoFile {
             // https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
 
             // Various image formats
+            if (Clipboard.ContainsImage()
+                && Clipboard.GetImage() is Image bmp)
+                // Since bitmap does not support transparency, we treat it separately
+                container.Contents.Add(new BitmapContent(bmp));
             if (Clipboard.ContainsFileDropList()
-                && Clipboard.GetFileDropList() is StringCollection files
-                && files.Count == 1) {
-                try { // Image as file (try&catch instead of maintaining an extension list)
+                    && Clipboard.GetFileDropList() is StringCollection files
+                    && files.Count == 1) {
+                // First choice: Image from file if possible (most generic option)
+                try {
                     container.Contents.Add(new ImageContent(Image.FromFile(files[0])));
                 } catch (Exception e) { }
             }
             if (Clipboard.ContainsData(DataFormats.EnhancedMetafile)
                 && ReadClipboardMetafile() is Image emf)
+                // Second choice: Metafile (supports alpha channel)
                 container.Contents.Add(new ImageContent(emf));
             if (Clipboard.ContainsImage()
                 && Clipboard.GetImage() is Image img)
+                // Third choice: Bitmap (does not support alpha channel)
                 container.Contents.Add(new ImageContent(img));
 
+            // Other formats
             if (Clipboard.ContainsData(DataFormats.Html)
-                && ReadClipboardHtml() is string html)
+                    && ReadClipboardHtml() is string html)
                 container.Contents.Add(new HtmlContent(html));
             if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue)
                 && ReadClipboardString(DataFormats.CommaSeparatedValue) is string csv)
@@ -330,7 +343,7 @@ namespace PasteIntoFile {
                 && ReadClipboardString(DataFormats.Dif) is string dif)
                 container.Contents.Add(new DifContent(dif));
 
-            if (Clipboard.ContainsFileDropList() && !Clipboard.ContainsText())
+            if (Clipboard.ContainsFileDropList())
                 container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.RelativeOrAbsolute))
