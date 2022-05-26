@@ -210,7 +210,7 @@ namespace PasteIntoFile {
                     Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
                     Graphics g = Graphics.FromImage(bg);
                     Brush brush = new SolidBrush(Color.LightGray);
-                    float d = Math.Max(bg.Width, bg.Height) / 50f;
+                    float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
                     for (int x = 0; x < bg.Width / d; x++) {
                         for (int y = 0; y < bg.Height / d; y += 2) {
                             g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
