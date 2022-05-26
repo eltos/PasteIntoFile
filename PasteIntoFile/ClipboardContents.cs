@@ -89,7 +89,7 @@ namespace PasteIntoFile {
 
     public class BitmapContent : ImageContent {
         public BitmapContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "bmp" };
+        public override string[] Extensions => new[] { "bmp", "gif", "jpg" }; // these do not support alpha channel
     }
 
 
@@ -304,26 +304,28 @@ namespace PasteIntoFile {
             // Read all supported clipboard data
             // https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
 
-            // Various image formats
+
+            // Bitmap image (no alpha channel)
             if (Clipboard.ContainsImage()
                 && Clipboard.GetImage() is Image bmp)
-                // Since bitmap does not support transparency, we treat it separately
+                // Since bitmap and some filetypes do not support alpha channel, we treat them separately
                 container.Contents.Add(new BitmapContent(bmp));
-            if (Clipboard.ContainsFileDropList()
-                    && Clipboard.GetFileDropList() is StringCollection files
-                    && files.Count == 1) {
-                // First choice: Image from file if possible (most generic option)
+
+            // Try to find a more generic image type (e.g. supporting alpha channel)
+            Image img = null;
+            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
+                // Try image from file if available
                 try {
-                    container.Contents.Add(new ImageContent(Image.FromFile(files[0])));
+                    img = Image.FromFile(files[0]);
                 } catch (Exception e) { }
             }
-            if (Clipboard.ContainsData(DataFormats.EnhancedMetafile)
-                && ReadClipboardMetafile() is Image emf)
-                // Second choice: Metafile (supports alpha channel)
-                container.Contents.Add(new ImageContent(emf));
-            if (Clipboard.ContainsImage()
-                && Clipboard.GetImage() is Image img)
-                // Third choice: Bitmap (does not support alpha channel)
+            if (img == null && Clipboard.ContainsData(DataFormats.EnhancedMetafile))
+                // Else try metafile if available
+                img = ReadClipboardMetafile();
+            if (img == null && Clipboard.ContainsImage())
+                // Else fall back to bitmap
+                img = Clipboard.GetImage();
+            if (img != null)
                 container.Contents.Add(new ImageContent(img));
 
             // Other formats
