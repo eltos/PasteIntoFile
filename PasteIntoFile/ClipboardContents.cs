@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -298,18 +299,36 @@ namespace PasteIntoFile {
             // Read all supported clipboard data
             // https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
 
-            if (Clipboard.ContainsImage())
-                container.Contents.Add(new ImageContent(Clipboard.GetImage()));
-            if (Clipboard.ContainsData(DataFormats.Html))
-                container.Contents.Add(new HtmlContent(ReadClipboardHtml()));
-            if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue))
-                container.Contents.Add(new CsvContent(ReadClipboardString(DataFormats.CommaSeparatedValue)));
-            if (Clipboard.ContainsData(DataFormats.SymbolicLink))
-                container.Contents.Add(new SylkContent(ReadClipboardString(DataFormats.SymbolicLink)));
-            if (Clipboard.ContainsData(DataFormats.Rtf))
-                container.Contents.Add(new RtfContent(ReadClipboardString(DataFormats.Rtf)));
-            if (Clipboard.ContainsData(DataFormats.Dif))
-                container.Contents.Add(new DifContent(ReadClipboardString(DataFormats.Dif)));
+            // Various image formats
+            if (Clipboard.ContainsFileDropList()
+                && Clipboard.GetFileDropList() is StringCollection files
+                && files.Count == 1) {
+                try { // Image as file (try&catch instead of maintaining an extension list)
+                    container.Contents.Add(new ImageContent(Image.FromFile(files[0])));
+                } catch (Exception e) { }
+            }
+            if (Clipboard.ContainsData(DataFormats.EnhancedMetafile)
+                && ReadClipboardMetafile() is Image emf)
+                container.Contents.Add(new ImageContent(emf));
+            if (Clipboard.ContainsImage()
+                && Clipboard.GetImage() is Image img)
+                container.Contents.Add(new ImageContent(img));
+
+            if (Clipboard.ContainsData(DataFormats.Html)
+                && ReadClipboardHtml() is string html)
+                container.Contents.Add(new HtmlContent(html));
+            if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue)
+                && ReadClipboardString(DataFormats.CommaSeparatedValue) is string csv)
+                container.Contents.Add(new CsvContent(csv));
+            if (Clipboard.ContainsData(DataFormats.SymbolicLink)
+                && ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
+                container.Contents.Add(new SylkContent(lnk));
+            if (Clipboard.ContainsData(DataFormats.Rtf)
+                && ReadClipboardString(DataFormats.Rtf) is string rtf)
+                container.Contents.Add(new RtfContent(rtf));
+            if (Clipboard.ContainsData(DataFormats.Dif)
+                && ReadClipboardString(DataFormats.Dif) is string dif)
+                container.Contents.Add(new DifContent(dif));
 
             if (Clipboard.ContainsFileDropList() && !Clipboard.ContainsText())
                 container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
@@ -346,6 +365,20 @@ namespace PasteIntoFile {
                 default:
                     return null;
             }
+        }
+
+        private static Metafile ReadClipboardMetafile() {
+            Metafile emf = null;
+            if (OpenClipboard(IntPtr.Zero)) {
+                if (IsClipboardFormatAvailable(CF_ENHMETAFILE)) {
+                    var ptr = GetClipboardData(CF_ENHMETAFILE);
+                    if (!ptr.Equals(IntPtr.Zero))
+                        emf = new Metafile(ptr, true);
+                }
+                CloseClipboard();
+            }
+
+            return emf;
         }
 
         public static ClipboardContents FromFile(string path) {
@@ -395,6 +428,23 @@ namespace PasteIntoFile {
             if (fileDropPath != null) data.SetData(DataFormats.FileDrop, new[] { fileDropPath });
             Clipboard.SetDataObject(data, true);
         }
+
+
+
+        private const uint CF_METAFILEPICT = 3;
+        private const uint CF_ENHMETAFILE = 14;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern bool OpenClipboard(IntPtr hWndNewOwner);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern bool CloseClipboard();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern IntPtr GetClipboardData(uint format);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern bool IsClipboardFormatAvailable(uint format);
 
     }
 }

@@ -204,24 +204,20 @@ namespace PasteIntoFile {
 
                 if (content is ImageContent imageContent) {
                     var img = imageContent.Image;
-
-                    // If image has alpha channel, show checkerboard pattern in background
-                    if (img.PixelFormat.HasFlag(PixelFormat.Alpha)) {
-                        Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
-                        Graphics g = Graphics.FromImage(bg);
-                        Brush brush = new SolidBrush(Color.DarkGray);
-                        float d = Math.Max(bg.Width, bg.Height) / 50f;
-                        for (int x = 0; x < bg.Width / d; x++) {
-                            for (int y = 0; y < bg.Height / d; y += 2) {
-                                g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
-                            }
-                        }
-                        imagePreview.BackgroundImage = bg;
-                    } else {
-                        imagePreview.BackgroundImage = null;
-                    }
-
                     imagePreview.Image = img;
+
+                    // Checkerboard background in case image is transparent
+                    Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
+                    Graphics g = Graphics.FromImage(bg);
+                    Brush brush = new SolidBrush(Color.LightGray);
+                    float d = Math.Max(bg.Width, bg.Height) / 50f;
+                    for (int x = 0; x < bg.Width / d; x++) {
+                        for (int y = 0; y < bg.Height / d; y += 2) {
+                            g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
+                        }
+                    }
+                    imagePreview.BackgroundImage = bg;
+
                     imagePreview.Show();
                     return;
                 }
