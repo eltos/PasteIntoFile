@@ -66,12 +66,12 @@ namespace PasteIntoFile {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bpm", "emf", "gif", "ico", "jpg", "tif", "wmf" };
+        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "ico", "jpg", "tif", "wmf" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
         public override void SaveAs(string path, string extension) {
             ImageFormat imageFormat;
             switch (extension) {
-                case "bpm": imageFormat = ImageFormat.Bmp; break;
+                case "bmp": imageFormat = ImageFormat.Bmp; break;
                 case "emf": imageFormat = ImageFormat.Emf; break;
                 case "gif": imageFormat = ImageFormat.Gif; break;
                 case "ico": imageFormat = ImageFormat.Icon; break;
