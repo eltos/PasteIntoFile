@@ -63,10 +63,19 @@ namespace PasteIntoFile.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icon {
+        internal static System.Drawing.Icon app_icon {
             get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                object obj = ResourceManager.GetObject("app_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Paste Into File.
+        /// </summary>
+        internal static string app_title {
+            get {
+                return ResourceManager.GetString("app_title", resourceCulture);
             }
         }
 
@@ -304,15 +313,6 @@ namespace PasteIntoFile.Properties {
         internal static string str_main_info_url {
             get {
                 return ResourceManager.GetString("str_main_info_url", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Paste Into File.
-        /// </summary>
-        internal static string str_main_window_title {
-            get {
-                return ResourceManager.GetString("str_main_window_title", resourceCulture);
             }
         }
 

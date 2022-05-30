@@ -43,8 +43,8 @@ namespace PasteIntoFile {
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
 
-            Icon = Resources.icon;
-            Text = Resources.str_main_window_title;
+            Icon = Resources.app_icon;
+            Text = Resources.app_title;
             infoLabel.Text = string.Format(Resources.str_version, ProductVersion);
 
 
@@ -167,7 +167,7 @@ namespace PasteIntoFile {
                 return true;
             }
 
-            MessageBox.Show(Resources.str_noclip_text, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(Resources.str_noclip_text, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;
 
         }
@@ -279,13 +279,13 @@ namespace PasteIntoFile {
 
                 // check if file exists
                 if (File.Exists(file)) {
-                    var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.str_main_window_title,
+                    var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.app_title,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result != DialogResult.Yes) {
                         return null;
                     }
                 } else if (Directory.Exists(file)) {
-                    MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.str_main_window_title,
+                    MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.app_title,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
@@ -310,10 +310,10 @@ namespace PasteIntoFile {
                 return file;
 
             } catch (UnauthorizedAccessException ex) {
-                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Program.RestartAppElevated(txtCurrentLocation.Text);
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return null;

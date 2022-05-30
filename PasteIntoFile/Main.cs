@@ -163,10 +163,10 @@ namespace PasteIntoFile {
                 }
 
                 MessageBox.Show(String.Format(Resources.str_copy_failed_unknown_format, path),
-                    Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return 1;
@@ -217,15 +217,15 @@ namespace PasteIntoFile {
                     arg.FilePath = files.Item(0).Path;
                     RunCopy(arg);
                 } else {
-                    MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             };
             copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
             // Tray icon
             NotifyIcon icon = new NotifyIcon();
-            icon.Icon = Resources.icon;
-            icon.Text = Resources.str_main_window_title;
+            icon.Icon = Resources.app_icon;
+            icon.Text = Resources.app_title;
             icon.ContextMenu = new ContextMenu(new[] {
                 new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(forceShowDialog: true).Show()),
                 new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),

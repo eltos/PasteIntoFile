@@ -79,7 +79,7 @@ namespace PasteIntoFile {
                 XImage img = XImage.FromStream(stream);
                 // create pdf document
                 PdfDocument document = new PdfDocument();
-                document.Info.Creator = Resources.str_main_window_title;
+                document.Info.Creator = Resources.app_title;
                 PdfPage page = document.AddPage();
                 page.Width = XUnit.FromPoint(img.PointWidth);
                 page.Height = XUnit.FromPoint(img.PointHeight);

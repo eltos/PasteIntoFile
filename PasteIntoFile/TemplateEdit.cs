@@ -16,7 +16,7 @@ namespace PasteIntoFile {
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
 
-            Icon = Resources.icon;
+            Icon = Resources.app_icon;
             Text = Resources.str_edit_template;
 
             // setup link in info text

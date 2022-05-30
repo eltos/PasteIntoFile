@@ -14,8 +14,8 @@ namespace PasteIntoFile {
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
 
-            Icon = Resources.icon;
-            Text = Resources.str_main_window_title;
+            Icon = Resources.app_icon;
+            Text = Resources.app_title;
 
             version.Text = string.Format(Resources.str_version, ProductVersion);
 
@@ -40,13 +40,13 @@ namespace PasteIntoFile {
             try {
                 if (contextEntryCheckBox.Checked && !RegistryUtil.IsContextMenuEntryRegistered()) {
                     RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
-                    MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } else if (!contextEntryCheckBox.Checked && RegistryUtil.IsContextMenuEntryRegistered()) {
                     RegistryUtil.UnRegisterContextMenuEntry();
-                    MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -54,13 +54,13 @@ namespace PasteIntoFile {
             try {
                 if (autostartCheckBox.Checked && !RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.RegisterAutostart();
-                    MessageBox.Show(Resources.str_message_register_autostart_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.str_message_register_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } else if (!autostartCheckBox.Checked && RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.UnRegisterAutostart();
-                    MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.str_main_window_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
