@@ -11,6 +11,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace PasteIntoFile {
 
@@ -66,9 +68,28 @@ namespace PasteIntoFile {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "ico", "jpg", "tif", "wmf" };
+        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "ico", "jpg", "pdf", "tif", "wmf" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
         public override void SaveAs(string path, string extension) {
+            if (extension == "pdf") {
+                // convert image
+                var stream = new MemoryStream();
+                Image.Save(stream, ImageFormat.Png);
+                stream.Position = 0;
+                XImage img = XImage.FromStream(stream);
+                // create pdf document
+                PdfDocument document = new PdfDocument();
+                document.Info.Creator = Resources.str_main_window_title;
+                PdfPage page = document.AddPage();
+                page.Width = XUnit.FromPoint(img.PointWidth);
+                page.Height = XUnit.FromPoint(img.PointHeight);
+                // insert image and save
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+                gfx.DrawImage(img, 0, 0);
+                document.Save(path);
+                return;
+            }
+            // natively supported formats
             ImageFormat imageFormat;
             switch (extension) {
                 case "bmp": imageFormat = ImageFormat.Bmp; break;
