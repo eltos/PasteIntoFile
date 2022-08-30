@@ -33,14 +33,15 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ## Installation
 
-+ Make sure you have _.NET Framework 4.8+_ installed (_Included since Windows 10_)
-+ **[Download the latest version from the release page](https://github.com/eltos/PasteIntoFile/releases)**
-  + Either the **installer** (.msi file)  
-    _The binary is built via github actions. Since it's not signed, windows will "protect" you from installing an unknown app. Click "More info" and "Run anyway" to proceed._
-  + Or the **portable version** (.zip file)  
-    _Unzip it's contents to a location of your choice and launch the executable to bring up the first-launch wizard_
++ [**Download latest release** from GitHub](https://github.com/eltos/PasteIntoFile/releases)
+  + We provide an **installer** (.msi file)
+  + And a **portable version** (.zip file)
++ [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
 
 _Tested on Windows 10_
+_If you are running an older Windows version make sure the .NET Framework 4.8+ is installed_
+_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)_
+
 
 ## Usage
 
@@ -165,8 +166,10 @@ pre-commit install
 ### CI/CD
 This project uses GitHub actions for test builds and releases.
 
-A new version is released simply by incrementing the version number in `AssemblyInfo.cs` and then creating a release on GitHub's release page.
-This will trigger the release workflow, which will autonomously build the binary and installer and attach it to the release.
+##### Release a new version
+1. Increment the version numbers in [`AssemblyInfo.cs`](PasteIntoFile/Properties/AssemblyInfo.cs#L34-L35)
+1. [Create a release](https://github.com/eltos/PasteIntoFile/releases/new?title=Version%200.0&body=-%20...%0A%0AFull%20Changelog%3A%20https%3A%2F%2Fgithub.com%2Feltos%2FPasteIntoFile%2Fcompare%2Fv0.0...v0.0.0%0A%0A%5B!%5BGitHub%20release%20(by%20tag)%5D(https%3A%2F%2Fimg.shields.io%2Fgithub%2Fdownloads%2Feltos%2Fpasteintofile%2Fv0.0.0%2Ftotal)%5D(https%3A%2F%2Fmann1x.github.io%2Fgithub-release-stats%2F%3Fusername%3Deltos%26repository%3DPasteIntoFile)) on GitHub's release page. This will trigger the release workflow, which will autonomously build the binary and installer and attach it to the release.
+1. [Submit](https://www.microsoft.com/en-us/wdsi/filesubmission?persona=HomeUser) this installer for analysis against Microsoft Defender Smartscreen as described [here](https://github.com/eltos/PasteIntoFile/discussions/10)
 
 
 
