@@ -33,14 +33,19 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ## Installation
 
+Paste Into File is free
+
 + [**Download latest release** from GitHub](https://github.com/eltos/PasteIntoFile/releases)
   + We provide an **installer** (.msi file)
   + And a **portable version** (.zip file)
 + [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
 
-_Tested on Windows 10_
-_If you are running an older Windows version make sure the .NET Framework 4.8+ is installed_
-_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)_
+| [🪙 DONATE](https://github.com/sponsors/eltos) |
+|-|
+
+_Tested on Windows 10._  
+_If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._  
+_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._  
 
 
 ## Usage
