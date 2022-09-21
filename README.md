@@ -40,8 +40,8 @@ Paste Into File is free
   + And a **portable version** (.zip file)
 + [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
 
-| [🪙 DONATE](https://github.com/sponsors/eltos) |
-|-|
+| [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos)
+|-|-|
 
 _Tested on Windows 10._  
 _If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._  
