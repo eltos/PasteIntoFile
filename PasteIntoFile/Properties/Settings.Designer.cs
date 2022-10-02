@@ -118,5 +118,17 @@ namespace PasteIntoFile.Properties {
                 this["subdirTemplate"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool trayPatchingEnabled {
+            get {
+                return ((bool)(this["trayPatchingEnabled"]));
+            }
+            set {
+                this["trayPatchingEnabled"] = value;
+            }
+        }
     }
 }

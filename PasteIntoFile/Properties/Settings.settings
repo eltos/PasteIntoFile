@@ -26,6 +26,9 @@
     <Setting Name="subdirTemplate" Type="System.String" Scope="User">
       <Value Profile="(Default)">{0:yyyy-MM-dd}</Value>
     </Setting>
+    <Setting Name="trayPatchingEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 

@@ -7,9 +7,11 @@ using CommandLine;
 using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
 using PasteIntoFile.Properties;
+using WK.Libraries.SharpClipboardNS;
 
 namespace PasteIntoFile {
     static class Program {
+        private static int saveCount = 0;
 
         class ArgsCommon {
             [Option('f', "filename", HelpText = "Filename template with optional format variables such as\n" +
@@ -222,6 +224,18 @@ namespace PasteIntoFile {
             };
             copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
+            // Register clipboard observer for patching
+            if (Settings.Default.trayPatchingEnabled) {
+                SharpClipboard clipMonitor = new SharpClipboard();
+                clipMonitor.ClipboardChanged += (s, e) => {
+                    if (PatchedClipboardContents() is IDataObject data) {
+                        clipMonitor.MonitorClipboard = false;
+                        Clipboard.SetDataObject(data, false);
+                        clipMonitor.MonitorClipboard = true;
+                    }
+                };
+            }
+
             // Tray icon
             NotifyIcon icon = new NotifyIcon();
             icon.Icon = Resources.app_icon;
@@ -237,6 +251,39 @@ namespace PasteIntoFile {
 
             icon.Visible = false;
             return 0;
+        }
+
+
+        /// <summary>
+        /// Return patched clipboard by creating a temporary file and adding it to the clipboard if necessary
+        /// </summary>
+        /// <returns>Patched clipboard data or null if patching not necessary</returns>
+        public static IDataObject PatchedClipboardContents() {
+            // Analyze clipboard data
+            if (Clipboard.ContainsFileDropList()) return null;
+            var clipData = ClipboardContents.FromClipboard();
+            var filename = Dialog.formatFilenameTemplate(Settings.Default.filenameTemplate, clipData.Timestamp, saveCount);
+            var ext = Dialog.determineExtension(clipData.PrimaryContent);
+            var contentToSave = clipData.ForExtension(ext);
+            if (contentToSave == null) return null;
+
+            // Save clipboard content to temporary file
+            var dirname = Path.GetTempPath();
+            if (!string.IsNullOrWhiteSpace(ext) && !filename.EndsWith("." + ext)) filename += "." + ext;
+            var file = Path.Combine(dirname, filename);
+            contentToSave.SaveAs(file, ext);
+            saveCount++;
+
+            // Patch clipboard with temporary file
+            IDataObject data = new DataObject();
+            if (Clipboard.GetDataObject()?.GetFormats(false) is string[] formats) {
+                // Mirror clipboard (directly using data = Clipboard.GetDataObject() does not work)
+                foreach (var format in formats) {
+                    data.SetData(format, false, Clipboard.GetData(format));
+                }
+            }
+            data.SetData(DataFormats.FileDrop, new[] { file });
+            return data;
         }
 
 

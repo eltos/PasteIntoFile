@@ -122,8 +122,11 @@ namespace PasteIntoFile {
 
         }
 
+        public static string formatFilenameTemplate(string template, DateTime timestamp, int count) {
+            return String.Format(template, timestamp, count);
+        }
         public string formatFilenameTemplate(string template) {
-            return String.Format(template, clipData.Timestamp, saveCount);
+            return formatFilenameTemplate(template, clipData.Timestamp, saveCount);
         }
         public void updateFilename() {
             try {
@@ -131,6 +134,22 @@ namespace PasteIntoFile {
             } catch (FormatException) {
                 txtFilename.Text = "filename_template_invalid";
             }
+        }
+
+        /// <summary>
+        /// Determine the extension to use based on user settings and defaults
+        /// </summary>
+        /// <param name="content">Clipboard content for which to determine extension</param>
+        /// <returns>Extension</returns>
+        public static string determineExtension(BaseContent content) {
+            // chose file extension based on available contents in this order
+            if (content is ImageContent)
+                return content.Extensions.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : content.DefaultExtension;
+            if (content is TextContent)
+                return Settings.Default.extensionText == null ? content.DefaultExtension : Settings.Default.extensionText;
+            if (content != null)
+                return content.DefaultExtension;
+            return "";
         }
 
         /// <summary>
@@ -149,16 +168,7 @@ namespace PasteIntoFile {
 
             // if selected extension does not match available contents, adjust it
             if (comExt.Text == "*" || comExt.Text == null || clipData.ForExtension(comExt.Text) == null) {
-                // chose file extension based on available contents in this order
-                BaseContent content = clipData.PrimaryContent;
-                if (content is ImageContent)
-                    comExt.Text = content.Extensions.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : content.DefaultExtension;
-                else if (content is TextContent)
-                    comExt.Text = Settings.Default.extensionText == null ? content.DefaultExtension : Settings.Default.extensionText;
-                else if (content != null)
-                    comExt.Text = content.DefaultExtension;
-                else
-                    comExt.Text = "";
+                comExt.Text = determineExtension(clipData.PrimaryContent);
             }
 
             updateContentPreview();

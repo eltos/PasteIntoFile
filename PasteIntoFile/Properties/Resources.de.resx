@@ -3,7 +3,7 @@
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -182,14 +182,16 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <data name="str_settings" xml:space="preserve">
         <value>Einstellungen</value>
     </data>
-    <data name="str_wizard_autostart_button" xml:space="preserve">
+    <data name="str_wizard_tray_autostart_button" xml:space="preserve">
         <value>Tray Autostart registieren</value>
     </data>
-    <data name="str_wizard_autostart_title" xml:space="preserve">
+    <data name="str_wizard_tray_title" xml:space="preserve">
         <value>Autostart und Tastenkürzel aktivieren?</value>
     </data>
-    <data name="str_wizard_autostart_info" xml:space="preserve">
-        <value>Wenn Paste Into File im System-Tray aktiv ist, können Inhalte der Zwischenablage durch Drücken von WIN+ALT+V als Datei einzufügt werden, und Dateiinhalte durch Drücken von WIN+ALT+C kopiert werden. Wenn diese Option aktiviert ist, wird das Program ab dem nächsten Login automatisch gestartet und auf die Tastenkürzel reagieren.</value>
+    <data name="str_wizard_tray_info" xml:space="preserve">
+        <value>Wenn gewünscht kann Paste Into File mit Windows gestarted und im System-Tray aktiv bleiben. So kann Paste Into File durch drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum kopiert von Dateiinhalten).
+Zusätzlich kann die Zwischenablage überwacht und automatisch gepatched werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
+Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     </data>
     <data name="str_message_register_autostart_success" xml:space="preserve">
         <value>Autostart aktiviert</value>
@@ -202,5 +204,8 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     </data>
     <data name="str_preview_files" xml:space="preserve">
         <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
+    </data>
+    <data name="str_wizard_tray_patching_button" xml:space="preserve">
+        <value>Patching der Zwischenablage aktivieren</value>
     </data>
 </root>

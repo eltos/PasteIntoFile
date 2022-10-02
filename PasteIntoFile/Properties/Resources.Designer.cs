@@ -563,33 +563,6 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Register autostart into tray.
-        /// </summary>
-        internal static string str_wizard_autostart_button {
-            get {
-                return ResourceManager.GetString("str_wizard_autostart_button", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to If Paste Into File is running in the system tray, you can paste clipboard contents by pressing WIN+ALT+V, and copy file contents by pressing WIN+ALT+C. If enabled, the program will run automatically on windows startup and listen for the hotkeys. This setting will take effect on the next login..
-        /// </summary>
-        internal static string str_wizard_autostart_info {
-            get {
-                return ResourceManager.GetString("str_wizard_autostart_info", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Enable autostart and hotkeys?.
-        /// </summary>
-        internal static string str_wizard_autostart_title {
-            get {
-                return ResourceManager.GetString("str_wizard_autostart_title", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Add to context menu.
         /// </summary>
         internal static string str_wizard_contextentry_button {
@@ -631,6 +604,44 @@ namespace PasteIntoFile.Properties {
         internal static string str_wizard_title {
             get {
                 return ResourceManager.GetString("str_wizard_title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Autostart into tray.
+        /// </summary>
+        internal static string str_wizard_tray_autostart_button {
+            get {
+                return ResourceManager.GetString("str_wizard_tray_autostart_button", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to If enabled, Paste Into File is started on windows startup and keeps running in the system tray. This allows to call Paste Into File by pressing WIN+ALT+V (and WIN+ALT+C to copy file contents).
+        ///In addition, you may enable clipboard patching. This monitors the clipboard and patches it automatically, so you can use CTRL+V in file explorer as usual.
+        ///These setting will take effect on the next login..
+        /// </summary>
+        internal static string str_wizard_tray_info {
+            get {
+                return ResourceManager.GetString("str_wizard_tray_info", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable clipboard patching.
+        /// </summary>
+        internal static string str_wizard_tray_patching_button {
+            get {
+                return ResourceManager.GetString("str_wizard_tray_patching_button", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable autostart and hotkeys?.
+        /// </summary>
+        internal static string str_wizard_tray_title {
+            get {
+                return ResourceManager.GetString("str_wizard_tray_title", resourceCulture);
             }
         }
     }
