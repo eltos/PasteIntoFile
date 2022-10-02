@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
@@ -17,13 +19,32 @@ namespace PasteIntoFile {
             Icon = Resources.app_icon;
             Text = Resources.app_title;
 
-            version.Text = string.Format(Resources.str_version, ProductVersion);
-
             autoSaveCheckBox.Checked = Settings.Default.autoSave;
             contextEntryCheckBox.Checked = RegistryUtil.IsContextMenuEntryRegistered();
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
+
+            // Version info
+            version.Text = string.Format(Resources.str_version, ProductVersion);
+            version.Links.Add(0, version.Text.Length, "https://github.com/eltos/PasteIntoFile/releases");
+            version.LinkClicked += (sender, args) => Process.Start(args.Link.LinkData.ToString());
+            CheckForUpdates();
+
+        }
+
+        async Task CheckForUpdates() {
+            if (await Program.CheckForUpdates()) {
+                // Update available
+                version.Links.Clear();
+                version.Text += string.Format("\n<a>{0}</a>", string.Format(Resources.str_version_update_available, ProductVersion, Settings.Default.updateLatestVersion));
+                var linkStart = version.Text.IndexOf(@"<a>", StringComparison.Ordinal);
+                var linkEnd = version.Text.IndexOf(@"</a>", StringComparison.Ordinal);
+                if (linkStart >= 0 && linkEnd > linkStart) {
+                    version.Text = version.Text.Remove(linkStart, 3).Remove(linkEnd - 3, 4);
+                    version.Links.Add(linkStart, linkEnd - linkStart - 3, Settings.Default.updateLatestVersionLink);
+                }
+            }
         }
 
         public static void SetAutosaveMode(bool enabled) {

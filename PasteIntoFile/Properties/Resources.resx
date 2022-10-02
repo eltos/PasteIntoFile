@@ -318,4 +318,10 @@ These setting will take effect on the next login.</value>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
       <value>Enable clipboard patching</value>
   </data>
+  <data name="str_version_update_available" xml:space="preserve">
+      <value>Update available: {0} ➜ {1}</value>
+  </data>
+  <data name="str_open" xml:space="preserve">
+      <value>Open</value>
+  </data>
 </root>

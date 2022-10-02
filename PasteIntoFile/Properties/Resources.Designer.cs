@@ -380,6 +380,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string str_open {
+            get {
+                return ResourceManager.GetString("str_open", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Open Paste Into File.
         /// </summary>
         internal static string str_open_paste_into_file {
@@ -532,6 +541,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_version {
             get {
                 return ResourceManager.GetString("str_version", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Update available: {0} ➜ {1}.
+        /// </summary>
+        internal static string str_version_update_available {
+            get {
+                return ResourceManager.GetString("str_version_update_available", resourceCulture);
             }
         }
 

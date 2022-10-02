@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -259,6 +263,9 @@ namespace PasteIntoFile {
             });
             icon.Visible = true;
 
+            // Check for updates (async)
+            CheckForUpdates();
+
             Application.Run();
 
             icon.Visible = false;
@@ -376,16 +383,68 @@ namespace PasteIntoFile {
         /// <param name="title">Title of the message</param>
         /// <param name="message">Body of the message</param>
         /// <param name="expire">Duration after which message is dismissed in second</param>
-        public static void ShowBalloon(string title, string[] message, ushort expire = 5) {
+        /// <param name="link">Optional link to visit when clicking the balloon</param>
+        /// <param name="silent">If true, make a silent balloon (default)</param>
+        public static void ShowBalloon(string title, string[] message, ushort expire = 5, string link = null, bool silent = true) {
             var builder = new ToastContentBuilder().AddText(title);
             foreach (var s in message) {
                 builder.AddText(s);
             }
-            builder.AddAudio(null, null, true); // silent
+            if (silent)
+                builder.AddAudio(null, null, true);
+
+            if (link != null)
+                builder.AddButton(Resources.str_open, ToastActivationType.Protocol, link);
 
             builder.Show(toast => {
-                toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
+                if (expire > 0) {
+                    toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
+                }
             });
+        }
+
+
+        /// <summary>
+        /// Check for updates
+        /// To reduce server load, queries are skipped if the last check was performed recently
+        /// </summary>
+        /// <returns>If an update is available</returns>
+        public static async Task<bool> CheckForUpdates() {
+            bool newReleaseFound = false;
+            if ((DateTime.Now - Settings.Default.updateLatestVersionLastCheck).TotalDays > 7) {
+                // Last check outdated, check again
+                Settings.Default.updateLatestVersionLastCheck = DateTime.Now;
+                Settings.Default.Save();
+                try {
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("PasteIntoFile", Application.ProductVersion));
+                    var data = await client.GetStringAsync(new Uri("https://api.github.com/repos/eltos/PasteIntoFile/releases/latest"));
+                    var match = Regex.Match(data, "\"(https://github.com/eltos/PasteIntoFile/releases/tag/v(\\d+(\\.\\d+)*))\"");
+                    if (match.Success && match.Groups[2].Value != Settings.Default.updateLatestVersion) {
+                        newReleaseFound = true;
+                        Settings.Default.updateLatestVersion = match.Groups[2].Value;
+                        Settings.Default.updateLatestVersionLink = match.Groups[1].Value;
+                        Settings.Default.Save();
+                    }
+                } catch {
+                    Console.Error.WriteLine("Failed to check for updates");
+                }
+            }
+
+            try {
+                var thisVersion = Version.Parse(Application.ProductVersion);
+                var latestVersion = Version.Parse(Settings.Default.updateLatestVersion);
+                if (latestVersion.CompareTo(thisVersion) > 0) {
+                    // Update available
+                    if (newReleaseFound) {
+                        ShowBalloon(string.Format(Resources.str_version_update_available, Application.ProductVersion, Settings.Default.updateLatestVersion),
+                            new[] { Settings.Default.updateLatestVersionLink }, 0, Settings.Default.updateLatestVersionLink, false);
+                    }
+                    return true;
+                }
+            } catch { /* ignore errors due to parsing of fetched version */ }
+            return false;
+
         }
 
 

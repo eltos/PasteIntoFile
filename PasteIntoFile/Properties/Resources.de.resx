@@ -208,4 +208,10 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     <data name="str_wizard_tray_patching_button" xml:space="preserve">
         <value>Patching der Zwischenablage aktivieren</value>
     </data>
+    <data name="str_version_update_available" xml:space="preserve">
+        <value>Update verfügbar: {0} ➜ {1}</value>
+    </data>
+    <data name="str_open" xml:space="preserve">
+        <value>Öffnen</value>
+    </data>
 </root>

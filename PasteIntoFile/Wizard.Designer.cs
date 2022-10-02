@@ -39,7 +39,7 @@ namespace PasteIntoFile {
             this.contextEntryInfoLabel = new System.Windows.Forms.Label();
             this.contextEntryCheckBox = new System.Windows.Forms.CheckBox();
             this.finish = new System.Windows.Forms.Button();
-            this.version = new System.Windows.Forms.Label();
+            this.version = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             //
@@ -264,7 +264,7 @@ namespace PasteIntoFile {
         }
 
         private System.Windows.Forms.CheckBox patchingCheckBox;
-        private System.Windows.Forms.Label version;
+        private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
         private System.Windows.Forms.CheckBox contextEntryCheckBox;
         private System.Windows.Forms.Label autoSaveTitleLabel;

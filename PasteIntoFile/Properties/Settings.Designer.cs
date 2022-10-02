@@ -130,5 +130,41 @@ namespace PasteIntoFile.Properties {
                 this["trayPatchingEnabled"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string updateLatestVersion {
+            get {
+                return ((string)(this["updateLatestVersion"]));
+            }
+            set {
+                this["updateLatestVersion"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string updateLatestVersionLink {
+            get {
+                return ((string)(this["updateLatestVersionLink"]));
+            }
+            set {
+                this["updateLatestVersionLink"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000-01-01")]
+        public global::System.DateTime updateLatestVersionLastCheck {
+            get {
+                return ((global::System.DateTime)(this["updateLatestVersionLastCheck"]));
+            }
+            set {
+                this["updateLatestVersionLastCheck"] = value;
+            }
+        }
     }
 }

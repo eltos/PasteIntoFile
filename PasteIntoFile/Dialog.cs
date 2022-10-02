@@ -44,7 +44,9 @@ namespace PasteIntoFile {
 
             Icon = Resources.app_icon;
             Text = Resources.app_title;
-            infoLabel.Text = string.Format(Resources.str_version, ProductVersion);
+            versionInfoLabel.Text = string.Format(Resources.str_version, ProductVersion);
+            versionInfoLabel.LinkArea = new LinkArea(0, 0);
+            CheckForUpdates();
 
 
             // Dark theme
@@ -330,6 +332,15 @@ namespace PasteIntoFile {
             }
 
             return null;
+        }
+
+        async Task CheckForUpdates() {
+            if (await Program.CheckForUpdates()) {
+                // Update available
+                versionInfoLabel.Text = string.Format(Resources.str_version_update_available, ProductVersion, Settings.Default.updateLatestVersion);
+                versionInfoLabel.LinkArea = new LinkArea(0, versionInfoLabel.Text.Length);
+                versionInfoLabel.LinkClicked += (sender, args) => Process.Start(Settings.Default.updateLatestVersionLink);
+            }
         }
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e) {

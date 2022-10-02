@@ -39,7 +39,7 @@ namespace PasteIntoFile {
             this.txtCurrentLocation = new System.Windows.Forms.TextBox();
             this.lblCurrentLocation = new System.Windows.Forms.Label();
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
-            this.infoLabel = new System.Windows.Forms.Label();
+            this.versionInfoLabel = new System.Windows.Forms.LinkLabel();
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
             this.chkClrClipboard = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
@@ -198,15 +198,15 @@ namespace PasteIntoFile {
             //
             // infoLabel
             //
-            this.infoLabel.AutoSize = true;
-            this.infoLabel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.infoLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.infoLabel.Location = new System.Drawing.Point(482, 4);
-            this.infoLabel.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
-            this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(64, 20);
-            this.infoLabel.TabIndex = 10;
-            this.infoLabel.Text = "v0.0.0.0";
+            this.versionInfoLabel.AutoSize = true;
+            this.versionInfoLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.versionInfoLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.versionInfoLabel.Location = new System.Drawing.Point(482, 4);
+            this.versionInfoLabel.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
+            this.versionInfoLabel.Name = "versionInfoLabel";
+            this.versionInfoLabel.Size = new System.Drawing.Size(64, 20);
+            this.versionInfoLabel.TabIndex = 10;
+            this.versionInfoLabel.Text = "v0.0.0.0";
             //
             // infoLinkLabel
             //
@@ -387,7 +387,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Controls.Add(this.infoLinkLabel, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.chkAutoSave, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.infoLabel, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.versionInfoLabel, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.settingsLinkLabel, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(15, 471);
@@ -457,7 +457,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.TextBox txtCurrentLocation;
         private System.Windows.Forms.Label lblCurrentLocation;
         private System.Windows.Forms.Button btnBrowseForFolder;
-        private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.LinkLabel versionInfoLabel;
         private System.Windows.Forms.LinkLabel infoLinkLabel;
         private System.Windows.Forms.CheckBox chkClrClipboard;
         private System.Windows.Forms.CheckBox chkAutoSave;
