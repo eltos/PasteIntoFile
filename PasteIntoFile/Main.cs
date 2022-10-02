@@ -12,6 +12,13 @@ using WK.Libraries.SharpClipboardNS;
 namespace PasteIntoFile {
     static class Program {
         private static int saveCount = 0;
+        private static SharpClipboard _clipMonitor;
+        public static SharpClipboard clipMonitor {
+            get {
+                if (_clipMonitor == null) _clipMonitor = new SharpClipboard();
+                return _clipMonitor;
+            }
+        }
 
         class ArgsCommon {
             [Option('f', "filename", HelpText = "Filename template with optional format variables such as\n" +
@@ -226,10 +233,9 @@ namespace PasteIntoFile {
 
             // Register clipboard observer for patching
             if (Settings.Default.trayPatchingEnabled) {
-                SharpClipboard clipMonitor = new SharpClipboard();
                 clipMonitor.ClipboardChanged += (s, e) => {
                     if (PatchedClipboardContents() is IDataObject data) {
-                        clipMonitor.MonitorClipboard = false;
+                        clipMonitor.MonitorClipboard = false; // to prevent infinite callback
                         Clipboard.SetDataObject(data, false);
                         clipMonitor.MonitorClipboard = true;
                     }
@@ -268,7 +274,9 @@ namespace PasteIntoFile {
             if (contentToSave == null) return null;
 
             // Save clipboard content to temporary file
-            var dirname = Path.GetTempPath();
+            var dirname = Path.Combine(Path.GetTempPath(), "PasteIntoFile");
+            try { Directory.Delete(dirname, true); } catch { /* try to keep tmp dir clean, ignore errors */ }
+            Directory.CreateDirectory(dirname);
             if (!string.IsNullOrWhiteSpace(ext) && !filename.EndsWith("." + ext)) filename += "." + ext;
             var file = Path.Combine(dirname, filename);
             contentToSave.SaveAs(file, ext);

@@ -221,7 +221,7 @@ namespace PasteIntoFile {
             }
         }
 
-        public override string[] Extensions => new[] { "zip", "m3u", "txt" };
+        public override string[] Extensions => new[] { "zip", "m3u", "files" };
         public override string Description => string.Format(Resources.str_preview_files, Files.Count);
         public override void SaveAs(string path, string extension) {
             switch (extension) {
@@ -238,7 +238,7 @@ namespace PasteIntoFile {
                     break;
 
                 case "m3u":
-                case "txt":
+                case "files":
                     File.WriteAllLines(path, FileList, new UTF8Encoding(false));
                     break;
             }

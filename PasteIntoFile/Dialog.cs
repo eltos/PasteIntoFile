@@ -13,7 +13,6 @@ using WK.Libraries.SharpClipboardNS;
 namespace PasteIntoFile {
     public partial class Dialog : MasterForm {
         private ClipboardContents clipData = new ClipboardContents();
-        private readonly SharpClipboard clipMonitor = new SharpClipboard();
         private bool continuousMode = false;
         private int saveCount = 0;
 
@@ -81,7 +80,9 @@ namespace PasteIntoFile {
                 BringToFrontForced();
 
                 // register clipboard monitor
-                clipMonitor.ClipboardChanged += ClipboardChanged;
+                Program.clipMonitor.ClipboardChanged += ClipboardChanged;
+                FormClosing += (s, e) => Program.clipMonitor.ClipboardChanged -= ClipboardChanged;
+
 
             } else {
                 // directly save without showing a dialog
@@ -313,7 +314,9 @@ namespace PasteIntoFile {
                 }
 
                 if (Settings.Default.clrClipboard) {
+                    Program.clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
                     Clipboard.Clear();
+                    Program.clipMonitor.MonitorClipboard = true;
                 }
 
                 saveCount++;
