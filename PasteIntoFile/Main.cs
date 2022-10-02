@@ -108,8 +108,9 @@ namespace PasteIntoFile {
             AttachConsole(ATTACH_PARENT_PROCESS);
 
             if (!Settings.Default.upgradePerformed) {
-                // New app version was installed
-                Settings.Default.Upgrade();
+                // New version installed with default settings (upgradePerformed == false)
+                // https://stackoverflow.com/a/534335/13324744
+                Settings.Default.Upgrade(); // Migrate settings from previous version (if any)
                 Settings.Default.upgradePerformed = true;
                 Settings.Default.Save();
             }
@@ -170,6 +171,11 @@ namespace PasteIntoFile {
             return Environment.ExitCode;
         }
 
+        /// <summary>
+        /// Run program to copy file contents to clipboard
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Exit code</returns>
         static int RunCopy(ArgsCopy args) {
             try {
                 string path = Path.GetFullPath(args.FilePath);
@@ -192,7 +198,7 @@ namespace PasteIntoFile {
         }
 
         /// <summary>
-        /// Run wizard
+        /// Run setup wizard with config settings gui
         /// </summary>
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
@@ -209,6 +215,7 @@ namespace PasteIntoFile {
 
         /// <summary>
         /// Run program in system tray and wait for hotkey press
+        /// If enabled, also monitor and patch clipboard with file drop list
         /// </summary>
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
@@ -405,8 +412,8 @@ namespace PasteIntoFile {
 
 
         /// <summary>
-        /// Check for updates
-        /// To reduce server load, queries are skipped if the last check was performed recently
+        /// Checks for updates
+        /// To reduce server load, results are cached and frequent queries skipped
         /// </summary>
         /// <returns>If an update is available</returns>
         public static async Task<bool> CheckForUpdates() {
