@@ -13,7 +13,7 @@ A Windows desktop application to paste clipboard contents into files and copy fi
 
 _This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
 _See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._
-_This fork comes with many new features such as clipboard monitoring, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, system tray mode, listen to hotkey, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
+_This fork comes with many new features such as clipboard monitoring, clipboard patching, batch mode, rename inside file explorer, copy file contents, paste into subdirectory, system tray mode, listen to hotkey, support for many additional formats and a new GUI with fluid layout and comfortable text, image, HTML and richt-text preview._
 _The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
 
 
@@ -23,7 +23,8 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + Explorer context menu entry: "Paste into file" or "Copy file contents"
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
-+ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format (RTF), Data Interchange Format (DIF), Symbolic Link (SLK)
++ [Clipboard patching](https://github.com/eltos/PasteIntoFile/discussions/11): use regular paste options and `CTRL`+`V`
++ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format (RTF), Data Interchange Format (DIF), Symbolic Link (SLK), file drop list
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + First launch wizard
 
@@ -40,12 +41,12 @@ Paste Into File is free
   + And a **portable version** (.zip file)
 + [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
 
-| [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos)
-|-|-|
+| [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) |
+|---|---|
 
-_Tested on Windows 10._  
-_If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._  
-_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._  
+_Tested on Windows 10._
+_If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._
+_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._
 
 
 ## Usage
@@ -54,13 +55,14 @@ When starting Paste Into File for the first time or after an update, the first l
 
 In addition to the instructions given below, help is also available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a).
 
-
 ### Paste clipboard contents
-Run the program with the hotkey, from the file explorer context menu, the start menu or the command line.
+If **clipboard patching** is enabled and Paste Into File runs in the system tray, the regular paste command and `CTRL`+`V` hotkey can be used.
+Otherwise (or if you want to use the features described below), run the program from the file explorer context menu, via the start menu, with the hotkey `WIN`+`ALT`+`V` (if enabled) or via command line.
 
-In **autosave mode**, the file will directly be created and selected for renaming.
-Otherwise the dialog will prompt for filename and type.
+In **autosave mode**, the file to paste will directly be created and selected for renaming.
+Otherwise, the dialog will prompt for filename and type.
 By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
+When running Paste Into File from the start menu, the dialog will always be shown.
 
 The **filename template** can be edited from the dialog or via command line.
 When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
@@ -84,7 +86,7 @@ while using `HTML` will save the plain text.
 
 
 ### Copy file contents
-Run the program with the hotkey, from the file explorer context menu, the start menu or the command line.
+Run the program from the file explorer context menu, with the hotkey `WIN`+`ALT`+`C` (if enabled) or via command line.
 
 Currently, image and text files are supported. If the file format is not understood, an error message will be shown.
 
@@ -95,7 +97,7 @@ Currently, image and text files are supported. If the file format is not underst
 Use `help`, `help paste`, `help config` etc. as argument to show available command line options, e.g.:
 ```
 > .\PasteIntoFile.exe help
-PasteIntoFile 4.2.0.0
+PasteIntoFile 4.4.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   paste      (Default Verb) Paste clipboard contents into file
@@ -108,7 +110,7 @@ Copyright © PasteIntoFile GitHub contributors
 ```
 ```
 > .\PasteIntoFile.exe help config
-PasteIntoFile 4.2.0.0
+PasteIntoFile 4.4.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   --register             Register context menu entry
@@ -116,6 +118,8 @@ Copyright © PasteIntoFile GitHub contributors
   --enable-autostart     Register program to run in system tray on windows
                          startup
   --disable-autostart    Remove autostart on windows startup registration
+  --enable-patching      Enables clipboard patching while running in system tray
+  --disable-patching     Disables clipboard patching
   -f, --filename         Filename template with optional format variables such as
                          {0:yyyyMMdd HHmmSS} for current date and time
                          {1:000} for batch-mode save counter
