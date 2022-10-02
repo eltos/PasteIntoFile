@@ -74,6 +74,12 @@ namespace PasteIntoFile {
             [Option("disable-autostart", HelpText = "Remove autostart on windows startup registration", SetName = "autostart")]
             public bool UnregisterAutostart { get; set; }
 
+            [Option("enable-patching", HelpText = "Enables clipboard patching while running in system tray", SetName = "patching")]
+            public bool RegisterPatching { get; set; }
+
+            [Option("disable-patching", HelpText = "Disables clipboard patching", SetName = "patching")]
+            public bool UnregisterPatching { get; set; }
+
         }
 
         [Verb("wizard", HelpText = "Open the first-launch wizard")]
@@ -328,6 +334,12 @@ namespace PasteIntoFile {
                     RegistryUtil.RegisterAutostart();
                 if (args.UnregisterAutostart)
                     RegistryUtil.UnRegisterAutostart();
+                if (args.RegisterPatching)
+                    Settings.Default.trayPatchingEnabled = true;
+                if (args.UnregisterPatching)
+                    Settings.Default.trayPatchingEnabled = false;
+
+                Settings.Default.Save();
             } catch (Exception ex) {
                 Console.Error.WriteLine(ex.Message + "\n" + Resources.str_message_run_as_admin);
                 return 1;
