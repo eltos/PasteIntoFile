@@ -218,6 +218,7 @@ namespace PasteIntoFile {
                 if (content is ImageContent imageContent) {
                     var img = imageContent.Image;
                     imagePreview.Image = img;
+                    imagePreview.Enabled = imageContent is AnimatedImageContent; // Enabled refers to animation
 
                     // Checkerboard background in case image is transparent
                     Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);

@@ -63,6 +63,9 @@ namespace PasteIntoFile {
     }
 
 
+    /// <summary>
+    /// Holds image contents
+    /// </summary>
     public class ImageContent : BaseContent {
         public ImageContent(Image image) {
             Data = image;
@@ -108,9 +111,20 @@ namespace PasteIntoFile {
         }
     }
 
-    public class BitmapContent : ImageContent {
-        public BitmapContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "bmp", "gif", "jpg" }; // these do not support alpha channel
+    /// <summary>
+    /// Like ImageContent, but only for formats which support alpha channel
+    /// </summary>
+    public class TransparentImageContent : ImageContent {
+        public TransparentImageContent(Image image) : base(image) { }
+        public override string[] Extensions => new[] { "png", "emf", "gif", "ico", "pdf", "tif", "wmf" }; // Note: gif has only alpha 100% or 0%
+    }
+
+    /// <summary>
+    /// Like ImageContent, but only for formats which support animated frames
+    /// </summary>
+    public class AnimatedImageContent : ImageContent {
+        public AnimatedImageContent(Image image) : base(image) { }
+        public override string[] Extensions => new[] { "gif" };
     }
 
 
@@ -324,32 +338,54 @@ namespace PasteIntoFile {
 
             // Read all supported clipboard data
             // https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
+            //
+            // Note: if multiple clipboard contents support to same extension, the first in Contents is used
 
 
-            // Bitmap image (no alpha channel)
-            if (Clipboard.ContainsImage()
-                && Clipboard.GetImage() is Image bmp)
-                // Since bitmap and some filetypes do not support alpha channel, we treat them separately
-                container.Contents.Add(new BitmapContent(bmp));
+            // Images
+            // ======
 
-            // Try to find a more generic image type (e.g. supporting alpha channel)
-            Image img = null;
+            IList<Image> images = new List<Image>();
+            // Bitmap image from clipboard
+            if (Clipboard.ContainsImage() && Clipboard.GetImage() is Image bmp)
+                images.Add(bmp);
+            // Enhanced metafile from clipboard
+            if (Clipboard.ContainsData(DataFormats.EnhancedMetafile) && ReadClipboardMetafile() is Metafile emf)
+                images.Add(emf);
+            // Generic image from file
             if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
-                // Try image from file if available
                 try {
-                    img = Image.FromFile(files[0]);
-                } catch (Exception e) { }
+                    images.Add(Image.FromFile(files[0]));
+                } catch { /* format not supported */ }
             }
-            if (img == null && Clipboard.ContainsData(DataFormats.EnhancedMetafile))
-                // Else try metafile if available
-                img = ReadClipboardMetafile();
-            if (img == null && Clipboard.ContainsImage())
-                // Else fall back to bitmap
-                img = Clipboard.GetImage();
-            if (img != null)
+
+            // Since images can have features (transparency, animations) which are not supported by all file format,
+            // we handel images with such features separately:
+            // 1. Animated image (if any)
+            foreach (var img in images) {
+                try {
+                    if (img.GetFrameCount(FrameDimension.Time) > 1) {
+                        container.Contents.Add(new AnimatedImageContent(img));
+                        break;
+                    }
+                } catch { /* format does not support frames */ }
+            }
+            // 2. Transparent image (if any)
+            foreach (var img in images) {
+                if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha)) {
+                    container.Contents.Add(new TransparentImageContent(img));
+                    break;
+                }
+            }
+            // 3. Image with no special features (if any)
+            foreach (var img in images) {
                 container.Contents.Add(new ImageContent(img));
+                break;
+            }
+
 
             // Other formats
+            // =============
             if (Clipboard.ContainsData(DataFormats.Html)
                     && ReadClipboardHtml() is string html)
                 container.Contents.Add(new HtmlContent(html));
@@ -372,7 +408,7 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.RelativeOrAbsolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
-            // make sure text content comes last, as it may includes extensions from previous formats
+            // make sure text content comes last, so it does not overwrite extensions used by previous special formats
             if (Clipboard.ContainsText())
                 container.Contents.Add(new TextContent(Clipboard.GetText()));
 
