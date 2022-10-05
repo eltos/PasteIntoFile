@@ -16,6 +16,19 @@ namespace PasteIntoFile {
         private bool continuousMode = false;
         private int saveCount = 0;
 
+        private SharpClipboard _clipMonitor;
+        public SharpClipboard clipMonitor {
+            get {
+                if (_clipMonitor == null) _clipMonitor = new SharpClipboard();
+                return _clipMonitor;
+            }
+        }
+        protected override void OnFormClosed(FormClosedEventArgs e) {
+            // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
+            clipMonitor?.StopMonitoring();
+            base.OnFormClosed(e);
+        }
+
 
 
         public Dialog(string location = null, bool forceShowDialog = false) {
@@ -82,8 +95,8 @@ namespace PasteIntoFile {
                 BringToFrontForced();
 
                 // register clipboard monitor
-                Program.clipMonitor.ClipboardChanged += ClipboardChanged;
-                FormClosing += (s, e) => Program.clipMonitor.ClipboardChanged -= ClipboardChanged;
+                clipMonitor.ClipboardChanged += ClipboardChanged;
+                FormClosing += (s, e) => clipMonitor.ClipboardChanged -= ClipboardChanged;
 
 
             } else {
@@ -191,11 +204,19 @@ namespace PasteIntoFile {
             var previousClipboardTimestamp = clipData.Timestamp;
             readClipboard();
 
-            // ignore duplicate clipboard content updates within 100ms
-            if (continuousMode && (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds > 100) {
-                updateFilename();
-                save();
-                updateSavebutton();
+            // continuous batch mode
+            if (continuousMode) {
+                var ignore = false;
+                // ignore duplicate updates within 100ms
+                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 100;
+                // ignore internal updates due to clipboard patching
+                ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
+
+                if (!ignore) {
+                    updateFilename();
+                    save();
+                    updateSavebutton();
+                }
             }
         }
 
@@ -317,9 +338,9 @@ namespace PasteIntoFile {
                 }
 
                 if (Settings.Default.clrClipboard) {
-                    Program.clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
+                    clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
                     Clipboard.Clear();
-                    Program.clipMonitor.MonitorClipboard = true;
+                    clipMonitor.MonitorClipboard = true;
                 }
 
                 saveCount++;

@@ -15,14 +15,8 @@ using WK.Libraries.SharpClipboardNS;
 
 namespace PasteIntoFile {
     static class Program {
+        public const string PATCHED_CLIPBOARD_MAGIC = "PasteIntoFileHasPatchedTheClipboard";
         private static int saveCount = 0;
-        private static SharpClipboard _clipMonitor;
-        public static SharpClipboard clipMonitor {
-            get {
-                if (_clipMonitor == null) _clipMonitor = new SharpClipboard();
-                return _clipMonitor;
-            }
-        }
 
         class ArgsCommon {
             [Option('f', "filename", HelpText = "Filename template with optional format variables such as\n" +
@@ -249,7 +243,9 @@ namespace PasteIntoFile {
             copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
             // Register clipboard observer for patching
+            SharpClipboard clipMonitor = null;
             if (Settings.Default.trayPatchingEnabled) {
+                clipMonitor = new SharpClipboard();
                 clipMonitor.ClipboardChanged += (s, e) => {
                     if (PatchedClipboardContents() is IDataObject data) {
                         clipMonitor.MonitorClipboard = false; // to prevent infinite callback
@@ -274,6 +270,9 @@ namespace PasteIntoFile {
             CheckForUpdates();
 
             Application.Run();
+
+            // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
+            clipMonitor?.StopMonitoring();
 
             icon.Visible = false;
             return 0;
@@ -311,6 +310,7 @@ namespace PasteIntoFile {
                 }
             }
             data.SetData(DataFormats.FileDrop, new[] { file });
+            data.SetData(PATCHED_CLIPBOARD_MAGIC, true); // tag used to distinguish original and patched clipboard
             return data;
         }
 
