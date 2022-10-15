@@ -166,5 +166,17 @@ namespace PasteIntoFile.Properties {
                 this["updateLatestVersionLastCheck"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool updateChecksEnabled {
+            get {
+                return ((bool)(this["updateChecksEnabled"]));
+            }
+            set {
+                this["updateChecksEnabled"] = value;
+            }
+        }
     }
 }

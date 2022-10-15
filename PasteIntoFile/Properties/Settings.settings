@@ -38,6 +38,9 @@
     <Setting Name="updateLatestVersionLastCheck" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2000-01-01</Value>
     </Setting>
+    <Setting Name="updateChecksEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
 

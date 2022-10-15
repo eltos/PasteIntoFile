@@ -428,8 +428,9 @@ namespace PasteIntoFile {
         /// </summary>
         /// <returns>If an update is available</returns>
         public static async Task<bool> CheckForUpdates() {
+            if (!Settings.Default.updateChecksEnabled) return false;
             bool newReleaseFound = false;
-            if ((DateTime.Now - Settings.Default.updateLatestVersionLastCheck).TotalDays > 7) {
+            if ((DateTime.Now - Settings.Default.updateLatestVersionLastCheck).TotalDays > 30) {
                 // Last check outdated, check again
                 Settings.Default.updateLatestVersionLastCheck = DateTime.Now;
                 Settings.Default.Save();
