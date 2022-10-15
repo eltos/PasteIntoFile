@@ -17,7 +17,7 @@ namespace PasteIntoFile {
         }
 
         private static string GetExplorerPath(SHDocVw.InternetExplorer explorer) {
-            return (explorer?.Document as Shell32.IShellFolderViewDual2)?.Folder.Items().Item().Path;
+            return (explorer?.Document as Shell32.IShellFolderViewDual2)?.Folder?.Items()?.Item()?.Path;
         }
 
 
