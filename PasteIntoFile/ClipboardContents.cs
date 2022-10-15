@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -352,6 +353,9 @@ namespace PasteIntoFile {
             // Enhanced metafile from clipboard
             if (Clipboard.ContainsData(DataFormats.EnhancedMetafile) && ReadClipboardMetafile() is Metafile emf)
                 images.Add(emf);
+            // Image as encoded data uri
+            if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image image)
+                images.Add(image);
             // Generic image from file
             if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
                 try {
@@ -490,6 +494,30 @@ namespace PasteIntoFile {
             }
             while (b > 0);
             return b == 0;
+        }
+
+        /// <summary>
+        /// Convert a data uri to an image
+        /// </summary>
+        /// <param name="uri">The data URI, typically starting with data:image/</param>
+        /// <returns>The image or null if the uri is not an image or conversion failed</returns>
+        private static Image ImageFromDataUri(string uri) {
+            try {
+                var match = Regex.Match(uri, @"^data:image/\w+(?<base64>;base64)?,(?<data>.+)$");
+                if (match.Success) {
+                    if (match.Groups["base64"].Success) {
+                        // Base64 encoded
+                        var bytes = Convert.FromBase64String(match.Groups["data"].Value);
+                        return Image.FromStream(new MemoryStream(bytes));
+                    } else {
+                        // URL encoded
+                        var bytes = Encoding.Default.GetBytes(match.Groups["data"].Value);
+                        bytes = WebUtility.UrlDecodeToBytes(bytes, 0, bytes.Length);
+                        return Image.FromStream(new MemoryStream(bytes));
+                    }
+                }
+            } catch { /* data uri malformed or not supported */ }
+            return null;
         }
 
         public void CopyToClipboard(string fileDropPath = null) {
