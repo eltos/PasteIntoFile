@@ -72,7 +72,7 @@ namespace PasteIntoFile {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif" };
+        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "jpg", "pdf", "tif" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension) {
@@ -99,6 +99,16 @@ namespace PasteIntoFile {
                     document.Save(path);
                     return;
 
+                case "emf":
+                    IntPtr h = ((Metafile)image).GetHenhmetafile();
+                    uint size = GetEnhMetaFileBits(h, 0, null);
+                    byte[] data = new byte[size];
+                    GetEnhMetaFileBits(h, size, data);
+                    using (FileStream w = File.Create(path)) {
+                        w.Write(data, 0, checked((int)size));
+                    }
+                    return;
+
                 default:
                     image.Save(path);
                     return;
@@ -113,6 +123,7 @@ namespace PasteIntoFile {
         public Image ImageAs(string extension) {
             // Special formats with intermediate conversion types
             switch (extension.ToLower()) {
+                case "emf": return Image as Metafile; // TODO: Convert from other formats
                 case "pdf": extension = "png"; break;
             }
             // Find suitable codec and convert image
@@ -123,7 +134,7 @@ namespace PasteIntoFile {
                     return Image.FromStream(stream);
                 }
             }
-            // TODO: Support EMF, WMF and ICO
+            // TODO: Support WMF and ICO
             // Previously we had these in the list, but apparently these were silently saved as PNG in lack of a proper codec.
 
             // No suitable coded available
@@ -132,6 +143,9 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Bitmap, Image);
         }
+
+        [DllImport("gdi32")]
+        private static extern uint GetEnhMetaFileBits(IntPtr hemf, uint cbBuffer, byte[] lpbBuffer);
     }
 
     /// <summary>
@@ -139,7 +153,7 @@ namespace PasteIntoFile {
     /// </summary>
     public class TransparentImageContent : ImageContent {
         public TransparentImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif" }; // Note: gif has only alpha 100% or 0%
+        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif", "emf" }; // Note: gif has only alpha 100% or 0%
     }
 
     /// <summary>
@@ -368,14 +382,15 @@ namespace PasteIntoFile {
             // Images
             // ======
 
+            // Collect images from in various formats (in order of priority)
             IList<Image> images = new List<Image>();
-            // Bitmap image from clipboard
+            // Native clipboard bitmap image
             if (Clipboard.ContainsImage() && Clipboard.GetImage() is Image bmp)
                 images.Add(bmp);
-            // Enhanced metafile from clipboard
+            // Native clipboard enhanced metafile
             if (Clipboard.ContainsData(DataFormats.EnhancedMetafile) && ReadClipboardMetafile() is Metafile emf)
                 images.Add(emf);
-            // Image as encoded data uri
+            // Generic image from encoded data uri
             if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image image)
                 images.Add(image);
             // Generic image from file
