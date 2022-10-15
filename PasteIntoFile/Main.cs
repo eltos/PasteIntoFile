@@ -245,8 +245,10 @@ namespace PasteIntoFile {
             // Register clipboard observer for patching
             SharpClipboard clipMonitor = null;
             if (Settings.Default.trayPatchingEnabled) {
+                bool skipFirst = true;
                 clipMonitor = new SharpClipboard();
                 clipMonitor.ClipboardChanged += (s, e) => {
+                    if (skipFirst) { skipFirst = false; return; }
                     if (PatchedClipboardContents() is IDataObject data) {
                         clipMonitor.MonitorClipboard = false; // to prevent infinite callback
                         Clipboard.SetDataObject(data, false);
