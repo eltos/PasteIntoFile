@@ -21,11 +21,11 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 ### Features
 
 + Explorer context menu entry: "Paste into file" or "Copy file contents"
++ Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
-+ [Clipboard patching](https://github.com/eltos/PasteIntoFile/discussions/11): use regular paste options and `CTRL`+`V`
-+ Many formats: Image, Text, HTML, CSV, URL, Rich Text Format (RTF), Data Interchange Format (DIF), Symbolic Link (SLK), file drop list
-+ Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
++ [Clipboard patching](https://github.com/eltos/PasteIntoFile/discussions/11): use regular paste options and `CTRL`+`V` (experimental)
++ Supports many formats: PNG, JPG, GIF, SVG, TXT, HTML, CSV, URL, PDF, RTF, DIF, SLK, EMF, TIF, ZIP, file drop list, ...
 + First launch wizard
 
 ![Paste Into File](screenshot.png)
