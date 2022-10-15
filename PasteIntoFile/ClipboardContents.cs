@@ -433,9 +433,17 @@ namespace PasteIntoFile {
 
             // Collect images from in various formats (in order of priority)
             IList<Image> images = new List<Image>();
+
             // Native clipboard bitmap image
             if (Clipboard.ContainsImage() && Clipboard.GetImage() is Image bmp)
                 images.Add(bmp);
+            // Mime and file extension formats
+            foreach (var ext in new[] { "png", "gif", "tif", "tiff", "jpg", "jpeg", "jfif", "bmp" }) {
+                foreach (var format in new[] { ext.ToUpper(), "image/" + ext.ToLower() }) {
+                    if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream && Image.FromStream(stream) is Image img)
+                        images.Add(img);
+                }
+            }
             // Native clipboard enhanced metafile
             if (Clipboard.ContainsData(DataFormats.EnhancedMetafile) && ReadClipboardMetafile() is Metafile emf)
                 images.Add(emf);
