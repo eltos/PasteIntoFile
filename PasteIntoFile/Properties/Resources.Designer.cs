@@ -461,11 +461,20 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Rich Text Preview.
+        ///   Looks up a localized string similar to Rich Text preview.
         /// </summary>
         internal static string str_preview_rtf {
             get {
                 return ResourceManager.GetString("str_preview_rtf", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scalable Vector Graphic preview.
+        /// </summary>
+        internal static string str_preview_svg {
+            get {
+                return ResourceManager.GetString("str_preview_svg", resourceCulture);
             }
         }
 

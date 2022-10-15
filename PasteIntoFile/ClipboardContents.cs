@@ -214,6 +214,49 @@ namespace PasteIntoFile {
     }
 
 
+    /// <summary>
+    /// Class to hold SVG data
+    /// </summary>
+    public class SvgContent : BaseContent {
+
+        public static SvgContent FromClipboard() {
+            var format = "image/svg+xml";
+            if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
+                return new SvgContent(stream);
+            return null;
+        }
+        public SvgContent(Stream data) {
+            Data = data;
+        }
+
+        public Stream Stream => Data as Stream;
+        public string XmlString {
+            get {
+                Stream.Seek(0, SeekOrigin.Begin);
+                return new StreamReader(Stream).ReadToEnd();
+            }
+        }
+
+        public override string[] Extensions => new[] { "svg" };
+        public override string Description => Resources.str_preview_svg;
+        public override void SaveAs(string path, string extension) {
+            switch (extension) {
+                case "svg":
+                    using (FileStream w = File.Create(path)) {
+                        Stream.Seek(0, SeekOrigin.Begin);
+                        Stream.CopyTo(w);
+                    }
+                    break;
+            }
+        }
+
+        public override void AddTo(IDataObject data) {
+            data.SetData("image/svg+xml", Stream);
+        }
+    }
+
+
+
     public abstract class TextLikeContent : BaseContent {
         public TextLikeContent(string text) {
             Data = text;
@@ -505,6 +548,9 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsData(DataFormats.Dif)
                 && ReadClipboardString(DataFormats.Dif) is string dif)
                 container.Contents.Add(new DifContent(dif));
+
+            if (SvgContent.FromClipboard() is BaseContent content)
+                container.Contents.Add(content);
 
             if (Clipboard.ContainsFileDropList())
                 container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));

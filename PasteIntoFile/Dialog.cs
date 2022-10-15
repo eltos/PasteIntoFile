@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
+using Svg;
 using WK.Libraries.BetterFolderBrowserNS;
 using WK.Libraries.SharpClipboardNS;
 
@@ -232,61 +233,65 @@ namespace PasteIntoFile {
             treePreview.Hide();
 
             BaseContent content = clipData.ForExtension(comExt.Text);
-
-            if (content != null) {
-                box.Text = content.Description;
-
-                if (content is ImageLikeContent imageContent) {
-                    var img = imageContent.ImagePreview(comExt.Text);
-                    if (img != null) {
-                        imagePreview.Image = img;
-
-                        // Checkerboard background in case image is transparent
-                        Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
-                        Graphics g = Graphics.FromImage(bg);
-                        Brush brush = new SolidBrush(Color.LightGray);
-                        float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
-                        for (int x = 0; x < bg.Width / d; x++) {
-                            for (int y = 0; y < bg.Height / d; y += 2) {
-                                g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
-                            }
-                        }
-                        imagePreview.BackgroundImage = bg;
-
-                        imagePreview.Show();
-                        return;
-                    }
-                }
-
-                if (content is HtmlContent htmlContent) {
-                    htmlPreview.DocumentText = htmlContent.Text;
-                    htmlPreview.Show();
-                    return;
-                }
-
-                if (content is TextLikeContent textLikeContent) {
-                    if (content is RtfContent)
-                        textPreview.Rtf = textLikeContent.Text;
-                    else
-                        textPreview.Text = textLikeContent.Text;
-                    textPreview.Show();
-                    return;
-                }
-
-                if (content is FilesContent filesContent) {
-                    treePreview.BeginUpdate();
-                    treePreview.Nodes.Clear();
-                    foreach (var file in filesContent.FileList) {
-                        treePreview.Nodes.Add(file);
-                    }
-                    treePreview.EndUpdate();
-                    treePreview.Show();
-                    return;
-                }
+            if (content == null) {
+                // no matching data found
+                box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
+                return;
             }
 
-            // no matching data found
-            box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
+            box.Text = content.Description;
+
+            if (content is ImageLikeContent imageContent) {
+                var img = imageContent.ImagePreview(comExt.Text);
+                if (img != null) {
+                    imagePreview.Image = img;
+
+                    // Checkerboard background in case image is transparent
+                    Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
+                    Graphics g = Graphics.FromImage(bg);
+                    Brush brush = new SolidBrush(Color.LightGray);
+                    float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
+                    for (int x = 0; x < bg.Width / d; x++) {
+                        for (int y = 0; y < bg.Height / d; y += 2) {
+                            g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
+                        }
+                    }
+                    imagePreview.BackgroundImage = bg;
+
+                    imagePreview.Show();
+                } else {
+                    // conversion failed
+                    box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
+                }
+
+            } else if (content is HtmlContent htmlContent) {
+                htmlPreview.DocumentText = htmlContent.Text;
+                htmlPreview.Show();
+
+            } else if (content is TextLikeContent textLikeContent) {
+                if (content is RtfContent)
+                    textPreview.Rtf = textLikeContent.Text;
+                else
+                    textPreview.Text = textLikeContent.Text;
+                textPreview.Show();
+
+            } else if (content is FilesContent filesContent) {
+                treePreview.BeginUpdate();
+                treePreview.Nodes.Clear();
+                foreach (var file in filesContent.FileList) {
+                    treePreview.Nodes.Add(file);
+                }
+
+                treePreview.EndUpdate();
+                treePreview.Show();
+
+            } else if (content is SvgContent svgContent) {
+                // Render SVG for preview
+                imagePreview.Image = SvgDocument.FromSvg<SvgDocument>(svgContent.XmlString).Draw();
+                imagePreview.Show();
+
+            }
+
 
         }
 

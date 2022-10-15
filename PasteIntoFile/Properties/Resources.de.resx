@@ -217,4 +217,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     <data name="str_preview_image_vector" xml:space="preserve">
         <value>Vektorgrafik Vorschau</value>
     </data>
+    <data name="str_preview_svg" xml:space="preserve">
+        <value>Skalierbare Vektorgrafik Vorschau</value>
+    </data>
 </root>
