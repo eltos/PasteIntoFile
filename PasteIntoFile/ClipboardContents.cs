@@ -67,16 +67,26 @@ namespace PasteIntoFile {
     /// <summary>
     /// Holds image contents
     /// </summary>
-    public class ImageContent : BaseContent {
+    public abstract class ImageLikeContent : BaseContent {
+        /// <summary>
+        /// Convert the image to the format used for saving it, so it can be used for a preview
+        /// </summary>
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns>Image in target format or null if no suitable format is found</returns>
+        public abstract Image ImagePreview(string extension);
+    }
+
+
+    public class ImageContent : ImageLikeContent {
         public ImageContent(Image image) {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "jpg", "pdf", "tif" };
+        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension) {
-            Image image = ImageAs(extension);
+            Image image = ImagePreview(extension);
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
@@ -99,16 +109,6 @@ namespace PasteIntoFile {
                     document.Save(path);
                     return;
 
-                case "emf":
-                    IntPtr h = ((Metafile)image).GetHenhmetafile();
-                    uint size = GetEnhMetaFileBits(h, 0, null);
-                    byte[] data = new byte[size];
-                    GetEnhMetaFileBits(h, size, data);
-                    using (FileStream w = File.Create(path)) {
-                        w.Write(data, 0, checked((int)size));
-                    }
-                    return;
-
                 default:
                     image.Save(path);
                     return;
@@ -120,10 +120,9 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
-        public Image ImageAs(string extension) {
+        public override Image ImagePreview(string extension) {
             // Special formats with intermediate conversion types
             switch (extension.ToLower()) {
-                case "emf": return Image as Metafile; // TODO: Convert from other formats
                 case "pdf": extension = "png"; break;
             }
             // Find suitable codec and convert image
@@ -134,7 +133,7 @@ namespace PasteIntoFile {
                     return Image.FromStream(stream);
                 }
             }
-            // TODO: Support WMF and ICO
+            // TODO: Support conversion to EMF, WMF and ICO
             // Previously we had these in the list, but apparently these were silently saved as PNG in lack of a proper codec.
 
             // No suitable coded available
@@ -143,9 +142,6 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Bitmap, Image);
         }
-
-        [DllImport("gdi32")]
-        private static extern uint GetEnhMetaFileBits(IntPtr hemf, uint cbBuffer, byte[] lpbBuffer);
     }
 
     /// <summary>
@@ -153,7 +149,7 @@ namespace PasteIntoFile {
     /// </summary>
     public class TransparentImageContent : ImageContent {
         public TransparentImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif", "emf" }; // Note: gif has only alpha 100% or 0%
+        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif" }; // Note: gif has only alpha 100% or 0%
     }
 
     /// <summary>
@@ -162,6 +158,59 @@ namespace PasteIntoFile {
     public class AnimatedImageContent : ImageContent {
         public AnimatedImageContent(Image image) : base(image) { }
         public override string[] Extensions => new[] { "gif" };
+    }
+
+    /// <summary>
+    /// A ImageLikeContent which supports vector graphics.
+    /// Currently, this is tailored to Metafiles (EMF). Later, SVG, PDF, etc. might be added
+    /// </summary>
+    public class VectorImageContent : ImageLikeContent {
+        public VectorImageContent(Metafile metafile) {
+            Data = metafile;
+        }
+        public Metafile Metafile => Data as Metafile;
+        public override string[] Extensions => new[] { "emf" };
+        public override string Description => Resources.str_preview_image_vector;
+
+        public override void SaveAs(string path, string extension) {
+            switch (extension) {
+                case "emf":
+                    IntPtr h = Metafile.GetHenhmetafile();
+                    uint size = GetEnhMetaFileBits(h, 0, null);
+                    byte[] data = new byte[size];
+                    GetEnhMetaFileBits(h, size, data);
+                    using (FileStream w = File.Create(path)) {
+                        w.Write(data, 0, checked((int)size));
+                    }
+                    break;
+
+                default:
+                    // fallback to save as raster image
+                    new ImageContent(Metafile).SaveAs(path, extension);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Convert the image to the format used for saving it
+        /// </summary>
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns>Image in target format or null if no suitable format is found</returns>
+        public override Image ImagePreview(string extension) {
+            switch (extension.ToLower()) {
+                case "emf":
+                    return Metafile;
+
+                default: // fallback to save as raster image
+                    return new ImageContent(Metafile).ImagePreview(extension);
+            }
+        }
+        public override void AddTo(IDataObject data) {
+            data.SetData(DataFormats.EnhancedMetafile, Metafile);
+        }
+
+        [DllImport("gdi32")]
+        private static extern uint GetEnhMetaFileBits(IntPtr hemf, uint cbBuffer, byte[] lpbBuffer);
     }
 
 
@@ -402,6 +451,12 @@ namespace PasteIntoFile {
 
             // Since images can have features (transparency, animations) which are not supported by all file format,
             // we handel images with such features separately:
+            // 0. Vector image (if any)
+            foreach (var img in images) {
+                if (img is Metafile mf) {
+                    container.Contents.Add(new VectorImageContent(mf));
+                }
+            }
             // 1. Animated image (if any)
             foreach (var img in images) {
                 try {
@@ -501,8 +556,13 @@ namespace PasteIntoFile {
 
             // if it's an image (try&catch instead of maintaining a list of supported extensions)
             try {
-                container.Contents.Add(new ImageContent(Image.FromFile(path)));
-            } catch (Exception e) { }
+                var img = Image.FromFile(path);
+                if (img is Metafile mf) {
+                    container.Contents.Add(new VectorImageContent(mf));
+                } else {
+                    container.Contents.Add(new ImageContent(img));
+                }
+            } catch { /* it's not */ }
 
             // if it's text like (check for absence of zero byte)
             if (!LooksLikeBinaryFile(path)) {

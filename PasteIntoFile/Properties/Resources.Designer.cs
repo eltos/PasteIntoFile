@@ -452,6 +452,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Vector image preview.
+        /// </summary>
+        internal static string str_preview_image_vector {
+            get {
+                return ResourceManager.GetString("str_preview_image_vector", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Rich Text Preview.
         /// </summary>
         internal static string str_preview_rtf {

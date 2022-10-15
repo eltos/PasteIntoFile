@@ -236,8 +236,8 @@ namespace PasteIntoFile {
             if (content != null) {
                 box.Text = content.Description;
 
-                if (content is ImageContent imageContent) {
-                    var img = imageContent.ImageAs(comExt.Text);
+                if (content is ImageLikeContent imageContent) {
+                    var img = imageContent.ImagePreview(comExt.Text);
                     if (img != null) {
                         imagePreview.Image = img;
 
@@ -433,7 +433,7 @@ namespace PasteIntoFile {
             BaseContent content = clipData.ForExtension(comExt.Text);
             if (content is TextLikeContent)
                 Settings.Default.extensionText = comExt.Text;
-            if (content is ImageContent)
+            if (content is ImageLikeContent)
                 Settings.Default.extensionImage = comExt.Text;
 
             Settings.Default.Save();
