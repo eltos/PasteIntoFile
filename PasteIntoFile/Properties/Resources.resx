@@ -316,7 +316,7 @@ These setting will take effect on the next login.</value>
       <value>File list preview ({0} files and folders)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-      <value>Enable clipboard patching</value>
+      <value>Enable clipboard patching (experimental)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
       <value>Update available: {0} ➜ {1}</value>

@@ -664,7 +664,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Enable clipboard patching.
+        ///   Looks up a localized string similar to Enable clipboard patching (experimental).
         /// </summary>
         internal static string str_wizard_tray_patching_button {
             get {

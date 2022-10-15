@@ -246,15 +246,24 @@ namespace PasteIntoFile {
             SharpClipboard clipMonitor = null;
             if (Settings.Default.trayPatchingEnabled) {
                 bool skipFirst = true;
-                clipMonitor = new SharpClipboard();
-                clipMonitor.ClipboardChanged += (s, e) => {
+                void PatchClipboard(object s, SharpClipboard.ClipboardChangedEventArgs e) {
                     if (skipFirst) { skipFirst = false; return; }
                     if (PatchedClipboardContents() is IDataObject data) {
-                        clipMonitor.MonitorClipboard = false; // to prevent infinite callback
+                        // TODO: This is experimental (might impact performance, might break proprietary formats used internally by other programs, not 100% stable)
+                        // Temporarily pausing monitoring seams unstable with the SharpClipboard library, so close and re-create the monitor instead
+
+                        // Stop monitoring and leave clipboard chain cleanly
+                        clipMonitor.MonitorClipboard = false;
+                        clipMonitor.StopMonitoring();
+                        // Re-write clipboard contents
                         Clipboard.SetDataObject(data, false);
-                        clipMonitor.MonitorClipboard = true;
+                        // Create a new monitor to handle future updates
+                        clipMonitor = new SharpClipboard();
+                        clipMonitor.ClipboardChanged += PatchClipboard;
                     }
-                };
+                }
+                clipMonitor = new SharpClipboard();
+                clipMonitor.ClipboardChanged += PatchClipboard;
             }
 
             // Tray icon
