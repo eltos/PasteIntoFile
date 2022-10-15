@@ -263,7 +263,7 @@ Save current clipboard contents now?</value>
     <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>Clipboard contains no data matching selected extension</value>
+      <value>Clipboard contains no data convertable to extension {0} or conversion failed.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
     <value>HTML preview</value>

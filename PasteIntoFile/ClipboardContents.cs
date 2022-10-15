@@ -72,40 +72,62 @@ namespace PasteIntoFile {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "emf", "gif", "ico", "jpg", "pdf", "tif", "wmf" };
+        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
+
         public override void SaveAs(string path, string extension) {
-            if (extension == "pdf") {
-                // convert image
-                var stream = new MemoryStream();
-                Image.Save(stream, ImageFormat.Png);
-                stream.Position = 0;
-                XImage img = XImage.FromStream(stream);
-                // create pdf document
-                PdfDocument document = new PdfDocument();
-                document.Info.Creator = Resources.app_title;
-                PdfPage page = document.AddPage();
-                page.Width = XUnit.FromPoint(img.PointWidth);
-                page.Height = XUnit.FromPoint(img.PointHeight);
-                // insert image and save
-                XGraphics gfx = XGraphics.FromPdfPage(page);
-                gfx.DrawImage(img, 0, 0);
-                document.Save(path);
-                return;
-            }
-            // natively supported formats
-            ImageFormat imageFormat;
+            Image image = ImageAs(extension);
+            if (image == null)
+                throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
+
             switch (extension) {
-                case "bmp": imageFormat = ImageFormat.Bmp; break;
-                case "emf": imageFormat = ImageFormat.Emf; break;
-                case "gif": imageFormat = ImageFormat.Gif; break;
-                case "ico": imageFormat = ImageFormat.Icon; break;
-                case "jpg": imageFormat = ImageFormat.Jpeg; break;
-                case "tif": imageFormat = ImageFormat.Tiff; break;
-                case "wmf": imageFormat = ImageFormat.Wmf; break;
-                default: imageFormat = ImageFormat.Png; break;
+                case "pdf":
+                    // convert image to ximage
+                    var stream = new MemoryStream();
+                    image.Save(stream, image.RawFormat);
+                    stream.Position = 0;
+                    XImage img = XImage.FromStream(stream);
+                    // create pdf document
+                    PdfDocument document = new PdfDocument();
+                    document.Info.Creator = Resources.app_title;
+                    PdfPage page = document.AddPage();
+                    page.Width = XUnit.FromPoint(img.PointWidth);
+                    page.Height = XUnit.FromPoint(img.PointHeight);
+                    // insert image and save
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+                    gfx.DrawImage(img, 0, 0);
+                    document.Save(path);
+                    return;
+
+                default:
+                    image.Save(path);
+                    return;
             }
-            Image.Save(path, imageFormat);
+        }
+
+        /// <summary>
+        /// Convert the image to the format used for saving it
+        /// </summary>
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns>Image in target format or null if no suitable format is found</returns>
+        public Image ImageAs(string extension) {
+            // Special formats with intermediate conversion types
+            switch (extension.ToLower()) {
+                case "pdf": extension = "png"; break;
+            }
+            // Find suitable codec and convert image
+            foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
+                if (encoder.FilenameExtension.ToLower().Contains(extension.ToLower())) {
+                    var stream = new MemoryStream();
+                    Image.Save(stream, encoder, null);
+                    return Image.FromStream(stream);
+                }
+            }
+            // TODO: Support EMF, WMF and ICO
+            // Previously we had these in the list, but apparently these were silently saved as PNG in lack of a proper codec.
+
+            // No suitable coded available
+            return null;
         }
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Bitmap, Image);
@@ -117,7 +139,7 @@ namespace PasteIntoFile {
     /// </summary>
     public class TransparentImageContent : ImageContent {
         public TransparentImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "png", "emf", "gif", "ico", "pdf", "tif", "wmf" }; // Note: gif has only alpha 100% or 0%
+        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif" }; // Note: gif has only alpha 100% or 0%
     }
 
     /// <summary>

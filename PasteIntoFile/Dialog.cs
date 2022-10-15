@@ -237,24 +237,25 @@ namespace PasteIntoFile {
                 box.Text = content.Description;
 
                 if (content is ImageContent imageContent) {
-                    var img = imageContent.Image;
-                    imagePreview.Image = img;
-                    imagePreview.Enabled = imageContent is AnimatedImageContent; // Enabled refers to animation
+                    var img = imageContent.ImageAs(comExt.Text);
+                    if (img != null) {
+                        imagePreview.Image = img;
 
-                    // Checkerboard background in case image is transparent
-                    Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
-                    Graphics g = Graphics.FromImage(bg);
-                    Brush brush = new SolidBrush(Color.LightGray);
-                    float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
-                    for (int x = 0; x < bg.Width / d; x++) {
-                        for (int y = 0; y < bg.Height / d; y += 2) {
-                            g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
+                        // Checkerboard background in case image is transparent
+                        Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
+                        Graphics g = Graphics.FromImage(bg);
+                        Brush brush = new SolidBrush(Color.LightGray);
+                        float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
+                        for (int x = 0; x < bg.Width / d; x++) {
+                            for (int y = 0; y < bg.Height / d; y += 2) {
+                                g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
+                            }
                         }
-                    }
-                    imagePreview.BackgroundImage = bg;
+                        imagePreview.BackgroundImage = bg;
 
-                    imagePreview.Show();
-                    return;
+                        imagePreview.Show();
+                        return;
+                    }
                 }
 
                 if (content is HtmlContent htmlContent) {
@@ -285,7 +286,7 @@ namespace PasteIntoFile {
             }
 
             // no matching data found
-            box.Text = Resources.str_error_cliboard_format_missmatch;
+            box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
 
         }
 

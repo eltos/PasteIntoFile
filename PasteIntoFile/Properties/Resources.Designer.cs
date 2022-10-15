@@ -217,7 +217,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Clipboard contains no data matching selected extension.
+        ///   Looks up a localized string similar to Clipboard contains no data convertable to extension {0} or conversion failed..
         /// </summary>
         internal static string str_error_cliboard_format_missmatch {
             get {

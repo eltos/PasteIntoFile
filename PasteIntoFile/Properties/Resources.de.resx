@@ -153,7 +153,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
         <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
     </data>
     <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-        <value>Die Zwischenablage enthält keine zum Dateityp passenden Daten.</value>
+        <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
     </data>
     <data name="str_preview_html" xml:space="preserve">
         <value>HTML Vorschau</value>
