@@ -18,7 +18,7 @@
     <Condition Message='This program requires the .NET Framework 4.8 or later to be installed.'>
       <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
     </Condition>
-    
+
     <!-- Components to be installed -->
     <Feature Id="ProductFeature" Title="Paste Into File" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
@@ -28,7 +28,7 @@
     </Feature>
 
     <!-- Upgrade: uninstall previous version before installing new one -->
-    <MajorUpgrade AllowDowngrades="no" DowngradeErrorMessage="A more recent version is already installed." 
+    <MajorUpgrade AllowDowngrades="no" DowngradeErrorMessage="A more recent version is already installed."
                   AllowSameVersionUpgrades="no" />
 
     <!-- After install: launch wizard -->
@@ -38,10 +38,10 @@
       <!-- This action is not executed during uninstall and silent mode -->
       <Custom Action='LaunchProgram' After='InstallFinalize'>(NOT Installed) AND (NOT UILevel=2)</Custom>
     </InstallExecuteSequence>
-    
+
   </Product>
 
-  
+
   <!-- define installation folders -->
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -55,7 +55,7 @@
     </Directory>
   </Fragment>
 
-  
+
   <!-- copy program files -->
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
@@ -79,8 +79,8 @@
       </Component>
     </DirectoryRef>
   </Fragment>
-  
-  
+
+
   <!-- register context menu entry (and remove on uninstall) -->
   <Fragment>
     <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
@@ -108,6 +108,16 @@
           <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
           <RegistryKey Key='command'>
             <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
+          </RegistryKey>
+        </RegistryKey>
+      </RegistryKey>
+      <!-- for files: replace file content -->
+      <RegistryKey Root='HKCU' Key='Software\Classes\*'>
+        <RegistryKey Key='shell\PasteIntoFile_replace'>
+          <RegistryValue Type='string' Value='Replace with clipboard content'/>
+          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
+          <RegistryKey Key='command'>
+            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste --directory="%w" --filename="%V" --autosave=true --overwrite=true"'/>
           </RegistryKey>
         </RegistryKey>
       </RegistryKey>

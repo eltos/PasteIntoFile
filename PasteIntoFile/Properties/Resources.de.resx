@@ -220,4 +220,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     <data name="str_preview_svg" xml:space="preserve">
         <value>Skalierbare Vektorgrafik Vorschau</value>
     </data>
+    <data name="str_contextentry_replaceintofile" xml:space="preserve">
+        <value>Ersetzen mit Inhalt der Zwischenablage</value>
+    </data>
 </root>

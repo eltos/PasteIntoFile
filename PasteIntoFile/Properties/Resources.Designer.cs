@@ -170,6 +170,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Replace with clipboard content.
+        /// </summary>
+        internal static string str_contextentry_replaceintofile {
+            get {
+                return ResourceManager.GetString("str_contextentry_replaceintofile", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Batch mode.
         /// </summary>
         internal static string str_continuous_mode {

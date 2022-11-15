@@ -10,7 +10,8 @@ namespace PasteIntoFile {
         // Always keep the "Installer/PasteIntoFile.wxs" up to date with the keys used below!
 
 
-        private static string PRIMARY_KEY_NAME = "PasteIntoFile";
+        private static string KEY_PASTE_INTO_FILE = "PasteIntoFile";
+        private static string KEY_PASTE_REPLACE = "PasteIntoFile_replace";
 
         /// <summary>
         /// Opens a number of class sub keys according to the requested type.
@@ -47,7 +48,7 @@ namespace PasteIntoFile {
         /// <returns>context menu entry registration status (true/false)</returns>
         public static bool IsContextMenuEntryRegistered() {
             foreach (var classKey in OpenClassKeys()) {
-                if (classKey == null || !classKey.GetSubKeyNames().Contains(PRIMARY_KEY_NAME)) return false;
+                if (classKey == null || !classKey.GetSubKeyNames().Contains(KEY_PASTE_INTO_FILE)) return false;
             }
             return true;
         }
@@ -57,7 +58,8 @@ namespace PasteIntoFile {
         /// </summary>
         public static void UnRegisterContextMenuEntry() {
             foreach (var classKey in OpenClassKeys()) {
-                classKey.DeleteSubKeyTree(PRIMARY_KEY_NAME);
+                classKey.DeleteSubKeyTree(KEY_PASTE_INTO_FILE);
+                classKey.DeleteSubKeyTree(KEY_PASTE_REPLACE);
             }
         }
 
@@ -71,7 +73,7 @@ namespace PasteIntoFile {
 
             // register "paste into file" for directory context menu
             foreach (var classKey in OpenClassKeys("Directory")) {
-                var key = classKey.CreateSubKey(PRIMARY_KEY_NAME);
+                var key = classKey.CreateSubKey(KEY_PASTE_INTO_FILE);
                 key.SetValue("", Resources.str_contextentry + (hasDialog ? "…" : ""));
                 key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
@@ -81,11 +83,21 @@ namespace PasteIntoFile {
 
             // register "copy from file" for file context menu (any extension)
             foreach (var classKey in OpenClassKeys("*")) {
-                var key = classKey.CreateSubKey(PRIMARY_KEY_NAME);
+                var key = classKey.CreateSubKey(KEY_PASTE_INTO_FILE);
                 key.SetValue("", Resources.str_contextentry_copyfromfile);
                 key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
                 key = key.CreateSubKey("command");
                 key.SetValue("", "\"" + Application.ExecutablePath + "\" copy \"%V\"");
+
+            }
+
+            // register "replace with clipboard" for file context menu (any extension)
+            foreach (var classKey in OpenClassKeys("*")) {
+                var key = classKey.CreateSubKey(KEY_PASTE_REPLACE);
+                key.SetValue("", Resources.str_contextentry_replaceintofile);
+                key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
+                key = key.CreateSubKey("command");
+                key.SetValue("", "\"" + Application.ExecutablePath + "\" paste --directory=\"%w\" --filename=\"%V\" --autosave=true --overwrite=true");
 
             }
 
@@ -97,7 +109,7 @@ namespace PasteIntoFile {
         /// <returns>autostart registration status (true/false)</returns>
         public static bool IsAutostartRegistered() {
             return Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .GetValue(PRIMARY_KEY_NAME) != null;
+                .GetValue(KEY_PASTE_INTO_FILE) != null;
         }
 
         /// <summary>
@@ -106,7 +118,7 @@ namespace PasteIntoFile {
         public static void RegisterAutostart() {
             // The path to the key where Windows looks for startup applications
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .SetValue(PRIMARY_KEY_NAME, "\"" + Application.ExecutablePath + "\" tray");
+                .SetValue(KEY_PASTE_INTO_FILE, "\"" + Application.ExecutablePath + "\" tray");
         }
 
         /// <summary>
@@ -115,7 +127,7 @@ namespace PasteIntoFile {
         public static void UnRegisterAutostart() {
             // The path to the key where Windows looks for startup applications
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .DeleteValue(PRIMARY_KEY_NAME, false);
+                .DeleteValue(KEY_PASTE_INTO_FILE, false);
         }
 
     }

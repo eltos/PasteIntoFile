@@ -330,4 +330,7 @@ These setting will take effect on the next login.</value>
   <data name="str_preview_svg" xml:space="preserve">
       <value>Scalable Vector Graphic preview</value>
   </data>
+  <data name="str_contextentry_replaceintofile" xml:space="preserve">
+      <value>Replace with clipboard content</value>
+  </data>
 </root>
