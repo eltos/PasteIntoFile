@@ -75,10 +75,20 @@ namespace PasteIntoFile {
             }
 
             // read clipboard and populate GUI
-            comExt.Text = "*"; // force to use extension based on format type
-            var clipRead = readClipboard();
 
-            updateFilename();
+            if (!string.IsNullOrWhiteSpace(Path.GetExtension(filename))) {
+                // filename contains extension, so use that
+                comExt.Text = Path.GetExtension(filename).Trim('.');
+                filename = Path.GetFileNameWithoutExtension(filename);
+            } else {
+                // use extension based on format type
+                comExt.Text = "*";
+            }
+
+            var clipRead = readClipboard(); // might change extension if no matching format available
+
+            updateFilename(filename);
+
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = clearClipboardOverwrite ?? Settings.Default.clrClipboard;
@@ -146,9 +156,9 @@ namespace PasteIntoFile {
         public string formatFilenameTemplate(string template) {
             return formatFilenameTemplate(template, clipData.Timestamp, saveCount);
         }
-        public void updateFilename() {
+        public void updateFilename(string filenameTemplate = null) {
             try {
-                txtFilename.Text = formatFilenameTemplate(Settings.Default.filenameTemplate);
+                txtFilename.Text = formatFilenameTemplate(filenameTemplate ?? Settings.Default.filenameTemplate);
             } catch (FormatException) {
                 txtFilename.Text = "filename_template_invalid";
             }
