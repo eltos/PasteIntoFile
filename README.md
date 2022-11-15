@@ -20,7 +20,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ### Features
 
-+ Explorer context menu entry: "Paste into file" or "Copy file contents"
++ Explorer context menu entry: "Paste into file", "Replace with clipboard content" and "Copy file contents"
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
@@ -78,6 +78,9 @@ The file extension is then determined by the last used extension for the respect
 A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
 
+The context menu entry **Replace with clipboard content** allows you to paste clipboard contents into existing files by replacing them.
+This works as long as the clipboard contains data that is compatible with the selected file type.
+
 [^save_plain_text]: To force saving plain text data to a file with a special extension,
 use uppercase letters or prepend a dot to the file extension (neither will change the actual filename).
 For example, when copying syntax highlighted HTML code snippets from a browser,
@@ -100,37 +103,33 @@ Use `help`, `help paste`, `help config` etc. as argument to show available comma
 PasteIntoFile 4.4.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  paste      (Default Verb) Paste clipboard contents into file
-  copy       Copy file contents to clipboard
   config     Change configuration (without saving clipboard)
-  wizard     Open the first-launch wizard
-  tray       Open in tray and wait for hotkey Win + Alt + V
+  copy       Copy file contents to clipboard
   help       Display more information on a specific command.
+  paste      (Default Verb) Paste clipboard contents into file
+  tray       Open in tray and wait for hotkey Win + Alt + V
   version    Display version information.
+  wizard     Open the first-launch wizard
 ```
 ```
 > .\PasteIntoFile.exe help config
 PasteIntoFile 4.4.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  --register             Register context menu entry
-  --unregister           Unregister context menu entry
-  --enable-autostart     Register program to run in system tray on windows
-                         startup
-  --disable-autostart    Remove autostart on windows startup registration
-  --enable-patching      Enables clipboard patching while running in system tray
-  --disable-patching     Disables clipboard patching
-  -f, --filename         Filename template with optional format variables such as
-                         {0:yyyyMMdd HHmmSS} for current date and time
-                         {1:000} for batch-mode save counter
-  --text-extension       File extension for text contents
-  --image-extension      File extension for image contents
-  --subdir               Template for name of subfolder to create when holding
-                         CTRL (see filename for format variables)
-  -c, --clear            Clear clipboard after save (true/false)
-  -a, --autosave         Autosave file without prompt (true/false)
-  --help                 Display this help screen.
-  --version              Display version information.
+  -a, --autosave       Autosave file without prompt (true/false)
+  -c, --clear          Clear clipboard after save (true/false)
+  -d, --directory      Path of directory to save file into
+  -f, --filename       Filename template with optional format variables such as
+                       {0:yyyyMMdd HHmmSS} for current date and time
+                       {1:000} for batch-mode save counter
+                       May also contain a file extension and path fragment if
+                       used in paste mode.
+  --help               Display this help screen.
+  --image-extension    Set default file extension for image contents
+  --overwrite          (Default: false) Overwrite existing file without prompt.
+                       Requires --autosave=true.
+  --text-extension     Set default file extension for text contents
+  --version            Display version information.
 ```
 
 **Examples:**
