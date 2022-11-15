@@ -32,7 +32,7 @@ namespace PasteIntoFile {
 
 
 
-        public Dialog(string location = null, string filename = null, bool? showDialogOverwrite = null, bool? clearClipboardOverwrite = null) {
+        public Dialog(string location = null, string filename = null, bool? showDialogOverwrite = null, bool? clearClipboardOverwrite = null, bool overwriteIfExists = false) {
             // Fallback to default path
             location = (location ?? ExplorerUtil.GetActiveExplorerPath() ??
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
@@ -115,7 +115,7 @@ namespace PasteIntoFile {
                 // directly save without showing a dialog
                 Opacity = 0; // prevent dialog from showing up for a fraction of a second
 
-                var file = clipRead ? save() : null;
+                var file = clipRead ? save(overwriteIfExists) : null;
                 if (file != null) {
 
                     if (!saveIntoSubdir) {
@@ -319,7 +319,7 @@ namespace PasteIntoFile {
             }
         }
 
-        string save() {
+        string save(bool overwriteIfExists = false) {
             try {
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
                 string ext = comExt.Text.ToLowerInvariant().Trim();
@@ -330,7 +330,7 @@ namespace PasteIntoFile {
                 string file = Path.Combine(dirname, filename);
 
                 // check if file exists
-                if (File.Exists(file)) {
+                if (File.Exists(file) && !overwriteIfExists) {
                     var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.app_title,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result != DialogResult.Yes) {

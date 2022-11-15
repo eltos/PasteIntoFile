@@ -21,13 +21,14 @@ namespace PasteIntoFile {
         class ArgsCommon {
             [Option('f', "filename", HelpText = "Filename template with optional format variables such as\n" +
                                                 "{0:yyyyMMdd HHmmSS} for current date and time\n" +
-                                                "{1:000} for batch-mode save counter")]
+                                                "{1:000} for batch-mode save counter\n" +
+                                                "May also contain a file extension and path fragment if used in paste mode.")]
             public string Filename { get; set; }
 
-            [Option("text-extension", HelpText = "File extension for text contents")]
+            [Option("text-extension", HelpText = "Set default file extension for text contents")]
             public string TextExtension { get; set; }
 
-            [Option("image-extension", HelpText = "File extension for image contents")]
+            [Option("image-extension", HelpText = "Set default file extension for image contents")]
             public string ImageExtension { get; set; }
 
             [Option('c', "clear", HelpText = "Clear clipboard after save (true/false)")]
@@ -45,6 +46,9 @@ namespace PasteIntoFile {
 
             [Value(0, Hidden = true)]
             public string DirectoryFallback { get; set; } // alternative: directory as first value argument
+
+            [Option("overwrite", Default = false, HelpText = "Overwrite existing file without prompt. Requires --autosave=true.")]
+            public bool Overwrite { get; set; }
 
         }
 
@@ -136,6 +140,7 @@ namespace PasteIntoFile {
                 helpText = HelpText.AutoBuild(result, h => {
                     // customize help text
                     h.AdditionalNewLineAfterOption = false;
+                    h.OptionComparison = HelpText.RequiredThenAlphaComparison;
                     h.AddPostOptionsLine(Resources.str_main_info_url);
                     return HelpText.DefaultParsingErrorsHandler(result, h);
                 });
@@ -180,7 +185,7 @@ namespace PasteIntoFile {
                 showDialogOverwrite = !args.Autosave;
 
             // launch it
-            Application.Run(new Dialog(directory, filename, showDialogOverwrite, args.ClearClipboard));
+            Application.Run(new Dialog(directory, filename, showDialogOverwrite, args.ClearClipboard, args.Overwrite));
             return Environment.ExitCode;
         }
 
