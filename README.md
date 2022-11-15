@@ -101,7 +101,7 @@ Currently, image and text files are supported. If the file format is not underst
 Use `help`, `help paste`, `help config` etc. as argument to show available command line options, e.g.:
 ```
 > .\PasteIntoFile.exe help
-PasteIntoFile 4.4.0.0
+PasteIntoFile 5.0.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   config     Change configuration (without saving clipboard)
@@ -113,8 +113,8 @@ Copyright © PasteIntoFile GitHub contributors
   wizard     Open the first-launch wizard
 ```
 ```
-> .\PasteIntoFile.exe help config
-PasteIntoFile 4.4.0.0
+> .\PasteIntoFile.exe help paste
+PasteIntoFile 5.0.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   -a, --autosave       Autosave file without prompt (true/false)
