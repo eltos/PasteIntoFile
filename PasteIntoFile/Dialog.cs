@@ -32,7 +32,7 @@ namespace PasteIntoFile {
 
 
 
-        public Dialog(string location = null, bool forceShowDialog = false) {
+        public Dialog(string location = null, string filename = null, bool? showDialogOverwrite = null, bool? clearClipboardOverwrite = null) {
             // Fallback to default path
             location = (location ?? ExplorerUtil.GetActiveExplorerPath() ??
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
@@ -81,7 +81,7 @@ namespace PasteIntoFile {
             updateFilename();
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
-            chkClrClipboard.Checked = Settings.Default.clrClipboard;
+            chkClrClipboard.Checked = clearClipboardOverwrite ?? Settings.Default.clrClipboard;
             chkContinuousMode.Checked = continuousMode;
             updateSavebutton();
             chkAutoSave.Checked = Settings.Default.autoSave;
@@ -90,7 +90,8 @@ namespace PasteIntoFile {
             txtFilename.Select();
 
             // show dialog or perform autosave
-            bool showDialog = forceShowDialog || !(Settings.Default.autoSave ^ invertAutosave);
+            var showDialog = !(Settings.Default.autoSave ^ invertAutosave);
+            if (showDialogOverwrite != null) showDialog = (bool)showDialogOverwrite;
             if (showDialog) {
                 // Make sure to bring window to foreground (holding shift will open window in background)
                 BringToFrontForced();
@@ -343,7 +344,7 @@ namespace PasteIntoFile {
                     return null;
                 }
 
-                if (Settings.Default.clrClipboard) {
+                if (chkClrClipboard.Checked) {
                     clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
                     Clipboard.Clear();
                     clipMonitor.MonitorClipboard = true;

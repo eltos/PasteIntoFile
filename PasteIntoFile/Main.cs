@@ -30,9 +30,6 @@ namespace PasteIntoFile {
             [Option("image-extension", HelpText = "File extension for image contents")]
             public string ImageExtension { get; set; }
 
-            [Option("subdir", HelpText = "Template for name of subfolder to create when holding CTRL (see filename for format variables)")]
-            public string Subdir { get; set; }
-
             [Option('c', "clear", HelpText = "Clear clipboard after save (true/false)")]
             public bool? ClearClipboard { get; set; }
 
@@ -60,6 +57,9 @@ namespace PasteIntoFile {
 
         [Verb("config", HelpText = "Change configuration (without saving clipboard)")]
         class ArgsConfig : ArgsCommon {
+            [Option("subdir", HelpText = "Template for name of subfolder to create when holding CTRL (see filename for format variables)")]
+            public string Subdir { get; set; }
+
             [Option("register", HelpText = "Register context menu entry", SetName = "register")]
             public bool RegisterContextMenu { get; set; }
 
@@ -150,18 +150,37 @@ namespace PasteIntoFile {
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
         static int RunPaste(ArgsPaste args) {
-            ApplyCommonArgs(args);
 
+            // persistent options
+            if (args.TextExtension != null)
+                Settings.Default.extensionText = args.TextExtension;
+            if (args.ImageExtension != null)
+                Settings.Default.extensionImage = args.ImageExtension;
+            Settings.Default.Save();
+
+            bool? showDialogOverwrite = null;
+
+            // filename and directory (one time options)
             var directory = args.Directory ?? args.DirectoryFallback;
-            var forceShowDialog = directory == null;
-
-            if (Settings.Default.firstLaunch) {
-                RunWizard();
-                forceShowDialog = true;
+            var filename = args.Filename;
+            if (!string.IsNullOrWhiteSpace(Path.GetDirectoryName(filename))) {
+                // filename contains full path, so use that instead
+                directory = Path.GetDirectoryName(filename);
+                filename = Path.GetFileName(filename);
             }
 
+            // show dialog or not (one time options)
+            if (directory == null)
+                showDialogOverwrite = true;
+            if (Settings.Default.firstLaunch) {
+                RunWizard();
+                showDialogOverwrite = true;
+            }
+            if (args.Autosave != null)
+                showDialogOverwrite = !args.Autosave;
 
-            Application.Run(new Dialog(directory, forceShowDialog));
+            // launch it
+            Application.Run(new Dialog(directory, filename, showDialogOverwrite, args.ClearClipboard));
             return Environment.ExitCode;
         }
 
@@ -271,7 +290,7 @@ namespace PasteIntoFile {
             icon.Icon = Resources.app_icon;
             icon.Text = Resources.app_title;
             icon.ContextMenu = new ContextMenu(new[] {
-                new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(forceShowDialog: true).Show()),
+                new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(showDialogOverwrite: true).Show()),
                 new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
                 new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
             });
@@ -326,22 +345,6 @@ namespace PasteIntoFile {
         }
 
 
-        static void ApplyCommonArgs(ArgsCommon args) {
-            if (args.Filename != null)
-                Settings.Default.filenameTemplate = args.Filename;
-            if (args.TextExtension != null)
-                Settings.Default.extensionText = args.TextExtension;
-            if (args.ImageExtension != null)
-                Settings.Default.extensionImage = args.ImageExtension;
-            if (args.Subdir != null)
-                Settings.Default.subdirTemplate = args.Subdir;
-            if (args.ClearClipboard != null)
-                Settings.Default.clrClipboard = (bool)args.ClearClipboard;
-            if (args.Autosave != null)
-                Wizard.SetAutosaveMode((bool)args.Autosave);
-
-            Settings.Default.Save();
-        }
 
         /// <summary>
         /// Run only config update
@@ -349,8 +352,19 @@ namespace PasteIntoFile {
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
         static int RunConfig(ArgsConfig args) {
-            ApplyCommonArgs(args);
             try {
+                if (args.Filename != null)
+                    Settings.Default.filenameTemplate = args.Filename;
+                if (args.TextExtension != null)
+                    Settings.Default.extensionText = args.TextExtension;
+                if (args.ImageExtension != null)
+                    Settings.Default.extensionImage = args.ImageExtension;
+                if (args.Subdir != null)
+                    Settings.Default.subdirTemplate = args.Subdir;
+                if (args.ClearClipboard != null)
+                    Settings.Default.clrClipboard = (bool)args.ClearClipboard;
+                if (args.Autosave != null)
+                    Wizard.SetAutosaveMode((bool)args.Autosave);
                 if (args.RegisterContextMenu)
                     RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
                 if (args.UnregisterContextMenu)
