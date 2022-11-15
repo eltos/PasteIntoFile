@@ -79,7 +79,8 @@ A special **batch mode** exists to monitor the clipboard and save it every time 
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
 
 The context menu entry **Replace with clipboard content** allows you to paste clipboard contents into existing files by replacing them.
-This works as long as the clipboard contains data that is compatible with the selected file type.
+This works as long as the clipboard contains data compatible with the selected file type.
+The old file is moved to the recycle bin and can be restored with usual undo option.
 
 [^save_plain_text]: To force saving plain text data to a file with a special extension,
 use uppercase letters or prepend a dot to the file extension (neither will change the actual filename).

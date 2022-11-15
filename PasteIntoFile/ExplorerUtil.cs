@@ -107,6 +107,16 @@ namespace PasteIntoFile {
             }
         }
 
+        /// <summary>
+        /// Move a path to the recycling bind
+        /// </summary>
+        /// <param name="path">Path to recycle</param>
+        public static void MoveToRecycleBin(string path) {
+            Shell shell = new Shell();
+            Folder recyclingBin = shell.NameSpace(ShellSpecialFolderConstants.ssfBITBUCKET);
+            recyclingBin.MoveHere(path);
+        }
+
 
         private static IntPtr PathToPidl(string path, bool special = false) {
             if (special) {

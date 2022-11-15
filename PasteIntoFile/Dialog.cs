@@ -330,11 +330,17 @@ namespace PasteIntoFile {
                 string file = Path.Combine(dirname, filename);
 
                 // check if file exists
-                if (File.Exists(file) && !overwriteIfExists) {
-                    var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.app_title,
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result != DialogResult.Yes) {
-                        return null;
+                if (File.Exists(file)) {
+                    if (overwriteIfExists) {
+                        // Move old file to recycle bin and proceed
+                        ExplorerUtil.MoveToRecycleBin(file);
+                    } else {
+                        // Ask user for confirmation
+                        var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.app_title,
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result != DialogResult.Yes) {
+                            return null;
+                        }
                     }
                 } else if (Directory.Exists(file)) {
                     MessageBox.Show(string.Format(Resources.str_file_exists_directory, file), Resources.app_title,
