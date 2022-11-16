@@ -608,16 +608,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Add to context menu.
-        /// </summary>
-        internal static string str_wizard_contextentry_button {
-            get {
-                return ResourceManager.GetString("str_wizard_contextentry_button", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose &apos;Paste Into File&apos;..
+        ///   Looks up a localized string similar to By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click..
         /// </summary>
         internal static string str_wizard_contextentry_info {
             get {
@@ -626,7 +617,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Add context menu entry?.
+        ///   Looks up a localized string similar to Add context menu entries?.
         /// </summary>
         internal static string str_wizard_contextentry_title {
             get {

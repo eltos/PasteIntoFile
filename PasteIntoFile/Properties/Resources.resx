@@ -173,10 +173,10 @@
     <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>By adding an entry to the File Explorer context menu, you can quickly paste clipboard contents into a file: right-clicking inside a folder and choose 'Paste Into File'.</value>
+      <value>By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>Add context menu entry?</value>
+      <value>Add context menu entries?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Clipboard saved to file</value>
@@ -205,9 +205,6 @@ Do you want to overwrite it?</value>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Context menu entry</value>
-  </data>
-  <data name="str_wizard_contextentry_button" xml:space="preserve">
-    <value>Add to context menu</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Automatically save file without prompt?</value>

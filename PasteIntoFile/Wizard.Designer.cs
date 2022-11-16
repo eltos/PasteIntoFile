@@ -37,7 +37,9 @@ namespace PasteIntoFile {
             this.title = new System.Windows.Forms.Label();
             this.contextEntryTitleLabel = new System.Windows.Forms.Label();
             this.contextEntryInfoLabel = new System.Windows.Forms.Label();
-            this.contextEntryCheckBox = new System.Windows.Forms.CheckBox();
+            this.contextEntryCheckBoxPaste = new System.Windows.Forms.CheckBox();
+            this.contextEntryCheckBoxCopy = new System.Windows.Forms.CheckBox();
+            this.contextEntryCheckBoxReplace = new System.Windows.Forms.CheckBox();
             this.finish = new System.Windows.Forms.Button();
             this.version = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -46,21 +48,23 @@ namespace PasteIntoFile {
             // tableLayoutPanel1
             //
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 15;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.title, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.version, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.contextEntryTitleLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.contextEntryInfoLabel, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBox, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxPaste, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxCopy, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxReplace, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 14);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -79,15 +83,16 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 800);
             this.tableLayoutPanel1.TabIndex = 0;
             //
             // autoSaveCheckBox
             //
-            this.autoSaveCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autoSaveCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.autoSaveCheckBox.AutoSize = true;
-            this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoSaveCheckBox.Location = new System.Drawing.Point(301, 331);
             this.autoSaveCheckBox.Margin = new System.Windows.Forms.Padding(9);
             this.autoSaveCheckBox.Name = "autoSaveCheckBox";
@@ -157,19 +162,47 @@ namespace PasteIntoFile {
             this.contextEntryInfoLabel.TabIndex = 2;
             this.contextEntryInfoLabel.Text = "str_wizard_contextentry_info";
             //
-            // contextEntryCheckBox
+            // contextEntryCheckBoxPaste
             //
-            this.contextEntryCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.contextEntryCheckBox.AutoSize = true;
-            this.contextEntryCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contextEntryCheckBox.Location = new System.Drawing.Point(275, 192);
-            this.contextEntryCheckBox.Margin = new System.Windows.Forms.Padding(9);
-            this.contextEntryCheckBox.Name = "contextEntryCheckBox";
-            this.contextEntryCheckBox.Size = new System.Drawing.Size(288, 24);
-            this.contextEntryCheckBox.TabIndex = 0;
-            this.contextEntryCheckBox.Text = "str_wizard_contextentry_button";
-            this.contextEntryCheckBox.UseVisualStyleBackColor = true;
-            this.contextEntryCheckBox.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            this.contextEntryCheckBoxPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.contextEntryCheckBoxPaste.AutoSize = true;
+            this.contextEntryCheckBoxPaste.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contextEntryCheckBoxPaste.Location = new System.Drawing.Point(275, 192);
+            this.contextEntryCheckBoxPaste.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
+            this.contextEntryCheckBoxPaste.Name = "contextEntryCheckBoxPaste";
+            this.contextEntryCheckBoxPaste.Size = new System.Drawing.Size(288, 24);
+            this.contextEntryCheckBoxPaste.TabIndex = 0;
+            this.contextEntryCheckBoxPaste.Text = "str_contextentry";
+            this.contextEntryCheckBoxPaste.UseVisualStyleBackColor = true;
+            this.contextEntryCheckBoxPaste.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            //
+            // contextEntryCheckBoxCopy
+            //
+            this.contextEntryCheckBoxCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.contextEntryCheckBoxCopy.AutoSize = true;
+            this.contextEntryCheckBoxCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contextEntryCheckBoxCopy.Location = new System.Drawing.Point(275, 192);
+            this.contextEntryCheckBoxCopy.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.contextEntryCheckBoxCopy.Name = "contextEntryCheckBoxCopy";
+            this.contextEntryCheckBoxCopy.Size = new System.Drawing.Size(288, 24);
+            this.contextEntryCheckBoxCopy.TabIndex = 0;
+            this.contextEntryCheckBoxCopy.Text = "str_contextentry_copyfromfile";
+            this.contextEntryCheckBoxCopy.UseVisualStyleBackColor = true;
+            this.contextEntryCheckBoxCopy.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
+            //
+            // contextEntryCheckBoxReplace
+            //
+            this.contextEntryCheckBoxReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.contextEntryCheckBoxReplace.AutoSize = true;
+            this.contextEntryCheckBoxReplace.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contextEntryCheckBoxReplace.Location = new System.Drawing.Point(275, 192);
+            this.contextEntryCheckBoxReplace.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
+            this.contextEntryCheckBoxReplace.Name = "contextEntryCheckBoxReplace";
+            this.contextEntryCheckBoxReplace.Size = new System.Drawing.Size(288, 24);
+            this.contextEntryCheckBoxReplace.TabIndex = 0;
+            this.contextEntryCheckBoxReplace.Text = "str_contextentry_replaceintofile";
+            this.contextEntryCheckBoxReplace.UseVisualStyleBackColor = true;
+            this.contextEntryCheckBoxReplace.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
             // autostartTitleLabel
             //
@@ -196,9 +229,9 @@ namespace PasteIntoFile {
             //
             // autostartCheckBox
             //
-            this.autostartCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.autostartCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.autostartCheckBox.AutoSize = true;
-            this.autostartCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autostartCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autostartCheckBox.Location = new System.Drawing.Point(275, 192);
             this.autostartCheckBox.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
             this.autostartCheckBox.Name = "autostartCheckBox";
@@ -210,9 +243,9 @@ namespace PasteIntoFile {
             //
             // patchingCheckBox
             //
-            this.patchingCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.patchingCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.patchingCheckBox.AutoSize = true;
-            this.patchingCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patchingCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.patchingCheckBox.Location = new System.Drawing.Point(248, 341);
             this.patchingCheckBox.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
             this.patchingCheckBox.Name = "patchingCheckBox";
@@ -252,9 +285,8 @@ namespace PasteIntoFile {
             this.AcceptButton = this.finish;
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(700, 870);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(700, 870);
+            this.MinimumSize = new System.Drawing.Size(700, 900);
             this.Name = "Wizard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Shown += new System.EventHandler(this.Wizard_Shown);
@@ -266,7 +298,9 @@ namespace PasteIntoFile {
         private System.Windows.Forms.CheckBox patchingCheckBox;
         private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
-        private System.Windows.Forms.CheckBox contextEntryCheckBox;
+        private System.Windows.Forms.CheckBox contextEntryCheckBoxPaste;
+        private System.Windows.Forms.CheckBox contextEntryCheckBoxCopy;
+        private System.Windows.Forms.CheckBox contextEntryCheckBoxReplace;
         private System.Windows.Forms.Label autoSaveTitleLabel;
         private System.Windows.Forms.Label contextEntryInfoLabel;
         private System.Windows.Forms.Label title;

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
+using Color = System.Drawing.Color;
 
 namespace PasteIntoFile {
     public partial class Wizard : MasterForm {
@@ -12,7 +13,7 @@ namespace PasteIntoFile {
 
             foreach (Control element in GetAllChild(this)) {
                 // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_wizard_title, Resources.str_wizard_contextentry_title, Resources.str_wizard_contextentry_info, Resources.str_wizard_contextentry_button, Resources.str_wizard_autosave_title, Resources.str_wizard_autosave_info, Resources.str_wizard_autosave_button, Resources.str_wizard_tray_title, Resources.str_wizard_tray_info, Resources.str_wizard_tray_autostart_button, Resources.str_wizard_tray_patching_button, Resources.str_wizard_finish };
+                string[] usedResourceStrings = { Resources.str_wizard_title, Resources.str_wizard_contextentry_title, Resources.str_wizard_contextentry_info, Resources.str_wizard_autosave_title, Resources.str_wizard_autosave_info, Resources.str_wizard_autosave_button, Resources.str_wizard_tray_title, Resources.str_wizard_tray_info, Resources.str_wizard_tray_autostart_button, Resources.str_wizard_tray_patching_button, Resources.str_wizard_finish };
                 element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
             }
 
@@ -20,7 +21,9 @@ namespace PasteIntoFile {
             Text = Resources.app_title;
 
             autoSaveCheckBox.Checked = Settings.Default.autoSave;
-            contextEntryCheckBox.Checked = RegistryUtil.IsContextMenuEntryRegistered();
+            contextEntryCheckBoxPaste.Checked = RegistryUtil.ContextMenuPaste.IsRegistered();
+            contextEntryCheckBoxCopy.Checked = RegistryUtil.ContextMenuCopy.IsRegistered();
+            contextEntryCheckBoxReplace.Checked = RegistryUtil.ContextMenuReplace.IsRegistered();
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
@@ -50,27 +53,51 @@ namespace PasteIntoFile {
         public static void SetAutosaveMode(bool enabled) {
             Settings.Default.autoSave = enabled;
             Settings.Default.Save();
-            // update context menu entry
-            if (RegistryUtil.IsContextMenuEntryRegistered())
-                RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
+            // update context menu entries with or without ellipsis
+            RegistryUtil.ReRegisterContextMenuEntries();
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e) {
-            SetAutosaveMode(autoSaveCheckBox.Checked);
+            if (Settings.Default.autoSave != autoSaveCheckBox.Checked) {
+                SetAutosaveMode(autoSaveCheckBox.Checked);
+                SavedAnimation(autoSaveCheckBox);
+            }
         }
 
         private void ChkContextEntry_CheckedChanged(object sender, EventArgs e) {
+            var checkBox = sender as CheckBox;
+            RegistryUtil.ContextMenuEntry entry;
+            if (sender == contextEntryCheckBoxPaste) {
+                entry = RegistryUtil.ContextMenuPaste;
+            } else if (sender == contextEntryCheckBoxCopy) {
+                entry = RegistryUtil.ContextMenuCopy;
+            } else if (sender == contextEntryCheckBoxReplace) {
+                entry = RegistryUtil.ContextMenuReplace;
+            } else {
+                return;
+            }
             try {
-                if (contextEntryCheckBox.Checked && !RegistryUtil.IsContextMenuEntryRegistered()) {
-                    RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
-                    MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else if (!contextEntryCheckBox.Checked && RegistryUtil.IsContextMenuEntryRegistered()) {
-                    RegistryUtil.UnRegisterContextMenuEntry();
-                    MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (checkBox.Checked && !entry.IsRegistered()) {
+                    entry.Register();
+                    //MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SavedAnimation(checkBox);
+                } else if (!checkBox.Checked && entry.IsRegistered()) {
+                    entry.UnRegister();
+                    //MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SavedAnimation(checkBox);
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void SavedAnimation(Control control) {
+            control.Text += " ✔";
+            control.ForeColor = Color.Green;
+            Task.Delay(1000).ContinueWith(t => {
+                control.ForeColor = Color.Black;
+                control.Text = control.Text.Trim('✔').Trim();
+            });
         }
 
         private void ChkAutostart_CheckedChanged(object sender, EventArgs e) {
@@ -78,10 +105,12 @@ namespace PasteIntoFile {
             try {
                 if (autostartCheckBox.Checked && !RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.RegisterAutostart();
-                    MessageBox.Show(Resources.str_message_register_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(Resources.str_message_register_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SavedAnimation(autostartCheckBox);
                 } else if (!autostartCheckBox.Checked && RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.UnRegisterAutostart();
-                    MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SavedAnimation(autostartCheckBox);
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -89,8 +118,11 @@ namespace PasteIntoFile {
         }
 
         private void ChkPatching_CheckedChanged(object sender, EventArgs e) {
-            Settings.Default.trayPatchingEnabled = patchingCheckBox.Checked;
-            Settings.Default.Save();
+            if (Settings.Default.trayPatchingEnabled != patchingCheckBox.Checked) {
+                Settings.Default.trayPatchingEnabled = patchingCheckBox.Checked;
+                Settings.Default.Save();
+                SavedAnimation(patchingCheckBox);
+            }
         }
 
         private void finish_Click(object sender, EventArgs e) {

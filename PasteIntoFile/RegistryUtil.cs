@@ -6,27 +6,110 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
     public class RegistryUtil {
+
         // Please note that registry keys are also created by installer and removed upon uninstall
         // Always keep the "Installer/PasteIntoFile.wxs" up to date with the keys used below!
+        public static readonly ContextMenuEntry ContextMenuPaste = new ContextMenuEntry(
+            "Directory", "PasteIntoFile", Resources.str_contextentry,
+            "paste \"%V\"", () => !Settings.Default.autoSave);
+        public static readonly ContextMenuEntry ContextMenuCopy = new ContextMenuEntry(
+            "*", "PasteIntoFile", Resources.str_contextentry_copyfromfile,
+            "copy \"%V\"", () => false);
+        public static readonly ContextMenuEntry ContextMenuReplace = new ContextMenuEntry(
+            "*", "PasteIntoFile_replace", Resources.str_contextentry_replaceintofile,
+            "paste --directory=\"%w\" --filename=\"%V\" --autosave=true --overwrite=true", () => false);
+
+        public static readonly ContextMenuEntry[] AllContextMenu = { ContextMenuPaste, ContextMenuCopy, ContextMenuReplace };
 
 
-        private static string KEY_PASTE_INTO_FILE = "PasteIntoFile";
-        private static string KEY_PASTE_REPLACE = "PasteIntoFile_replace";
+        public class ContextMenuEntry {
+            // Documentation:
+            // https://docs.microsoft.com/en-us/windows/win32/shell/context
+            // https://docs.microsoft.com/en-us/windows/win32/shell/context-menu
+
+            private readonly string _type;
+            private readonly string _key;
+            private readonly string _title;
+            private readonly string _args;
+            private readonly HasDialog _hasDialog;
+
+            public delegate bool HasDialog();
+
+            /// <summary>
+            ///
+            /// </summary>
+            /// <param name="type">File type or "Directory" or "*"</param>
+            /// <param name="key"></param>
+            /// <param name="title">Title to show in context menu entry</param>
+            /// <param name="args">Arguments to pass to binary</param>
+            /// <param name="hasDialog"></param>
+            public ContextMenuEntry(string type, string key, string title, string args, HasDialog hasDialog) {
+                _type = type;
+                _key = key;
+                _title = title;
+                _args = args;
+                _hasDialog = hasDialog;
+            }
+
+            /// <summary>
+            /// Opens a number of class sub keys according to the type.
+            /// </summary>
+            /// <returns>List of registry keys</returns>
+            private IEnumerable<RegistryKey> OpenClassKeys() {
+                var classes = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
+                if (_type == "Directory")
+                    return new[] { classes.CreateSubKey(@"Directory\shell"), classes.CreateSubKey(@"Directory\Background\shell") };
+                return new[] { classes.CreateSubKey(_type + @"\shell") };
+            }
+
+            /// <summary>
+            /// Checks if context menu entry is registered
+            /// </summary>
+            /// <returns>context menu entry registration status (true/false)</returns>
+            public bool IsRegistered() {
+                foreach (var classKey in OpenClassKeys()) {
+                    if (classKey == null || !classKey.GetSubKeyNames().Contains(_key)) return false;
+                }
+
+                return true;
+            }
+
+            /// <summary>
+            /// Remove context menu entry
+            /// </summary>
+            public void UnRegister() {
+                foreach (var classKey in OpenClassKeys()) {
+                    classKey.DeleteSubKeyTree(_key);
+                }
+            }
+
+            /// <summary>
+            /// Create context menu entry
+            /// </summary>
+            public void Register() {
+                foreach (var classKey in OpenClassKeys()) {
+                    var key = classKey.CreateSubKey(_key);
+                    key.SetValue("", _title + (_hasDialog() ? "…" : ""));
+                    key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
+                    key = key.CreateSubKey("command");
+                    key.SetValue("", "\"" + Application.ExecutablePath + "\" " + _args);
+                }
+            }
+
+        }
+
+
+
 
         /// <summary>
-        /// Opens a number of class sub keys according to the requested type.
-        /// Passing type=null (default) will return all keys for all types
+        /// Re-registers all registered context menu entries (with correct localisation)
         /// </summary>
-        /// <param name="type">Class type, one of "Directory", "*" or null</param>
-        /// <returns>List of registry keys</returns>
-        private static IEnumerable<RegistryKey> OpenClassKeys(string type = null) {
-            var classes = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
-            var keys = new List<RegistryKey>();
-            if (type == null || type == "Directory")
-                keys.AddRange(new[] { classes.CreateSubKey(@"Directory\shell"), classes.CreateSubKey(@"Directory\Background\shell") });
-            if (type == null || type == "*")
-                keys.Add(classes.CreateSubKey(@"*\shell"));
-            return keys;
+        public static void ReRegisterContextMenuEntries() {
+            foreach (var entry in AllContextMenu) {
+                if (entry.IsRegistered()) {
+                    entry.Register();
+                }
+            }
         }
 
 
@@ -43,91 +126,30 @@ namespace PasteIntoFile {
 
 
         /// <summary>
-        /// Checks if context menu entry is registered
+        /// The path to the key where Windows looks for startup applications
         /// </summary>
-        /// <returns>context menu entry registration status (true/false)</returns>
-        public static bool IsContextMenuEntryRegistered() {
-            foreach (var classKey in OpenClassKeys()) {
-                if (classKey == null || !classKey.GetSubKeyNames().Contains(KEY_PASTE_INTO_FILE)) return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Remove context menu entry
-        /// </summary>
-        public static void UnRegisterContextMenuEntry() {
-            foreach (var classKey in OpenClassKeys()) {
-                classKey.DeleteSubKeyTree(KEY_PASTE_INTO_FILE);
-                classKey.DeleteSubKeyTree(KEY_PASTE_REPLACE);
-            }
-        }
-
-        /// <summary>
-        /// Create context menu entry
-        /// </summary>
-        public static void RegisterContextMenuEntry(bool hasDialog = false) {
-            // Documentation:
-            // https://docs.microsoft.com/en-us/windows/win32/shell/context
-            // https://docs.microsoft.com/en-us/windows/win32/shell/context-menu
-
-            // register "paste into file" for directory context menu
-            foreach (var classKey in OpenClassKeys("Directory")) {
-                var key = classKey.CreateSubKey(KEY_PASTE_INTO_FILE);
-                key.SetValue("", Resources.str_contextentry + (hasDialog ? "…" : ""));
-                key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                key = key.CreateSubKey("command");
-                key.SetValue("", "\"" + Application.ExecutablePath + "\" paste \"%V\"");
-
-            }
-
-            // register "copy from file" for file context menu (any extension)
-            foreach (var classKey in OpenClassKeys("*")) {
-                var key = classKey.CreateSubKey(KEY_PASTE_INTO_FILE);
-                key.SetValue("", Resources.str_contextentry_copyfromfile);
-                key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                key = key.CreateSubKey("command");
-                key.SetValue("", "\"" + Application.ExecutablePath + "\" copy \"%V\"");
-
-            }
-
-            // register "replace with clipboard" for file context menu (any extension)
-            foreach (var classKey in OpenClassKeys("*")) {
-                var key = classKey.CreateSubKey(KEY_PASTE_REPLACE);
-                key.SetValue("", Resources.str_contextentry_replaceintofile);
-                key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                key = key.CreateSubKey("command");
-                key.SetValue("", "\"" + Application.ExecutablePath + "\" paste --directory=\"%w\" --filename=\"%V\" --autosave=true --overwrite=true");
-
-            }
-
-        }
+        private static RegistryKey AutostartSubKey => Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
 
         /// <summary>
         /// Checks if autostart is registered
         /// </summary>
         /// <returns>autostart registration status (true/false)</returns>
         public static bool IsAutostartRegistered() {
-            return Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .GetValue(KEY_PASTE_INTO_FILE) != null;
+            return AutostartSubKey?.GetValue("PasteIntoFile") != null;
         }
 
         /// <summary>
         /// Register autostart
         /// </summary>
         public static void RegisterAutostart() {
-            // The path to the key where Windows looks for startup applications
-            Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .SetValue(KEY_PASTE_INTO_FILE, "\"" + Application.ExecutablePath + "\" tray");
+            AutostartSubKey?.SetValue("PasteIntoFile", "\"" + Application.ExecutablePath + "\" tray");
         }
 
         /// <summary>
         /// Remove autostart registration
         /// </summary>
         public static void UnRegisterAutostart() {
-            // The path to the key where Windows looks for startup applications
-            Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true)?
-                .DeleteValue(KEY_PASTE_INTO_FILE, false);
+            AutostartSubKey?.DeleteValue("PasteIntoFile", false);
         }
 
     }

@@ -221,8 +221,8 @@ namespace PasteIntoFile {
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
         static int RunWizard(ArgsWizard args = null) {
-            if (RegistryUtil.IsContextMenuEntryRegistered())
-                RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave); // overwrites default entry with localized strings
+            // Re-regiter context menu entries to overwrites default text with localized strings
+            RegistryUtil.ReRegisterContextMenuEntries();
 
             var wizard = new Wizard();
             // Make sure to bring window to foreground (installer will open window in background)
@@ -371,9 +371,13 @@ namespace PasteIntoFile {
                 if (args.Autosave != null)
                     Wizard.SetAutosaveMode((bool)args.Autosave);
                 if (args.RegisterContextMenu)
-                    RegistryUtil.RegisterContextMenuEntry(!Settings.Default.autoSave);
+                    foreach (var entry in RegistryUtil.AllContextMenu) {
+                        entry.Register();
+                    }
                 if (args.UnregisterContextMenu)
-                    RegistryUtil.UnRegisterContextMenuEntry();
+                    foreach (var entry in RegistryUtil.AllContextMenu) {
+                        entry.UnRegister();
+                    }
                 if (args.RegisterAutostart)
                     RegistryUtil.RegisterAutostart();
                 if (args.UnregisterAutostart)

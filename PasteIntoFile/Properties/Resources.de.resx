@@ -96,14 +96,11 @@
     <data name="str_wizard_autosave_title" xml:space="preserve">
         <value>Datei automatisch ohne Dialog speichern?</value>
     </data>
-    <data name="str_wizard_contextentry_button" xml:space="preserve">
-        <value>Zum Kontextmenü hinzufügen</value>
-    </data>
     <data name="str_wizard_contextentry_info" xml:space="preserve">
-        <value>Indem ein Eintrag zum Kontextmenü hinzugefügt wird, können Inhalte der Zwischenablage einfach mittels Rechtsklick und Auswahl von 'Einfügen als Datei (Paste Into File)' im aktuellen Ordner als Datei gespeichert werden.</value>
+        <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
     </data>
     <data name="str_wizard_contextentry_title" xml:space="preserve">
-        <value>Eintrag zum Kontextmenü hinzufügen?</value>
+        <value>Einträge zum Kontextmenü hinzufügen?</value>
     </data>
     <data name="str_wizard_finish" xml:space="preserve">
         <value>Setup fertigstellen</value>
