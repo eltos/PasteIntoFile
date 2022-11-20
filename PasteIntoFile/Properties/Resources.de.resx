@@ -180,7 +180,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
         <value>Einstellungen</value>
     </data>
     <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-        <value>Tray Autostart registieren</value>
+        <value>Tray Autostart aktivieren</value>
     </data>
     <data name="str_wizard_tray_title" xml:space="preserve">
         <value>Autostart und Tastenkürzel aktivieren?</value>

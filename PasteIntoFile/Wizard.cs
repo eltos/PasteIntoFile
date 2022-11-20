@@ -121,7 +121,7 @@ namespace PasteIntoFile {
             if (Settings.Default.trayPatchingEnabled != patchingCheckBox.Checked) {
                 Settings.Default.trayPatchingEnabled = patchingCheckBox.Checked;
                 Settings.Default.Save();
-                SavedAnimation(patchingCheckBox);
+                // no SavedAnimation so as not to give the feeling this would take effect immediately
             }
         }
 
