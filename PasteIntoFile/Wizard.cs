@@ -9,6 +9,7 @@ namespace PasteIntoFile {
     public partial class Wizard : MasterForm {
         public Wizard() {
             InitializeComponent();
+            Settings.Default.Reload(); // load modifications made from other instance
 
 
             foreach (Control element in GetAllChild(this)) {

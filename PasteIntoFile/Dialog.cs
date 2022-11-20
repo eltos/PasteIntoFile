@@ -14,7 +14,6 @@ using WK.Libraries.SharpClipboardNS;
 namespace PasteIntoFile {
     public partial class Dialog : MasterForm {
         private ClipboardContents clipData = new ClipboardContents();
-        private bool continuousMode = false;
         private int saveCount = 0;
 
         private SharpClipboard _clipMonitor;
@@ -33,6 +32,10 @@ namespace PasteIntoFile {
 
 
         public Dialog(string location = null, string filename = null, bool? showDialogOverwrite = null, bool? clearClipboardOverwrite = null, bool overwriteIfExists = false) {
+            Settings.Default.Reload(); // load modifications made from other instance
+            Settings.Default.continuousMode = false; // always start in normal mode
+            Settings.Default.Save();
+
             // Fallback to default path
             location = (location ?? ExplorerUtil.GetActiveExplorerPath() ??
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
@@ -92,7 +95,7 @@ namespace PasteIntoFile {
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
             chkClrClipboard.Checked = clearClipboardOverwrite ?? Settings.Default.clrClipboard;
-            chkContinuousMode.Checked = continuousMode;
+            chkContinuousMode.Checked = Settings.Default.continuousMode;
             updateSavebutton();
             chkAutoSave.Checked = Settings.Default.autoSave;
 
@@ -217,7 +220,7 @@ namespace PasteIntoFile {
             readClipboard();
 
             // continuous batch mode
-            if (continuousMode) {
+            if (Settings.Default.continuousMode) {
                 var ignore = false;
                 // ignore duplicate updates within 100ms
                 ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 100;
@@ -308,8 +311,8 @@ namespace PasteIntoFile {
 
 
         private void updateSavebutton() {
-            btnSave.Enabled = txtFilename.Enabled = !continuousMode;
-            btnSave.Text = continuousMode ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
+            btnSave.Enabled = txtFilename.Enabled = !Settings.Default.continuousMode;
+            btnSave.Text = Settings.Default.continuousMode ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -425,7 +428,8 @@ namespace PasteIntoFile {
                     chkContinuousMode.Checked = false;
             }
 
-            continuousMode = chkContinuousMode.Checked;
+            Settings.Default.continuousMode = chkContinuousMode.Checked;
+            Settings.Default.Save();
             updateSavebutton();
 
         }

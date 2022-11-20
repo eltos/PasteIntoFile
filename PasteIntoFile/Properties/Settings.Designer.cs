@@ -178,5 +178,17 @@ namespace PasteIntoFile.Properties {
                 this["updateChecksEnabled"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool continuousMode {
+            get {
+                return ((bool)(this["continuousMode"]));
+            }
+            set {
+                this["continuousMode"] = value;
+            }
+        }
     }
 }

@@ -105,6 +105,9 @@ namespace PasteIntoFile {
             // not perfect, but probably as good as it can be: https://stackoverflow.com/a/11058118
             AttachConsole(ATTACH_PARENT_PROCESS);
 
+            Settings.Default.continuousMode = false; // always start in normal mode
+            Settings.Default.Save();
+
             if (!Settings.Default.upgradePerformed) {
                 // New version installed with default settings (upgradePerformed == false)
                 // https://stackoverflow.com/a/534335/13324744
@@ -272,6 +275,9 @@ namespace PasteIntoFile {
                 bool skipFirst = true;
                 void PatchClipboard(object s, SharpClipboard.ClipboardChangedEventArgs e) {
                     if (skipFirst) { skipFirst = false; return; }
+                    Settings.Default.Reload(); // load modifications made from other instance
+                    if (!Settings.Default.trayPatchingEnabled) return; // allow to temporarily disable
+                    if (Settings.Default.continuousMode) return; // don't interfere with batch mode
                     if (PatchedClipboardContents() is IDataObject data) {
                         // TODO: This is experimental (might impact performance, might break proprietary formats used internally by other programs, not 100% stable)
                         // Temporarily pausing monitoring seams unstable with the SharpClipboard library, so close and re-create the monitor instead
