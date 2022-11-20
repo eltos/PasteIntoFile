@@ -17,6 +17,8 @@ namespace PasteIntoFile {
         private int saveCount = 0;
 
         private SharpClipboard _clipMonitor;
+        private bool disableUiEvents = false;
+
         public SharpClipboard clipMonitor {
             get {
                 if (_clipMonitor == null) _clipMonitor = new SharpClipboard();
@@ -97,10 +99,9 @@ namespace PasteIntoFile {
 
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
-            chkClrClipboard.Checked = clearClipboardOverwrite ?? Settings.Default.clrClipboard;
-            chkContinuousMode.Checked = Settings.Default.continuousMode;
-            updateSavebutton();
-            chkAutoSave.Checked = Settings.Default.autoSave;
+            updateUiFromSettings();
+            chkClrClipboard.Checked = clearClipboardOverwrite ?? chkClrClipboard.Checked;
+            Settings.Default.PropertyChanged += (sender, args) => updateUiFromSettings();
 
 
             txtFilename.Select();
@@ -154,6 +155,15 @@ namespace PasteIntoFile {
 
             }
 
+        }
+
+        private void updateUiFromSettings() {
+            disableUiEvents = true;
+            chkClrClipboard.Checked = Settings.Default.clrClipboard;
+            chkContinuousMode.Checked = Settings.Default.continuousMode;
+            chkAutoSave.Checked = Settings.Default.autoSave;
+            updateSavebutton();
+            disableUiEvents = false;
         }
 
         public static string formatFilenameTemplate(string template, DateTime timestamp, int count) {
@@ -223,7 +233,7 @@ namespace PasteIntoFile {
             readClipboard();
 
             // continuous batch mode
-            if (Settings.Default.continuousMode) {
+            if (chkContinuousMode.Checked) {
                 var ignore = false;
                 // ignore duplicate updates within 100ms
                 ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
@@ -314,8 +324,8 @@ namespace PasteIntoFile {
 
 
         private void updateSavebutton() {
-            btnSave.Enabled = txtFilename.Enabled = !Settings.Default.continuousMode;
-            btnSave.Text = Settings.Default.continuousMode ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
+            btnSave.Enabled = txtFilename.Enabled = !chkContinuousMode.Checked;
+            btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -416,11 +426,13 @@ namespace PasteIntoFile {
         }
 
         private void ChkClrClipboard_CheckedChanged(object sender, EventArgs e) {
+            if (disableUiEvents) return;
             Settings.Default.clrClipboard = chkClrClipboard.Checked;
             Settings.Default.Save();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
+            if (disableUiEvents) return;
             if (chkContinuousMode.Checked) {
                 var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (saveNow == DialogResult.Yes) // save current clipboard now
@@ -438,6 +450,7 @@ namespace PasteIntoFile {
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e) {
+            if (disableUiEvents) return;
             if (chkAutoSave.Checked && !Settings.Default.autoSave) {
                 MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave_checkbox, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
