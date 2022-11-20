@@ -31,6 +31,9 @@ namespace PasteIntoFile {
 
             // Version info
             version.Text = string.Format(Resources.str_version, ProductVersion);
+#if DEBUG
+            version.Text += " (debug build)";
+#endif
             version.Links.Add(0, version.Text.Length, "https://github.com/eltos/PasteIntoFile/releases");
             version.LinkClicked += (sender, args) => Process.Start(args.Link.LinkData.ToString());
             CheckForUpdates();
