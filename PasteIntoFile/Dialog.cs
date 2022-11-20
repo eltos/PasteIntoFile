@@ -223,7 +223,7 @@ namespace PasteIntoFile {
             if (Settings.Default.continuousMode) {
                 var ignore = false;
                 // ignore duplicate updates within 100ms
-                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 100;
+                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
                 // ignore internal updates due to clipboard patching
                 ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
 
