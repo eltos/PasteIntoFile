@@ -1,223 +1,329 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
+  <!--
+    Microsoft ResX Schema
 
-        </xsd:element>
-    </xsd:schema>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <data name="str_save" xml:space="preserve">
-        <value>Speichern</value>
-    </data>
-    <data name="str_filename" xml:space="preserve">
-        <value>Dateiname</value>
-    </data>
-    <data name="str_extension" xml:space="preserve">
-        <value>Dateityp</value>
-    </data>
-    <data name="str_location" xml:space="preserve">
-        <value>Zielordner</value>
-    </data>
-    <data name="str_select_folder" xml:space="preserve">
-        <value>Speicherort auswählen</value>
-    </data>
-    <data name="str_message_register_context_menu_success" xml:space="preserve">
-        <value>Eintrag im Kontextmenü wurde hinzugefügt</value>
-    </data>
-    <data name="str_message_run_as_admin" xml:space="preserve">
-        <value>Bitte die Anwendung als Administrator ausführen!</value>
-    </data>
-    <data name="str_message_unregister_context_menu_success" xml:space="preserve">
-        <value>Eintrag im Kontextmenü wurde entfernt</value>
-    </data>
-    <data name="str_contextentry" xml:space="preserve">
-        <value>Einfügen als Datei</value>
-    </data>
-    <data name="str_main_info" xml:space="preserve">
-        <value>Projekt auf GitHub finden</value>
-    </data>
-    <data name="str_clear_clipboard" xml:space="preserve">
-        <value>Zwischenablage leeren</value>
-    </data>
-    <data name="str_autosave_balloontext" xml:space="preserve">
-        <value>Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
-    </data>
-    <data name="str_autosave_balloontitle" xml:space="preserve">
-        <value>Zwischenablage als Datei gespeichert</value>
-    </data>
-    <data name="str_autosave_infotext" xml:space="preserve">
-        <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenü die Umschalttaste gedrückt gehalten werden.</value>
-    </data>
-    <data name="str_noclip_text" xml:space="preserve">
-        <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>
-    </data>
-    <data name="str_version" xml:space="preserve">
-        <value>Version {0}</value>
-    </data>
-    <data name="str_preview" xml:space="preserve">
-        <value>Vorschau</value>
-    </data>
-    <data name="str_preview_image" xml:space="preserve">
-        <value>Bildvorschau ({0}x{1} px)</value>
-    </data>
-    <data name="str_preview_text" xml:space="preserve">
-        <value>Textvorschau ({0} Zeichen, {1} Zeilen)</value>
-    </data>
-    <data name="str_file_exists" xml:space="preserve">
-        <value>Die Datei {0} existiert bereits. Soll sie überschrieben werden?</value>
-    </data>
-    <data name="str_file_exists_directory" xml:space="preserve">
-        <value>Ein Ordner mit dem gleichen Namen existiert bereits unter {0}.</value>
-    </data>
-    <data name="str_autosave_checkbox" xml:space="preserve">
-        <value>Autosave (Dialog überspringen)</value>
-    </data>
-    <data name="str_contextentry_checkbox" xml:space="preserve">
-        <value>Kontextmenü Eintrag</value>
-    </data>
-    <data name="str_wizard_autosave_button" xml:space="preserve">
-        <value>Autosave aktivieren</value>
-    </data>
-    <data name="str_wizard_autosave_info" xml:space="preserve">
-        <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
-    </data>
-    <data name="str_wizard_autosave_title" xml:space="preserve">
-        <value>Datei automatisch ohne Dialog speichern?</value>
-    </data>
-    <data name="str_wizard_contextentry_info" xml:space="preserve">
-        <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
-    </data>
-    <data name="str_wizard_contextentry_title" xml:space="preserve">
-        <value>Einträge zum Kontextmenü hinzufügen?</value>
-    </data>
-    <data name="str_wizard_finish" xml:space="preserve">
-        <value>Setup fertigstellen</value>
-    </data>
-    <data name="str_wizard_title" xml:space="preserve">
-        <value>Paste Into File</value>
-    </data>
-    <data name="str_continuous_mode" xml:space="preserve">
-        <value>Stapelverarbeitung</value>
-    </data>
-    <data name="str_n_saved" xml:space="preserve">
-        <value>{0} gespeichert</value>
-    </data>
-    <data name="str_template_edit_info_url" xml:space="preserve">
-        <value>https://docs.microsoft.com/de-de/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
-    </data>
-    <data name="str_cancel" xml:space="preserve">
-        <value>Abbrechen</value>
-    </data>
-    <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-        <value>Im Modus 'Stapelverarbeitung' wird der Inhalt der Zwischenablage gespeichert sobald neue Daten kopiert wurden.
+    Version 2.0
 
-Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
-    <data name="str_edit_template" xml:space="preserve">
-        <value>Vorlage bearbeiten</value>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
     </data>
-    <data name="str_filename_template" xml:space="preserve">
-        <value>Dateinamen-Vorlage</value>
-    </data>
-    <data name="str_accept" xml:space="preserve">
-        <value>Übernehmen</value>
-    </data>
-    <data name="str_template_edit_info" xml:space="preserve">
-        <value>Die Vorlage wird zum Formatieren des Standarddateinamens verwendet. Folgende Variablen stehen zur Verfügung:
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+  <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
+  </data>
+  <data name="str_save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="str_filename" xml:space="preserve">
+    <value>Dateiname</value>
+  </data>
+  <data name="str_extension" xml:space="preserve">
+    <value>Dateityp</value>
+  </data>
+  <data name="str_location" xml:space="preserve">
+    <value>Zielordner</value>
+  </data>
+  <data name="str_message_unregister_context_menu_success" xml:space="preserve">
+    <value>Eintrag im Kontextmenü wurde entfernt</value>
+  </data>
+  <data name="str_message_run_as_admin" xml:space="preserve">
+    <value>Bitte die Anwendung als Administrator ausführen!</value>
+  </data>
+  <data name="str_message_register_context_menu_success" xml:space="preserve">
+    <value>Eintrag im Kontextmenü wurde hinzugefügt</value>
+  </data>
+  <data name="str_contextentry" xml:space="preserve">
+    <value>Einfügen als Datei</value>
+    <comment>Context menu entry for pasting</comment>
+  </data>
+  <data name="str_select_folder" xml:space="preserve">
+    <value>Speicherort auswählen</value>
+  </data>
+  <data name="str_autosave_balloontext" xml:space="preserve">
+    <value>Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
+  </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenü die Umschalttaste gedrückt gehalten werden.</value>
+  </data>
+  <data name="str_noclip_text" xml:space="preserve">
+    <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>
+  </data>
+  <data name="str_wizard_title" xml:space="preserve">
+    <value>Paste Into File</value>
+  </data>
+  <data name="str_clear_clipboard" xml:space="preserve">
+    <value>Zwischenablage leeren</value>
+  </data>
+  <data name="str_main_info" xml:space="preserve">
+    <value>Projekt auf GitHub finden</value>
+  </data>
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
+    <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
+  </data>
+  <data name="str_wizard_contextentry_title" xml:space="preserve">
+    <value>Einträge zum Kontextmenü hinzufügen?</value>
+  </data>
+  <data name="str_autosave_balloontitle" xml:space="preserve">
+    <value>Zwischenablage als Datei gespeichert</value>
+  </data>
+  <data name="str_version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="str_preview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="str_preview_image" xml:space="preserve">
+    <value>Bildvorschau ({0}x{1} px)</value>
+  </data>
+  <data name="str_preview_text" xml:space="preserve">
+    <value>Textvorschau ({0} Zeichen, {1} Zeilen)</value>
+  </data>
+  <data name="str_file_exists_directory" xml:space="preserve">
+    <value>Ein Ordner mit dem gleichen Namen existiert bereits unter {0}.</value>
+  </data>
+  <data name="str_file_exists" xml:space="preserve">
+    <value>Die Datei {0} existiert bereits. Soll sie überschrieben werden?</value>
+  </data>
+  <data name="str_autosave_checkbox" xml:space="preserve">
+    <value>Autosave (Dialog überspringen)</value>
+  </data>
+  <data name="str_contextentry_checkbox" xml:space="preserve">
+    <value>Kontextmenü Eintrag</value>
+  </data>
+  <data name="str_wizard_autosave_title" xml:space="preserve">
+    <value>Datei automatisch ohne Dialog speichern?</value>
+  </data>
+  <data name="str_wizard_autosave_button" xml:space="preserve">
+    <value>Autosave aktivieren</value>
+  </data>
+  <data name="str_wizard_finish" xml:space="preserve">
+    <value>Setup fertigstellen</value>
+  </data>
+  <data name="str_wizard_autosave_info" xml:space="preserve">
+    <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
+  </data>
+  <data name="str_continuous_mode" xml:space="preserve">
+    <value>Stapelverarbeitung</value>
+  </data>
+  <data name="str_n_saved" xml:space="preserve">
+    <value>{0} gespeichert</value>
+  </data>
+  <data name="str_edit_template" xml:space="preserve">
+    <value>Vorlage bearbeiten</value>
+  </data>
+  <data name="str_accept" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="str_cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>Die Vorlage wird zum Formatieren des Standarddateinamens verwendet. Folgende Variablen stehen zur Verfügung:
   {0} - Datum und Zeit
   {1} - Zahl gespeicherter Dateien (Stapelverarbeitung)
 Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
-    </data>
-    <data name="str_invalid_character" xml:space="preserve">
-        <value>Ungültiges Zeichen: {0}</value>
-    </data>
-    <data name="str_contextentry_copyfromfile" xml:space="preserve">
-        <value>Dateiinhalt kopieren</value>
-    </data>
-    <data name="str_copy_failed_unknown_format" xml:space="preserve">
-        <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
-    </data>
-    <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-        <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
-    </data>
-    <data name="str_preview_html" xml:space="preserve">
-        <value>HTML Vorschau</value>
-    </data>
-    <data name="str_preview_url" xml:space="preserve">
-        <value>URL Vorschau</value>
-    </data>
-    <data name="str_preview_csv" xml:space="preserve">
-        <value>CSV Vorschau</value>
-    </data>
-    <data name="str_preview_sylk" xml:space="preserve">
-        <value>Symbolic Link (SYLK) Vorschau</value>
-    </data>
-    <data name="str_preview_rtf" xml:space="preserve">
-        <value>Rich Text Vorschau</value>
-    </data>
-    <data name="str_preview_dif" xml:space="preserve">
-        <value>Data Interchange Vorschau</value>
-    </data>
-    <data name="str_exit" xml:space="preserve">
-        <value>Beenden</value>
-    </data>
-    <data name="str_open_paste_into_file" xml:space="preserve">
-        <value>Paste Into File öffnen</value>
-    </data>
-    <data name="str_settings" xml:space="preserve">
-        <value>Einstellungen</value>
-    </data>
-    <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-        <value>Tray Autostart aktivieren</value>
-    </data>
-    <data name="str_wizard_tray_title" xml:space="preserve">
-        <value>Autostart und Tastenkürzel aktivieren?</value>
-    </data>
-    <data name="str_wizard_tray_info" xml:space="preserve">
-        <value>Wenn gewünscht kann Paste Into File mit Windows gestarted und im System-Tray aktiv bleiben. So kann Paste Into File durch drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum kopiert von Dateiinhalten).
-Zusätzlich kann die Zwischenablage überwacht und automatisch gepatched werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
+  </data>
+  <data name="str_template_edit_info_url" xml:space="preserve">
+    <value>https://docs.microsoft.com/de-de/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>Dateinamen-Vorlage</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>Im Modus 'Stapelverarbeitung' wird der Inhalt der Zwischenablage gespeichert, sobald neue Daten kopiert wurden.
+
+Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
+  </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>Ungültiges Zeichen: {0}</value>
+  </data>
+  <data name="str_contextentry_copyfromfile" xml:space="preserve">
+    <value>Dateiinhalt kopieren</value>
+  </data>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
+  </data>
+  <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
+    <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
+  </data>
+  <data name="str_preview_html" xml:space="preserve">
+    <value>HTML Vorschau</value>
+  </data>
+  <data name="str_preview_url" xml:space="preserve">
+    <value>URL Vorschau</value>
+  </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>CSV Vorschau</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>Symbolic Link (SYLK) Vorschau</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Rich Text Vorschau</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Data Interchange Vorschau</value>
+  </data>
+  <data name="str_exit" xml:space="preserve">
+    <value>Beenden</value>
+  </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>Paste Into File öffnen</value>
+  </data>
+  <data name="str_settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="str_message_register_autostart_success" xml:space="preserve">
+    <value>Autostart aktiviert</value>
+  </data>
+  <data name="str_message_unregister_autostart_success" xml:space="preserve">
+    <value>Autostart deaktiviert</value>
+  </data>
+  <data name="str_wizard_tray_title" xml:space="preserve">
+    <value>Autostart und Tastenkürzel aktivieren?</value>
+  </data>
+  <data name="str_wizard_tray_autostart_button" xml:space="preserve">
+    <value>Tray Autostart aktivieren</value>
+  </data>
+  <data name="str_wizard_tray_info" xml:space="preserve">
+    <value>Wenn gewünscht, kann Paste Into File mit Windows gestartet und im System-Tray aktiv bleiben. So kann Paste Into File durch Drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum Kopieren von Dateiinhalten).
+Zusätzlich kann die Zwischenablage überwacht und automatisch gepatcht werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
 Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
-    </data>
-    <data name="str_message_register_autostart_success" xml:space="preserve">
-        <value>Autostart aktiviert</value>
-    </data>
-    <data name="str_message_unregister_autostart_success" xml:space="preserve">
-        <value>Autostart deaktiviert</value>
-    </data>
-    <data name="str_copy_failed_not_single_file" xml:space="preserve">
-        <value>Bitte eine einzelne Datei auswählen um den Dateiinhalt zu kopieren.</value>
-    </data>
-    <data name="str_preview_files" xml:space="preserve">
-        <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
-    </data>
-    <data name="str_wizard_tray_patching_button" xml:space="preserve">
-        <value>Patching der Zwischenablage aktivieren (experimentell)</value>
-    </data>
-    <data name="str_version_update_available" xml:space="preserve">
-        <value>Update verfügbar: {0} ➜ {1}</value>
-    </data>
-    <data name="str_open" xml:space="preserve">
-        <value>Öffnen</value>
-    </data>
-    <data name="str_preview_image_vector" xml:space="preserve">
-        <value>Vektorgrafik Vorschau</value>
-    </data>
-    <data name="str_preview_svg" xml:space="preserve">
-        <value>Skalierbare Vektorgrafik Vorschau</value>
-    </data>
-    <data name="str_contextentry_replaceintofile" xml:space="preserve">
-        <value>Ersetzen mit Inhalt der Zwischenablage</value>
-    </data>
+  </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>Bitte eine einzelne Datei auswählen, um den Dateiinhalt zu kopieren.</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1.
+</comment>
+  </data>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
+  </data>
+  <data name="str_wizard_tray_patching_button" xml:space="preserve">
+    <value>Patching der Zwischenablage aktivieren (experimentell)</value>
+  </data>
+  <data name="str_version_update_available" xml:space="preserve">
+    <value>Update verfügbar: {0} ➜ {1}</value>
+  </data>
+  <data name="str_open" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="str_preview_image_vector" xml:space="preserve">
+    <value>Vektorgrafik Vorschau</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>Skalierbare Vektorgrafik Vorschau</value>
+  </data>
+  <data name="str_contextentry_replaceintofile" xml:space="preserve">
+    <value>Ersetzen mit Inhalt der Zwischenablage</value>
+  </data>
 </root>
