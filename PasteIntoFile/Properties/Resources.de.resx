@@ -144,7 +144,6 @@
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Einfügen als Datei</value>
-    <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Speicherort auswählen</value>
@@ -168,10 +167,10 @@
     <value>Projekt auf GitHub finden</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
+      <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>Einträge zum Kontextmenü hinzufügen?</value>
+      <value>Einträge zum Kontextmenü hinzufügen?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Zwischenablage als Datei gespeichert</value>
@@ -254,7 +253,7 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
+      <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
     <value>HTML Vorschau</value>
@@ -269,7 +268,7 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Symbolic Link (SYLK) Vorschau</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>Rich Text Vorschau</value>
+      <value>Rich Text Vorschau</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
     <value>Data Interchange Vorschau</value>
@@ -293,37 +292,35 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Autostart und Tastenkürzel aktivieren?</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-    <value>Tray Autostart aktivieren</value>
+      <value>Tray Autostart aktivieren</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-    <value>Wenn gewünscht, kann Paste Into File mit Windows gestartet und im System-Tray aktiv bleiben. So kann Paste Into File durch Drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum Kopieren von Dateiinhalten).
+      <value>Wenn gewünscht, kann Paste Into File mit Windows gestartet und im System-Tray aktiv bleiben. So kann Paste Into File durch Drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum Kopieren von Dateiinhalten).
 Zusätzlich kann die Zwischenablage überwacht und automatisch gepatcht werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
 Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>Bitte eine einzelne Datei auswählen, um den Dateiinhalt zu kopieren.</value>
-    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1.
-</comment>
+    <value>Bitte eine einzelne Datei auswählen um den Dateiinhalt zu kopieren.</value>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
+      <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-    <value>Patching der Zwischenablage aktivieren (experimentell)</value>
+      <value>Patching der Zwischenablage aktivieren (experimentell)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-    <value>Update verfügbar: {0} ➜ {1}</value>
+      <value>Update verfügbar: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-    <value>Öffnen</value>
+      <value>Öffnen</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Vektorgrafik Vorschau</value>
+      <value>Vektorgrafik Vorschau</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>Skalierbare Vektorgrafik Vorschau</value>
+      <value>Skalierbare Vektorgrafik Vorschau</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Ersetzen mit Inhalt der Zwischenablage</value>
+      <value>Ersetzen mit Inhalt der Zwischenablage</value>
   </data>
 </root>
