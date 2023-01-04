@@ -1,6 +1,7 @@
 # Paste Into File
 
 [![Contributors](https://img.shields.io/github/contributors/eltos/PasteIntoFile)](https://github.com/eltos/PasteIntoFile/graphs/contributors)
+[![Translations](https://badges.crowdin.net/PasteIntoFile/localized.svg)](https://crowdin.com/project/PasteIntoFile)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eltos/PasteIntoFile/dotnet-testbuild.yml?branch=main)](https://github.com/eltos/PasteIntoFile/actions)
 [![Latest release](https://img.shields.io/github/v/release/eltos/PasteIntoFile)](https://github.com/eltos/PasteIntoFile/releases/latest)
 [![Total downloads](https://img.shields.io/github/downloads/eltos/PasteIntoFile/total)](https://github.com/eltos/PasteIntoFile/releases)
