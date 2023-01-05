@@ -34,8 +34,7 @@ jobs:
         git config user.name "Crowdin Bot"
         git config user.email "<>"
         git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH $GITHUB_REF
-        git checkout -B crowdin_tmp $BRANCH
-
+        
     - name: Setup crowdin cli
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
@@ -45,22 +44,41 @@ jobs:
         echo "ARGS=$ARGS" >> $GITHUB_ENV
 
     - name: Download changes from crowdin
-      # download sources and translations
       run: |
         crowdin download sources $ARGS
         crowdin download $ARGS
+        git status -s
+        git add .
+        git commit -m "Update from crowdin" --allow-empty 
 
     - name: Merge and resolve conflicts
-      run: |
-        git status
-        git log -n2
-        git add .
-        git commit -m "Update from crowdin" --allow-empty
-        git status
-        git log -n2        
+      run: |     
         git merge $GITHUB_REF -Xtheirs -v
 
     - name: Upload to crowdin
       run: |
         crowdin upload sources --delete-obsolete $ARGS
         crowdin upload translations $ARGS
+
+    - name: Clean branch
+      run: |
+        git checkout -B $BRANCH $GITHUB_REF
+
+    - name: Download from crowdin
+      run: |
+        crowdin download sources $ARGS
+        crowdin download $ARGS
+        git status -s    
+
+    - name: Pull request
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4.2.3
+      with:
+        base: $GITHUB_REF
+        branch: $BRANCH
+        commit-message: Update from crowdin
+        title: Translation
+        body: Update from crowdin
+
+
+
