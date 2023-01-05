@@ -60,8 +60,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
-  
+
+
   <!-- Data -->
+  
   <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
