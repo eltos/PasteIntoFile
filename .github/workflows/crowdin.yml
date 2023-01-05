@@ -5,6 +5,7 @@ on:
     branches: [ maincr ]
     paths:
       - '**/Resources*.resx'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}
@@ -22,7 +23,7 @@ jobs:
       run: |
         git config user.name "Crowdin Bot"
         git config user.email "<>"
-        git checkout maincr
+        git checkout $GITHUB_REF
         git checkout crowdin 2>/dev/null || git checkout -b crowdin
         git checkout -B crowdin_tmp crowdin
     - name: Pull changes from crowdin
@@ -43,7 +44,7 @@ jobs:
     - name: Merge and resolve conflicts
       run: |
         git status
-        git merge maincr -Xtheirs -v
+        git merge $GITHUB_REF -Xtheirs -v
     - name: Push to crowdin
       uses: crowdin/github-action@1.5.2
       with:
@@ -60,6 +61,7 @@ jobs:
         
   pull_request:
     name: Create pull request
+    needs: sync
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -68,7 +70,7 @@ jobs:
         fetch-depth: 0
     - name: Clean branch
       run: |
-        git checkout -B crowdin maincr
+        git checkout -B crowdin $GITHUB_REF
     - name: Pull request
       uses: crowdin/github-action@1.5.2
       with:
@@ -77,7 +79,7 @@ jobs:
         download_translations: true
 
         localization_branch_name: crowdin
-        pull_request_base_branch_name: maincr
+        pull_request_base_branch_name: $GITHUB_REF
         skip_untranslated_strings: true
         export_only_approved: false
         commit_message: 'Crowdin translations'
@@ -87,3 +89,6 @@ jobs:
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
         token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+
+
