@@ -244,7 +244,7 @@ Zusätzlich kann die Zwischenablage überwacht und automatisch gepatcht werden. 
 Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>TODO</value>
+    <value>Bitte eine einzelne Datei auswählen, um den Dateiinhalt zu kopieren!</value>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1.
 </comment>
   </data>
