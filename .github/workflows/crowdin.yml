@@ -38,7 +38,7 @@ jobs:
         localization_branch_name: crowdin_tmp
         create_pull_request: false
         push_translations: false        
-        source: Resources.resx
+        source: '**/Resources.resx'
         translation: /%original_path%/Resources.%two_letters_code%.resx
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
@@ -57,7 +57,7 @@ jobs:
         upload_translations: true
         download_translations: false
         
-        source: Resources.resx
+        source: '**/Resources.resx'
         translation: /%original_path%/Resources.%two_letters_code%.resx
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
@@ -92,7 +92,7 @@ jobs:
         export_only_approved: false
         commit_message: 'Crowdin translations'
         
-        source: Resources.resx
+        source: '**/Resources.resx'
         translation: /%original_path%/Resources.%two_letters_code%.resx
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
