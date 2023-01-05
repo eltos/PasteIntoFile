@@ -243,6 +243,11 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
 Zusätzlich kann die Zwischenablage überwacht und automatisch gepatcht werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
 Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>TODO</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1.
+</comment>
+  </data>
   <data name="str_preview_files" xml:space="preserve">
     <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
   </data>
