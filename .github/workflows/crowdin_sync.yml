@@ -43,7 +43,7 @@ jobs:
         ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
         # check if branch exists
         BRANCH=$(basename $GITHUB_REF)
-        crowdin list branches --plain | grep $BRANCH
+        crowdin list branches $ARGS --plain | grep $BRANCH
         BRANCH_EXISTS=$?
         # save variables        
         ARGS="--branch=$BRANCH $ARGS"
