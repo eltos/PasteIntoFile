@@ -1,104 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
-    Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
-    associated with the data types.
-
-    Example:
-
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-
-    There are any number of "resheader" rows that contain simple
-    name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
-    mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
-    extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
-    read any of the formats listed below.
-
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <!-- Microsoft ResX Schema Version 2.0 -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,7 +59,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+  <!-- Data -->
   <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
@@ -147,9 +90,10 @@
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Paste into file</value>
+    <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>Select a folder for saving this file </value>
+    <value>Select a folder for saving this file</value>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
     <value>Hold shift key during save to show option window.</value>
@@ -173,10 +117,10 @@
     <value>https://github.com/eltos/PasteIntoFile</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-      <value>By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click.</value>
+    <value>By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-      <value>Add context menu entries?</value>
+    <value>Add context menu entries?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Clipboard saved to file</value>
@@ -260,7 +204,7 @@ Save current clipboard contents now?</value>
     <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-      <value>Clipboard contains no data convertable to extension {0} or conversion failed.</value>
+    <value>Clipboard contains no data convertable to extension {0} or conversion failed.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
     <value>HTML preview</value>
@@ -275,7 +219,7 @@ Save current clipboard contents now?</value>
     <value>Symbolic Link (SYLK) preview</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-      <value>Rich Text preview</value>
+    <value>Rich Text preview</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
     <value>Data Interchange preview</value>
@@ -299,35 +243,36 @@ Save current clipboard contents now?</value>
     <value>Enable autostart and hotkeys?</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-      <value>Autostart into tray</value>
+    <value>Autostart into tray</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-      <value>If enabled, Paste Into File is started on windows startup and keeps running in the system tray. This allows to call Paste Into File by pressing WIN+ALT+V (and WIN+ALT+C to copy file contents).
+    <value>If enabled, Paste Into File is started on windows startup and keeps running in the system tray. This allows to call Paste Into File by pressing WIN+ALT+V (and WIN+ALT+C to copy file contents).
 In addition, you may enable clipboard patching. This monitors the clipboard and patches it automatically, so you can use CTRL+V in file explorer as usual.
 These setting will take effect on the next login.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
     <value>Please select a single file to copy file contents</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-      <value>File list preview ({0} files and folders)</value>
+    <value>File list preview ({0} files and folders)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-      <value>Enable clipboard patching (experimental)</value>
+    <value>Enable clipboard patching (experimental)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-      <value>Update available: {0} ➜ {1}</value>
+    <value>Update available: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-      <value>Open</value>
+    <value>Open</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>Vector image preview</value>
+    <value>Vector image preview</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-      <value>Scalable Vector Graphic preview</value>
+    <value>Scalable Vector Graphic preview</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
-      <value>Replace with clipboard content</value>
+    <value>Replace with clipboard content</value>
   </data>
 </root>

@@ -1,0 +1,5 @@
+preserve_hierarchy: true
+files:
+  - source: '**/Resources.resx'
+    translation: '/%original_path%/Resources.%two_letters_code%.resx'
+    skip_untranslated_strings: true
