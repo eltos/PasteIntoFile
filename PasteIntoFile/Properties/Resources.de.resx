@@ -174,7 +174,7 @@
     <value>Die Vorlage wird zum Formatieren des Standarddateinamens verwendet. Folgende Variablen stehen zur Verfügung:
   {0} - Datum und Zeit
   {1} - Zahl gespeicherter Dateien (Stapelverarbeitung)
-Details zur Formatierung gibt es &lt;a&gt;hier&lt;/a&gt;.</value>
+Details zur Formatierung gibt es &lt;a&gt;unter diesem Link&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">
     <value>https://docs.microsoft.com/de-de/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
@@ -264,7 +264,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     <value>Vektorgrafik Vorschau</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>Skalierbare Vektorgrafik Vorschau</value>
+    <value>Vorschau Skalierbare Vektorgrafik</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Ersetzen mit Inhalt der Zwischenablage</value>
