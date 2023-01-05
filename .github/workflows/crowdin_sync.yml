@@ -5,6 +5,7 @@ on:
     branches: [ maincr ]
     paths:
       - '**/Resources*.resx'
+      - '/.github/workflows/crowdin_sync.yml'
   workflow_dispatch:
 
 env:
