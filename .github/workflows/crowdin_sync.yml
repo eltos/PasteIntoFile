@@ -3,8 +3,8 @@ name: Sync translations with Crowdin
 on:
   push:
     branches: [ maincr ]
-    paths:
-      - '**/Resources*.resx'
+    #paths:
+    #  - '**/Resources*.resx'
   workflow_dispatch:
 
 env:
@@ -55,11 +55,11 @@ jobs:
     - name: Merge and resolve conflicts
       run: |
         git status
-        git log
+        git log -n2
         git add .
         git commit -m "Update from crowdin"
         git status
-        git log        
+        git log -n2        
         git merge $GITHUB_REF -Xtheirs -v
 
     - name: Push to crowdin
