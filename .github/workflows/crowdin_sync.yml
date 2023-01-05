@@ -33,7 +33,7 @@ jobs:
       run: |
         git config user.name "Crowdin Bot"
         git config user.email "<>"
-        git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH $GITHUB_REF
+        git checkout $BRANCH 2>/dev/null || git checkout --track origin/$BRANCH $GITHUB_REF
         
     - name: Setup crowdin cli
       run: |
