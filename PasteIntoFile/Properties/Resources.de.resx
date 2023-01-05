@@ -132,7 +132,7 @@
     <value>Textvorschau ({0} Zeichen, {1} Zeilen)</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
-    <value>Ein Ordner mit dem gleichen Namen existiert bereits unter {0}.</value>
+    <value>Ein Ordner mit dem gleichen Namen existiert bereits unter {0}!</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
     <value>Die Datei {0} existiert bereits. Soll sie überschrieben werden?</value>
