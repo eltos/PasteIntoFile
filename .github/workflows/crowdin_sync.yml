@@ -27,6 +27,11 @@ jobs:
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
         sudo dpkg -i crowdin.deb
+
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
         
     - name: Setup crowdin branch
       run: |
@@ -35,11 +40,6 @@ jobs:
         crowdin branch add $REF $ARGS
         ARGS="--branch=$REF $ARGS"        
         echo "ARGS=$ARGS" >> $GITHUB_ENV
-
-    - name: Checkout repo
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     # Merge changes from git and crowdin and sync back to crowdin
     ##############################################################
