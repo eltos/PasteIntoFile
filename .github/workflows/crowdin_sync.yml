@@ -40,8 +40,9 @@ jobs:
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb
         sudo dpkg -i crowdin.deb
-        ARGS="--branch=main --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
-        
+        ARGS="--branch=$(basename $GITHUB_REF) --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
+        echo "ARGS=$ARGS" >> $GITHUB_ENV
+
     - name: Download changes from crowdin
       # download sources and translations
       run: |
