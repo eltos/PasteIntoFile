@@ -38,13 +38,14 @@ jobs:
 
     - name: Setup crowdin cli
       run: |
-        wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb
+        wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
         sudo dpkg -i crowdin.deb
         ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
-        # check if branch exists
         BRANCH=$(basename $GITHUB_REF)
+        echo "Checking if branch $BRANCH exists..."
         crowdin list branches $ARGS --plain | grep $BRANCH
         BRANCH_EXISTS=$?
+        echo "Branch not found: $BRANCH_EXISTS"
         # save variables        
         ARGS="--branch=$BRANCH $ARGS"
         echo "ARGS=$ARGS" >> $GITHUB_ENV
