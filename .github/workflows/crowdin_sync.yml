@@ -94,8 +94,9 @@ jobs:
         body: |
           Update from crowdin
           
-          -------------
+          ```
           ${{ env.INFO }}
+          ```
 
 
 
