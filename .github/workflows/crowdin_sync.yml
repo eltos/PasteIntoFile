@@ -6,9 +6,6 @@ on:
     #paths:
     #  - '**/Resources*.resx'
   workflow_dispatch:
-  
-# Note:
-# - branches on crowdin are not created automatically
 
 env:
   # The git branch used for sync with crowdin and for the pull request
@@ -35,8 +32,10 @@ jobs:
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
         sudo dpkg -i crowdin.deb
+        ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
         REF=$(basename $GITHUB_REF)
-        ARGS="--branch=$REF --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
+        #crowdin branch add $REF $ARGS
+        ARGS="--branch=$REF $ARGS"        
         echo "ARGS=$ARGS" >> $GITHUB_ENV
 
     # Merge changes from git and crowdin and sync back to crowdin
@@ -80,7 +79,7 @@ jobs:
         crowdin download $ARGS
         git status -s
         INFO=$(crowdin status -v $ARGS)
-        echo "INFO=$INFO" >> $GITHUB_ENV
+        echo "INFO='$INFO'" >> $GITHUB_ENV
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
