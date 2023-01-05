@@ -1,0 +1,89 @@
+name: Sync translations with Crowdin
+
+on:
+  push:
+    branches: [ maincr ]
+    paths:
+      - '**/Resources*.resx'
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  sync:
+    name: Sync translations with crowdin
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Prepare
+      run: |
+        git config user.name "Crowdin Bot"
+        git config user.email "<>"
+        git checkout maincr
+        git checkout crowdin 2>/dev/null || git checkout -b crowdin
+        git checkout -B crowdin_tmp crowdin
+    - name: Pull changes from crowdin
+      uses: crowdin/github-action@1.5.2
+      with:
+        upload_sources: false
+        upload_translations: false
+        download_translations: true
+
+        localization_branch_name: crowdin_tmp
+        create_pull_request: false
+        push_translations: false        
+        source: Resources.resx
+        translation: /%original_path%/Resources.%two_letters_code%.resx
+        
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+    - name: Merge and resolve conflicts
+      run: |
+        git status
+        git merge maincr -Xtheirs -v
+    - name: Push to crowdin
+      uses: crowdin/github-action@1.5.2
+      with:
+        upload_sources: true
+        upload_translations: true
+        download_translations: false
+        
+        source: Resources.resx
+        translation: /%original_path%/Resources.%two_letters_code%.resx
+        
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        
+        
+  pull_request:
+    name: Create pull request
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Clean branch
+      run: |
+        git checkout -B crowdin maincr
+    - name: Pull request
+      uses: crowdin/github-action@1.5.2
+      with:
+        upload_sources: false
+        upload_translations: false
+        download_translations: true
+
+        localization_branch_name: crowdin
+        pull_request_base_branch_name: maincr
+        skip_untranslated_strings: true
+        export_only_approved: false
+        commit_message: 'Crowdin translations'
+        
+        source: Resources.resx
+        translation: /%original_path%/Resources.%two_letters_code%.resx
+        
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
