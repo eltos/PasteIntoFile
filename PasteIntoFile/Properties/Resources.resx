@@ -105,7 +105,7 @@
     <value>Files are now automatically saved without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>Clipboard is empty or contains unsupported data</value>
+    <value>Clipboard is empty or contains unsupported data!</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
     <value>Welcome to Paste Into File</value>
