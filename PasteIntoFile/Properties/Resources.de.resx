@@ -117,7 +117,7 @@
     <value>Einträge zum Kontextmenü hinzufügen?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Zwischenablage als Datei gespeichert</value>
+    <value>Zwischenablage wurde als Datei gespeichert</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
