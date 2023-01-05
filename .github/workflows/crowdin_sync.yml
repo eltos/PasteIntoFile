@@ -62,6 +62,7 @@ jobs:
     - name: Merge and resolve conflicts
       run: |     
         git merge $GITHUB_REF -Xtheirs -v
+        git diff $GITHUB_REF
 
     - name: Upload to crowdin
       run: |
