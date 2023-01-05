@@ -6,10 +6,12 @@ on:
     #paths:
     #  - '**/Resources*.resx'
   workflow_dispatch:
+  
+# Note:
+# - branches on crowdin are not created automatically
 
 env:
-  # The git branch used for sync with crowdin to keep track of changes from crowdin.
-  # Also used for the pull request. Must not be deleted even after the PR is merged!
+  # The git branch used for sync with crowdin and for the pull request
   BRANCH: crowdin
   # crowdin config
   CONFIG: '.github/.crowdin.yml'
@@ -28,20 +30,23 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Prepare branches
-      run: |
-        git config user.name "Crowdin Bot"
-        git config user.email "<>"
-        git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH $GITHUB_REF
-        
+    
     - name: Setup crowdin cli
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
         sudo dpkg -i crowdin.deb
-        REF=main # $(basename $GITHUB_REF)
+        REF=$(basename $GITHUB_REF)
         ARGS="--branch=$REF --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
         echo "ARGS=$ARGS" >> $GITHUB_ENV
+
+    # Merge changes from git and crowdin and sync back to crowdin
+    ##############################################################
+
+    - name: Prepare branch
+      run: |
+        git config user.name "Crowdin Bot"
+        git config user.email "<>"
+        git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH $GITHUB_REF
 
     - name: Download changes from crowdin
       run: |
@@ -60,6 +65,9 @@ jobs:
         crowdin upload sources --delete-obsolete $ARGS
         crowdin upload translations $ARGS
 
+    # Create or update the pull request with data from crowdin
+    ###########################################################
+
     - name: Clean branch
       run: |
         git checkout -B $BRANCH $GITHUB_REF
@@ -70,16 +78,22 @@ jobs:
       run: |
         crowdin download sources $ARGS
         crowdin download $ARGS
-        git status -s    
+        git status -s
+        INFO=$(crowdin status -v $ARGS)
+        echo "INFO=$INFO" >> $GITHUB_ENV
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
       with:
-        #base: $GITHUB_REF
-        branch: $BRANCH
+        branch: ${{ github.BRANCH }}
         commit-message: Update from crowdin
         title: Translation
-        body: Update from crowdin
+        body: |
+          Update from crowdin
+          
+          -------------
+          ${{ env.INFO }}
+
 
 
 
