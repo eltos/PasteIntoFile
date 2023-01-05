@@ -119,9 +119,6 @@
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Zwischenablage wurde als Datei gespeichert</value>
   </data>
-  <data name="str_version" xml:space="preserve">
-    <value>Version {0}</value>
-  </data>
   <data name="str_preview" xml:space="preserve">
     <value>Vorschau</value>
   </data>
@@ -153,7 +150,7 @@
     <value>Setup fertigstellen</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
+    <value>Das Programm kann so konfiguriert werden, dass Dateien sofort gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Stapelverarbeitung</value>
