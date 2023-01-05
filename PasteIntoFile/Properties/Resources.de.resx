@@ -1,64 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
-    Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
-    associated with the data types.
-
-    Example:
-
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-
-    There are any number of "resheader" rows that contain simple
-    name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
-    mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
-    extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
-    read any of the formats listed below.
-
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+  <!-- Microsoft ResX Schema Version 2.0 -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -118,6 +60,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+  <!-- Data -->
   <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
@@ -144,15 +87,16 @@
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Einfügen als Datei</value>
+    <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Speicherort auswählen</value>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Umschalttaste gedrückt halten um Optionen wieder anzuzeigen.</value>
+    <value>Umschalttaste gedrückt halten, um Optionen wieder anzuzeigen.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenü die Umschalttaste gedrückt gehalten werden.</value>
+    <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen, kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenü die Umschalttaste gedrückt gehalten werden.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
     <value>Die Zwischenablage ist leer oder enthält nicht unterstützte Daten</value>
@@ -167,10 +111,10 @@
     <value>Projekt auf GitHub finden</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-      <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
+    <value>Indem Einträge zum Kontextmenü hinzugefügt werden, können Inhalte der Zwischenablage einfach mittels Rechtsklick eingefügt oder kopiert werden.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-      <value>Einträge zum Kontextmenü hinzufügen?</value>
+    <value>Einträge zum Kontextmenü hinzufügen?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
     <value>Zwischenablage als Datei gespeichert</value>
@@ -209,7 +153,7 @@
     <value>Setup fertigstellen</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog stets angezeigt.</value>
+    <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Stapelverarbeitung</value>
@@ -239,7 +183,7 @@ Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
     <value>Dateinamen-Vorlage</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>Im Modus 'Stapelverarbeitung' wird der Inhalt der Zwischenablage gespeichert, sobald neue Daten kopiert wurden.
+    <value>Im Modus 'Stapelverarbeitung' wird der Inhalt der Zwischenablage gespeichert, sobald neue Daten kopiert werden.
 
 Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
   </data>
@@ -253,7 +197,7 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-      <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
+    <value>Die Zwischenablage enthält keine zum Dateityp {0} konvertierbaren Daten oder die Konvertierung schlug fehl.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
     <value>HTML Vorschau</value>
@@ -268,7 +212,7 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Symbolic Link (SYLK) Vorschau</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-      <value>Rich Text Vorschau</value>
+    <value>Rich Text Vorschau</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
     <value>Data Interchange Vorschau</value>
@@ -292,35 +236,32 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
     <value>Autostart und Tastenkürzel aktivieren?</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-      <value>Tray Autostart aktivieren</value>
+    <value>Tray Autostart aktivieren</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-      <value>Wenn gewünscht, kann Paste Into File mit Windows gestartet und im System-Tray aktiv bleiben. So kann Paste Into File durch Drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum Kopieren von Dateiinhalten).
+    <value>Wenn gewünscht, kann Paste Into File mit Windows gestartet werden und im Systemtray aktiv bleiben. So kann Paste Into File durch Drücken von WIN+ALT+V aufgerufen werden (bzw. WIN+ALT+C zum Kopieren von Dateiinhalten).
 Zusätzlich kann die Zwischenablage überwacht und automatisch gepatcht werden. Das erlaubt die Verwendung des normalen Tastenkürzels STRG+V im Explorer.
 Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
-  <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>Bitte eine einzelne Datei auswählen um den Dateiinhalt zu kopieren.</value>
-  </data>
   <data name="str_preview_files" xml:space="preserve">
-      <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
+    <value>Dateiliste Vorschau ({0} Dateien und Ordner)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-      <value>Patching der Zwischenablage aktivieren (experimentell)</value>
+    <value>Patchen der Zwischenablage aktivieren (experimentell)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-      <value>Update verfügbar: {0} ➜ {1}</value>
+    <value>Update verfügbar: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-      <value>Öffnen</value>
+    <value>Öffnen</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>Vektorgrafik Vorschau</value>
+    <value>Vektorgrafik Vorschau</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-      <value>Skalierbare Vektorgrafik Vorschau</value>
+    <value>Skalierbare Vektorgrafik Vorschau</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
-      <value>Ersetzen mit Inhalt der Zwischenablage</value>
+    <value>Ersetzen mit Inhalt der Zwischenablage</value>
   </data>
 </root>
