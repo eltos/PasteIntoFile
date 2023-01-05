@@ -1,4 +1,4 @@
-name: Sync translations with Crowdin
+name: Sync translations with Crowdin (two-way)
 
 on:
   push:
