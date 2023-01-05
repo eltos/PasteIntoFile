@@ -39,6 +39,9 @@ jobs:
       uses: crowdin/github-action@1.5.2
       with:
         config: ${{ env.CONFIG }}
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        
         upload_sources: false
         upload_translations: false
         download_translations: true
@@ -63,6 +66,9 @@ jobs:
       uses: crowdin/github-action@1.5.2
       with:
         config: ${{ env.CONFIG }}
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        
         upload_sources: true
         upload_translations: true
         download_translations: false
@@ -88,6 +94,9 @@ jobs:
       uses: crowdin/github-action@1.5.2
       with:
         config: ${{ env.CONFIG }}
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        
         upload_sources: false
         upload_translations: false
         download_translations: true
