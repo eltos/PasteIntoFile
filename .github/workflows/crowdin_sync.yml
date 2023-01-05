@@ -78,8 +78,9 @@ jobs:
         crowdin download sources $ARGS
         crowdin download $ARGS
         git status -s
-        INFO=$(crowdin status -v $ARGS)
-        echo "INFO='$INFO'" >> $GITHUB_ENV
+        echo 'INFO<<EOF' >> $GITHUB_ENV
+        crowdin status -v $ARGS >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
