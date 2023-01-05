@@ -40,14 +40,25 @@ jobs:
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb
         sudo dpkg -i crowdin.deb
-        ARGS="--branch=$(basename $GITHUB_REF) --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
+        ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
+        # check if branch exists
+        BRANCH=$(basename $GITHUB_REF)
+        crowdin list branches --plain | grep $BRANCH
+        BRANCH_EXISTS=$?
+        # save variables        
+        ARGS="--branch=$BRANCH $ARGS"
         echo "ARGS=$ARGS" >> $GITHUB_ENV
+        echo "BRANCH_EXISTS=$BRANCH_EXISTS" >> $GITHUB_ENV
 
     - name: Download changes from crowdin
       # download sources and translations
       run: |
-        crowdin download sources $ARGS
-        crowdin download $ARGS
+        if [ $BRANCH_EXISTS -eq 0 ]; then
+          crowdin download sources $ARGS
+          crowdin download $ARGS
+        else
+          echo "Skipped download from crowdin because branch does not yet exist"
+        fi
 
     - name: Merge and resolve conflicts
       run: |
