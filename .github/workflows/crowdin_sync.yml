@@ -57,7 +57,7 @@ jobs:
         crowdin download $ARGS
         git status -s
         git add .
-        git commit -m "Update from crowdin" --allow-empty 
+        git commit -m "Update from crowdin"
 
     - name: Merge and resolve conflicts
       run: |     
