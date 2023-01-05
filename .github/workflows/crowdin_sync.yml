@@ -78,6 +78,9 @@ jobs:
         crowdin download sources $ARGS
         crowdin download $ARGS
         git status -s
+        
+    - name: Collect statistics
+      run: |
         echo 'INFO<<EOF' >> $GITHUB_ENV
         crowdin status -v $ARGS >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
@@ -85,7 +88,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
       with:
-        branch: ${{ github.BRANCH }}
+        branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
         title: Translation
         body: |
