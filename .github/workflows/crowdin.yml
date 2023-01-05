@@ -19,6 +19,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
     - name: Prepare
       run: |
         git config user.name "Crowdin Bot"
@@ -26,6 +27,7 @@ jobs:
         git checkout $GITHUB_REF
         git checkout crowdin 2>/dev/null || git checkout -b crowdin
         git checkout -B crowdin_tmp crowdin
+
     - name: Pull changes from crowdin
       uses: crowdin/github-action@1.5.2
       with:
@@ -41,10 +43,13 @@ jobs:
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
         token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        crowdin_branch_name: main
+
     - name: Merge and resolve conflicts
       run: |
         git status
         git merge $GITHUB_REF -Xtheirs -v
+
     - name: Push to crowdin
       uses: crowdin/github-action@1.5.2
       with:
@@ -57,8 +62,9 @@ jobs:
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
         token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-        
-        
+        crowdin_branch_name: main
+
+
   pull_request:
     name: Create pull request
     needs: sync
@@ -68,9 +74,11 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
     - name: Clean branch
       run: |
         git checkout -B crowdin $GITHUB_REF
+
     - name: Pull request
       uses: crowdin/github-action@1.5.2
       with:
@@ -89,6 +97,7 @@ jobs:
         
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
         token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        crowdin_branch_name: main
 
 
 
