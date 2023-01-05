@@ -3,8 +3,8 @@ name: Sync translations with Crowdin
 on:
   push:
     branches: [ maincr ]
-    #paths:
-    #  - '**/Resources*.resx'
+    paths:
+      - '**/Resources*.resx'
   workflow_dispatch:
 
 env:
@@ -22,28 +22,31 @@ jobs:
   sync:
     name: Sync translations with crowdin
     runs-on: ubuntu-latest
-    steps:
+    steps:    
+    - name: Install crowdin cli
+      run: |
+        wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
+        sudo dpkg -i crowdin.deb
+        
+    - name: Setup crowdin branch
+      run: |
+        ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
+        REF=$(basename $GITHUB_REF)
+        crowdin branch add $REF $ARGS
+        ARGS="--branch=$REF $ARGS"        
+        echo "ARGS=$ARGS" >> $GITHUB_ENV
+
     - name: Checkout repo
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    
-    - name: Setup crowdin cli
-      run: |
-        wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
-        sudo dpkg -i crowdin.deb
-        ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
-        REF=$(basename $GITHUB_REF)
-        #crowdin branch add $REF $ARGS
-        ARGS="--branch=$REF $ARGS"        
-        echo "ARGS=$ARGS" >> $GITHUB_ENV
 
     # Merge changes from git and crowdin and sync back to crowdin
     ##############################################################
 
-    - name: Prepare branch
+    - name: Prepare git branch for merge
       run: |
-        git config user.name "Crowdin Bot"
+        git config user.name "Bot"
         git config user.email "<>"
         git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH $GITHUB_REF
 
@@ -67,10 +70,9 @@ jobs:
     # Create or update the pull request with data from crowdin
     ###########################################################
 
-    - name: Clean branch
+    - name: Clean git branch
       run: |
         git checkout -B $BRANCH $GITHUB_REF
-        #git push --force --set-upstream origin $BRANCH
         git checkout $(basename $GITHUB_REF)
 
     - name: Download from crowdin
@@ -97,7 +99,4 @@ jobs:
           ```
           ${{ env.INFO }}
           ```
-
-
-
 
