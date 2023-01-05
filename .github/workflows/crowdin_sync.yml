@@ -11,10 +11,9 @@ env:
   # The git branch used for sync with crowdin to keep track of changes from crowdin.
   # Also used for the pull request. Must not be deleted even after the PR is merged!
   BRANCH: $GITHUB_REF-crowdin
-  # Source and translation file paths to sync
-  SOURCE: '**/Resources.resx'
-  TRANSLATION: '/%original_path%/Resources.%two_letters_code%.resx'
-
+  # crowdin config file
+  CONFIG: '.github/.crowdin.yml'
+  
 concurrency:
   group: ${{ github.workflow }}
 
@@ -39,20 +38,16 @@ jobs:
     - name: Pull changes from crowdin
       uses: crowdin/github-action@1.5.2
       with:
+        config: $CONFIG
         upload_sources: false
         upload_translations: false
         download_translations: true
 
         localization_branch_name: crowdin_tmp
         create_pull_request: false
-        push_translations: false        
-        source: $SOURCE
-        translation: $TRANSLATION
-        preserve_hierarchy: true
+        push_translations: false
         
-        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-        crowdin_branch_name: main
+        crowdin_branch_name: main  # TEST
 
     - name: Merge and resolve conflicts
       run: |
@@ -67,17 +62,12 @@ jobs:
     - name: Push to crowdin
       uses: crowdin/github-action@1.5.2
       with:
+        config: $CONFIG
         upload_sources: true
         upload_translations: true
         download_translations: false
         
-        source: $SOURCE
-        translation: $TRANSLATION
-        preserve_hierarchy: true
-        
-        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-        crowdin_branch_name: main
+        crowdin_branch_name: main  # TEST
 
 
   pull_request:
@@ -97,23 +87,18 @@ jobs:
     - name: Pull request
       uses: crowdin/github-action@1.5.2
       with:
+        config: $CONFIG
         upload_sources: false
         upload_translations: false
         download_translations: true
 
         localization_branch_name: $BRANCH
-        pull_request_base_branch_name: $GITHUB_REF
-        skip_untranslated_strings: true
-        export_only_approved: false
         commit_message: 'Crowdin translations'
+        push_translations: true
+        create_pull_request: true
+        pull_request_base_branch_name: $GITHUB_REF
         
-        source: $SOURCE
-        translation: $TRANSLATION
-        preserve_hierarchy: true
-        
-        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-        crowdin_branch_name: main
+        crowdin_branch_name: main  # TEST
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
