@@ -64,6 +64,7 @@ jobs:
       run: |
         git checkout -B $BRANCH $GITHUB_REF
         git push --force --set-upstream origin $BRANCH
+        git checkout $GITHUB_REF
 
     - name: Download from crowdin
       run: |
@@ -74,7 +75,6 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4.2.3
       with:
-        base: $GITHUB_REF
         branch: $BRANCH
         commit-message: Update from crowdin
         title: Translation
