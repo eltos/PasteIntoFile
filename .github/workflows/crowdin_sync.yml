@@ -70,7 +70,7 @@ jobs:
     - name: Clean branch
       run: |
         git checkout -B $BRANCH $GITHUB_REF
-        git push --force --set-upstream origin $BRANCH
+        #git push --force --set-upstream origin $BRANCH
         git checkout $(basename $GITHUB_REF)
 
     - name: Download from crowdin
