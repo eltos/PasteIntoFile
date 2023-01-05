@@ -5,7 +5,7 @@ on:
     branches: [ maincr ]
     paths:
       - '**/Resources*.resx'
-      - '/.github/workflows/crowdin_sync.yml'
+      - '.github/workflows/crowdin_sync.yml'
   workflow_dispatch:
 
 env:
@@ -57,7 +57,7 @@ jobs:
         crowdin download $ARGS
         git status -s
         git add .
-        git commit -m "Update from crowdin"
+        git commit -m "Update from crowdin" || true
 
     - name: Merge and resolve conflicts
       run: |     
