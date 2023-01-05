@@ -10,7 +10,7 @@ on:
 env:
   # The git branch used for sync with crowdin to keep track of changes from crowdin.
   # Also used for the pull request. Must not be deleted even after the PR is merged!
-  BRANCH: $GITHUB_REF-crowdin
+  BRANCH: crowdin
   # crowdin config file
   CONFIG: '.github/.crowdin.yml'
   
@@ -38,7 +38,7 @@ jobs:
     - name: Pull changes from crowdin
       uses: crowdin/github-action@1.5.2
       with:
-        config: $CONFIG
+        config: ${{ env.CONFIG }}
         upload_sources: false
         upload_translations: false
         download_translations: true
@@ -47,7 +47,7 @@ jobs:
         create_pull_request: false
         push_translations: false
         
-        crowdin_branch_name: main  # TEST
+        crowdin_branch_name: main  # TEST  $GITHUB_REF
 
     - name: Merge and resolve conflicts
       run: |
@@ -62,7 +62,7 @@ jobs:
     - name: Push to crowdin
       uses: crowdin/github-action@1.5.2
       with:
-        config: $CONFIG
+        config: ${{ env.CONFIG }}
         upload_sources: true
         upload_translations: true
         download_translations: false
@@ -87,7 +87,7 @@ jobs:
     - name: Pull request
       uses: crowdin/github-action@1.5.2
       with:
-        config: $CONFIG
+        config: ${{ env.CONFIG }}
         upload_sources: false
         upload_translations: false
         download_translations: true
