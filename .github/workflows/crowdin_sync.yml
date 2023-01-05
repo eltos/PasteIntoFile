@@ -40,12 +40,13 @@ jobs:
       run: |
         wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb
         sudo dpkg -i crowdin.deb
+        ARGS="--branch=main --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
         
-    - name: Pull changes from crowdin
+    - name: Download changes from crowdin
       # download sources and translations
       run: |
-        crowdin download sources --branch=main --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN
-        crowdin download --branch=main --base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN
+        crowdin download sources $ARGS
+        crowdin download $ARGS
 
     - name: Merge and resolve conflicts
       run: |
@@ -56,3 +57,8 @@ jobs:
         git status
         git log -n2        
         git merge $GITHUB_REF -Xtheirs -v
+
+    - name: Upload to crowdin
+      run: |
+        crowdin upload sources --delete-obsolete $ARGS
+        crowdin upload translations $ARGS
