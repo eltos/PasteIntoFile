@@ -95,6 +95,8 @@ jobs:
         branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
         title: Translation
+        labels: |
+            translation
         body: |
           Update translations from crowdin
           
