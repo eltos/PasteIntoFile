@@ -31,8 +31,8 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + Supports many formats: PNG, JPG, GIF, SVG, TXT, HTML, CSV, URL, PDF, RTF, DIF, SLK, EMF, TIF, ZIP, file drop list, ...
 + First launch wizard
 
-![Paste Into File](screenshot.png)
-![Paste Into File kontext menu](screenshot-1.png)
+![Paste Into File](.github/screenshot.png)
+![Paste Into File kontext menu](.github/screenshot-1.png)
 
 
 ## Installation
