@@ -23,7 +23,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ### Features
 
-+ Explorer context menu entry: "Paste into file", "Replace with clipboard content" and "Copy file contents"
++ Explorer context menu entries "[Paste into file](#paste-clipboard-contents)", "[Replace with clipboard content](#replace-with-clipboard-content)" and "[Copy file contents](#copy-file-contents)"
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
@@ -44,8 +44,8 @@ Paste Into File is free
   + And a **portable version** (.zip file)
 + [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
 
-| [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) | [💻 CONTRIBUTE](https://github.com/eltos/PasteIntoFile/contribute)
-|---|---|---|
+| [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) | [🌐 Translate](https://github.com/eltos/PasteIntoFile/issues/18) | [💻 CONTRIBUTE](https://github.com/eltos/PasteIntoFile/contribute)
+|---|---|---|---|
 
 _Tested on Windows 10._
 _If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._
@@ -58,14 +58,17 @@ When starting Paste Into File for the first time or after an update, the first l
 
 In addition to the instructions given below, help is also available via [GitHub discussions](https://github.com/eltos/PasteIntoFile/discussions/categories/q-a).
 
-### Paste clipboard contents
-If **clipboard patching** is enabled and Paste Into File runs in the system tray, the regular paste command and `CTRL`+`V` hotkey can be used.
-Otherwise (or if you want to use the features described below), run the program from the file explorer context menu, via the start menu, with the hotkey `WIN`+`ALT`+`V` (if enabled) or via command line.
 
-In **autosave mode**, the file to paste will directly be created and selected for renaming.
-Otherwise, the dialog will prompt for filename and type.
+### Paste clipboard contents
+
+This is the main mode of PasteIntoFile which allows saving clipboard contents into files.
+To use this mode, run the program from the file explorer context menu, with the hotkey `WIN`+`ALT`+`V` (if enabled), from the tray (if enabled), from the start menu or via command line.
+If **clipboard patching** is enabled, the regular paste command and `CTRL`+`V` hotkey can also be used.
+
+If **autosave mode** is enabled, the file to paste will directly be created and selected for renaming.
+Otherwise, a dialog will prompt for filename and type.
 By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
-When running Paste Into File from the start menu, the dialog will always be shown.
+When running Paste Into File from the start menu or tray, the dialog will always be shown.
 
 The **filename template** can be edited from the dialog or via command line.
 When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
@@ -81,10 +84,6 @@ The file extension is then determined by the last used extension for the respect
 A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
 
-The context menu entry **Replace with clipboard content** allows you to paste clipboard contents into existing files by replacing them.
-This works as long as the clipboard contains data compatible with the selected file type.
-The old file is moved to the recycle bin and can be restored with usual undo option.
-
 [^save_plain_text]: To force saving plain text data to a file with a special extension,
 use uppercase letters or prepend a dot to the file extension (neither will change the actual filename).
 For example, when copying syntax highlighted HTML code snippets from a browser,
@@ -92,9 +91,15 @@ using `html` will cause the html-formatted text to be saved,
 while using `HTML` will save the plain text.
 
 
-### Copy file contents
-Run the program from the file explorer context menu, with the hotkey `WIN`+`ALT`+`C` (if enabled) or via command line.
+### Replace with clipboard content
+The context menu entry **Replace with clipboard content** allows you to paste clipboard contents into existing files by replacing them.
+This works as long as the clipboard contains data compatible with the selected file type.
+The old file is moved to the recycle bin and can be restored with the usual undo options of the file explorer.
 
+
+### Copy file contents
+
+To copy the contents of a file to the clipboard, use the file explorer context menu, the hotkey `WIN`+`ALT`+`C` (if enabled) or the command line option.
 Currently, image and text files are supported. If the file format is not understood, an error message will be shown.
 
 
