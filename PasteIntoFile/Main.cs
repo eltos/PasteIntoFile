@@ -305,6 +305,9 @@ namespace PasteIntoFile {
                 new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
                 new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
             });
+            icon.MouseClick += (sender, eventArgs) => {
+                if (eventArgs.Button == MouseButtons.Left) new Dialog(showDialogOverwrite: true).Show();
+            };
             icon.Visible = true;
 
             // Check for updates (async)
