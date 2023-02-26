@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using LINQtoCSV;
 using PasteIntoFile.Properties;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -266,6 +267,12 @@ namespace PasteIntoFile {
         public override void SaveAs(string path, string extension) {
             File.WriteAllText(path, Text, Encoding);
         }
+
+        /// <summary>
+        /// Return a string used for preview
+        /// </summary>
+        /// <returns></returns>
+        public abstract string TextPreview(string extension);
     }
 
 
@@ -275,6 +282,9 @@ namespace PasteIntoFile {
         public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
+        }
+        public override string TextPreview(string extension) {
+            return Text;
         }
     }
 
@@ -292,15 +302,80 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Html, Text);
         }
+        public override string TextPreview(string extension) {
+            return Text;
+        }
     }
 
 
     public class CsvContent : TextLikeContent {
         public CsvContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "csv", "tsv", "tab" };
+        public override string[] Extensions => new[] { "csv", "tsv", "tab", "md" };
         public override string Description => Resources.str_preview_csv;
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.CommaSeparatedValue, Text);
+        }
+
+        /// <summary>
+        /// Heuristically determine the (most likely) delimiter
+        /// </summary>
+        /// <returns></returns>
+        public char Delimiter {
+            get {
+                var frequency = ";,|\t".ToDictionary(d => d, d => Text.Count(c => c == d));// Heuristic: most frequent delimiter
+                var mostFrequent = frequency.Where(it => it.Value == frequency.Max(i => i.Value));
+                return mostFrequent.First().Key; // Heuristic: first most frequent delimiter
+            }
+        }
+
+        public class Row : List<DataRowItem>, IDataRow { }
+
+        /// <summary>
+        /// Parse the CVS data
+        /// </summary>
+        /// <returns>List of rows</returns>
+        public IEnumerable<Row> Parse() {
+            var context = new CsvContext();
+            var readConfig = new CsvFileDescription();
+            readConfig.FirstLineHasColumnNames = false;
+            readConfig.SeparatorChar = Delimiter;
+            var readStream = new StreamReader(new MemoryStream(readConfig.TextEncoding.GetBytes(Text)));
+            return context.Read<Row>(readStream, readConfig);
+        }
+
+        /// <summary>
+        /// Return a markdown table representation of the CSV data
+        /// </summary>
+        /// <returns>Markdown compatible string</returns>
+        private string AsMarkdown() {
+            var ncol = 0;
+
+            var markdown = "";
+            foreach (var row in Parse()) {
+                ncol = Math.Max(ncol, row.Count);
+                foreach (var item in row) {
+                    markdown += "|" + (item.Value ?? "").PadRight(10);
+                }
+                markdown += "|\n";
+            }
+
+            var header = string.Concat(Enumerable.Repeat("|          ", ncol)) + "|\n";
+            header += string.Concat(Enumerable.Repeat("|----------", ncol)) + "|\n";
+
+            return header + markdown;
+        }
+
+        public override string TextPreview(string extension) {
+            switch (extension) {
+                case "md":
+                    return AsMarkdown();
+                default:
+                    return Text;
+            }
+        }
+
+        public override void SaveAs(string path, string extension) {
+            File.WriteAllText(path, TextPreview(extension), Encoding);
         }
     }
 
@@ -312,6 +387,9 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.SymbolicLink, Text);
         }
+        public override string TextPreview(string extension) {
+            return Text;
+        }
     }
 
 
@@ -322,6 +400,9 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Dif, Text);
         }
+        public override string TextPreview(string extension) {
+            return Text;
+        }
     }
 
 
@@ -331,6 +412,9 @@ namespace PasteIntoFile {
         public override string Description => Resources.str_preview_rtf;
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Rtf, Text);
+        }
+        public override string TextPreview(string extension) {
+            return Text;
         }
     }
 
@@ -347,6 +431,9 @@ namespace PasteIntoFile {
         }
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
+        }
+        public override string TextPreview(string extension) {
+            return Text;
         }
     }
 

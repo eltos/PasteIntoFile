@@ -297,9 +297,9 @@ namespace PasteIntoFile {
 
             } else if (content is TextLikeContent textLikeContent) {
                 if (content is RtfContent)
-                    textPreview.Rtf = textLikeContent.Text;
+                    textPreview.Rtf = textLikeContent.TextPreview(comExt.Text);
                 else
-                    textPreview.Text = textLikeContent.Text;
+                    textPreview.Text = textLikeContent.TextPreview(comExt.Text);
                 textPreview.Show();
 
             } else if (content is FilesContent filesContent) {
