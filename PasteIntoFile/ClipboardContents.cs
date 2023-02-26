@@ -57,7 +57,7 @@ namespace PasteIntoFile {
         public abstract void SaveAs(string path, string extension);
 
         /// <summary>
-        /// Add the content to the data object
+        /// Add the content to the data object to be placed in the clipboard
         /// </summary>
         /// <param name="data">The data object to place contents to</param>
         public abstract void AddTo(IDataObject data);
@@ -140,6 +140,7 @@ namespace PasteIntoFile {
             // No suitable coded available
             return null;
         }
+
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Bitmap, Image);
         }
