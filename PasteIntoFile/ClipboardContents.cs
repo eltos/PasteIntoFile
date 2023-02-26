@@ -738,6 +738,11 @@ namespace PasteIntoFile {
                     container.Contents.Add(new CsvContent(contents));
                 }
 
+                // rtf files
+                if (ext == "rtf") {
+                    container.Contents.Add(new RtfContent(contents));
+                }
+
             }
 
             return container.Contents.Count > 0 ? container : null;
