@@ -282,6 +282,7 @@ namespace PasteIntoFile {
         public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
+            data.SetData(DataFormats.UnicodeText, Text);
         }
         public override string TextPreview(string extension) {
             return Text;
@@ -300,7 +301,20 @@ namespace PasteIntoFile {
             File.WriteAllText(path, html, Encoding);
         }
         public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.Html, Text);
+            // prepare header
+            // See https://learn.microsoft.com/windows/win32/dataxchg/html-clipboard-format
+            var START = "<start_byte_of_html>";
+            var STOP = "<end_byte_of_html>";
+            var header = "Version:0.9\r\n" +
+                         "StartHTML:" + START + "\r\n" +
+                         "EndHTML:" + STOP + "\r\n" +
+                         "StartFragment:" + START + "\r\n" +
+                         "EndFragment:" + STOP + "\r\n";
+            var bytecount = Encoding.UTF8.GetByteCount(Text);
+            header = header.Replace(START, (header.Length).ToString().PadLeft(START.Length, '0'));
+            header = header.Replace(STOP, (header.Length + bytecount).ToString().PadLeft(STOP.Length, '0'));
+
+            data.SetData(DataFormats.Html, header + Text);
         }
         public override string TextPreview(string extension) {
             return Text;
@@ -655,7 +669,7 @@ namespace PasteIntoFile {
 
         private static string ReadClipboardHtml() {
             var content = Clipboard.GetText(TextDataFormat.Html);
-            var match = Regex.Match(content, @"StartHTML:(?<startHTML>\d*).*EndHTML:(?<endHTML>\d*)", RegexOptions.Singleline);
+            var match = Regex.Match(content, @"StartHTML:(?<startHTML>\d*).*?EndHTML:(?<endHTML>\d*)", RegexOptions.Singleline);
             if (match.Success) {
                 var startHtml = Math.Max(int.Parse(match.Groups["startHTML"].Value), 0);
                 var endHtml = Math.Min(int.Parse(match.Groups["endHTML"].Value), content.Length);
@@ -691,6 +705,7 @@ namespace PasteIntoFile {
         }
 
         public static ClipboardContents FromFile(string path) {
+            var ext = Path.GetExtension(path).ToLower().Trim('.');
             var container = new ClipboardContents {
                 Timestamp = DateTime.Now
             };
@@ -705,13 +720,16 @@ namespace PasteIntoFile {
                 }
             } catch { /* it's not */ }
 
+
             // if it's text like (check for absence of zero byte)
             if (!LooksLikeBinaryFile(path)) {
-                container.Contents.Add(new TextContent(File.ReadAllText(path)));
+                var contents = File.ReadAllText(path);
+                container.Contents.Add(new TextContent(contents));
 
+                // html files
                 string firstLine = File.ReadLines(path).First();
-                if (firstLine.StartsWith("<!DOCTYPE html>")) {
-                    container.Contents.Add(new HtmlContent(File.ReadAllText(path)));
+                if (ext == "html" || ext == "htm" || firstLine.StartsWith("<!DOCTYPE html>")) {
+                    container.Contents.Add(new HtmlContent(contents));
                 }
 
             }
