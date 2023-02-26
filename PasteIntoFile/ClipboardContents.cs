@@ -732,6 +732,11 @@ namespace PasteIntoFile {
                     container.Contents.Add(new HtmlContent(contents));
                 }
 
+                // csv files
+                if (ext == "csv") {
+                    container.Contents.Add(new CsvContent(contents));
+                }
+
             }
 
             return container.Contents.Count > 0 ? container : null;
