@@ -268,4 +268,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Ersetzen mit Inhalt der Zwischenablage</value>
   </data>
+  <data name="str_portable" xml:space="preserve">
+      <value>Portable</value>
+  </data>
 </root>

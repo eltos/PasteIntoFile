@@ -30,10 +30,14 @@ namespace PasteIntoFile {
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
 
             // Version info
-            version.Text = string.Format(Resources.str_version, ProductVersion);
-#if DEBUG
-            version.Text += " (debug build)";
+            var versionstr = ProductVersion;
+#if PORTABLE
+            versionstr += " " + Resources.str_portable;
 #endif
+#if DEBUG
+            versionstr += " (debug build)";
+#endif
+            version.Text = string.Format(Resources.str_version, versionstr);
             version.Links.Add(0, version.Text.Length, "https://github.com/eltos/PasteIntoFile/releases");
             version.LinkClicked += (sender, args) => Process.Start(args.Link.LinkData.ToString());
             CheckForUpdates();

@@ -63,10 +63,14 @@ namespace PasteIntoFile {
 
             Icon = Resources.app_icon;
             Text = Resources.app_title;
-            versionInfoLabel.Text = string.Format(Resources.str_version, ProductVersion);
-#if DEBUG
-            versionInfoLabel.Text += " (debug build)";
+            var versionstr = ProductVersion;
+#if PORTABLE
+            versionstr += " " + Resources.str_portable;
 #endif
+#if DEBUG
+            versionstr += " (debug build)";
+#endif
+            versionInfoLabel.Text = string.Format(Resources.str_version, versionstr);
             versionInfoLabel.LinkArea = new LinkArea(0, 0);
             CheckForUpdates();
 

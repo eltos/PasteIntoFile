@@ -12,6 +12,9 @@ using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
 using PasteIntoFile.Properties;
 using WK.Libraries.SharpClipboardNS;
+#if PORTABLE
+using Bluegrams.Application;
+#endif
 
 namespace PasteIntoFile {
     static class Program {
@@ -104,6 +107,12 @@ namespace PasteIntoFile {
             // redirect console output to parent process, for command line help etc.
             // not perfect, but probably as good as it can be: https://stackoverflow.com/a/11058118
             AttachConsole(ATTACH_PARENT_PROCESS);
+
+#if PORTABLE
+            // Portable settings
+            PortableSettingsProvider.SettingsFileName = "settings.config";
+            PortableSettingsProvider.ApplyProvider(Settings.Default);
+#endif
 
             Settings.Default.continuousMode = false; // always start in normal mode
             Settings.Default.Save();

@@ -275,4 +275,7 @@ These setting will take effect on the next login.</value>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Replace with clipboard content</value>
   </data>
+  <data name="str_portable" xml:space="preserve">
+      <value>Portable</value>
+  </data>
 </root>
