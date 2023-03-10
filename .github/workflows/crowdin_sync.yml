@@ -56,13 +56,14 @@ jobs:
         crowdin download sources $ARGS
         crowdin download $ARGS
         git status -s
+        git diff
         git add .
         git commit -m "Update from crowdin" || true
 
     - name: Merge and resolve conflicts
       run: |
         git merge $GITHUB_REF -Xtheirs -v
-        git diff $GITHUB_REF
+        git diff HEAD~1..
 
     - name: Upload to crowdin
       run: |
@@ -82,6 +83,7 @@ jobs:
         crowdin download sources $ARGS
         crowdin download $ARGS
         git status -s
+        git diff
 
     - name: Collect statistics
       run: |
@@ -99,10 +101,10 @@ jobs:
             translation
         body: |
           Update translations from crowdin
-          
+
           ```
           ${{ env.INFO }}
           ```
-          
+
           Please do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin.
 
