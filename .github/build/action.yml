@@ -9,6 +9,10 @@ inputs:
     description: 'Build configuration: Debug or Release'
     required: true
     type: string
+  flavor:
+      description: 'Build flavor: Installer or Portable'
+      required: true
+      type: string
   solution_name:
     required: false
     default: PasteIntoFile.sln
@@ -44,16 +48,11 @@ runs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
-    # Install dependencies
-    - name: Restore packages
-      run: nuget restore ${{ inputs.solution_name }}
-      shell: pwsh
-
-    # Build the app
+    # Build the app (after restoring dependencies)
     - name: Build
       id: build
       run: |
-        msbuild /p:Configuration=${{ inputs.configuration }} ${{ inputs.build_options }}
+        msbuild /r /p:Configuration=${{ inputs.configuration }} /p:Flavor=${{ inputs.flavor }} ${{ inputs.build_options }}
         copy LICENSE ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}
         echo "::set-output name=path::${{ inputs.project_directory }}\bin\${{ inputs.configuration }}"
       shell: pwsh
@@ -64,4 +63,4 @@ runs:
       with:
         name: ${{ inputs.artifact }}
         path: ${{ steps.build.outputs.path }}
-    
+

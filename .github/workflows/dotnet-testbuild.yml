@@ -1,4 +1,4 @@
-﻿# For all pushes and pull_request, this workflow creates a debug build 
+﻿# For all pushes and pull_request, this workflow creates a debug build
 
 name: Test Build
 
@@ -7,11 +7,15 @@ on: [ push, pull_request ]
 jobs:
   build:
     runs-on: windows-2019
+    strategy:
+      matrix:
+        flavor: [Installer, Portable]
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/build
         with:
           configuration: Debug
+          flavor: ${{ matrix.flavor }}
           artifact: PasteIntoFile_debug
 
 #  test:
@@ -20,15 +24,14 @@ jobs:
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v2
-#      
+#
 #      ## Install the .NET Core workload
 #      ## This is not required since the windows-2019 runner comes with pre-installed .NET Framework
 #      #- name: Install .NET Core
 #      #  uses: actions/setup-dotnet@v1
 #      #  with:
 #      #    dotnet-version: 5.0.x
-#      
+#
 #      # Execute all unit tests in the solution
 #      - name: Execute unit tests
 #        run: dotnet test
-        

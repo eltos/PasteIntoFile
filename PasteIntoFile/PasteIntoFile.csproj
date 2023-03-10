@@ -63,12 +63,6 @@
         <PackageReference Include="PortableSettingsProvider" Version="0.2.4" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="BetterFolderBrowser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\packages\BetterFolderBrowser.1.0.0\lib\BetterFolderBrowser.dll</HintPath>
-        </Reference>
-        <Reference Include="SharpClipboard, Version=3.5.2.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\packages\SharpClipboard.3.5.2\lib\net20\SharpClipboard.dll</HintPath>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
