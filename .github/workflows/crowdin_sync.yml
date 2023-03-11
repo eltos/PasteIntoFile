@@ -68,7 +68,9 @@ jobs:
     - name: Upload to crowdin
       run: |
         crowdin upload sources --delete-obsolete $ARGS
-        crowdin upload translations $ARGS
+        crowdin upload translations --import-eq-suggestions $ARGS
+    # Note: Without the "import-eq-suggestions" switch, new translations that literally match the source string
+    #       would not be uploaded, so a PR would be opened during back-sync to remove these (redundant) translations.
 
     # Create or update the pull request with data from crowdin
     ###########################################################
