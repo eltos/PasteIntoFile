@@ -124,6 +124,16 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Saves clipboard data to default filetype without prompt.
+        ///Hold SHIFT to temporarly invert this setting..
+        /// </summary>
+        internal static string str_autosave_tooltip {
+            get {
+                return ResourceManager.GetString("str_autosave_tooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string str_cancel {
@@ -138,6 +148,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_clear_clipboard {
             get {
                 return ResourceManager.GetString("str_clear_clipboard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Clears the clipboard after its content has been saved..
+        /// </summary>
+        internal static string str_clear_clipboard_tooltip {
+            get {
+                return ResourceManager.GetString("str_clear_clipboard_tooltip", resourceCulture);
             }
         }
 

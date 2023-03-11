@@ -52,6 +52,7 @@ namespace PasteIntoFile {
             this.chkContinuousMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.settingsLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             this.box.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -131,7 +132,7 @@ namespace PasteIntoFile {
             //
             this.lblExt.AutoSize = true;
             this.lblExt.Location = new System.Drawing.Point(438, 0);
-            this.lblExt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblExt.Margin = new System.Windows.Forms.Padding(0);
             this.lblExt.Name = "lblExt";
             this.lblExt.Size = new System.Drawing.Size(104, 20);
             this.lblExt.TabIndex = 2;
@@ -188,11 +189,12 @@ namespace PasteIntoFile {
             this.btnBrowseForFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBrowseForFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBrowseForFolder.Location = new System.Drawing.Point(492, 24);
-            this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBrowseForFolder.Margin = new System.Windows.Forms.Padding(3);
             this.btnBrowseForFolder.Name = "btnBrowseForFolder";
             this.btnBrowseForFolder.Size = new System.Drawing.Size(50, 26);
             this.btnBrowseForFolder.TabIndex = 3;
             this.btnBrowseForFolder.Text = "...";
+            this.toolTip.SetToolTip(this.btnBrowseForFolder, Resources.str_select_folder);
             this.btnBrowseForFolder.UseVisualStyleBackColor = true;
             this.btnBrowseForFolder.Click += new System.EventHandler(this.btnBrowseForFolder_Click);
             //
@@ -233,6 +235,7 @@ namespace PasteIntoFile {
             this.chkClrClipboard.TabIndex = 5;
             this.chkClrClipboard.Text = "str_clear_clipboard";
             this.chkClrClipboard.UseVisualStyleBackColor = true;
+            this.toolTip.SetToolTip(this.chkClrClipboard, Resources.str_clear_clipboard_tooltip);
             this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
             //
             // chkAutoSave
@@ -245,6 +248,7 @@ namespace PasteIntoFile {
             this.chkAutoSave.TabIndex = 7;
             this.chkAutoSave.Text = "str_autosave_checkbox";
             this.chkAutoSave.UseVisualStyleBackColor = true;
+            this.toolTip.SetToolTip(this.chkAutoSave, Resources.str_autosave_tooltip);
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
             //
             // box
@@ -462,6 +466,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.CheckBox chkClrClipboard;
         private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.GroupBox box;
+        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

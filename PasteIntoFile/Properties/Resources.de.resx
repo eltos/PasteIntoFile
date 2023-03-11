@@ -156,7 +156,7 @@
     <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Stapelverarbeitung</value>
+      <value>Stapelverarbeitung</value>
   </data>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} gespeichert</value>
@@ -270,5 +270,12 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
   <data name="str_portable" xml:space="preserve">
       <value>Portable</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+      <value>Löscht die Daten in der Zwischenablage nach dem Speichern.</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+      <value>Speichert Dateien automatisch im Standarddateiformat ohne den Dialog zu zeigen.
+Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertieren.</value>
   </data>
 </root>

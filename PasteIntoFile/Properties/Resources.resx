@@ -163,7 +163,7 @@ Do you want to overwrite it?</value>
     <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Batch mode</value>
+      <value>Batch mode</value>
   </data>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} saved</value>
@@ -277,5 +277,12 @@ These setting will take effect on the next login.</value>
   </data>
   <data name="str_portable" xml:space="preserve">
       <value>Portable</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+      <value>Clears the clipboard after its content has been saved.</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+      <value>Saves clipboard data to default filetype without prompt.
+Hold SHIFT to temporarly invert this setting.</value>
   </data>
 </root>
