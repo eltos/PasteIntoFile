@@ -10,12 +10,6 @@ namespace PasteIntoFile {
         public TemplateEdit() {
             InitializeComponent();
 
-            foreach (Control element in GetAllChild(this)) {
-                // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_filename_template, Resources.str_accept, Resources.str_cancel, Resources.str_template_edit_info };
-                element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
-            }
-
             Icon = Resources.app_icon;
             Text = Resources.str_edit_template;
 
@@ -71,7 +65,7 @@ namespace PasteIntoFile {
 
         private void TemplateEdit_Shown(object sender, EventArgs e) {
             // Auto size dialog height
-            // All tableLayout rows are set to 'autosize' except for the last -> it's height is a measure for leftover space 
+            // All tableLayout rows are set to 'autosize' except for the last -> it's height is a measure for leftover space
             Height -= tableLayoutPanel1.GetRowHeights()[tableLayoutPanel1.RowCount - 1];
             MinimumSize = Size;
         }

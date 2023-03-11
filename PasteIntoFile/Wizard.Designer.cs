@@ -98,7 +98,7 @@ namespace PasteIntoFile {
             this.autoSaveCheckBox.Name = "autoSaveCheckBox";
             this.autoSaveCheckBox.Size = new System.Drawing.Size(262, 24);
             this.autoSaveCheckBox.TabIndex = 1;
-            this.autoSaveCheckBox.Text = "str_wizard_autosave_button";
+            this.autoSaveCheckBox.Text = Resources.str_wizard_autosave_button;
             this.autoSaveCheckBox.UseVisualStyleBackColor = true;
             this.autoSaveCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
             //
@@ -112,7 +112,7 @@ namespace PasteIntoFile {
             this.autoSaveInfoLabel.Name = "autoSaveInfoLabel";
             this.autoSaveInfoLabel.Size = new System.Drawing.Size(560, 23);
             this.autoSaveInfoLabel.TabIndex = 6;
-            this.autoSaveInfoLabel.Text = "str_wizard_autosave_info";
+            this.autoSaveInfoLabel.Text = Resources.str_wizard_autosave_info;
             //
             // autoSaveTitleLabel
             //
@@ -124,7 +124,7 @@ namespace PasteIntoFile {
             this.autoSaveTitleLabel.Name = "autoSaveTitleLabel";
             this.autoSaveTitleLabel.Size = new System.Drawing.Size(560, 32);
             this.autoSaveTitleLabel.TabIndex = 5;
-            this.autoSaveTitleLabel.Text = "str_wizard_autosave_title";
+            this.autoSaveTitleLabel.Text = Resources.str_wizard_autosave_title;
             //
             // title
             //
@@ -136,7 +136,7 @@ namespace PasteIntoFile {
             this.title.Name = "title";
             this.title.Size = new System.Drawing.Size(560, 54);
             this.title.TabIndex = 0;
-            this.title.Text = "str_wizard_title";
+            this.title.Text = Resources.str_wizard_title;
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // contextEntryTitleLabel
@@ -148,7 +148,7 @@ namespace PasteIntoFile {
             this.contextEntryTitleLabel.Name = "contextEntryTitleLabel";
             this.contextEntryTitleLabel.Size = new System.Drawing.Size(343, 32);
             this.contextEntryTitleLabel.TabIndex = 1;
-            this.contextEntryTitleLabel.Text = "str_wizard_contextentry_title";
+            this.contextEntryTitleLabel.Text = Resources.str_wizard_contextentry_title;
             //
             // contextEntryInfoLabel
             //
@@ -160,7 +160,7 @@ namespace PasteIntoFile {
             this.contextEntryInfoLabel.Name = "contextEntryInfoLabel";
             this.contextEntryInfoLabel.Size = new System.Drawing.Size(560, 23);
             this.contextEntryInfoLabel.TabIndex = 2;
-            this.contextEntryInfoLabel.Text = "str_wizard_contextentry_info";
+            this.contextEntryInfoLabel.Text = Resources.str_wizard_contextentry_info;
             //
             // contextEntryCheckBoxPaste
             //
@@ -172,7 +172,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxPaste.Name = "contextEntryCheckBoxPaste";
             this.contextEntryCheckBoxPaste.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxPaste.TabIndex = 0;
-            this.contextEntryCheckBoxPaste.Text = "str_contextentry";
+            this.contextEntryCheckBoxPaste.Text = Resources.str_contextentry;
             this.contextEntryCheckBoxPaste.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxPaste.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
@@ -186,7 +186,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxCopy.Name = "contextEntryCheckBoxCopy";
             this.contextEntryCheckBoxCopy.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxCopy.TabIndex = 0;
-            this.contextEntryCheckBoxCopy.Text = "str_contextentry_copyfromfile";
+            this.contextEntryCheckBoxCopy.Text = Resources.str_contextentry_copyfromfile;
             this.contextEntryCheckBoxCopy.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxCopy.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
@@ -200,7 +200,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxReplace.Name = "contextEntryCheckBoxReplace";
             this.contextEntryCheckBoxReplace.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxReplace.TabIndex = 0;
-            this.contextEntryCheckBoxReplace.Text = "str_contextentry_replaceintofile";
+            this.contextEntryCheckBoxReplace.Text = Resources.str_contextentry_replaceintofile;
             this.contextEntryCheckBoxReplace.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxReplace.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
@@ -213,7 +213,7 @@ namespace PasteIntoFile {
             this.autostartTitleLabel.Name = "autostartTitleLabel";
             this.autostartTitleLabel.Size = new System.Drawing.Size(343, 32);
             this.autostartTitleLabel.TabIndex = 1;
-            this.autostartTitleLabel.Text = "str_wizard_tray_title";
+            this.autostartTitleLabel.Text = Resources.str_wizard_tray_title;
             //
             // autostartInfoLabel
             //
@@ -225,7 +225,7 @@ namespace PasteIntoFile {
             this.autostartInfoLabel.Name = "autostartInfoLabel";
             this.autostartInfoLabel.Size = new System.Drawing.Size(560, 23);
             this.autostartInfoLabel.TabIndex = 2;
-            this.autostartInfoLabel.Text = "str_wizard_tray_info";
+            this.autostartInfoLabel.Text = Resources.str_wizard_tray_info;
             //
             // autostartCheckBox
             //
@@ -237,7 +237,7 @@ namespace PasteIntoFile {
             this.autostartCheckBox.Name = "autostartCheckBox";
             this.autostartCheckBox.Size = new System.Drawing.Size(288, 24);
             this.autostartCheckBox.TabIndex = 0;
-            this.autostartCheckBox.Text = "str_wizard_tray_autostart_button";
+            this.autostartCheckBox.Text = Resources.str_wizard_tray_autostart_button;
             this.autostartCheckBox.UseVisualStyleBackColor = true;
             this.autostartCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutostart_CheckedChanged);
             //
@@ -251,7 +251,7 @@ namespace PasteIntoFile {
             this.patchingCheckBox.Name = "patchingCheckBox";
             this.patchingCheckBox.Size = new System.Drawing.Size(210, 17);
             this.patchingCheckBox.TabIndex = 8;
-            this.patchingCheckBox.Text = "str_wizard_tray_patching_button";
+            this.patchingCheckBox.Text = Resources.str_wizard_tray_patching_button;
             this.patchingCheckBox.UseVisualStyleBackColor = true;
             this.patchingCheckBox.CheckedChanged += new System.EventHandler(this.ChkPatching_CheckedChanged);
             //
@@ -264,7 +264,7 @@ namespace PasteIntoFile {
             this.finish.Name = "finish";
             this.finish.Size = new System.Drawing.Size(206, 30);
             this.finish.TabIndex = 2;
-            this.finish.Text = "str_wizard_finish";
+            this.finish.Text = Resources.str_wizard_finish;
             this.finish.UseVisualStyleBackColor = true;
             this.finish.Click += new System.EventHandler(this.finish_Click);
             //

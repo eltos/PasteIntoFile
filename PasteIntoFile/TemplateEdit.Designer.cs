@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
     partial class TemplateEdit {
@@ -35,9 +36,9 @@ namespace PasteIntoFile {
             this.buttonAccept = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // tableLayoutPanel1
-            // 
+            //
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -61,19 +62,19 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(478, 244);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
+            //
             // labelTemplate
-            // 
+            //
             this.labelTemplate.AutoSize = true;
             this.labelTemplate.Location = new System.Drawing.Point(4, 43);
             this.labelTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.labelTemplate.Name = "labelTemplate";
             this.labelTemplate.Size = new System.Drawing.Size(167, 20);
             this.labelTemplate.TabIndex = 5;
-            this.labelTemplate.Text = "str_filename_template";
-            // 
+            this.labelTemplate.Text = Resources.str_filename_template;
+            //
             // textTemplate
-            // 
+            //
             this.textTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textTemplate, 2);
             this.textTemplate.FormattingEnabled = true;
@@ -84,9 +85,9 @@ namespace PasteIntoFile {
             this.textTemplate.TabIndex = 0;
             this.textTemplate.SelectedIndexChanged += new System.EventHandler(this.textTemplate_Update);
             this.textTemplate.TextUpdate += new System.EventHandler(this.textTemplate_Update);
-            // 
+            //
             // labelInfo
-            // 
+            //
             this.labelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelInfo.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.labelInfo, 2);
@@ -97,11 +98,11 @@ namespace PasteIntoFile {
             this.labelInfo.Size = new System.Drawing.Size(462, 21);
             this.labelInfo.TabIndex = 3;
             this.labelInfo.TabStop = true;
-            this.labelInfo.Text = "str_template_edit_info";
+            this.labelInfo.Text = Resources.str_template_edit_info;
             this.labelInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelInfo_LinkClicked);
-            // 
+            //
             // labelPreview
-            // 
+            //
             this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPreview.AutoEllipsis = true;
             this.tableLayoutPanel1.SetColumnSpan(this.labelPreview, 2);
@@ -111,9 +112,9 @@ namespace PasteIntoFile {
             this.labelPreview.Size = new System.Drawing.Size(462, 20);
             this.labelPreview.TabIndex = 4;
             this.labelPreview.Text = "...";
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.AutoSize = true;
             this.buttonCancel.Location = new System.Drawing.Point(276, 141);
@@ -121,24 +122,24 @@ namespace PasteIntoFile {
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(92, 30);
             this.buttonCancel.TabIndex = 2;
-            this.buttonCancel.Text = "str_cancel";
+            this.buttonCancel.Text = Resources.str_cancel;
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // buttonAccept
-            // 
+            //
             this.buttonAccept.AutoSize = true;
             this.buttonAccept.Location = new System.Drawing.Point(376, 141);
             this.buttonAccept.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(94, 30);
             this.buttonAccept.TabIndex = 1;
-            this.buttonAccept.Text = "str_accept";
+            this.buttonAccept.Text = Resources.str_accept;
             this.buttonAccept.UseVisualStyleBackColor = true;
             this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
-            // 
+            //
             // TemplateEdit
-            // 
+            //
             this.AcceptButton = this.buttonAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;

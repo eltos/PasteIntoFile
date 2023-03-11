@@ -12,12 +12,6 @@ namespace PasteIntoFile {
             Settings.Default.Reload(); // load modifications made from other instance
 
 
-            foreach (Control element in GetAllChild(this)) {
-                // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_wizard_title, Resources.str_wizard_contextentry_title, Resources.str_wizard_contextentry_info, Resources.str_wizard_autosave_title, Resources.str_wizard_autosave_info, Resources.str_wizard_autosave_button, Resources.str_wizard_tray_title, Resources.str_wizard_tray_info, Resources.str_wizard_tray_autostart_button, Resources.str_wizard_tray_patching_button, Resources.str_wizard_finish };
-                element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
-            }
-
             Icon = Resources.app_icon;
             Text = Resources.app_title;
 

@@ -54,13 +54,6 @@ namespace PasteIntoFile {
             // Setup GUI
             InitializeComponent();
 
-            foreach (Control element in GetAllChild(this)) {
-                if (element is WebBrowser) continue;
-                // ReSharper disable once UnusedVariable (to convince IDE that these resource strings are actually used)
-                string[] usedResourceStrings = { Resources.str_filename, Resources.str_extension, Resources.str_location, Resources.str_clear_clipboard, Resources.str_save, Resources.str_preview, Resources.str_main_info, Resources.str_autosave_checkbox, Resources.str_contextentry_checkbox, Resources.str_continuous_mode };
-                element.Text = Resources.ResourceManager.GetString(element.Text) ?? element.Text;
-            }
-
             Icon = Resources.app_icon;
             Text = Resources.app_title;
             var versionstr = ProductVersion;

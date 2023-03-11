@@ -115,7 +115,7 @@ namespace PasteIntoFile {
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(96, 20);
             this.lblFileName.TabIndex = 1;
-            this.lblFileName.Text = "str_filename";
+            this.lblFileName.Text = Resources.str_filename;
             //
             // txtFilename
             //
@@ -136,7 +136,7 @@ namespace PasteIntoFile {
             this.lblExt.Name = "lblExt";
             this.lblExt.Size = new System.Drawing.Size(104, 20);
             this.lblExt.TabIndex = 2;
-            this.lblExt.Text = "str_extension";
+            this.lblExt.Text = Resources.str_extension;
             //
             // comExt
             //
@@ -161,7 +161,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.SetRowSpan(this.btnSave, 2);
             this.btnSave.Size = new System.Drawing.Size(265, 46);
             this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "str_save";
+            this.btnSave.Text = Resources.str_save;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             //
@@ -182,7 +182,7 @@ namespace PasteIntoFile {
             this.lblCurrentLocation.Name = "lblCurrentLocation";
             this.lblCurrentLocation.Size = new System.Drawing.Size(91, 20);
             this.lblCurrentLocation.TabIndex = 1;
-            this.lblCurrentLocation.Text = "str_location";
+            this.lblCurrentLocation.Text = Resources.str_location;
             //
             // btnBrowseForFolder
             //
@@ -222,7 +222,7 @@ namespace PasteIntoFile {
             this.infoLinkLabel.Size = new System.Drawing.Size(105, 20);
             this.infoLinkLabel.TabIndex = 9;
             this.infoLinkLabel.TabStop = true;
-            this.infoLinkLabel.Text = "str_main_info";
+            this.infoLinkLabel.Text = Resources.str_main_info;
             this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.infoLinkLabel_LinkClicked);
             //
             // chkClrClipboard
@@ -233,7 +233,7 @@ namespace PasteIntoFile {
             this.chkClrClipboard.Name = "chkClrClipboard";
             this.chkClrClipboard.Size = new System.Drawing.Size(169, 24);
             this.chkClrClipboard.TabIndex = 5;
-            this.chkClrClipboard.Text = "str_clear_clipboard";
+            this.chkClrClipboard.Text = Resources.str_clear_clipboard;
             this.chkClrClipboard.UseVisualStyleBackColor = true;
             this.toolTip.SetToolTip(this.chkClrClipboard, Resources.str_clear_clipboard_tooltip);
             this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
@@ -246,7 +246,7 @@ namespace PasteIntoFile {
             this.chkAutoSave.Name = "chkAutoSave";
             this.chkAutoSave.Size = new System.Drawing.Size(203, 24);
             this.chkAutoSave.TabIndex = 7;
-            this.chkAutoSave.Text = "str_autosave_checkbox";
+            this.chkAutoSave.Text = Resources.str_autosave_checkbox;
             this.chkAutoSave.UseVisualStyleBackColor = true;
             this.toolTip.SetToolTip(this.chkAutoSave, Resources.str_autosave_tooltip);
             this.chkAutoSave.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
@@ -267,7 +267,7 @@ namespace PasteIntoFile {
             this.box.Size = new System.Drawing.Size(538, 284);
             this.box.TabIndex = 5;
             this.box.TabStop = false;
-            this.box.Text = "str_preview";
+            this.box.Text = Resources.str_preview;
             //
             // tableLayoutPanel1
             //
@@ -328,7 +328,7 @@ namespace PasteIntoFile {
             this.linkLabel1.Size = new System.Drawing.Size(133, 20);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "str_edit_template";
+            this.linkLabel1.Text = Resources.str_edit_template;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             //
             // tableLayoutPanel4
@@ -379,7 +379,7 @@ namespace PasteIntoFile {
             this.chkContinuousMode.Name = "chkContinuousMode";
             this.chkContinuousMode.Size = new System.Drawing.Size(189, 24);
             this.chkContinuousMode.TabIndex = 6;
-            this.chkContinuousMode.Text = "str_continuous_mode";
+            this.chkContinuousMode.Text = Resources.str_continuous_mode;
             this.chkContinuousMode.UseVisualStyleBackColor = true;
             this.chkContinuousMode.CheckedChanged += new System.EventHandler(this.chkContinuousMode_CheckedChanged);
             //
@@ -413,7 +413,7 @@ namespace PasteIntoFile {
             this.settingsLinkLabel.Name = "settingsLinkLabel";
             this.settingsLinkLabel.Size = new System.Drawing.Size(225, 24);
             this.settingsLinkLabel.TabIndex = 8;
-            this.settingsLinkLabel.Text = "str_settings";
+            this.settingsLinkLabel.Text = Resources.str_settings;
             this.settingsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.settingsLinkLabel_LinkClicked);
             //
             // Dialog
