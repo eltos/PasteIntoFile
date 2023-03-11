@@ -54,7 +54,7 @@ runs:
       run: |
         msbuild /r /p:Configuration=${{ inputs.configuration }} /p:Flavor=${{ inputs.flavor }} ${{ inputs.build_options }}
         copy LICENSE ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}
-        echo "::set-output name=path::${{ inputs.project_directory }}\bin\${{ inputs.configuration }}"
+        echo "path=${{ inputs.project_directory }}\bin\${{ inputs.configuration }}" >> $GITHUB_OUTPUT
       shell: pwsh
 
     - name: Upload build artifacts
