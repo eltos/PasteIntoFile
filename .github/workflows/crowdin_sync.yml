@@ -106,15 +106,17 @@ jobs:
       with:
         branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
-        title: Translation
+        title: Translation updates from Crowdin
         labels: |
             translation
         body: |
-          Update translations from crowdin
+          Updates translations from [Crowdin project](https://crowdin.com/project/PasteIntoFile)
 
           ```
           ${{ env.INFO }}
           ```
+          
+          To re-sync and update this PR include /sync in a comment.
 
-          Please do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin.
+          *Do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin without overwriting either.*
 
