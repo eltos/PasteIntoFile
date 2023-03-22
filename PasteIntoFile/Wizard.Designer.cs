@@ -48,7 +48,6 @@ namespace PasteIntoFile {
             // tableLayoutPanel1
             //
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.RowCount = 15;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.title, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.version, 0, 1);
@@ -70,6 +69,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel1.RowCount = 16;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
