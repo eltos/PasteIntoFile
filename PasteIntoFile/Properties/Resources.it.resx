@@ -65,226 +65,220 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Save</value>
+    <value>Salva</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>Filename</value>
+    <value>Nome del file</value>
   </data>
   <data name="str_extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>Estensione</value>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="app_title" xml:space="preserve">
-    <value>Paste Into File</value>
+    <value>Posizione</value>
   </data>
   <data name="str_message_unregister_context_menu_success" xml:space="preserve">
-    <value>Explorer context menu entry has been removed</value>
+    <value>La voce del menu di contesto di Esplora file è stata rimossa</value>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>Please run the application as administrator!</value>
+    <value>Perfavore avvia l'app come amministratore!</value>
   </data>
   <data name="str_message_register_context_menu_success" xml:space="preserve">
-    <value>Explorer context menu entry has been added</value>
+    <value>La voce del menu di contesto di Esplora file è stata aggiunta</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Paste into file</value>
+    <value>Incolla nel file</value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>Select a folder for saving this file</value>
+    <value>Seleziona una cartella per salvare questo file</value>
     <comment>str_select_folder
 Tooltip</comment>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Hold shift key during save to show option window.</value>
+    <value>Tieni premuto il tasto Maiusc durante il salvataggio per mostrare la finestra delle opzioni.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>Files are now automatically saved without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry.</value>
+    <value>I file vengono ora salvati automaticamente senza richiedere il nome e l'estensione del file. Invece, il file creato verrà selezionato per rinominare nella finestra dell'esploratore. Per mostrare nuovamente la finestra di dialogo, eseguire l'eseguibile di Incolla nel file senza argomenti o tenere premuto il tasto Maiusc durante la selezione della voce del menu contestuale.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>Clipboard is empty or contains unsupported data</value>
+    <value>Gli appunti sono vuoti o contengono dati non supportati</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
-    <value>Welcome to Paste Into File</value>
+    <value>Benvenuto in Incolla nel file</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
-    <value>Clear clipboard</value>
+    <value>Cancella appunti</value>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Find this project on GitHub</value>
-  </data>
-  <data name="str_main_info_url" xml:space="preserve">
-    <value>https://github.com/eltos/PasteIntoFile</value>
+    <value>Trova questo progetto su GitHub</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click.</value>
+    <value>Aggiungendo voci al menu contestuale di Esplora file, è possibile incollare rapidamente i contenuti degli appunti in file o copiare i contenuti dei file con il tasto destro del mouse.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>Add context menu entries?</value>
+    <value>Aggiungere le voci del menu contestuale?</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Clipboard saved to file</value>
+    <value>Appunti salvati nel file</value>
   </data>
   <data name="str_version" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>Versione {0}</value>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>Anteprima</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>Image preview ({0}x{1} px)</value>
+    <value>Anteprima immagine ({0}x{1} px)</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>Text preview ({0} chars, {1} lines)</value>
+    <value>Anteprima testo ({0} caratteri, {1} righe)</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
-    <value>A directory with the same name already exists at {0}.</value>
+    <value>Una directory con lo stesso nome esiste già in {0}.</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
-    <value>The file {0} already exists.
-Do you want to overwrite it?</value>
+    <value>Il file {0} esiste già.
+Vuoi sovrascriverlo?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Autosave (skip dialog)</value>
+    <value>Salva automaticamente (salta finestra)</value>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
-    <value>Context menu entry</value>
+    <value>Voce del menu contestuale</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>Automatically save file without prompt?</value>
+    <value>Salva automaticamente il file senza richiesta?</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
-    <value>Enable autosave</value>
+    <value>Abilita salvataggio automatico</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
-    <value>Finish setup</value>
+    <value>Termina configurazione</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
+    <value>È possibile configurare Incolla nel file per salvare automaticamente il file. Se abilitato, viene saltata la finestra che richiede il nome e l'estensione del file e il file verrà creato e selezionato per rinominarlo nella finestra di Esplora file. Per invertire temporaneamente l'impostazione, tenere premuto il tasto Maiusc quando si esegue Incolla dentro file. Si noti che la finestra di dialogo viene sempre mostrata quando si esegue Incolla nel file senza argomenti da riga di comando.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Batch mode</value>
+    <value>Modalità batch</value>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>{0} saved</value>
+    <value>{0} salvato</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
-    <value>Edit template</value>
+    <value>Modifica template</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Accetta</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annulla</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>The template is used to format the filename. The following variables are supported:
-  {0} - Date and time
-  {1} - Save count in batch mode
-For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
+    <value>Il modello viene utilizzato per formattare il nome del file. Sono supportate le seguenti variabili:
+  {0} - Data e ora
+  {1} - Salva conteggio in modalità batch
+Per i dettagli sugli specificatori di formato &lt;a&gt;clicca qui&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">
     <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
-    <value>Filename template</value>
+    <value>Modello nome file</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>In batch mode, clipboard contents will be saved instantly when new data is copied.
+    <value>In modalità batch, i contenuti degli appunti verranno salvati istantaneamente quando vengono copiati nuovi dati.
 
-Save current clipboard contents now?</value>
+Salvare ora i contenuti degli appunti correnti?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
-    <value>Invalid character: {0}</value>
+    <value>Carattere non valido: {0}</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copy file content</value>
+    <value>Copia il contenuto del file</value>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
-    <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
+    <value>Il file {0} contiene dati di formato sconosciuto che non possono essere copiati negli appunti.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>Clipboard contains no data convertable to extension {0} or conversion failed.</value>
+    <value>Gli appunti non contengono alcuna conversione dati all'estensione {0} o alla conversione non riuscita.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
-    <value>HTML preview</value>
+    <value>Anteprima HTML</value>
   </data>
   <data name="str_preview_url" xml:space="preserve">
-    <value>URL preview</value>
+    <value>Anteprima URL</value>
   </data>
   <data name="str_preview_csv" xml:space="preserve">
-    <value>CSV preview</value>
+    <value>Anteprima CSV</value>
   </data>
   <data name="str_preview_sylk" xml:space="preserve">
-    <value>Symbolic Link (SYLK) preview</value>
+    <value>Anteprima del collegamento simbolico (SYLK)</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>Rich Text preview</value>
+    <value>Anteprima del testo formattato</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
-    <value>Data Interchange preview</value>
+    <value>Anteprima dello scambio dati</value>
   </data>
   <data name="str_exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Esci</value>
   </data>
   <data name="str_open_paste_into_file" xml:space="preserve">
-    <value>Open Paste Into File</value>
+    <value>Apri Incolla Nel File</value>
   </data>
   <data name="str_settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="str_message_register_autostart_success" xml:space="preserve">
-    <value>Autostart registered</value>
+    <value>Avvio automatico registrato</value>
   </data>
   <data name="str_message_unregister_autostart_success" xml:space="preserve">
-    <value>Autostart unregistered</value>
+    <value>Avvio automatico non registrato</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
-    <value>Enable autostart and hotkeys?</value>
+    <value>Attivare l'avvio automatico e i tasti di scelta rapida?</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-    <value>Autostart into tray</value>
+    <value>Avvio automatico nell'area di notifica</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-    <value>If enabled, Paste Into File is started on windows startup and keeps running in the system tray. This allows to call Paste Into File by pressing WIN+ALT+V (and WIN+ALT+C to copy file contents).
-In addition, you may enable clipboard patching. This monitors the clipboard and patches it automatically, so you can use CTRL+V in file explorer as usual.
-These setting will take effect on the next login.</value>
+    <value>Se abilitata, Incolla dentro il file viene avviato all'avvio di Windows e continua ad essere in esecuzione nel vassoio di sistema. Questo permette di chiamare Incolla in file premendo WIN+ALT+V (e WIN+ALT+C per copiare il contenuto del file).
+Inoltre, è possibile abilitare la patch appunti Questo monitora gli appunti e lo patch automaticamente, in modo da poter utilizzare CTRL+V nel file explorer come al solito.
+Queste impostazioni avranno effetto sul prossimo accesso.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>Please select a single file to copy file contents</value>
+    <value>Seleziona un singolo file per copiare il contenuto del file</value>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>File list preview ({0} files and folders)</value>
+    <value>Anteprima elenco file ({0} file e cartelle)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-    <value>Enable clipboard patching (experimental)</value>
+    <value>Abilita patch appunti (sperimentale)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-    <value>Update available: {0} ➜ {1}</value>
+    <value>Aggiornamento disponibile: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-    <value>Open</value>
+    <value>Apri</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Vector image preview</value>
+    <value>Anteprima immagine vettoriale</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>Scalable Vector Graphic preview</value>
+    <value>Anteprima grafica vettoriale scalabile</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Replace with clipboard content</value>
+    <value>Sostituisci con il contenuto degli appunti</value>
   </data>
   <data name="str_portable" xml:space="preserve">
-    <value>Portable</value>
+    <value>Portatile</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-    <value>Clears the clipboard after its content has been saved.</value>
+    <value>Cancella gli appunti dopo che il suo contenuto è stato salvato.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-    <value>Saves clipboard data to default filetype without prompt.
-Hold SHIFT to temporarly invert this setting.</value>
+    <value>Salva i dati degli appunti nel tipo di file predefinito senza richiedere il prompt.
+Tieni premuto Maiusc per invertire temporaneamente questa impostazione.</value>
   </data>
 </root>
