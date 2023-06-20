@@ -714,6 +714,7 @@ namespace PasteIntoFile {
             // if it's an image (try&catch instead of maintaining a list of supported extensions)
             try {
                 var img = Image.FromFile(path);
+                img = RotateFlipImageFromExif(img);
                 if (img is Metafile mf) {
                     container.Contents.Add(new VectorImageContent(mf));
                 } else {
@@ -785,6 +786,34 @@ namespace PasteIntoFile {
                 }
             } catch { /* data uri malformed or not supported */ }
             return null;
+        }
+
+        /// <summary>
+        /// Rotates and flips the given image according to the respective EXIF flag, and remove the EXIF flag
+        /// </summary>
+        /// <param name="image">The source image with possible EXIF tag</param>
+        /// <returns>The rotated and flipped image without the EXIF tag</returns>
+        private static Image RotateFlipImageFromExif(Image img) {
+            // see https://exiftool.org/TagNames/EXIF.html
+            if (img.PropertyIdList.Contains(0x0112)) {
+                var orientation = (int)img.GetPropertyItem(0x0112).Value[0];
+                if (orientation >= 1 && orientation <= 8) {
+                    RotateFlipType rotateFlip = new Dictionary<int, RotateFlipType> {
+                        [1] = RotateFlipType.RotateNoneFlipNone,
+                        [2] = RotateFlipType.RotateNoneFlipX,
+                        [3] = RotateFlipType.Rotate180FlipNone,
+                        [4] = RotateFlipType.Rotate180FlipX,
+                        [5] = RotateFlipType.Rotate90FlipX,
+                        [6] = RotateFlipType.Rotate90FlipNone,
+                        [7] = RotateFlipType.Rotate270FlipX,
+                        [8] = RotateFlipType.Rotate270FlipNone,
+                    }[orientation];
+                    img.RotateFlip(rotateFlip);
+                    img.RemovePropertyItem(0x0112);
+                }
+            }
+
+            return img;
         }
 
         public void CopyToClipboard(string fileDropPath = null) {
