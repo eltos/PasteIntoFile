@@ -300,14 +300,18 @@ namespace PasteIntoFile {
                 textPreview.Show();
 
             } else if (content is FilesContent filesContent) {
-                treePreview.BeginUpdate();
-                treePreview.Nodes.Clear();
-                foreach (var file in filesContent.FileList) {
-                    treePreview.Nodes.Add(file);
+                if (filesContent.TextPreview(comExt.Text) is string preview) {
+                    textPreview.Text = preview;
+                    textPreview.Show();
+                } else {
+                    treePreview.BeginUpdate();
+                    treePreview.Nodes.Clear();
+                    foreach (var file in filesContent.FileList) {
+                        treePreview.Nodes.Add(file);
+                    }
+                    treePreview.EndUpdate();
+                    treePreview.Show();
                 }
-
-                treePreview.EndUpdate();
-                treePreview.Show();
 
             } else if (content is SvgContent svgContent) {
                 // Render SVG for preview

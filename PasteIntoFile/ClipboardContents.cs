@@ -264,7 +264,7 @@ namespace PasteIntoFile {
             Data = text;
         }
         public string Text => Data as string;
-        protected readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
+        public static readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
         public override void SaveAs(string path, string extension) {
             File.WriteAllText(path, Text, Encoding);
         }
@@ -465,8 +465,9 @@ namespace PasteIntoFile {
                 return list;
             }
         }
+        public string FileListString => string.Join("\n", FileList);
 
-        public override string[] Extensions => new[] { "zip", "m3u", "files" };
+        public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
         public override string Description => string.Format(Resources.str_preview_files, Files.Count);
         public override void SaveAs(string path, string extension) {
             switch (extension) {
@@ -482,10 +483,24 @@ namespace PasteIntoFile {
                     }
                     break;
 
-                case "m3u":
-                case "files":
-                    File.WriteAllLines(path, FileList, new UTF8Encoding(false));
+                default:
+                    File.WriteAllText(path, FileListString, TextLikeContent.Encoding);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Provide a textual preview for extensions using text-like formats
+        /// </summary>
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns>Preview as text string</returns>
+        ///
+        public string TextPreview(string extension) {
+            switch (extension) {
+                case "zip":
+                    return null;
+                default:
+                    return FileListString;
             }
         }
 
