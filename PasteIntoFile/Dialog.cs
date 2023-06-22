@@ -388,7 +388,7 @@ namespace PasteIntoFile {
 
             } catch (UnauthorizedAccessException ex) {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.RestartAppElevated(txtCurrentLocation.Text);
+                Program.RestartAppElevated("\"" + txtCurrentLocation.Text + "\"");
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

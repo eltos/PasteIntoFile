@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import 
-        Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" 
-        Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" 
-    />
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <ProjectGuid>{F6F4215C-6CD7-4279-9C4C-C2DA9A823D0C}</ProjectGuid>
         <OutputType>WinExe</OutputType>
@@ -35,6 +32,7 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <Prefer32bit>false</Prefer32bit>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +42,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <Prefer32bit>false</Prefer32bit>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Flavor)'=='Portable'">
         <DefineConstants>$(DefineConstants);PORTABLE</DefineConstants>
@@ -57,12 +56,16 @@
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
         <PackageReference Include="PDFsharp" Version="1.50.5147" />
         <PackageReference Include="SharpClipboard" Version="3.5.2" />
+        <PackageReference Include="SharpShell" Version="2.7.2" />
         <PackageReference Include="Svg" Version="3.4.3" />
     </ItemGroup>
-    <ItemGroup Condition="'$(Flavor)'=='Portable'" >
+    <ItemGroup Condition="'$(Flavor)'=='Portable'">
         <PackageReference Include="PortableSettingsProvider" Version="0.2.4" />
     </ItemGroup>
     <ItemGroup>
+        <Reference Include="SharpShell">
+          <HintPath>..\packages\SharpShell.2.7.2\lib\net40-client\SharpShell.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
@@ -138,6 +141,7 @@
     <ItemGroup>
         <Content Include="Resources\icon.ico" />
         <Content Include="Resources\icon.png" />
+        <Content Include="Resources\icon16.png" />
     </ItemGroup>
     <ItemGroup>
         <COMReference Include="SHDocVw">
@@ -159,9 +163,15 @@
             <EmbedInteropTypes>True</EmbedInteropTypes>
         </COMReference>
     </ItemGroup>
-    
+    <ItemGroup>
+      <ProjectReference Include="..\PasteIntoFileShellExtension\PasteIntoFileShellExtension.csproj">
+        <Project>{cb20c889-27ea-4cc9-a3de-eeb933913800}</Project>
+        <Name>PasteIntoFileShellExtension</Name>
+      </ProjectReference>
+    </ItemGroup>
+
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>

@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using PasteIntoFile.Properties;
@@ -150,6 +154,49 @@ namespace PasteIntoFile {
         /// </summary>
         public static void UnRegisterAutostart() {
             AutostartSubKey?.DeleteValue("PasteIntoFile", false);
+        }
+
+
+
+
+        /// <summary>
+        /// Path to the Paste Into File shell extension DLL file
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
+        private static string ShellExtensionPath => Path.Combine(
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(),
+            "PasteIntoFileShellExtension.dll");
+
+        /// <summary>
+        /// Install ShellExtension (requires admin rights)
+        /// </summary>
+        public static void InstallShellExtension() {
+            var regService = new RegistrationServices();
+            regService.RegisterAssembly(Assembly.LoadFile(ShellExtensionPath), AssemblyRegistrationFlags.SetCodeBase);
+        }
+
+        /// <summary>
+        /// Uninstall ShellExtension (requires admin rights)
+        /// </summary>
+        public static void UninstallShellExtension() {
+            var regService = new RegistrationServices();
+            regService.UnregisterAssembly(Assembly.LoadFile(ShellExtensionPath));
+        }
+
+        /// <summary>
+        /// Checks if autostart is registered
+        /// </summary>
+        /// <returns>autostart registration status (true/false)</returns>
+        public static bool IsShellExtensionInstalled() {
+            try {
+                var regService = new RegistrationServices();
+                var type = regService.GetRegistrableTypesInAssembly(Assembly.LoadFile(ShellExtensionPath))
+                    .FirstOrDefault();
+                var classes = Registry.LocalMachine.OpenSubKey(@"Software\Classes");
+                return type != null && classes != null && classes.GetSubKeyNames().Contains(type.FullName);
+            } catch (Exception ex) when (ex is FileNotFoundException) {
+                return false;
+            }
         }
 
     }

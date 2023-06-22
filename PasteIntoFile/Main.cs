@@ -417,14 +417,14 @@ namespace PasteIntoFile {
         /// <summary>
         /// Restart app in admin mode
         /// </summary>
-        /// <param name="location">File location to be passed to new instance</param>
-        public static void RestartAppElevated(string location) {
+        /// <param name="args">Arguments to be passed to new instance</param>
+        public static void RestartAppElevated(string args) {
             ProcessStartInfo proc = new ProcessStartInfo();
             proc.UseShellExecute = true;
             proc.WorkingDirectory = Environment.CurrentDirectory;
             proc.FileName = Application.ExecutablePath;
             proc.Verb = "runas";
-            proc.Arguments = "\"" + location + "\"";
+            proc.Arguments = args;
 
             try {
                 Process.Start(proc);

@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -19,6 +20,7 @@ namespace PasteIntoFile {
             contextEntryCheckBoxPaste.Checked = RegistryUtil.ContextMenuPaste.IsRegistered();
             contextEntryCheckBoxCopy.Checked = RegistryUtil.ContextMenuCopy.IsRegistered();
             contextEntryCheckBoxReplace.Checked = RegistryUtil.ContextMenuReplace.IsRegistered();
+            contextEntryCheckBoxCopyFilename.Checked = RegistryUtil.IsShellExtensionInstalled();
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
@@ -91,6 +93,27 @@ namespace PasteIntoFile {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ChkContextEntryCopyFilenames_CheckedChanged(object sender, EventArgs e) {
+            var checkBox = sender as CheckBox;
+            try {
+                if (checkBox.Checked && !RegistryUtil.IsShellExtensionInstalled()) {
+                    RegistryUtil.InstallShellExtension();
+                    SavedAnimation(checkBox);
+                } else if (!checkBox.Checked && RegistryUtil.IsShellExtensionInstalled()) {
+                    RegistryUtil.UninstallShellExtension();
+                    SavedAnimation(checkBox);
+                }
+            } catch (Exception ex) when (ex is UnauthorizedAccessException || ex is SecurityException) {
+                if (MessageBox.Show(ex.Message + "\n\n" + Resources.str_message_run_as_admin, Resources.app_title,
+                        MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry) {
+                    Program.RestartAppElevated("wizard");
+                };
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            checkBox.Checked = RegistryUtil.IsShellExtensionInstalled();
         }
 
         private void SavedAnimation(Control control) {

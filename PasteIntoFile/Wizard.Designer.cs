@@ -40,6 +40,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxPaste = new System.Windows.Forms.CheckBox();
             this.contextEntryCheckBoxCopy = new System.Windows.Forms.CheckBox();
             this.contextEntryCheckBoxReplace = new System.Windows.Forms.CheckBox();
+            this.contextEntryCheckBoxCopyFilename = new System.Windows.Forms.CheckBox();
             this.finish = new System.Windows.Forms.Button();
             this.version = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -56,20 +57,22 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxPaste, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxCopy, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxReplace, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 12);
-            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 13);
-            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.contextEntryCheckBoxCopyFilename, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 15);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel1.RowCount = 16;
+            this.tableLayoutPanel1.RowCount = 17;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -190,6 +193,20 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxCopy.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxCopy.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
+            // contextEntryCheckBoxCopyFilename
+            //
+            this.contextEntryCheckBoxCopyFilename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.contextEntryCheckBoxCopyFilename.AutoSize = true;
+            this.contextEntryCheckBoxCopyFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contextEntryCheckBoxCopyFilename.Location = new System.Drawing.Point(275, 192);
+            this.contextEntryCheckBoxCopyFilename.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.contextEntryCheckBoxCopyFilename.Name = "contextEntryCheckBoxCopyFilename";
+            this.contextEntryCheckBoxCopyFilename.Size = new System.Drawing.Size(288, 24);
+            this.contextEntryCheckBoxCopyFilename.TabIndex = 0;
+            this.contextEntryCheckBoxCopyFilename.Text = PasteIntoFileShellExtension.Resources.str_contextentry_copyfilenames;
+            this.contextEntryCheckBoxCopyFilename.UseVisualStyleBackColor = true;
+            this.contextEntryCheckBoxCopyFilename.CheckedChanged += new System.EventHandler(this.ChkContextEntryCopyFilenames_CheckedChanged);
+            //
             // contextEntryCheckBoxReplace
             //
             this.contextEntryCheckBoxReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
@@ -301,6 +318,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.CheckBox contextEntryCheckBoxPaste;
         private System.Windows.Forms.CheckBox contextEntryCheckBoxCopy;
         private System.Windows.Forms.CheckBox contextEntryCheckBoxReplace;
+        private System.Windows.Forms.CheckBox contextEntryCheckBoxCopyFilename;
         private System.Windows.Forms.Label autoSaveTitleLabel;
         private System.Windows.Forms.Label contextEntryInfoLabel;
         private System.Windows.Forms.Label title;
