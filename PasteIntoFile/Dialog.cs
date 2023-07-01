@@ -65,7 +65,7 @@ namespace PasteIntoFile {
 #endif
             versionInfoLabel.Text = string.Format(Resources.str_version, versionstr);
             versionInfoLabel.LinkArea = new LinkArea(0, 0);
-            CheckForUpdates();
+            var backgroundTask = CheckForUpdates();
 
 
             // Dark theme

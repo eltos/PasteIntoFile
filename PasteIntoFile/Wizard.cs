@@ -34,7 +34,7 @@ namespace PasteIntoFile {
             version.Text = string.Format(Resources.str_version, versionstr);
             version.Links.Add(0, version.Text.Length, "https://github.com/eltos/PasteIntoFile/releases");
             version.LinkClicked += (sender, args) => Process.Start(args.Link.LinkData.ToString());
-            CheckForUpdates();
+            var backgroundTask = CheckForUpdates();
 
         }
 

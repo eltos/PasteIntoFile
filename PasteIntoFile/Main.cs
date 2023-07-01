@@ -320,7 +320,7 @@ namespace PasteIntoFile {
             icon.Visible = true;
 
             // Check for updates (async)
-            CheckForUpdates();
+            var backgroundTask = CheckForUpdates();
 
             Application.Run();
 
