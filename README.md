@@ -32,7 +32,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + First launch wizard
 
 ![Paste Into File](.github/screenshot.png)
-![Paste Into File kontext menu](.github/screenshot-1.png)
+![Paste Into File screen recording](.github/screenrecord.gif)
 
 
 ## Installation
