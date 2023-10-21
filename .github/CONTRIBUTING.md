@@ -17,3 +17,6 @@ pre-commit install
 
 ## CI/CD
 This project uses GitHub actions for test builds, synchronisation with crowdin and releases.
+
+## Licensing
+Contributions follow the "inbound=outbound" licensing as defined by the [GitHub Terms of Service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license).
