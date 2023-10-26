@@ -445,21 +445,33 @@ namespace PasteIntoFile {
         /// <param name="link">Optional link to visit when clicking the balloon</param>
         /// <param name="silent">If true, make a silent balloon (default)</param>
         public static void ShowBalloon(string title, string[] message, ushort expire = 5, string link = null, bool silent = true) {
-            var builder = new ToastContentBuilder().AddText(title);
-            foreach (var s in message) {
-                builder.AddText(s);
-            }
-            if (silent)
-                builder.AddAudio(null, null, true);
-
-            if (link != null)
-                builder.AddButton(Resources.str_open, ToastActivationType.Protocol, link);
-
-            builder.Show(toast => {
-                if (expire > 0) {
-                    toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
+            try {
+                var builder = new ToastContentBuilder().AddText(title);
+                foreach (var s in message) {
+                    builder.AddText(s);
                 }
-            });
+
+                if (silent)
+                    builder.AddAudio(null, null, true);
+
+                if (link != null)
+                    builder.AddButton(Resources.str_open, ToastActivationType.Protocol, link);
+
+                builder.Show(toast => {
+                    if (expire > 0) {
+                        toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
+                    }
+                });
+
+            } catch (SystemException) {
+                // Microsoft.Toolkit.Uwp requires Windows version 1809 (build 17763) or higher
+                // if that's not available, print to console instead
+                Console.WriteLine(title);
+                foreach (var s in message) {
+                    Console.WriteLine(s);
+                }
+
+            }
         }
 
 
