@@ -15,6 +15,7 @@ namespace PasteIntoFile {
     public partial class Dialog : MasterForm {
         private ClipboardContents clipData = new ClipboardContents();
         private int saveCount = 0;
+        private bool _formLoaded = false;
 
         private SharpClipboard _clipMonitor;
         private bool disableUiEvents = false;
@@ -128,30 +129,48 @@ namespace PasteIntoFile {
                             Program.ShowBalloon(Resources.str_autosave_balloontitle,
                                 new[] { file, Resources.str_autosave_balloontext }, 10);
                             Environment.ExitCode = 0;
-                            Close();
+                            CloseAsSoonAsPossible();
                         };
 
                         ExplorerUtil.AsyncRequestFilenameEdit(file);
 
                         // Timeout in case filename edit fails
-                        Task.Delay(new TimeSpan(0, 0, 0, 10)).ContinueWith(o => Close());
+                        Task.Delay(new TimeSpan(0, 0, 0, 3)).ContinueWith(o => CloseAsSoonAsPossible());
 
                     } else {
                         // exit immediately
                         Program.ShowBalloon(Resources.str_autosave_balloontitle,
                             new[] { file, Resources.str_autosave_balloontext }, 10);
                         Environment.ExitCode = 0;
-                        Close();
+                        CloseAsSoonAsPossible();
                     }
 
                 } else {
                     // save failed, exit with error code
                     Environment.ExitCode = 1;
-                    Close();
+                    CloseAsSoonAsPossible();
                 }
 
             }
 
+        }
+
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            _formLoaded = true;
+        }
+
+        /// <summary>
+        /// Close the form as soon as possible.
+        /// Unless <code>Close()</code> this method is save to call from within the constructor.
+        /// See https://stackoverflow.com/questions/3067901
+        /// </summary>
+        private void CloseAsSoonAsPossible() {
+            if (_formLoaded) { // Already loaded, save to call Close
+                Close();
+            } else { // Close once loading completed
+                Load += (sender, args) => Close();
+            }
         }
 
         private void updateUiFromSettings() {
