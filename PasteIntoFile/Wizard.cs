@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -124,6 +125,22 @@ namespace PasteIntoFile {
                 Settings.Default.trayPatchingEnabled = patchingCheckBox.Checked;
                 Settings.Default.Save();
                 // no SavedAnimation so as not to give the feeling this would take effect immediately
+            }
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e) {
+            // update
+            settingsMenuUpdateChecks.Checked = Settings.Default.updateChecksEnabled;
+            // show it
+            Point ptLowerLeft = new Point(4, settingsButton.Height);
+            ptLowerLeft = settingsButton.PointToScreen(ptLowerLeft);
+            settingsMenu.Show(ptLowerLeft);
+        }
+
+        private void menuUpdateChecks_CheckedChanged(object sender, EventArgs e) {
+            if (Settings.Default.updateChecksEnabled != settingsMenuUpdateChecks.Checked) {
+                Settings.Default.updateChecksEnabled = settingsMenuUpdateChecks.Checked;
+                Settings.Default.Save();
             }
         }
 

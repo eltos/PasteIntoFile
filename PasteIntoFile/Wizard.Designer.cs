@@ -1,4 +1,6 @@
+using System;
 using System.Drawing;
+using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
@@ -280,6 +282,30 @@ namespace PasteIntoFile {
             this.version.Text = "version";
             this.version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
+            // settings menu
+            //
+            this.settingsMenu = new ContextMenuStrip();
+            this.settingsMenu.AutoSize = true;
+            this.settingsMenuUpdateChecks = new ToolStripMenuItem();
+            this.settingsMenuUpdateChecks.CheckOnClick = true;
+            this.settingsMenuUpdateChecks.CheckedChanged += new EventHandler(this.menuUpdateChecks_CheckedChanged);
+            this.settingsMenuUpdateChecks.Text = Resources.str_wizard_notify_on_updates;
+            this.settingsMenu.Items.Add(this.settingsMenuUpdateChecks);
+            //
+            // settings button
+            //
+            this.settingsButton = new Label();
+            this.settingsButton.Text = "⚙️";
+            this.settingsButton.Font = new Font("Microsoft Sans Serif", 16F);
+            this.settingsButton.Location = new Point(0, 4);
+            this.settingsButton.Margin = new Padding(0);
+            this.settingsButton.Name = "settings";
+            this.settingsButton.TabIndex = 8;
+            this.settingsButton.AutoSize = true;
+            this.settingsButton.Cursor = Cursors.Hand;
+            this.settingsButton.Click += new EventHandler(this.settingsButton_Click);
+            this.Controls.Add(this.settingsButton);
+            //
             // Wizard
             //
             this.AcceptButton = this.finish;
@@ -296,6 +322,9 @@ namespace PasteIntoFile {
         }
 
         private System.Windows.Forms.CheckBox patchingCheckBox;
+        private System.Windows.Forms.Label settingsButton;
+        private System.Windows.Forms.ContextMenuStrip settingsMenu;
+        private System.Windows.Forms.ToolStripMenuItem settingsMenuUpdateChecks;
         private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
         private System.Windows.Forms.CheckBox contextEntryCheckBoxPaste;

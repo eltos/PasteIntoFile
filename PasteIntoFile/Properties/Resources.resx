@@ -287,4 +287,7 @@ These setting will take effect on the next login.</value>
     <value>Saves clipboard data to default filetype without prompt.
 Hold SHIFT to temporarly invert this setting.</value>
   </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+      <value>Notify about updates</value>
+  </data>
 </root>
