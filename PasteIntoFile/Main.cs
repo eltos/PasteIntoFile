@@ -5,8 +5,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.Web.Http;
-using Windows.Web.Http.Headers;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -481,15 +481,15 @@ namespace PasteIntoFile {
         /// </summary>
         /// <returns>If an update is available</returns>
         public static async Task<bool> CheckForUpdates() {
-            if (!Settings.Default.updateChecksEnabled || Environment.OSVersion.Version.Major < 10) return false;
+            if (!Settings.Default.updateChecksEnabled) return false;
             bool newReleaseFound = false;
             if ((DateTime.Now - Settings.Default.updateLatestVersionLastCheck).TotalDays > 30) {
                 // Last check outdated, check again
                 Settings.Default.updateLatestVersionLastCheck = DateTime.Now;
                 Settings.Default.Save();
                 try {
-                    var client = new HttpClient(); // requires windows 10.0.10240.0
-                    client.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("PasteIntoFile", Application.ProductVersion));
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("PasteIntoFile", Application.ProductVersion));
                     var data = await client.GetStringAsync(new Uri("https://api.github.com/repos/eltos/PasteIntoFile/releases/latest"));
                     var match = Regex.Match(data, "\"(https://github.com/eltos/PasteIntoFile/releases/tag/v(\\d+(\\.\\d+)*))\"");
                     if (match.Success && match.Groups[2].Value != Settings.Default.updateLatestVersion) {
