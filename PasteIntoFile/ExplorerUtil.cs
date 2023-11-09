@@ -134,9 +134,11 @@ namespace PasteIntoFile {
         /// will be called asynchronously on success.
         /// </summary>
         /// <param name="filePath">Path of file to select/edit</param>
-        /// <param name="edit">can be set to false to select only (without entering edit mode)</param>
+        /// <param name="mayChangeFocus">Whether focus may be changed to a different explorer window if required</param>
         /// <param name="mayOpenNew">Whether a new explorer window may be opened if required</param>
-        public static void AsyncRequestFilenameEdit(string filePath, bool edit = true, bool mayOpenNew = true) {
+        /// <param name="edit">can be set to false to select only (without entering edit mode)</param>
+        /// <returns>True if the request was scheduled, false otherwise</returns>
+        public static bool AsyncRequestFilenameEdit(string filePath, bool mayChangeFocus = true, bool mayOpenNew = true, bool edit = true) {
             filePath = Path.GetFullPath(filePath);
             var dirPath = Path.GetDirectoryName(filePath);
 
@@ -144,30 +146,35 @@ namespace PasteIntoFile {
             var focussedWindow = GetActiveExplorer();
             if (GetExplorerPath(focussedWindow) == dirPath) {
                 SelectFileInWindow(focussedWindow, filePath, edit);
-                return;
+                return true;
             }
 
             // then check other open shell windows
             // (but not Desktop, since we cannot bring it to foreground)
-            var shellWindows = new SHDocVw.ShellWindows();
-            foreach (SHDocVw.InternetExplorer window in shellWindows) {
-                if (GetExplorerPath(window) == dirPath) {
-                    SelectFileInWindow(window, filePath, edit);
-                    return;
+            if (mayChangeFocus) {
+                var shellWindows = new SHDocVw.ShellWindows();
+                foreach (SHDocVw.InternetExplorer window in shellWindows) {
+                    if (GetExplorerPath(window) == dirPath) {
+                        SelectFileInWindow(window, filePath, edit);
+                        return true;
+                    }
                 }
-            }
 
-            // or open a new shell window
-            if (mayOpenNew) {
-                IntPtr file;
-                SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
-                try {
-                    SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
-                    Task.Run(() => FilenameEditComplete?.Invoke(null, EventArgs.Empty)); // call asynchronously
-                } finally {
-                    ILFree(file);
+                // or open a new shell window
+                if (mayOpenNew) {
+                    IntPtr file;
+                    SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
+                    try {
+                        SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
+                        Task.Run(() => FilenameEditComplete?.Invoke(null, EventArgs.Empty)); // call asynchronously
+                        return true;
+                    } finally {
+                        ILFree(file);
+                    }
                 }
+
             }
+            return false;
         }
 
         /// <summary>

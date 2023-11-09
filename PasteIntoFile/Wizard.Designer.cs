@@ -30,6 +30,7 @@ namespace PasteIntoFile {
         private void InitializeComponent() {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.autoSaveCheckBox = new System.Windows.Forms.CheckBox();
+            this.autoSaveMayOpenNewCheckBox = new System.Windows.Forms.CheckBox();
             this.autoSaveInfoLabel = new System.Windows.Forms.Label();
             this.autoSaveTitleLabel = new System.Windows.Forms.Label();
             this.autostartCheckBox = new System.Windows.Forms.CheckBox();
@@ -61,17 +62,19 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.Controls.Add(this.autoSaveTitleLabel, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.autoSaveInfoLabel, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.autoSaveCheckBox, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 12);
-            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 13);
-            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.autoSaveMayOpenNewCheckBox, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.finish, 0, 15);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel1.RowCount = 16;
+            this.tableLayoutPanel1.RowCount = 17;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -96,13 +99,27 @@ namespace PasteIntoFile {
             this.autoSaveCheckBox.AutoSize = true;
             this.autoSaveCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoSaveCheckBox.Location = new System.Drawing.Point(301, 331);
-            this.autoSaveCheckBox.Margin = new System.Windows.Forms.Padding(9);
+            this.autoSaveCheckBox.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
             this.autoSaveCheckBox.Name = "autoSaveCheckBox";
             this.autoSaveCheckBox.Size = new System.Drawing.Size(262, 24);
-            this.autoSaveCheckBox.TabIndex = 1;
+            this.autoSaveCheckBox.TabIndex = 4;
             this.autoSaveCheckBox.Text = Resources.str_wizard_autosave_button;
             this.autoSaveCheckBox.UseVisualStyleBackColor = true;
             this.autoSaveCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutoSave_CheckedChanged);
+            //
+            // autostartMayOpenNewCheckBox
+            //
+            this.autoSaveMayOpenNewCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.autoSaveMayOpenNewCheckBox.AutoSize = true;
+            this.autoSaveMayOpenNewCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoSaveMayOpenNewCheckBox.Location = new System.Drawing.Point(275, 192);
+            this.autoSaveMayOpenNewCheckBox.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
+            this.autoSaveMayOpenNewCheckBox.Name = "autoSaveMayOpenNewCheckBox";
+            this.autoSaveMayOpenNewCheckBox.Size = new System.Drawing.Size(288, 24);
+            this.autoSaveMayOpenNewCheckBox.TabIndex = 5;
+            this.autoSaveMayOpenNewCheckBox.Text = Resources.str_wizard_autosave_may_open_new_explorer;
+            this.autoSaveMayOpenNewCheckBox.UseVisualStyleBackColor = true;
+            this.autoSaveMayOpenNewCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutoSaveMayOpenNew_CheckedChanged);
             //
             // autoSaveInfoLabel
             //
@@ -113,7 +130,6 @@ namespace PasteIntoFile {
             this.autoSaveInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.autoSaveInfoLabel.Name = "autoSaveInfoLabel";
             this.autoSaveInfoLabel.Size = new System.Drawing.Size(560, 23);
-            this.autoSaveInfoLabel.TabIndex = 6;
             this.autoSaveInfoLabel.Text = Resources.str_wizard_autosave_info;
             //
             // autoSaveTitleLabel
@@ -125,7 +141,6 @@ namespace PasteIntoFile {
             this.autoSaveTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.autoSaveTitleLabel.Name = "autoSaveTitleLabel";
             this.autoSaveTitleLabel.Size = new System.Drawing.Size(560, 32);
-            this.autoSaveTitleLabel.TabIndex = 5;
             this.autoSaveTitleLabel.Text = Resources.str_wizard_autosave_title;
             //
             // title
@@ -137,7 +152,6 @@ namespace PasteIntoFile {
             this.title.Margin = new System.Windows.Forms.Padding(4);
             this.title.Name = "title";
             this.title.Size = new System.Drawing.Size(560, 54);
-            this.title.TabIndex = 0;
             this.title.Text = Resources.str_wizard_title;
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
@@ -149,7 +163,6 @@ namespace PasteIntoFile {
             this.contextEntryTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.contextEntryTitleLabel.Name = "contextEntryTitleLabel";
             this.contextEntryTitleLabel.Size = new System.Drawing.Size(343, 32);
-            this.contextEntryTitleLabel.TabIndex = 1;
             this.contextEntryTitleLabel.Text = Resources.str_wizard_contextentry_title;
             //
             // contextEntryInfoLabel
@@ -161,7 +174,6 @@ namespace PasteIntoFile {
             this.contextEntryInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.contextEntryInfoLabel.Name = "contextEntryInfoLabel";
             this.contextEntryInfoLabel.Size = new System.Drawing.Size(560, 23);
-            this.contextEntryInfoLabel.TabIndex = 2;
             this.contextEntryInfoLabel.Text = Resources.str_wizard_contextentry_info;
             //
             // contextEntryCheckBoxPaste
@@ -173,7 +185,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxPaste.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
             this.contextEntryCheckBoxPaste.Name = "contextEntryCheckBoxPaste";
             this.contextEntryCheckBoxPaste.Size = new System.Drawing.Size(288, 24);
-            this.contextEntryCheckBoxPaste.TabIndex = 0;
+            this.contextEntryCheckBoxPaste.TabIndex = 1;
             this.contextEntryCheckBoxPaste.Text = Resources.str_contextentry;
             this.contextEntryCheckBoxPaste.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxPaste.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
@@ -187,7 +199,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxCopy.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.contextEntryCheckBoxCopy.Name = "contextEntryCheckBoxCopy";
             this.contextEntryCheckBoxCopy.Size = new System.Drawing.Size(288, 24);
-            this.contextEntryCheckBoxCopy.TabIndex = 0;
+            this.contextEntryCheckBoxCopy.TabIndex = 2;
             this.contextEntryCheckBoxCopy.Text = Resources.str_contextentry_copyfromfile;
             this.contextEntryCheckBoxCopy.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxCopy.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
@@ -201,7 +213,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxReplace.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
             this.contextEntryCheckBoxReplace.Name = "contextEntryCheckBoxReplace";
             this.contextEntryCheckBoxReplace.Size = new System.Drawing.Size(288, 24);
-            this.contextEntryCheckBoxReplace.TabIndex = 0;
+            this.contextEntryCheckBoxReplace.TabIndex = 3;
             this.contextEntryCheckBoxReplace.Text = Resources.str_contextentry_replaceintofile;
             this.contextEntryCheckBoxReplace.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxReplace.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
@@ -214,7 +226,6 @@ namespace PasteIntoFile {
             this.autostartTitleLabel.Margin = new System.Windows.Forms.Padding(4, 30, 4, 4);
             this.autostartTitleLabel.Name = "autostartTitleLabel";
             this.autostartTitleLabel.Size = new System.Drawing.Size(343, 32);
-            this.autostartTitleLabel.TabIndex = 1;
             this.autostartTitleLabel.Text = Resources.str_wizard_tray_title;
             //
             // autostartInfoLabel
@@ -226,7 +237,6 @@ namespace PasteIntoFile {
             this.autostartInfoLabel.Margin = new System.Windows.Forms.Padding(4);
             this.autostartInfoLabel.Name = "autostartInfoLabel";
             this.autostartInfoLabel.Size = new System.Drawing.Size(560, 23);
-            this.autostartInfoLabel.TabIndex = 2;
             this.autostartInfoLabel.Text = Resources.str_wizard_tray_info;
             //
             // autostartCheckBox
@@ -238,7 +248,7 @@ namespace PasteIntoFile {
             this.autostartCheckBox.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
             this.autostartCheckBox.Name = "autostartCheckBox";
             this.autostartCheckBox.Size = new System.Drawing.Size(288, 24);
-            this.autostartCheckBox.TabIndex = 0;
+            this.autostartCheckBox.TabIndex = 5;
             this.autostartCheckBox.Text = Resources.str_wizard_tray_autostart_button;
             this.autostartCheckBox.UseVisualStyleBackColor = true;
             this.autostartCheckBox.CheckedChanged += new System.EventHandler(this.ChkAutostart_CheckedChanged);
@@ -252,7 +262,7 @@ namespace PasteIntoFile {
             this.patchingCheckBox.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
             this.patchingCheckBox.Name = "patchingCheckBox";
             this.patchingCheckBox.Size = new System.Drawing.Size(210, 17);
-            this.patchingCheckBox.TabIndex = 8;
+            this.patchingCheckBox.TabIndex = 6;
             this.patchingCheckBox.Text = Resources.str_wizard_tray_patching_button;
             this.patchingCheckBox.UseVisualStyleBackColor = true;
             this.patchingCheckBox.CheckedChanged += new System.EventHandler(this.ChkPatching_CheckedChanged);
@@ -265,7 +275,7 @@ namespace PasteIntoFile {
             this.finish.Margin = new System.Windows.Forms.Padding(4, 30, 4, 15);
             this.finish.Name = "finish";
             this.finish.Size = new System.Drawing.Size(206, 30);
-            this.finish.TabIndex = 2;
+            this.finish.TabIndex = 7;
             this.finish.Text = Resources.str_wizard_finish;
             this.finish.UseVisualStyleBackColor = true;
             this.finish.Click += new System.EventHandler(this.finish_Click);
@@ -278,7 +288,7 @@ namespace PasteIntoFile {
             this.version.Location = new System.Drawing.Point(258, 66);
             this.version.Name = "version";
             this.version.Size = new System.Drawing.Size(59, 20);
-            this.version.TabIndex = 7;
+            this.version.TabIndex = 9;
             this.version.Text = "version";
             this.version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
@@ -334,6 +344,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.Label contextEntryInfoLabel;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.CheckBox autoSaveCheckBox;
+        private System.Windows.Forms.CheckBox autoSaveMayOpenNewCheckBox;
         private System.Windows.Forms.Label contextEntryTitleLabel;
         private System.Windows.Forms.Label autostartTitleLabel;
         private System.Windows.Forms.CheckBox autostartCheckBox;

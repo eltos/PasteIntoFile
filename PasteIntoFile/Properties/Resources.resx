@@ -290,4 +290,7 @@ Hold SHIFT to temporarly invert this setting.</value>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
       <value>Notify about updates</value>
   </data>
+  <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
+      <value>Autosave may open explorer (e.g. when pasting into subfolder)</value>
+  </data>
 </root>

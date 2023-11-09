@@ -17,6 +17,7 @@ namespace PasteIntoFile {
             Text = Resources.app_title;
 
             autoSaveCheckBox.Checked = Settings.Default.autoSave;
+            autoSaveMayOpenNewCheckBox.Checked = Settings.Default.autoSaveMayOpenNewExplorer;
             contextEntryCheckBoxPaste.Checked = RegistryUtil.ContextMenuPaste.IsRegistered();
             contextEntryCheckBoxCopy.Checked = RegistryUtil.ContextMenuCopy.IsRegistered();
             contextEntryCheckBoxReplace.Checked = RegistryUtil.ContextMenuReplace.IsRegistered();
@@ -66,6 +67,15 @@ namespace PasteIntoFile {
                 SavedAnimation(autoSaveCheckBox);
             }
         }
+
+        private void ChkAutoSaveMayOpenNew_CheckedChanged(object sender, EventArgs e) {
+            if (Settings.Default.autoSaveMayOpenNewExplorer != autoSaveMayOpenNewCheckBox.Checked) {
+                Settings.Default.autoSaveMayOpenNewExplorer = autoSaveMayOpenNewCheckBox.Checked;
+                Settings.Default.Save();
+                SavedAnimation(autoSaveMayOpenNewCheckBox);
+            }
+        }
+
 
         private void ChkContextEntry_CheckedChanged(object sender, EventArgs e) {
             var checkBox = sender as CheckBox;

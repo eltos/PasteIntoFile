@@ -123,25 +123,19 @@ namespace PasteIntoFile {
                 var file = clipRead ? save(overwriteIfExists) : null;
                 if (file != null) {
 
-                    if (!saveIntoSubdir) {
-                        // select file in explorer for rename and exit afterwards
-                        ExplorerUtil.FilenameEditComplete += (sender, args) => {
-                            Program.ShowBalloon(Resources.str_autosave_balloontitle,
-                                new[] { file, Resources.str_autosave_balloontext }, 10);
-                            Environment.ExitCode = 0;
-                            CloseAsSoonAsPossible();
-                        };
-
-                        ExplorerUtil.AsyncRequestFilenameEdit(file);
-
-                        // Timeout in case filename edit fails
-                        Task.Delay(new TimeSpan(0, 0, 0, 3)).ContinueWith(o => CloseAsSoonAsPossible());
-
-                    } else {
-                        // exit immediately
+                    // select file in explorer for rename and exit afterwards
+                    ExplorerUtil.FilenameEditComplete += (sender, args) => {
                         Program.ShowBalloon(Resources.str_autosave_balloontitle,
                             new[] { file, Resources.str_autosave_balloontext }, 10);
                         Environment.ExitCode = 0;
+                        CloseAsSoonAsPossible();
+                    };
+
+                    if (ExplorerUtil.AsyncRequestFilenameEdit(file, Settings.Default.autoSaveMayOpenNewExplorer)) {
+                        // Wait for FilenameEditComplete event, but timeout after 3s in case it fails
+                        Task.Delay(new TimeSpan(0, 0, 3)).ContinueWith(o => CloseAsSoonAsPossible());
+                    } else {
+                        // No event expected, close immediately (e.g. if explorer may not be opened)
                         CloseAsSoonAsPossible();
                     }
 

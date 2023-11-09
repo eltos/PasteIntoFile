@@ -626,6 +626,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Autosave may open explorer (e.g. when pasting into subfolder).
+        /// </summary>
+        internal static string str_wizard_autosave_may_open_new_explorer {
+            get {
+                return ResourceManager.GetString("str_wizard_autosave_may_open_new_explorer", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Automatically save file without prompt?.
         /// </summary>
         internal static string str_wizard_autosave_title {
