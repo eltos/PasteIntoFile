@@ -17,8 +17,32 @@ namespace PasteIntoFile {
             return GetExplorerPath(GetActiveExplorer());
         }
 
+        /// <summary>
+        /// Heuristic method to get the path of a shell window
+        /// </summary>
+        /// <param name="explorer">File Explorer or Desktiop shell window</param>
+        /// <returns></returns>
         private static string GetExplorerPath(SHDocVw.InternetExplorer explorer) {
-            return (explorer?.Document as Shell32.IShellFolderViewDual2)?.Folder?.Items()?.Item()?.Path;
+            // check location URL
+            if (!string.IsNullOrEmpty(explorer?.LocationURL)) {
+                var uri = new Uri(explorer.LocationURL);
+                return uri.LocalPath;
+            }
+            // Fallback to folder items path, e.g. for Desktop
+            var items = (explorer?.Document as IShellFolderViewDual)?.Folder?.Items();
+            var path = items?.Item()?.Path;
+            if (path != null) {
+                return path;
+            }
+            if (items != null) {
+                foreach (FolderItem item in items) {
+                    path = Path.GetDirectoryName(item?.Path);
+                    if (path != null) {
+                        return path;
+                    }
+                }
+            }
+            return null;
         }
 
 
@@ -34,6 +58,22 @@ namespace PasteIntoFile {
             return (explorer?.Document as Shell32.IShellFolderViewDual2)?.SelectedItems();
         }
 
+        /// <summary>
+        /// Get a reference to the Desktop
+        /// </summary>
+        /// <returns></returns>
+        private static SHDocVw.InternetExplorer GetDesktop() {
+            const int SWC_DESKTOP = 0x00000008;
+            const int SWFO_NEEDDISPATCH = 0x00000001;
+            object oNull = null;
+            var win = new SHDocVw.ShellWindows();
+            return win.FindWindowSW(ref oNull, ref oNull, SWC_DESKTOP, out _, SWFO_NEEDDISPATCH) as SHDocVw.InternetExplorer;
+        }
+
+        /// <summary>
+        /// Get a reference to the currently focussed windows explorer or desktop
+        /// </summary>
+        /// <returns></returns>
         private static SHDocVw.InternetExplorer GetActiveExplorer() {
             // modified from https://stackoverflow.com/a/5708578/13324744
             IntPtr handle = GetForegroundWindow();
@@ -43,6 +83,13 @@ namespace PasteIntoFile {
                     return window;
                 }
             }
+
+            // check if desktop is focussed
+            var desktop = GetDesktop();
+            if (desktop != null && desktop.HWND == (int)handle) {
+                return desktop;
+            }
+
             return null;
         }
 
@@ -56,20 +103,28 @@ namespace PasteIntoFile {
         /// <param name="edit">Select in edit mode if true, otherwise just select</param>
         private static void SelectFileInWindow(SHDocVw.InternetExplorer window, string path, bool edit = true) {
             if (!(window?.Document is IShellFolderViewDual view)) return;
-            window.DocumentComplete += (object disp, ref object url) => {
+
+            var selected = false;
+            void SelectFile() {
                 foreach (FolderItem folderItem in view.Folder.Items()) {
-                    if (folderItem.Path == path) {
+                    if (!selected && folderItem.Path == path) {
+                        selected = true;
                         SetForegroundWindow((IntPtr)window.HWND);
                         // https://docs.microsoft.com/en-us/windows/win32/shell/shellfolderview-selectitem
                         view.SelectItem(folderItem, 16 /* focus it, */ + 8 /* ensure it's visible, */
                                                                        + 4 /* deselect all other and */
                                                                        + (edit ? 3 : 1) /* select or edit */);
-                        break;
+                        FilenameEditComplete?.Invoke(null, EventArgs.Empty);
+                        return;
                     }
                 }
-                FilenameEditComplete?.Invoke(null, EventArgs.Empty);
-            };
+            }
+
+            // refresh folder to make sure the new item is available
+            window.DocumentComplete += (object disp, ref object url) => SelectFile();
             window.Refresh();
+            // try it anyways after 1s in case event is not called (such as for desktop)
+            Task.Delay(new TimeSpan(0, 0, 1)).ContinueWith(o => SelectFile());
         }
 
         /// <summary>
@@ -79,11 +134,12 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="filePath">Path of file to select/edit</param>
         /// <param name="edit">can be set to false to select only (without entering edit mode)</param>
-        public static void AsyncRequestFilenameEdit(string filePath, bool edit = true) {
+        /// <param name="mayOpenNew">Whether a new explorer window may be opened if required</param>
+        public static void AsyncRequestFilenameEdit(string filePath, bool edit = true, bool mayOpenNew = true) {
             filePath = Path.GetFullPath(filePath);
             var dirPath = Path.GetDirectoryName(filePath);
 
-            // check current shell window first
+            // check focussed shell window (or Desktop) first
             var focussedWindow = GetActiveExplorer();
             if (GetExplorerPath(focussedWindow) == dirPath) {
                 SelectFileInWindow(focussedWindow, filePath, edit);
@@ -91,6 +147,7 @@ namespace PasteIntoFile {
             }
 
             // then check other open shell windows
+            // (but not Desktop, since we cannot bring it to foreground)
             var shellWindows = new SHDocVw.ShellWindows();
             foreach (SHDocVw.InternetExplorer window in shellWindows) {
                 if (GetExplorerPath(window) == dirPath) {
@@ -100,13 +157,15 @@ namespace PasteIntoFile {
             }
 
             // or open a new shell window
-            IntPtr file;
-            SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
-            try {
-                SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
-                Task.Run(() => FilenameEditComplete?.Invoke(null, EventArgs.Empty)); // call asynchronously
-            } finally {
-                ILFree(file);
+            if (mayOpenNew) {
+                IntPtr file;
+                SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
+                try {
+                    SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
+                    Task.Run(() => FilenameEditComplete?.Invoke(null, EventArgs.Empty)); // call asynchronously
+                } finally {
+                    ILFree(file);
+                }
             }
         }
 
