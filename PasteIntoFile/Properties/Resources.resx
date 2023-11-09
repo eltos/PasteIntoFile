@@ -69,12 +69,17 @@
   </data>
   <data name="str_filename" xml:space="preserve">
     <value>Filename</value>
+    <comment>Filename to save as
+</comment>
   </data>
   <data name="str_extension" xml:space="preserve">
     <value>Extension</value>
+    <comment>File extension / type to save as
+</comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Location</value>
+    <value>Folder</value>
+    <comment>Folder path location to save file into</comment>
   </data>
   <data name="app_title" xml:space="preserve">
     <value>Paste Into File</value>
@@ -111,6 +116,8 @@ Tooltip</comment>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
     <value>Clear clipboard</value>
+    <comment>Checkbox to clear clipboard after saving
+</comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
     <value>Find this project on GitHub</value>
@@ -129,6 +136,8 @@ Tooltip</comment>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
+    <comment>Program version info
+</comment>
   </data>
   <data name="str_preview" xml:space="preserve">
     <value>Preview</value>
@@ -148,6 +157,8 @@ Do you want to overwrite it?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
     <value>Autosave (skip dialog)</value>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Context menu entry</value>
@@ -166,6 +177,8 @@ Do you want to overwrite it?</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Batch mode</value>
+    <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
+</comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} saved</value>
@@ -201,6 +214,8 @@ Save current clipboard contents now?</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>Copy file content</value>
+    <comment>Context menu entry for copying
+</comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
@@ -276,6 +291,8 @@ These setting will take effect on the next login.</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Replace with clipboard content</value>
+    <comment>Context menu entry for replace-pasting
+</comment>
   </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portable</value>
