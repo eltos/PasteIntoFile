@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
 using Shell32;
 
 namespace PasteIntoFile {
@@ -72,7 +73,9 @@ namespace PasteIntoFile {
         }
 
         /// <summary>
-        /// Request file name edit by user in active explorer path
+        /// Request file name edit by user in active explorer path.
+        /// This method will return immediately, and the FilenameEditComplete event handler
+        /// will be called asynchronously on success.
         /// </summary>
         /// <param name="filePath">Path of file to select/edit</param>
         /// <param name="edit">can be set to false to select only (without entering edit mode)</param>
@@ -101,7 +104,7 @@ namespace PasteIntoFile {
             SHParseDisplayName(filePath, IntPtr.Zero, out file, 0, out _);
             try {
                 SHOpenFolderAndSelectItems(file, 0, null, edit ? 1 : 0);
-                FilenameEditComplete?.Invoke(null, EventArgs.Empty);
+                Task.Run(() => FilenameEditComplete?.Invoke(null, EventArgs.Empty)); // call asynchronously
             } finally {
                 ILFree(file);
             }

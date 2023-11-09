@@ -662,6 +662,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Notify about updates.
+        /// </summary>
+        internal static string str_wizard_notify_on_updates {
+            get {
+                return ResourceManager.GetString("str_wizard_notify_on_updates", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to Paste Into File.
         /// </summary>
         internal static string str_wizard_title {

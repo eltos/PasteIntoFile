@@ -278,4 +278,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
       <value>Speichert Dateien automatisch im Standarddateiformat ohne den Dialog zu zeigen.
 Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertieren.</value>
   </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+      <value>Über Updates benachrichtigen</value>
+  </data>
 </root>
