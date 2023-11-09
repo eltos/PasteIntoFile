@@ -30,13 +30,9 @@ namespace PasteIntoFile {
             }
             // Fallback to folder items path, e.g. for Desktop
             var items = (explorer?.Document as IShellFolderViewDual)?.Folder?.Items();
-            var path = items?.Item()?.Path;
-            if (path != null) {
-                return path;
-            }
             if (items != null) {
                 foreach (FolderItem item in items) {
-                    path = Path.GetDirectoryName(item?.Path);
+                    var path = Path.GetDirectoryName(item?.Path);
                     if (path != null) {
                         return path;
                     }
@@ -79,7 +75,7 @@ namespace PasteIntoFile {
             IntPtr handle = GetForegroundWindow();
             var shellWindows = new SHDocVw.ShellWindows();
             foreach (SHDocVw.InternetExplorer window in shellWindows) {
-                if (window.HWND == (int)handle || shellWindows.Count == 1) {
+                if (window.HWND == (int)handle) {
                     return window;
                 }
             }
@@ -88,6 +84,11 @@ namespace PasteIntoFile {
             var desktop = GetDesktop();
             if (desktop != null && desktop.HWND == (int)handle) {
                 return desktop;
+            }
+
+            // default to the only open window
+            if (shellWindows.Count == 1) {
+                return shellWindows.Item(0);
             }
 
             return null;
