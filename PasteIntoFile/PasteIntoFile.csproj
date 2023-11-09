@@ -110,6 +110,7 @@
         <Compile Include="Settings.cs" />
         <EmbeddedResource Include="Properties\Resources.de.resx" />
         <EmbeddedResource Include="Properties\Resources.it.resx" />
+        <EmbeddedResource Include="Properties\Resources.fr.resx" />
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
