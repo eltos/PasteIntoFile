@@ -69,12 +69,17 @@
   </data>
   <data name="str_filename" xml:space="preserve">
     <value>Nome del file</value>
+    <comment>Filename to save as
+</comment>
   </data>
   <data name="str_extension" xml:space="preserve">
     <value>Estensione</value>
+    <comment>File extension / type to save as
+</comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Posizione</value>
+    <value>Direttorio</value>
+    <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_message_unregister_context_menu_success" xml:space="preserve">
     <value>La voce del menu di contesto di Esplora file è stata rimossa</value>
@@ -108,6 +113,8 @@ Tooltip</comment>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
     <value>Cancella appunti</value>
+    <comment>Checkbox to clear clipboard after saving
+</comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
     <value>Trova questo progetto su GitHub</value>
@@ -123,6 +130,8 @@ Tooltip</comment>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Versione {0}</value>
+    <comment>Program version info
+</comment>
   </data>
   <data name="str_preview" xml:space="preserve">
     <value>Anteprima</value>
@@ -142,6 +151,8 @@ Vuoi sovrascriverlo?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
     <value>Salva automaticamente (salta finestra)</value>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Voce del menu contestuale</value>
@@ -160,6 +171,8 @@ Vuoi sovrascriverlo?</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Modalità batch</value>
+    <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
+</comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} salvato</value>
@@ -195,6 +208,8 @@ Salvare ora i contenuti degli appunti correnti?</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>Copia il contenuto del file</value>
+    <comment>Context menu entry for copying
+</comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>Il file {0} contiene dati di formato sconosciuto che non possono essere copiati negli appunti.</value>
@@ -270,6 +285,8 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Sostituisci con il contenuto degli appunti</value>
+    <comment>Context menu entry for replace-pasting
+</comment>
   </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portatile</value>

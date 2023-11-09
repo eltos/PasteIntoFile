@@ -69,12 +69,17 @@
   </data>
   <data name="str_filename" xml:space="preserve">
     <value>Dateiname</value>
+    <comment>Filename to save as
+</comment>
   </data>
   <data name="str_extension" xml:space="preserve">
     <value>Dateityp</value>
+    <comment>File extension / type to save as
+</comment>
   </data>
   <data name="str_location" xml:space="preserve">
     <value>Zielordner</value>
+    <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_message_unregister_context_menu_success" xml:space="preserve">
     <value>Eintrag im Kontextmenü wurde entfernt</value>
@@ -91,6 +96,8 @@
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Speicherort auswählen</value>
+    <comment>str_select_folder
+Tooltip</comment>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
     <value>Umschalttaste gedrückt halten, um Optionen wieder anzuzeigen.</value>
@@ -106,6 +113,8 @@
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
     <value>Zwischenablage leeren</value>
+    <comment>Checkbox to clear clipboard after saving
+</comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
     <value>Projekt auf GitHub finden</value>
@@ -121,6 +130,8 @@
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
+    <comment>Program version info
+</comment>
   </data>
   <data name="str_preview" xml:space="preserve">
     <value>Vorschau</value>
@@ -139,6 +150,8 @@
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
     <value>Autosave (Dialog überspringen)</value>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
   </data>
   <data name="str_contextentry_checkbox" xml:space="preserve">
     <value>Kontextmenü Eintrag</value>
@@ -156,7 +169,9 @@
     <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-      <value>Stapelverarbeitung</value>
+    <value>Stapelverarbeitung</value>
+    <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
+</comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
     <value>{0} gespeichert</value>
@@ -192,6 +207,8 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>Dateiinhalt kopieren</value>
+    <comment>Context menu entry for copying
+</comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>Die Datei {0} enthält Daten eines unbekannten Formats, die nicht in die Zwischenablage kopiert werden können.</value>
@@ -267,15 +284,17 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
     <value>Ersetzen mit Inhalt der Zwischenablage</value>
+    <comment>Context menu entry for replace-pasting
+</comment>
   </data>
   <data name="str_portable" xml:space="preserve">
-      <value>Portable</value>
+    <value>Portable</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-      <value>Löscht die Daten in der Zwischenablage nach dem Speichern.</value>
+    <value>Löscht die Daten in der Zwischenablage nach dem Speichern.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-      <value>Speichert Dateien automatisch im Standarddateiformat ohne den Dialog zu zeigen.
+    <value>Speichert Dateien automatisch im Standarddateiformat ohne den Dialog zu zeigen.
 Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertieren.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
