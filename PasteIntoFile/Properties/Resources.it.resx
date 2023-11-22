@@ -298,4 +298,10 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
     <value>Salva i dati degli appunti nel tipo di file predefinito senza richiedere il prompt.
 Tieni premuto Maiusc per invertire temporaneamente questa impostazione.</value>
   </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+      <value>Notifica aggiornamenti</value>
+  </data>
+  <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
+      <value>Il salvataggio automatico può aprire esplora file (ad esempio quando si incolla in una sottocartella)</value>
+  </data>
 </root>
