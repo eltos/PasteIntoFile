@@ -30,7 +30,14 @@ namespace PasteIntoFile {
                 var uri = new Uri(explorer.LocationURL);
                 return uri.LocalPath;
             }
-            // Fallback to folder items path, e.g. for Desktop
+
+            // check special case of Desktop
+            if (explorer == GetDesktop()) {
+                return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            }
+
+            // Fallback to folder item path heuristic
+            // this is subjected to fail for virtual folders (e.g. Desktop which includes Public/Desktop)
             var items = (explorer?.Document as IShellFolderViewDual)?.Folder?.Items();
             if (items != null) {
                 foreach (FolderItem item in items) {
