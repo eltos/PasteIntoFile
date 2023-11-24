@@ -170,15 +170,6 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Context menu entry.
-        /// </summary>
-        internal static string str_contextentry_checkbox {
-            get {
-                return ResourceManager.GetString("str_contextentry_checkbox", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Copy file content.
         /// </summary>
         internal static string str_contextentry_copyfromfile {
@@ -317,7 +308,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Location.
+        ///   Looks up a localized string similar to Folder.
         /// </summary>
         internal static string str_location {
             get {
@@ -344,47 +335,11 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Autostart registered.
-        /// </summary>
-        internal static string str_message_register_autostart_success {
-            get {
-                return ResourceManager.GetString("str_message_register_autostart_success", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer context menu entry has been added.
-        /// </summary>
-        internal static string str_message_register_context_menu_success {
-            get {
-                return ResourceManager.GetString("str_message_register_context_menu_success", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Please run the application as administrator!.
         /// </summary>
         internal static string str_message_run_as_admin {
             get {
                 return ResourceManager.GetString("str_message_run_as_admin", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Autostart unregistered.
-        /// </summary>
-        internal static string str_message_unregister_autostart_success {
-            get {
-                return ResourceManager.GetString("str_message_unregister_autostart_success", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Explorer context menu entry has been removed.
-        /// </summary>
-        internal static string str_message_unregister_context_menu_success {
-            get {
-                return ResourceManager.GetString("str_message_unregister_context_menu_success", resourceCulture);
             }
         }
 

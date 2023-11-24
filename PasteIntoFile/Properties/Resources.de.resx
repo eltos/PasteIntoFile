@@ -81,14 +81,8 @@
     <value>Zielordner</value>
     <comment>Folder path location to save file into</comment>
   </data>
-  <data name="str_message_unregister_context_menu_success" xml:space="preserve">
-    <value>Eintrag im Kontextmenü wurde entfernt</value>
-  </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>Bitte die Anwendung als Administrator ausführen!</value>
-  </data>
-  <data name="str_message_register_context_menu_success" xml:space="preserve">
-    <value>Eintrag im Kontextmenü wurde hinzugefügt</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Einfügen als Datei</value>
@@ -152,9 +146,6 @@ Tooltip</comment>
     <value>Autosave (Dialog überspringen)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
-  </data>
-  <data name="str_contextentry_checkbox" xml:space="preserve">
-    <value>Kontextmenü Eintrag</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Datei automatisch ohne Dialog speichern?</value>
@@ -242,12 +233,6 @@ Aktuellen Inhalt der Zwischenablage jetzt speichern?</value>
   </data>
   <data name="str_settings" xml:space="preserve">
     <value>Einstellungen</value>
-  </data>
-  <data name="str_message_register_autostart_success" xml:space="preserve">
-    <value>Autostart aktiviert</value>
-  </data>
-  <data name="str_message_unregister_autostart_success" xml:space="preserve">
-    <value>Autostart deaktiviert</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
     <value>Autostart und Tastenkürzel aktivieren?</value>

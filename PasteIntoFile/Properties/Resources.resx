@@ -84,14 +84,8 @@
   <data name="app_title" xml:space="preserve">
     <value>Paste Into File</value>
   </data>
-  <data name="str_message_unregister_context_menu_success" xml:space="preserve">
-    <value>Explorer context menu entry has been removed</value>
-  </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>Please run the application as administrator!</value>
-  </data>
-  <data name="str_message_register_context_menu_success" xml:space="preserve">
-    <value>Explorer context menu entry has been added</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Paste into file</value>
@@ -159,9 +153,6 @@ Do you want to overwrite it?</value>
     <value>Autosave (skip dialog)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
-  </data>
-  <data name="str_contextentry_checkbox" xml:space="preserve">
-    <value>Context menu entry</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Automatically save file without prompt?</value>
@@ -249,12 +240,6 @@ Save current clipboard contents now?</value>
   </data>
   <data name="str_settings" xml:space="preserve">
     <value>Settings</value>
-  </data>
-  <data name="str_message_register_autostart_success" xml:space="preserve">
-    <value>Autostart registered</value>
-  </data>
-  <data name="str_message_unregister_autostart_success" xml:space="preserve">
-    <value>Autostart unregistered</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
     <value>Enable autostart and hotkeys?</value>

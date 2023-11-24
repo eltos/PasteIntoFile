@@ -92,11 +92,9 @@ namespace PasteIntoFile {
             try {
                 if (checkBox.Checked && !entry.IsRegistered()) {
                     entry.Register();
-                    //MessageBox.Show(Resources.str_message_register_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SavedAnimation(checkBox);
                 } else if (!checkBox.Checked && entry.IsRegistered()) {
                     entry.UnRegister();
-                    //MessageBox.Show(Resources.str_message_unregister_context_menu_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SavedAnimation(checkBox);
                 }
             } catch (Exception ex) {
@@ -118,11 +116,9 @@ namespace PasteIntoFile {
             try {
                 if (autostartCheckBox.Checked && !RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.RegisterAutostart();
-                    //MessageBox.Show(Resources.str_message_register_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SavedAnimation(autostartCheckBox);
                 } else if (!autostartCheckBox.Checked && RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.UnRegisterAutostart();
-                    //MessageBox.Show(Resources.str_message_unregister_autostart_success, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SavedAnimation(autostartCheckBox);
                 }
             } catch (Exception ex) {

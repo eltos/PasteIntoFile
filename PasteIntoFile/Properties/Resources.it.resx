@@ -81,14 +81,8 @@
     <value>Direttorio</value>
     <comment>Folder path location to save file into</comment>
   </data>
-  <data name="str_message_unregister_context_menu_success" xml:space="preserve">
-    <value>La voce del menu di contesto di Esplora file è stata rimossa</value>
-  </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>Perfavore avvia l'app come amministratore!</value>
-  </data>
-  <data name="str_message_register_context_menu_success" xml:space="preserve">
-    <value>La voce del menu di contesto di Esplora file è stata aggiunta</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Incolla nel file</value>
@@ -153,9 +147,6 @@ Vuoi sovrascriverlo?</value>
     <value>Salva automaticamente (salta finestra)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
-  </data>
-  <data name="str_contextentry_checkbox" xml:space="preserve">
-    <value>Voce del menu contestuale</value>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Salva automaticamente il file senza richiesta?</value>
@@ -243,12 +234,6 @@ Salvare ora i contenuti degli appunti correnti?</value>
   </data>
   <data name="str_settings" xml:space="preserve">
     <value>Impostazioni</value>
-  </data>
-  <data name="str_message_register_autostart_success" xml:space="preserve">
-    <value>Avvio automatico registrato</value>
-  </data>
-  <data name="str_message_unregister_autostart_success" xml:space="preserve">
-    <value>Avvio automatico non registrato</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
     <value>Attivare l'avvio automatico e i tasti di scelta rapida?</value>
