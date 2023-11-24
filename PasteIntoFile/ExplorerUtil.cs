@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using SHDocVw;
 using Shell32;
 
 namespace PasteIntoFile {
@@ -21,9 +22,9 @@ namespace PasteIntoFile {
         /// <summary>
         /// Heuristic method to get the path of a shell window
         /// </summary>
-        /// <param name="explorer">File Explorer or Desktiop shell window</param>
+        /// <param name="explorer">File Explorer or Desktop shell window</param>
         /// <returns></returns>
-        private static string GetExplorerPath(SHDocVw.InternetExplorer explorer) {
+        private static string GetExplorerPath(InternetExplorer explorer) {
             // check location URL
             if (!string.IsNullOrEmpty(explorer?.LocationURL)) {
                 var uri = new Uri(explorer.LocationURL);
@@ -47,37 +48,37 @@ namespace PasteIntoFile {
         /// Get path of file selected in active or only windows explorer window
         /// </summary>
         /// <returns>file path string or null</returns>
-        public static Shell32.FolderItems GetActiveExplorerSelectedFiles() {
+        public static FolderItems GetActiveExplorerSelectedFiles() {
             return GetSelectedFiles(GetActiveExplorer());
         }
 
-        private static Shell32.FolderItems GetSelectedFiles(SHDocVw.InternetExplorer explorer) {
-            return (explorer?.Document as Shell32.IShellFolderViewDual2)?.SelectedItems();
+        private static FolderItems GetSelectedFiles(InternetExplorer explorer) {
+            return (explorer?.Document as IShellFolderViewDual2)?.SelectedItems();
         }
 
         /// <summary>
         /// Get a reference to the Desktop
         /// </summary>
         /// <returns></returns>
-        private static SHDocVw.InternetExplorer GetDesktop() {
+        private static InternetExplorer GetDesktop() {
             const int SWC_DESKTOP = 0x00000008;
             const int SWFO_NEEDDISPATCH = 0x00000001;
             object oNull = null;
-            var win = new SHDocVw.ShellWindows();
-            return win.FindWindowSW(ref oNull, ref oNull, SWC_DESKTOP, out _, SWFO_NEEDDISPATCH) as SHDocVw.InternetExplorer;
+            var win = new ShellWindows();
+            return win.FindWindowSW(ref oNull, ref oNull, SWC_DESKTOP, out _, SWFO_NEEDDISPATCH) as InternetExplorer;
         }
 
         /// <summary>
         /// Get a reference to the currently focussed windows explorer or desktop
         /// </summary>
         /// <returns></returns>
-        private static SHDocVw.InternetExplorer GetActiveExplorer() {
+        private static InternetExplorer GetActiveExplorer() {
 
             IntPtr handle = GetForegroundWindow();
 
             // check if it's one of the open file explorer windows
-            var shellWindows = new SHDocVw.ShellWindows();
-            foreach (SHDocVw.InternetExplorer window in shellWindows) {
+            var shellWindows = new ShellWindows();
+            foreach (InternetExplorer window in shellWindows) {
                 if (window.HWND == (int)handle) {
                     return window;
                 }
@@ -116,7 +117,7 @@ namespace PasteIntoFile {
         /// <param name="window">The shell window</param>
         /// <param name="path">The path of the file to select</param>
         /// <param name="edit">Select in edit mode if true, otherwise just select</param>
-        private static void SelectFileInWindow(SHDocVw.InternetExplorer window, string path, bool edit = true) {
+        private static void SelectFileInWindow(InternetExplorer window, string path, bool edit = true) {
             if (!(window?.Document is IShellFolderViewDual view)) return;
 
             var selected = false;
@@ -166,8 +167,8 @@ namespace PasteIntoFile {
             // then check other open shell windows
             // (but not Desktop, since we cannot bring it to foreground)
             if (mayChangeFocus) {
-                var shellWindows = new SHDocVw.ShellWindows();
-                foreach (SHDocVw.InternetExplorer window in shellWindows) {
+                var shellWindows = new ShellWindows();
+                foreach (InternetExplorer window in shellWindows) {
                     if (GetExplorerPath(window) == dirPath) {
                         SelectFileInWindow(window, filePath, edit);
                         return true;
