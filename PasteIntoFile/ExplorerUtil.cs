@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using System.Threading.Tasks;
 using Shell32;
 
@@ -71,8 +72,10 @@ namespace PasteIntoFile {
         /// </summary>
         /// <returns></returns>
         private static SHDocVw.InternetExplorer GetActiveExplorer() {
-            // modified from https://stackoverflow.com/a/5708578/13324744
+
             IntPtr handle = GetForegroundWindow();
+
+            // check if it's one of the open file explorer windows
             var shellWindows = new SHDocVw.ShellWindows();
             foreach (SHDocVw.InternetExplorer window in shellWindows) {
                 if (window.HWND == (int)handle) {
@@ -80,10 +83,21 @@ namespace PasteIntoFile {
                 }
             }
 
-            // check if desktop is focussed
+            // check if it's the desktop
             var desktop = GetDesktop();
-            if (desktop != null && desktop.HWND == (int)handle) {
-                return desktop;
+            if (desktop != null) {
+                if (desktop.HWND == (int)handle) {
+                    return desktop;
+                }
+
+                // When the user changes the wallpaper, the handle no longer match, therefore
+                // use heuristic from https://stackoverflow.com/a/17712961/13324744
+                StringBuilder className = new StringBuilder(256);
+                if (GetClassName(handle.ToInt32(), className, className.Capacity) > 0) {
+                    if (className.ToString() == "WorkerW") {
+                        return desktop;
+                    }
+                }
             }
 
             // default to the only open window
@@ -209,6 +223,9 @@ namespace PasteIntoFile {
 
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern int GetClassName(int hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("shell32.dll", SetLastError = true)]
         public static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string name, IntPtr bindingContext,
