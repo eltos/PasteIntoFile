@@ -7,6 +7,7 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
     public partial class TemplateEdit : MasterForm {
+
         public TemplateEdit() {
             InitializeComponent();
 
@@ -30,6 +31,12 @@ namespace PasteIntoFile {
                 "PasteIntoFile_{1:000}_{0:fffffff}",
             });
             textTemplate.Text = Settings.Default.filenameTemplate;
+
+            // Dark theme
+            if (RegistryUtil.IsDarkMode()) {
+                MakeDarkMode();
+            }
+
         }
 
 
@@ -46,7 +53,7 @@ namespace PasteIntoFile {
         private void textTemplate_Update(object sender = null, EventArgs e = null) {
             try {
                 labelPreview.Text = ((Dialog)Owner)?.formatFilenameTemplate(textTemplate.Text);
-                labelPreview.ForeColor = SystemColors.ControlText;
+                labelPreview.ForeColor = TextColor;
                 buttonAccept.Enabled = true;
 
                 var i = labelPreview.Text.IndexOfAny(Path.GetInvalidFileNameChars());

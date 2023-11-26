@@ -71,13 +71,7 @@ namespace PasteIntoFile {
 
             // Dark theme
             if (RegistryUtil.IsDarkMode()) {
-                foreach (Control element in GetAllChild(this)) {
-                    element.ForeColor = Color.White;
-                    element.BackColor = Color.FromArgb(53, 53, 53);
-                }
-
-                BackColor = Color.FromArgb(24, 24, 24);
-
+                MakeDarkMode();
             }
 
             // read clipboard and populate GUI

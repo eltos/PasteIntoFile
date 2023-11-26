@@ -8,6 +8,7 @@ using Color = System.Drawing.Color;
 
 namespace PasteIntoFile {
     public partial class Wizard : MasterForm {
+
         public Wizard() {
             InitializeComponent();
             Settings.Default.Reload(); // load modifications made from other instance
@@ -38,6 +39,10 @@ namespace PasteIntoFile {
             version.LinkClicked += (sender, args) => Process.Start(args.Link.LinkData.ToString());
             var backgroundTask = CheckForUpdates();
 
+            // Dark theme
+            if (RegistryUtil.IsDarkMode()) {
+                MakeDarkMode();
+            }
         }
 
         async Task CheckForUpdates() {
@@ -104,9 +109,9 @@ namespace PasteIntoFile {
 
         private void SavedAnimation(Control control) {
             control.Text += " ✔";
-            control.ForeColor = Color.Green;
+            control.ForeColor = DarkMode ? Color.LawnGreen : Color.Green;
             Task.Delay(1000).ContinueWith(t => {
-                control.ForeColor = Color.Black;
+                control.ForeColor = TextColor;
                 control.Text = control.Text.Trim('✔').Trim();
             });
         }

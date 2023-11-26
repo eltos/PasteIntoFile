@@ -290,6 +290,7 @@ namespace PasteIntoFile {
             this.version.Size = new System.Drawing.Size(59, 20);
             this.version.TabIndex = 9;
             this.version.Text = "version";
+            this.version.LinkColor = Color.DodgerBlue;
             this.version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // settings menu

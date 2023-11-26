@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Drawing;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
@@ -99,6 +100,7 @@ namespace PasteIntoFile {
             this.labelInfo.TabIndex = 3;
             this.labelInfo.TabStop = true;
             this.labelInfo.Text = Resources.str_template_edit_info;
+            this.labelInfo.LinkColor = Color.DodgerBlue;
             this.labelInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelInfo_LinkClicked);
             //
             // labelPreview
