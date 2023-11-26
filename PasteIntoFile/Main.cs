@@ -125,9 +125,6 @@ namespace PasteIntoFile {
                 Settings.Default.Save();
             }
 
-            if (Environment.OSVersion.Version.Major >= 6)
-                SetProcessDPIAware();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -519,9 +516,6 @@ namespace PasteIntoFile {
 
         }
 
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern bool SetProcessDPIAware();
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         static extern bool AttachConsole(int dwProcessId);
