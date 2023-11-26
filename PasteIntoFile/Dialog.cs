@@ -58,11 +58,11 @@ namespace PasteIntoFile {
             Icon = Resources.app_icon;
             Text = Resources.app_title;
             var versionstr = ProductVersion;
+#if DEBUG
+            versionstr += "D";
+#endif
 #if PORTABLE
             versionstr += " " + Resources.str_portable;
-#endif
-#if DEBUG
-            versionstr += " (debug build)";
 #endif
             versionInfoLabel.Text = string.Format(Resources.str_version, versionstr);
             versionInfoLabel.LinkArea = new LinkArea(0, 0);
