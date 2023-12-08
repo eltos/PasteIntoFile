@@ -295,4 +295,7 @@ Hold SHIFT to temporarly invert this setting.</value>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
       <value>Autosave may open explorer (e.g. when pasting into subfolder)</value>
   </data>
+  <data name="str_always_on_top" xml:space="preserve">
+      <value>Always on top</value>
+  </data>
 </root>

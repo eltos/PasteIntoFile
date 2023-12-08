@@ -288,4 +288,7 @@ Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertiere
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
       <value>Autosave darf Explorer öffnen (z.B. beim Einfügen in Unterordner)</value>
   </data>
+  <data name="str_always_on_top" xml:space="preserve">
+      <value>Immer im Vordergrund</value>
+  </data>
 </root>

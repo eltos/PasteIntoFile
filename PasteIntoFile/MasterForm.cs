@@ -4,12 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
     public class MasterForm : Form {
 
         public bool DarkMode = false;
         public Color TextColor = Color.Black;
+        public const Int32 ALWAYS_ON_TOP = 1000;
 
 
         public IEnumerable<Control> GetAllChild(Control control, System.Type type = null) {
@@ -37,9 +39,71 @@ namespace PasteIntoFile {
             DwmSetWindowAttribute(Handle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref DarkMode, Marshal.SizeOf(DarkMode));
         }
 
+        /// <summary>
+        /// Adds an "Always on top" checkbox to the window bar context menu
+        /// </summary>
+        public void AllowAlwaysOnTop() {
+            IntPtr MenuHandle = GetSystemMenu(Handle, false);
+            InsertMenu(MenuHandle, 0, MF_BYPOSITION, ALWAYS_ON_TOP, Resources.str_always_on_top);
+        }
+
+        protected override void WndProc(ref Message msg) {
+            if (msg.Msg == WM_SYSCOMMAND) {
+                switch (msg.WParam.ToInt32()) {
+                    case ALWAYS_ON_TOP:
+                        // Toogle always on top state
+                        TopMost = !TopMost;
+                        var info = new MENUITEMINFO {
+                            cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                            fMask = MIIM_STATE, // mask what to be changed
+                            fState = TopMost ? MF_CHECKED : MF_UNCHECKED,
+                        };
+                        IntPtr MenuHandle = GetSystemMenu(Handle, false);
+                        SetMenuItemInfo(MenuHandle, 0, true, ref info);
+                        return;
+                }
+            }
+            base.WndProc(ref msg);
+        }
+
         [DllImport("dwmapi.dll", PreserveSig = true)]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref bool attrValue, int attrSize);
 
         public static int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32.dll")]
+        private static extern bool InsertMenu(IntPtr hMenu, uint wPosition, uint wFlags, uint wIDNewItem, string lpNewItem);
+
+        [DllImport("user32.dll")]
+        static extern bool SetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, [In] ref MENUITEMINFO lpmii);
+
+        public const uint WM_SYSCOMMAND = 0x112;
+        public const uint MF_BYPOSITION = 0x400;
+        public const uint MF_CHECKED = 0x8;
+        public const uint MF_UNCHECKED = 0x0;
+        public const uint MIIM_STATE = 0x1;
+
+        /// <summary>
+        /// See https://learn.microsoft.com/de-de/windows/win32/api/winuser/ns-winuser-menuiteminfoa
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MENUITEMINFO {
+            public uint cbSize;
+            public uint fMask;
+            public uint fType;
+            public uint fState;
+            public uint wID;
+            public IntPtr hSubMenu;
+            public IntPtr hbmpChecked;
+            public IntPtr hbmpUnchecked;
+            public IntPtr dwItemData;
+            public string dwTypeData;
+            public uint cch;
+            public IntPtr hbmpItem;
+        }
+
     }
 }

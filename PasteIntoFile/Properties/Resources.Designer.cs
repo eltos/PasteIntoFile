@@ -88,6 +88,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Always on top.
+        /// </summary>
+        internal static string str_always_on_top {
+            get {
+                return ResourceManager.GetString("str_always_on_top", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {

@@ -154,4 +154,7 @@
     <comment>Context menu entry for replace-pasting
 </comment>
   </data>
+  <data name="str_always_on_top" xml:space="preserve">
+      <value>Toujours au premier plan</value>
+  </data>
 </root>

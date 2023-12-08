@@ -54,6 +54,7 @@ namespace PasteIntoFile {
 
             // Setup GUI
             InitializeComponent();
+            AllowAlwaysOnTop();
 
             Icon = Resources.app_icon;
             Text = Resources.app_title;
@@ -75,7 +76,6 @@ namespace PasteIntoFile {
             }
 
             // read clipboard and populate GUI
-
             if (!string.IsNullOrWhiteSpace(Path.GetExtension(filename))) {
                 // filename contains extension, so use that
                 comExt.Text = Path.GetExtension(filename).Trim('.');
@@ -468,7 +468,9 @@ namespace PasteIntoFile {
         }
 
         private void settingsLinkLabel_LinkClicked(object sender, EventArgs e) {
-            new Wizard().ShowDialog(this);
+            var dialog = new Wizard();
+            dialog.TopMost = TopMost; // https://github.com/dotnet/winforms/issues/6190
+            dialog.ShowDialog(this);
         }
 
         private void infoLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -491,6 +493,7 @@ namespace PasteIntoFile {
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             var dialog = new TemplateEdit();
+            dialog.TopMost = TopMost; // https://github.com/dotnet/winforms/issues/6190
             dialog.FormClosed += DialogOnFormClosed;
             dialog.ShowDialog(this);
         }
