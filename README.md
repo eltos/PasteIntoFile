@@ -31,8 +31,16 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 + Supports many formats: PNG, JPG, GIF, SVG, TXT, HTML, CSV, URL, PDF, RTF, DIF, SLK, EMF, TIF, ZIP, file drop list, ...
 + First launch wizard
 
-![Paste Into File](.github/screenshot.png)
-![Paste Into File screen recording](.github/screenrecord.gif)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/screenshot_dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/screenshot.png">
+  <img alt="Paste Into File" src=".github/screenshot.png">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/screenrecord_dark.gif">
+  <source media="(prefers-color-scheme: light)" srcset=".github/screenrecord.gif">
+  <img alt="Paste Into File screen recording" src=".github/screenrecord.gif">
+</picture>
 
 
 ## Installation
