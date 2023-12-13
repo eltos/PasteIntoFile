@@ -145,8 +145,8 @@ Vuoi sovrascriverlo?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
     <value>Salva automaticamente</value>
-      <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
-      </comment>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
     <value>Salva automaticamente il file senza richiesta?</value>
