@@ -106,6 +106,7 @@ jobs:
       with:
         branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
+        author: "Contributing Translators <crowdin-bot@users.noreply.github.com>"
         title: Translation updates from Crowdin
         labels: |
             translation
