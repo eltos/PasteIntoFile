@@ -83,6 +83,8 @@
   </data>
   <data name="app_title" xml:space="preserve">
     <value>Paste Into File</value>
+    <comment>App name (do not translate!)
+</comment>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>Please run the application as administrator!</value>
