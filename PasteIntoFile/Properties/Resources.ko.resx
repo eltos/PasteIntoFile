@@ -65,238 +65,231 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Save</value>
+    <value>저장</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>Filename</value>
+    <value>파일명</value>
     <comment>Filename to save as
 </comment>
   </data>
   <data name="str_extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>확장자</value>
     <comment>File extension / type to save as
 </comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Folder</value>
+    <value>저장 경로</value>
     <comment>Folder path location to save file into</comment>
   </data>
-  <data name="app_title" xml:space="preserve">
-    <value>Paste Into File</value>
-  </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>Please run the application as administrator!</value>
+    <value>관리자 권한으로 실행하세요!</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Paste into file</value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>Select a folder for saving this file</value>
+    <value>파일을 저장할 경로를 선택합니다</value>
     <comment>str_select_folder
 Tooltip</comment>
   </data>
   <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Hold shift key during save to show option window.</value>
+    <value>설정 창을 보려면 저장 도중 shift 키를 누르고 있으세요.</value>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>Files are now automatically saved without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry.</value>
+    <value>이제 파일명과 확장자를 묻지 않고 파일이 자동으로 저장됩니다. 이름 변경을 위해, 생성된 파일이 선택된 채로 새 탐색기 창이 열립니다. 대화 상자를 다시 표시하려면 명령행 인자 없이 프로그램을 실행하거나 컨텍스트 메뉴 항목을 선택할 때에 Shift 키를 누르세요.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>Clipboard is empty or contains unsupported data</value>
+    <value>클립보드가 비었거나 알 수 없는 데이터를 포함하고 있습니다</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
-    <value>Welcome to Paste Into File</value>
+    <value>세체프 Paste Into File</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
-    <value>Clear clipboard</value>
+    <value>클립보드 비우기</value>
     <comment>Checkbox to clear clipboard after saving
 </comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Find this project on GitHub</value>
-  </data>
-  <data name="str_main_info_url" xml:space="preserve">
-    <value>https://github.com/eltos/PasteIntoFile</value>
+    <value>공식 GitHub 페이지</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>By adding entries to the File Explorer context menu, you can quickly paste clipboard contents into files or copy file contents via right click.</value>
+    <value>탐색기 메뉴에 아래 기능들을 추가하면, 우클릭을 통해 빠르게 클립보드 내용을 파일로 저장하거나 파일 컨텐츠 복사를 할 수 있습니다.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>Add context menu entries?</value>
+    <value>탐색기 메뉴에 추가</value>
   </data>
   <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Clipboard saved to file</value>
+    <value>클립보드 내용 파일로 저장 완료</value>
   </data>
   <data name="str_version" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>버전 {0}</value>
     <comment>Program version info
 </comment>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>미리 보기</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>Image preview ({0}x{1} px)</value>
+    <value>이미지 미리 보기 ({0}x{1} px)</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>Text preview ({0} chars, {1} lines)</value>
+    <value>텍스트 미리 보기 ({0} 글자, {1} 줄)</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
-    <value>A directory with the same name already exists at {0}.</value>
+    <value>같은 이름의 파일이 이미 있습니다: {0}.</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
-    <value>The file {0} already exists.
-Do you want to overwrite it?</value>
+    <value>파일 {0} 은 이미 존재합니다. 덮어쓸까요?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Autosave (skip dialog)</value>
+    <value>자동 저장 (대화 상자 표시 안함)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>Automatically save file without prompt?</value>
+    <value>파일로 저장 시 대화 상자 건너뛰기 (자동 저장)</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
-    <value>Enable autosave</value>
+    <value>자동 저장 기능을 활성화합니다</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
-    <value>Finish setup</value>
+    <value>마침</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
+    <value>파일명과 확장자를 묻는 대화 상자가 더 이상 나오지 않습니다. 파일이 자동으로 저장되며 이름 변경을 위해 새로운 탐색기 창이 열립니다. 일시적으로 설정 창을 보고 싶으면 Paste Into File이 실행될 때 Shift 키를 누르고 있으면 됩니다. 명령행 인자 없이 프로그램을 실행하면 항상 대화 상자가 표시됩니다.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Batch mode</value>
+    <value>배치 모드</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>{0} saved</value>
+    <value>{0} 저장됨</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
-    <value>Edit template</value>
+    <value>템플릿 편집</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>저장</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>취소</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>The template is used to format the filename. The following variables are supported:
-  {0} - Date and time
-  {1} - Save count in batch mode
-For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
+    <value>템플릿을 설정하여 파일명 지정 규칙을 세울 수 있습니다.  지원되는 변수는 다음과 같습니다:
+  {0} - 날짜 및 시간
+  {1} - 저장 횟수 (배치 모드)
+서식 지정자에 대한 자세한 내용은 &lt;a&gt;링크를 참고하세요&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">
     <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
-    <value>Filename template</value>
+    <value>파일명 템플릿</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>In batch mode, clipboard contents will be saved instantly when new data is copied.
+    <value>배치 모드에서는 새 데이터가 복사될 때마다 클립보드 내용이 즉시 저장됩니다.
 
-Save current clipboard contents now?</value>
+지금 현재 클립보드 내용을 저장할까요?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
-    <value>Invalid character: {0}</value>
+    <value>유효하지 않은 문자가 발견됐습니다: {0}</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copy file content</value>
+    <value>파일 내용 복사</value>
     <comment>Context menu entry for copying
 </comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
-    <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
+    <value>파일 {0} 은 알 수 없는 형식의 데이터를 포함하고 있어 클립보드로 복사될 수 없습니다.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>Clipboard contains no data convertable to extension {0} or conversion failed.</value>
+    <value>변환 실패: 클립보드는 확장자 {0} 로 변환 가능한 데이터를 포함하고 있지 않습니다</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
-    <value>HTML preview</value>
+    <value>HTML 미리 보기</value>
   </data>
   <data name="str_preview_url" xml:space="preserve">
-    <value>URL preview</value>
+    <value>URL 미리 보기</value>
   </data>
   <data name="str_preview_csv" xml:space="preserve">
-    <value>CSV preview</value>
+    <value>CSV 미리 보기</value>
   </data>
   <data name="str_preview_sylk" xml:space="preserve">
-    <value>Symbolic Link (SYLK) preview</value>
+    <value>SYLK 파일 미리 보기</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>Rich Text preview</value>
+    <value>서식 있는 텍스트 미리 보기</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
-    <value>Data Interchange preview</value>
+    <value>DIF 파일 미리 보기</value>
   </data>
   <data name="str_exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>종료</value>
   </data>
   <data name="str_open_paste_into_file" xml:space="preserve">
-    <value>Open Paste Into File</value>
+    <value>Paste Into File 열기</value>
   </data>
   <data name="str_settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>설정</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
-    <value>Enable autostart and hotkeys?</value>
+    <value>자동 실행 및 단축키 활성화</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-    <value>Autostart into tray</value>
+    <value>윈도우 시작 시 자동 실행 (트레이로 최소화)</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-    <value>If enabled, Paste Into File is started on windows startup and keeps running in the system tray. This allows to call Paste Into File by pressing WIN+ALT+V (and WIN+ALT+C to copy file contents).
-In addition, you may enable clipboard patching. This monitors the clipboard and patches it automatically, so you can use CTRL+V in file explorer as usual.
-These setting will take effect on the next login.</value>
+    <value>Windows 시작 시 Paste Into File이 자동 실행돼 시스템 트레이에서 계속 상주합니다. WIN+ALT+V 키를 통해 Paste Into File을 호출할 수 있습니다. (파일 내용을 복사하려면 WIN+ALT+C)
+또한 클립보드 패치를 활성화할 수도 있습니다. 클립보드를 모니터링하여 자동으로 패치가 적용되므로 평소처럼 파일 탐색기에서 CTRL+V를 사용할 수 있습니다.
+다음 로그인 시 적용됩니다.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>Please select a single file to copy file contents</value>
+    <value>파일 내용을 복사하기 위해서는 파일 하나만 선택해야 합니다</value>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>File list preview ({0} files and folders)</value>
+    <value>파일 목록 미리 보기 ({0} 파일 및 폴더)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-    <value>Enable clipboard patching (experimental)</value>
+    <value>클립보드 패치 활성화 (실험실 기능)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-    <value>Update available: {0} ➜ {1}</value>
+    <value>업데이트가 있습니다: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-    <value>Open</value>
+    <value>열기</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Vector image preview</value>
+    <value>벡터 이미지 미리 보기</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>Scalable Vector Graphic preview</value>
+    <value>SVG 파일 미리 보기</value>
   </data>
   <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Replace with clipboard content</value>
+    <value>클립보드 내용으로 교체</value>
     <comment>Context menu entry for replace-pasting
 </comment>
   </data>
   <data name="str_portable" xml:space="preserve">
-    <value>Portable</value>
+    <value>무설치</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-    <value>Clears the clipboard after its content has been saved.</value>
+    <value>파일로 저장이 완료되면 클립보드를 비웁니다.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-    <value>Saves clipboard data to default filetype without prompt.
-Hold SHIFT to temporarly invert this setting.</value>
+    <value>대화 상자 없이 기본 파일 확장자로 클립보드 내용을 저장합니다.
+일시적으로 설정 창을 열고 싶다면 SHIFT키를 꾹 누르세요.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
-    <value>Notify about updates</value>
+    <value>업데이트 알림</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-    <value>Autosave may open explorer (e.g. when pasting into subfolder)</value>
+    <value>자동 저장 기능은 탐색기 창을 열 수 있습니다 (예: 서브폴더에 붙여넣는 경우)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-    <value>Always on top</value>
+    <value>항상 위에 표시</value>
     <comment>Checkbox in window bar context menu.
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>

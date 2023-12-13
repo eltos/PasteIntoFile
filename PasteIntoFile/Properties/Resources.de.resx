@@ -283,12 +283,15 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
 Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertieren.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
-      <value>Über Updates benachrichtigen</value>
+    <value>Über Updates benachrichtigen</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-      <value>Autosave darf Explorer öffnen (z.B. beim Einfügen in Unterordner)</value>
+    <value>Autosave darf Explorer öffnen (z.B. beim Einfügen in Unterordner)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-      <value>Immer im Vordergrund</value>
+    <value>Immer im Vordergrund</value>
+    <comment>Checkbox in window bar context menu.
+Allows to keep application window always on top (in foreground of other windows), even if not focussed.
+</comment>
   </data>
 </root>
