@@ -6,7 +6,7 @@ on:
     paths:
       - '**/Resources*.resx'
       - '.github/workflows/crowdin_sync.yml'
-  issue_comment:                                     
+  issue_comment:
     types: [created]
   workflow_dispatch:
 
@@ -30,7 +30,7 @@ jobs:
         contains(github.event.issue.labels.*.name, 'translation') &&
         contains(github.event.comment.body, '/sync')
       )
-    
+
     steps:
     - name: Install crowdin cli
       run: |
@@ -106,17 +106,22 @@ jobs:
       with:
         branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
+        author: "Contributing Translators <crowdin-bot@users.noreply.github.com>"
         title: Translation updates from Crowdin
         labels: |
             translation
         body: |
-          Updates translations from [Crowdin project](https://crowdin.com/project/PasteIntoFile)
+          Translation updates from [Crowdin project](https://crowdin.com/project/PasteIntoFile)
+
+          See [recent activity](https://crowdin.com/project/PasteIntoFile/activity-stream)
 
           ```
           ${{ env.INFO }}
           ```
-          
-          To re-sync and update this PR include /sync in a comment.
 
-          *Do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin without overwriting either.*
+          ----
+
+          - To re-sync and update this PR include /sync in a comment.
+          - To attribute translators, use squash merge with "Co-authored-by: eltos <eltos@users.noreply.github.com>"
+          - *Do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin without overwriting either.*
 
