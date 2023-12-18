@@ -116,12 +116,10 @@ namespace PasteIntoFile {
 
                 var file = clipRead ? save(overwriteIfExists) : null;
                 if (file != null) {
+                    Environment.ExitCode = 0;
 
                     // select file in explorer for rename and exit afterwards
                     ExplorerUtil.FilenameEditComplete += (sender, args) => {
-                        Program.ShowBalloon(Resources.str_autosave_balloontitle,
-                            new[] { file, Resources.str_autosave_balloontext }, 10);
-                        Environment.ExitCode = 0;
                         CloseAsSoonAsPossible();
                     };
 
