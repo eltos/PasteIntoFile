@@ -97,24 +97,6 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Hold shift key during save to show option window..
-        /// </summary>
-        internal static string str_autosave_balloontext {
-            get {
-                return ResourceManager.GetString("str_autosave_balloontext", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Clipboard saved to file.
-        /// </summary>
-        internal static string str_autosave_balloontitle {
-            get {
-                return ResourceManager.GetString("str_autosave_balloontitle", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Autosave (skip dialog).
         /// </summary>
         internal static string str_autosave_checkbox {

@@ -18,18 +18,39 @@ trim_trailing_whitespace = true
 ###############################
 [*.cs]
 # New line preferences
-csharp_new_line_before_open_brace =
+csharp_new_line_before_open_brace = none
 csharp_new_line_before_else = false
 csharp_new_line_before_catch = false
 csharp_new_line_before_finally = false
 csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_before_members_in_anonymous_types = true
 csharp_new_line_between_query_expression_clauses = true
+csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = true
+resharper_new_line_before_while = true
+resharper_blank_lines_after_block_statements = 0
+resharper_blank_lines_around_local_method = 0
+resharper_blank_lines_around_property = 0
+resharper_csharp_blank_lines_around_field = 0
+resharper_csharp_blank_lines_around_invocable = 0
+resharper_csharp_blank_lines_around_region = 0
+resharper_csharp_keep_blank_lines_in_declarations = 100
+resharper_csharp_remove_blank_lines_near_braces_in_code = false
+resharper_csharp_remove_blank_lines_near_braces_in_declarations = false
+resharper_csharp_empty_block_style = multiline
+resharper_csharp_max_line_length = 184
 # Indentation preferences
 csharp_indent_case_contents = true
 csharp_indent_switch_labels = true
 csharp_indent_labels = flush_left
 csharp_indent_braces = false
+resharper_indent_inside_namespace = false
+# Bracing preferences
+resharper_braces_for_for = required
+resharper_braces_for_foreach = required
+resharper_braces_for_ifelse = not_required
+resharper_braces_redundant = false
+resharper_parentheses_redundancy_style = remove
 # Space preferences
 csharp_space_after_cast = false
 csharp_space_after_keywords_in_control_flow_statements = true
@@ -52,7 +73,14 @@ csharp_space_before_semicolon_in_for_statement = false
 csharp_space_between_empty_square_brackets = false
 csharp_space_between_method_declaration_name_and_open_parenthesis = false
 csharp_space_between_square_brackets = false
-# Wrapping preferences
-csharp_preserve_single_line_statements = true
-csharp_preserve_single_line_blocks = true
-
+# Code order preferences
+csharp_preferred_modifier_order = private, public, protected, static, new, internal, async, virtual, abstract, sealed, override, extern, unsafe, volatile, readonly
+resharper_force_attribute_style = join
+resharper_instance_members_qualify_declared_in =
+resharper_keep_existing_embedded_arrangement = true
+resharper_keep_existing_invocation_parens_arrangement = true
+resharper_place_expr_property_on_single_line = true
+resharper_place_simple_initializer_on_single_line = false
+resharper_wrap_array_initializer_style = chop_if_long
+resharper_wrap_before_declaration_rpar = false
+resharper_wrap_object_and_collection_initializer_style = chop_always

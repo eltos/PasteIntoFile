@@ -93,9 +93,6 @@
     <comment>str_select_folder
 Tooltip</comment>
   </data>
-  <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Umschalttaste gedrückt halten, um Optionen wieder anzuzeigen.</value>
-  </data>
   <data name="str_autosave_infotext" xml:space="preserve">
     <value>Dateien werden nun automatisch gespeichert, ohne dass der Dialog zur Eingabe von Dateinamen und -typ geöffnet wird. Stattdessen wird die erstellte Datei im Explorer zum Umbenennen markiert. Um den Dialog wieder anzuzeigen, kann PasteIntoFile ohne Argumente ausgeführt werden, oder während des Programmstarts aus dem Kontextmenü die Umschalttaste gedrückt gehalten werden.</value>
   </data>
@@ -118,9 +115,6 @@ Tooltip</comment>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Einträge zum Kontextmenü hinzufügen?</value>
-  </data>
-  <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Zwischenablage als Datei gespeichert</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>

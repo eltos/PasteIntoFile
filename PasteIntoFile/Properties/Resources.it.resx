@@ -93,9 +93,6 @@
     <comment>str_select_folder
 Tooltip</comment>
   </data>
-  <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Tieni premuto il tasto Maiusc durante il salvataggio per mostrare la finestra delle opzioni.</value>
-  </data>
   <data name="str_autosave_infotext" xml:space="preserve">
     <value>I file vengono ora salvati automaticamente senza richiedere il nome e l'estensione del file. Invece, il file creato verrà selezionato per rinominare nella finestra dell'esploratore. Per mostrare nuovamente la finestra di dialogo, eseguire l'eseguibile di Incolla nel file senza argomenti o tenere premuto il tasto Maiusc durante la selezione della voce del menu contestuale.</value>
   </data>
@@ -118,9 +115,6 @@ Tooltip</comment>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Aggiungere le voci del menu contestuale?</value>
-  </data>
-  <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Appunti salvati nel file</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Versione {0}</value>

@@ -98,9 +98,6 @@
     <comment>str_select_folder
 Tooltip</comment>
   </data>
-  <data name="str_autosave_balloontext" xml:space="preserve">
-    <value>Hold shift key during save to show option window.</value>
-  </data>
   <data name="str_autosave_infotext" xml:space="preserve">
     <value>Files are now automatically saved without prompting for filename and extension. Instead, the file created will be selected for renaming in the explorer window. To show the dialog again, run the PasteInfoFile executable without arguments or hold the SHIFT key while selecting the context menu entry.</value>
   </data>
@@ -126,9 +123,6 @@ Tooltip</comment>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Add context menu entries?</value>
-  </data>
-  <data name="str_autosave_balloontitle" xml:space="preserve">
-    <value>Clipboard saved to file</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
