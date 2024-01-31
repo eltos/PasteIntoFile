@@ -41,7 +41,6 @@ namespace PasteIntoFile {
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
             this.versionInfoLabel = new System.Windows.Forms.LinkLabel();
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.chkClrClipboard = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.box = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -225,19 +224,6 @@ namespace PasteIntoFile {
             this.infoLinkLabel.Text = Resources.str_main_info;
             this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.infoLinkLabel_LinkClicked);
             //
-            // chkClrClipboard
-            //
-            this.chkClrClipboard.AutoSize = true;
-            this.chkClrClipboard.Location = new System.Drawing.Point(4, 0);
-            this.chkClrClipboard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.chkClrClipboard.Name = "chkClrClipboard";
-            this.chkClrClipboard.Size = new System.Drawing.Size(169, 24);
-            this.chkClrClipboard.TabIndex = 5;
-            this.chkClrClipboard.Text = Resources.str_clear_clipboard;
-            this.chkClrClipboard.UseVisualStyleBackColor = true;
-            this.toolTip.SetToolTip(this.chkClrClipboard, Resources.str_clear_clipboard_tooltip);
-            this.chkClrClipboard.CheckedChanged += new System.EventHandler(this.ChkClrClipboard_CheckedChanged);
-            //
             // chkAutoSave
             //
             this.chkAutoSave.AutoSize = true;
@@ -358,7 +344,6 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.chkClrClipboard, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 125);
@@ -462,7 +447,6 @@ namespace PasteIntoFile {
         private System.Windows.Forms.Button btnBrowseForFolder;
         private System.Windows.Forms.LinkLabel versionInfoLabel;
         private System.Windows.Forms.LinkLabel infoLinkLabel;
-        private System.Windows.Forms.CheckBox chkClrClipboard;
         private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.GroupBox box;
         private System.Windows.Forms.ToolTip toolTip;

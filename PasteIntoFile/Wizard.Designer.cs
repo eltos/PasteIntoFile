@@ -302,6 +302,12 @@ namespace PasteIntoFile {
             this.settingsMenuUpdateChecks.CheckedChanged += new EventHandler(this.menuUpdateChecks_CheckedChanged);
             this.settingsMenuUpdateChecks.Text = Resources.str_wizard_notify_on_updates;
             this.settingsMenu.Items.Add(this.settingsMenuUpdateChecks);
+            this.settingsMenuClearClipboard = new ToolStripMenuItem();
+            this.settingsMenuClearClipboard.CheckOnClick = true;
+            this.settingsMenuClearClipboard.CheckedChanged += new EventHandler(this.menuClearClipboard_CheckedChanged);
+            this.settingsMenuClearClipboard.Text = Resources.str_clear_clipboard;
+            this.settingsMenuClearClipboard.ToolTipText = Resources.str_clear_clipboard_tooltip;
+            this.settingsMenu.Items.Add(this.settingsMenuClearClipboard);
             //
             // settings button
             //
@@ -338,6 +344,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.Label settingsButton;
         private System.Windows.Forms.ContextMenuStrip settingsMenu;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuUpdateChecks;
+        private System.Windows.Forms.ToolStripMenuItem settingsMenuClearClipboard;
         private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
         private System.Windows.Forms.CheckBox contextEntryCheckBoxPaste;

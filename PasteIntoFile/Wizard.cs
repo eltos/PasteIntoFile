@@ -143,6 +143,7 @@ namespace PasteIntoFile {
         private void settingsButton_Click(object sender, EventArgs e) {
             // update
             settingsMenuUpdateChecks.Checked = Settings.Default.updateChecksEnabled;
+            settingsMenuClearClipboard.Checked = Settings.Default.clrClipboard;
             // show it
             Point ptLowerLeft = new Point(4, settingsButton.Height);
             ptLowerLeft = settingsButton.PointToScreen(ptLowerLeft);
@@ -152,6 +153,13 @@ namespace PasteIntoFile {
         private void menuUpdateChecks_CheckedChanged(object sender, EventArgs e) {
             if (Settings.Default.updateChecksEnabled != settingsMenuUpdateChecks.Checked) {
                 Settings.Default.updateChecksEnabled = settingsMenuUpdateChecks.Checked;
+                Settings.Default.Save();
+            }
+        }
+
+        private void menuClearClipboard_CheckedChanged(object sender, EventArgs e) {
+            if (Settings.Default.clrClipboard != settingsMenuClearClipboard.Checked) {
+                Settings.Default.clrClipboard = settingsMenuClearClipboard.Checked;
                 Settings.Default.Save();
             }
         }

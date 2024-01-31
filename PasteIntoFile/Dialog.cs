@@ -92,7 +92,6 @@ namespace PasteIntoFile {
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
             updateUiFromSettings();
-            chkClrClipboard.Checked = clearClipboardOverwrite ?? chkClrClipboard.Checked;
             Settings.Default.PropertyChanged += (sender, args) => updateUiFromSettings();
 
 
@@ -114,7 +113,7 @@ namespace PasteIntoFile {
                 // directly save without showing a dialog
                 Opacity = 0; // prevent dialog from showing up for a fraction of a second
 
-                var file = clipRead ? save(overwriteIfExists) : null;
+                var file = clipRead ? save(overwriteIfExists, clearClipboardOverwrite) : null;
                 if (file != null) {
                     Environment.ExitCode = 0;
 
@@ -161,7 +160,6 @@ namespace PasteIntoFile {
 
         private void updateUiFromSettings() {
             disableUiEvents = true;
-            chkClrClipboard.Checked = Settings.Default.clrClipboard;
             chkContinuousMode.Checked = Settings.Default.continuousMode;
             chkAutoSave.Checked = Settings.Default.autoSave;
             updateSavebutton();
@@ -341,7 +339,7 @@ namespace PasteIntoFile {
             }
         }
 
-        string save(bool overwriteIfExists = false) {
+        string save(bool overwriteIfExists = false, bool? clearClipboardOverwrite = false) {
             try {
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
                 string ext = comExt.Text.ToLowerInvariant().Trim();
@@ -382,7 +380,7 @@ namespace PasteIntoFile {
                     return null;
                 }
 
-                if (chkClrClipboard.Checked) {
+                if (clearClipboardOverwrite ?? Settings.Default.clrClipboard) {
                     clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
                     Clipboard.Clear();
                     clipMonitor.MonitorClipboard = true;
@@ -429,12 +427,6 @@ namespace PasteIntoFile {
                 Environment.ExitCode = 0;
                 Close();
             }
-        }
-
-        private void ChkClrClipboard_CheckedChanged(object sender, EventArgs e) {
-            if (disableUiEvents) return;
-            Settings.Default.clrClipboard = chkClrClipboard.Checked;
-            Settings.Default.Save();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
