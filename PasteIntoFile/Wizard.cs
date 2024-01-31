@@ -124,6 +124,7 @@ namespace PasteIntoFile {
                     SavedAnimation(autostartCheckBox);
                 } else if (!autostartCheckBox.Checked && RegistryUtil.IsAutostartRegistered()) {
                     RegistryUtil.UnRegisterAutostart();
+                    patchingCheckBox.Checked = false;
                     SavedAnimation(autostartCheckBox);
                 }
             } catch (Exception ex) {
