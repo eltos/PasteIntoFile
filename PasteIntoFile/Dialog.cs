@@ -34,7 +34,14 @@ namespace PasteIntoFile {
 
 
 
-        public Dialog(string location = null, string filename = null, bool? showDialogOverwrite = null, bool? clearClipboardOverwrite = null, bool overwriteIfExists = false) {
+        public Dialog(
+            string location = null,
+            string filename = null,
+            bool? showDialogOverwrite = null,
+            bool? clearClipboardOverwrite = null,
+            bool overwriteIfExists = false,
+            bool append = false
+        ) {
             Settings.Default.Reload(); // load modifications made from other instance
             Settings.Default.continuousMode = false; // always start in normal mode
             Settings.Default.Save();
@@ -91,6 +98,8 @@ namespace PasteIntoFile {
 
             if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
             txtCurrentLocation.Text = location;
+
+            chkAppend.Checked = append;  // non-persistent setting
             updateUiFromSettings();
             Settings.Default.PropertyChanged += (sender, args) => updateUiFromSettings();
 
@@ -241,7 +250,7 @@ namespace PasteIntoFile {
                 ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
 
                 if (!ignore) {
-                    updateFilename();
+                    if (!chkAppend.Checked) updateFilename();
                     save();
                     updateSavebutton();
                 }
@@ -328,7 +337,8 @@ namespace PasteIntoFile {
 
 
         private void updateSavebutton() {
-            btnSave.Enabled = txtFilename.Enabled = !chkContinuousMode.Checked;
+            txtFilename.Enabled = !chkContinuousMode.Checked || chkAppend.Checked;
+            btnSave.Enabled = !chkContinuousMode.Checked;
             btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
         }
 
@@ -354,7 +364,7 @@ namespace PasteIntoFile {
                     if (overwriteIfExists) {
                         // Move old file to recycle bin and proceed
                         ExplorerUtil.MoveToRecycleBin(file);
-                    } else {
+                    } else if (!chkAppend.Checked) {
                         // Ask user for confirmation
                         var result = MessageBox.Show(string.Format(Resources.str_file_exists, file), Resources.app_title,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -375,7 +385,20 @@ namespace PasteIntoFile {
                 BaseContent contentToSave = clipData.ForExtension(comExt.Text);
 
                 if (contentToSave != null) {
-                    contentToSave.SaveAs(file, ext);
+                    try {
+                        contentToSave.SaveAs(file, ext, chkAppend.Checked);
+                    } catch (AppendNotSupportedException) {
+                        // So ask user if we should replace instead
+                        var msg = string.Format(Resources.str_append_not_supported, comExt.Text) + "\n\n" +
+                                  string.Format(Resources.str_file_exists, file);
+                        var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes) {
+                            contentToSave.SaveAs(file, ext);
+                        } else {
+                            return null;
+                        }
+                    }
+
                 } else {
                     return null;
                 }
@@ -429,13 +452,18 @@ namespace PasteIntoFile {
             }
         }
 
+        private void chkAppend_CheckedChanged(object sender, EventArgs e) {
+            if (disableUiEvents) return;
+            updateSavebutton();
+        }
+
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
             if (disableUiEvents) return;
             if (chkContinuousMode.Checked) {
                 var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (saveNow == DialogResult.Yes) // save current clipboard now
                 {
-                    updateFilename();
+                    // for first time save, keep current filename
                     save();
                 } else if (saveNow != DialogResult.No)
                     chkContinuousMode.Checked = false;

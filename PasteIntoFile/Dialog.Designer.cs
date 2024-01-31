@@ -41,6 +41,7 @@ namespace PasteIntoFile {
             this.btnBrowseForFolder = new System.Windows.Forms.Button();
             this.versionInfoLabel = new System.Windows.Forms.LinkLabel();
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.chkAppend = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.box = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -344,6 +345,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chkAppend, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 125);
@@ -354,6 +356,19 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(546, 54);
             this.tableLayoutPanel2.TabIndex = 12;
+            //
+            // chkAppend
+            //
+            this.chkAppend.AutoSize = true;
+            this.chkAppend.Location = new System.Drawing.Point(4, 0);
+            this.chkAppend.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.chkAppend.Name = "chkAppend";
+            this.chkAppend.Size = new System.Drawing.Size(169, 24);
+            this.chkAppend.TabIndex = 5;
+            this.chkAppend.Text = Resources.str_append;
+            this.chkAppend.UseVisualStyleBackColor = true;
+            this.chkAppend.CheckedChanged += new System.EventHandler(this.chkAppend_CheckedChanged);
+            this.toolTip.SetToolTip(this.chkAppend, Resources.str_append_tooltip);
             //
             // chkContinuousMode
             //
@@ -447,6 +462,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.Button btnBrowseForFolder;
         private System.Windows.Forms.LinkLabel versionInfoLabel;
         private System.Windows.Forms.LinkLabel infoLinkLabel;
+        private System.Windows.Forms.CheckBox chkAppend;
         private System.Windows.Forms.CheckBox chkAutoSave;
         private System.Windows.Forms.GroupBox box;
         private System.Windows.Forms.ToolTip toolTip;

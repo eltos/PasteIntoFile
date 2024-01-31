@@ -97,6 +97,34 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Append into file.
+        /// </summary>
+        internal static string str_append {
+            get {
+                return ResourceManager.GetString("str_append", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Appending is not supported for extension &quot;{0}&quot;..
+        /// </summary>
+        internal static string str_append_not_supported {
+            get {
+                return ResourceManager.GetString("str_append_not_supported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Appends the contents to the selected file, if it already exists.
+        ///(Only for supported file types).
+        /// </summary>
+        internal static string str_append_tooltip {
+            get {
+                return ResourceManager.GetString("str_append_tooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Hold shift key during save to show option window..
         /// </summary>
         internal static string str_autosave_balloontext {

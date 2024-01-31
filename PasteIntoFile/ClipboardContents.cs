@@ -18,6 +18,8 @@ using PdfSharp.Pdf;
 
 namespace PasteIntoFile {
 
+    public class AppendNotSupportedException : ArgumentException { }
+
     /// <summary>
     /// This is the base class to hold clipboard contents, metadata, and perform actions with it
     /// </summary>
@@ -54,7 +56,8 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="path">Full path where to save (incl. filename and extension)</param>
         /// <param name="extension">format to use for saving</param>
-        public abstract void SaveAs(string path, string extension);
+        /// <param name="append">If true, append content</param>
+        public abstract void SaveAs(string path, string extension, bool append = false);
 
         /// <summary>
         /// Add the content to the data object to be placed in the clipboard
@@ -86,7 +89,9 @@ namespace PasteIntoFile {
         public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
-        public override void SaveAs(string path, string extension) {
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
             Image image = ImagePreview(extension);
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
@@ -174,7 +179,9 @@ namespace PasteIntoFile {
         public override string[] Extensions => new[] { "emf" };
         public override string Description => Resources.str_preview_image_vector;
 
-        public override void SaveAs(string path, string extension) {
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
             switch (extension) {
                 case "emf":
                     IntPtr h = Metafile.GetHenhmetafile();
@@ -241,7 +248,9 @@ namespace PasteIntoFile {
 
         public override string[] Extensions => new[] { "svg" };
         public override string Description => Resources.str_preview_svg;
-        public override void SaveAs(string path, string extension) {
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
             switch (extension) {
                 case "svg":
                     using (FileStream w = File.Create(path)) {
@@ -265,8 +274,17 @@ namespace PasteIntoFile {
         }
         public string Text => Data as string;
         public static readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, Text, Encoding);
+        public override void SaveAs(string path, string extension, bool append = false) {
+            Save(path, Text, append);
+        }
+
+        public static void Save(string path, string text, bool append = false) {
+            using (StreamWriter streamWriter = new StreamWriter(path, append))
+                streamWriter.Write(EnsureNewline(text), Encoding);
+        }
+
+        public static string EnsureNewline(string text) {
+            return text.TrimEnd('\n') + '\n';
         }
 
         /// <summary>
@@ -295,11 +313,11 @@ namespace PasteIntoFile {
         public HtmlContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "html", "htm", "xhtml" };
         public override string Description => Resources.str_preview_html;
-        public override void SaveAs(string path, string extension) {
+        public override void SaveAs(string path, string extension, bool append = false) {
             var html = Text;
-            if (!html.StartsWith("<!DOCTYPE html>"))
+            if (!append && !html.StartsWith("<!DOCTYPE html>"))
                 html = "<!DOCTYPE html>\n" + html;
-            File.WriteAllText(path, html, Encoding);
+            Save(path, html, append);
         }
         public override void AddTo(IDataObject data) {
             // prepare header
@@ -389,8 +407,8 @@ namespace PasteIntoFile {
             }
         }
 
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllText(path, TextPreview(extension), Encoding);
+        public override void SaveAs(string path, string extension, bool append = false) {
+            Save(path, TextPreview(extension), append);
         }
     }
 
@@ -438,11 +456,10 @@ namespace PasteIntoFile {
         public UrlContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "url" };
         public override string Description => Resources.str_preview_url;
-        public override void SaveAs(string path, string extension) {
-            File.WriteAllLines(path, new[] {
-                @"[InternetShortcut]",
-                @"URL=" + Text
-            }, Encoding);
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
+            Save(path, "[InternetShortcut]\nURL=" + Text);
         }
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
@@ -469,22 +486,24 @@ namespace PasteIntoFile {
 
         public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
         public override string Description => string.Format(Resources.str_preview_files, Files.Count);
-        public override void SaveAs(string path, string extension) {
+        public override void SaveAs(string path, string extension, bool append = false) {
             switch (extension) {
                 case "zip":
                     // TODO: since zipping can take a while depending on file size, this should show a progress to the user
-                    var archive = ZipFile.Open(path, ZipArchiveMode.Create);
-                    foreach (var file in Files) {
-                        if ((File.GetAttributes(file) & FileAttributes.Directory) == FileAttributes.Directory) {
-                            AddToZipArchive(archive, Path.GetFileName(file), new DirectoryInfo(file));
-                        } else {
-                            archive.CreateEntryFromFile(file, Path.GetFileName(file));
+                    using (var archive = ZipFile.Open(path, append ? ZipArchiveMode.Update : ZipArchiveMode.Create)) {
+                        foreach (var file in Files) {
+                            if ((File.GetAttributes(file) & FileAttributes.Directory) == FileAttributes.Directory) {
+                                AddToZipArchive(archive, Path.GetFileName(file), new DirectoryInfo(file));
+                            } else {
+                                archive.CreateEntryFromFile(file, Path.GetFileName(file));
+                            }
                         }
                     }
+
                     break;
 
                 default:
-                    File.WriteAllText(path, FileListString, TextLikeContent.Encoding);
+                    TextLikeContent.Save(path, FileListString, append);
                     break;
             }
         }

@@ -303,4 +303,14 @@ Hold SHIFT to temporarly invert this setting.</value>
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
+  <data name="str_append" xml:space="preserve">
+      <value>Append into file</value>
+  </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+      <value>Appends the contents to the selected file, if it already exists.
+(Only for supported file types)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+      <value>Appending is not supported for extension "{0}".</value>
+  </data>
 </root>

@@ -44,7 +44,10 @@ namespace PasteIntoFile {
             [Value(0, Hidden = true)]
             public string DirectoryFallback { get; set; } // alternative: directory as first value argument
 
-            [Option("overwrite", Default = false, HelpText = "Overwrite existing file without prompt. Requires --autosave=true.")]
+            [Option("append", Default = false, HelpText = "Append to file if it exists (and extension supports appending).")]
+            public bool Append { get; set; }
+
+            [Option("overwrite", Default = false, HelpText = "Overwrite existing file without prompt. Requires --autosave=true. If append is also given, this only applies in case appending fails.")]
             public bool Overwrite { get; set; }
 
         }
@@ -187,7 +190,7 @@ namespace PasteIntoFile {
                 showDialogOverwrite = !args.Autosave;
 
             // launch it
-            Application.Run(new Dialog(directory, filename, showDialogOverwrite, args.ClearClipboard, args.Overwrite));
+            Application.Run(new Dialog(directory, filename, showDialogOverwrite, args.ClearClipboard, args.Overwrite, args.Append));
             return Environment.ExitCode;
         }
 
