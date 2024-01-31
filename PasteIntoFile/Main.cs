@@ -28,12 +28,6 @@ namespace PasteIntoFile {
                                                 "May also contain a file extension and path fragment if used in paste mode.")]
             public string Filename { get; set; }
 
-            [Option("text-extension", HelpText = "Set default file extension for text contents")]
-            public string TextExtension { get; set; }
-
-            [Option("image-extension", HelpText = "Set default file extension for image contents")]
-            public string ImageExtension { get; set; }
-
             [Option('c', "clear", HelpText = "Clear clipboard after save (true/false)")]
             public bool? ClearClipboard { get; set; }
 
@@ -66,6 +60,12 @@ namespace PasteIntoFile {
         class ArgsConfig : ArgsCommon {
             [Option("subdir", HelpText = "Template for name of subfolder to create when holding CTRL (see filename for format variables)")]
             public string Subdir { get; set; }
+
+            [Option("text-extension", HelpText = "Set default file extension for text contents")]
+            public string TextExtension { get; set; }
+
+            [Option("image-extension", HelpText = "Set default file extension for image contents")]
+            public string ImageExtension { get; set; }
 
             [Option("register", HelpText = "Register context menu entry", SetName = "register")]
             public bool RegisterContextMenu { get; set; }
@@ -164,13 +164,6 @@ namespace PasteIntoFile {
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
         static int RunPaste(ArgsPaste args) {
-
-            // persistent options
-            if (args.TextExtension != null)
-                Settings.Default.extensionText = args.TextExtension;
-            if (args.ImageExtension != null)
-                Settings.Default.extensionImage = args.ImageExtension;
-            Settings.Default.Save();
 
             bool? showDialogOverwrite = null;
 
