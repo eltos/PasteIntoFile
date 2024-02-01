@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -6,6 +7,26 @@ using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
     public class RegistryUtil {
+
+        public class Command {
+            public delegate bool HasDialog();
+
+            public readonly string Title;
+            public readonly string Args;
+            public readonly HasDialog Dialog;
+
+            public Command(string title, string args, HasDialog dialog) {
+                Title = title;
+                Args = args;
+                Dialog = dialog;
+            }
+
+            public void Register(RegistryKey key) {
+                key.SetValue("MUIVerb", Title + (Dialog() ? "…" : ""));
+                var cmdkey = key.CreateSubKey("command");
+                cmdkey.SetValue("", "\"" + Application.ExecutablePath + "\" " + Args);
+            }
+        }
 
         // Please note that registry keys are also created by installer and removed upon uninstall
         // Always keep the "Installer/PasteIntoFile.wxs" up to date with the keys used below!
@@ -16,8 +37,9 @@ namespace PasteIntoFile {
             "*", "PasteIntoFile", Resources.str_contextentry_copyfromfile,
             "copy \"%V\"", () => false);
         public static readonly ContextMenuEntry ContextMenuReplace = new ContextMenuEntry(
-            "*", "PasteIntoFile_replace", Resources.str_contextentry_replaceintofile,
-            "paste --directory=\"%w\" --filename=\"%V\" --autosave=true --overwrite=true", () => false);
+            "*", "PasteIntoFile_replace", Resources.str_contextentry_paste_into_existing_file,
+            new Command(Resources.str_replace, "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true", () => false),
+            new Command(Resources.str_append, "paste --append --directory=\"%w\" --filename=\"%V\" --autosave=true", () => false));
 
         public static readonly ContextMenuEntry[] AllContextMenu = { ContextMenuPaste, ContextMenuCopy, ContextMenuReplace };
 
@@ -29,11 +51,9 @@ namespace PasteIntoFile {
 
             private readonly string _type;
             private readonly string _key;
+            private readonly Command _command;
             private readonly string _title;
-            private readonly string _args;
-            private readonly HasDialog _hasDialog;
-
-            public delegate bool HasDialog();
+            private readonly Command[] _subCommands;
 
             /// <summary>
             ///
@@ -43,23 +63,30 @@ namespace PasteIntoFile {
             /// <param name="title">Title to show in context menu entry</param>
             /// <param name="args">Arguments to pass to binary</param>
             /// <param name="hasDialog"></param>
-            public ContextMenuEntry(string type, string key, string title, string args, HasDialog hasDialog) {
+            public ContextMenuEntry(string type, string key, string title, string args, Command.HasDialog hasDialog)
+                : this(type, key, new Command(title, args, hasDialog)) { }
+            public ContextMenuEntry(string type, string key, Command command) {
+                _type = type;
+                _key = key;
+                _command = command;
+            }
+            public ContextMenuEntry(string type, string key, string title, params Command[] entries) {
                 _type = type;
                 _key = key;
                 _title = title;
-                _args = args;
-                _hasDialog = hasDialog;
+                _subCommands = entries;
             }
+
+            private static RegistryKey RootKey => Registry.CurrentUser.CreateSubKey(@"Software\Classes");
 
             /// <summary>
             /// Opens a number of class sub keys according to the type.
             /// </summary>
             /// <returns>List of registry keys</returns>
             private IEnumerable<RegistryKey> OpenClassKeys() {
-                var classes = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
                 if (_type == "Directory")
-                    return new[] { classes.CreateSubKey(@"Directory\shell"), classes.CreateSubKey(@"Directory\Background\shell") };
-                return new[] { classes.CreateSubKey(_type + @"\shell") };
+                    return new[] { RootKey.CreateSubKey(@"Directory\shell"), RootKey.CreateSubKey(@"Directory\Background\shell") };
+                return new[] { RootKey.CreateSubKey(_type + @"\shell") };
             }
 
             /// <summary>
@@ -89,10 +116,16 @@ namespace PasteIntoFile {
             public void Register() {
                 foreach (var classKey in OpenClassKeys()) {
                     var key = classKey.CreateSubKey(_key);
-                    key.SetValue("", _title + (_hasDialog() ? "…" : ""));
                     key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                    key = key.CreateSubKey("command");
-                    key.SetValue("", "\"" + Application.ExecutablePath + "\" " + _args);
+                    if (_title != null) key.SetValue("MUIVerb", _title);
+                    _command?.Register(key);
+                    if (_subCommands?.Length > 0) {
+                        key.SetValue("ExtendedSubCommandsKey", key.Name.Substring(RootKey.Name.Length + 1));
+                        var subkey = key.CreateSubKey("shell");
+                        for (var i = 0; i < _subCommands.Length; i++) {
+                            _subCommands[i].Register(subkey.CreateSubKey("cmd" + i));
+                        }
+                    }
                 }
             }
 

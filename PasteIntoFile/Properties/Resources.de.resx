@@ -261,11 +261,6 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Skalierbare Vektorgrafik Vorschau</value>
   </data>
-  <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Ersetzen mit Inhalt der Zwischenablage</value>
-    <comment>Context menu entry for replace-pasting
-</comment>
-  </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portable</value>
   </data>
@@ -288,7 +283,7 @@ Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertiere
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
-  <data name="str_append" xml:space="preserve">
+  <data name="str_append_to_file" xml:space="preserve">
       <value>Zur Datei hinzufügen</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
@@ -297,5 +292,14 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append_tooltip" xml:space="preserve">
       <value>Falls die Datei bereits existiert wird der Inhalt zur Datei hinzugefügt.
 (Nur für unterstützte Dateitypen)</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+      <value>Ersetzen</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+      <value>Einfügen in diese Datei</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+      <value>Anfügen</value>
   </data>
 </root>

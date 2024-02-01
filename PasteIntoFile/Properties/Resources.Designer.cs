@@ -97,7 +97,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Append into file.
+        ///   Looks up a localized string similar to Append.
         /// </summary>
         internal static string str_append {
             get {
@@ -111,6 +111,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_append_not_supported {
             get {
                 return ResourceManager.GetString("str_append_not_supported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Append into file.
+        /// </summary>
+        internal static string str_append_to_file {
+            get {
+                return ResourceManager.GetString("str_append_to_file", resourceCulture);
             }
         }
 
@@ -198,11 +207,11 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Replace with clipboard content.
+        ///   Looks up a localized string similar to Paste into this file.
         /// </summary>
-        internal static string str_contextentry_replaceintofile {
+        internal static string str_contextentry_paste_into_existing_file {
             get {
-                return ResourceManager.GetString("str_contextentry_replaceintofile", resourceCulture);
+                return ResourceManager.GetString("str_contextentry_paste_into_existing_file", resourceCulture);
             }
         }
 
@@ -512,6 +521,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_preview_url {
             get {
                 return ResourceManager.GetString("str_preview_url", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Replace.
+        /// </summary>
+        internal static string str_replace {
+            get {
+                return ResourceManager.GetString("str_replace", resourceCulture);
             }
         }
 

@@ -261,11 +261,6 @@ Tooltip</comment>
   <data name="str_preview_svg" xml:space="preserve">
     <value>SVG 파일 미리 보기</value>
   </data>
-  <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>클립보드 내용으로 교체</value>
-    <comment>Context menu entry for replace-pasting
-</comment>
-  </data>
   <data name="str_portable" xml:space="preserve">
     <value>무설치</value>
   </data>

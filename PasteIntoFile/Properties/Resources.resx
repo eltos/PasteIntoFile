@@ -270,11 +270,6 @@ These setting will take effect on the next login.</value>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Scalable Vector Graphic preview</value>
   </data>
-  <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Replace with clipboard content</value>
-    <comment>Context menu entry for replace-pasting
-</comment>
-  </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portable</value>
   </data>
@@ -297,7 +292,7 @@ Hold SHIFT to temporarly invert this setting.</value>
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
-  <data name="str_append" xml:space="preserve">
+  <data name="str_append_to_file" xml:space="preserve">
       <value>Append into file</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
@@ -306,5 +301,14 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
       <value>Appending is not supported for extension "{0}".</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+      <value>Replace</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+      <value>Paste into this file</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+      <value>Append</value>
   </data>
 </root>

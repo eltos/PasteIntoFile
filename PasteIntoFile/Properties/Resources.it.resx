@@ -262,11 +262,6 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Anteprima grafica vettoriale scalabile</value>
   </data>
-  <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Sostituisci con il contenuto degli appunti</value>
-    <comment>Context menu entry for replace-pasting
-</comment>
-  </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portatile</value>
   </data>
@@ -282,5 +277,8 @@ Tieni premuto Maiusc per invertire temporaneamente questa impostazione.</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
       <value>Il salvataggio automatico può aprire esplora file (ad esempio quando si incolla in una sottocartella)</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+      <value>Sostituisci</value>
   </data>
 </root>

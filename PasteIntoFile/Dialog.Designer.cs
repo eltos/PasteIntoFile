@@ -365,7 +365,7 @@ namespace PasteIntoFile {
             this.chkAppend.Name = "chkAppend";
             this.chkAppend.Size = new System.Drawing.Size(169, 24);
             this.chkAppend.TabIndex = 5;
-            this.chkAppend.Text = Resources.str_append;
+            this.chkAppend.Text = Resources.str_append_to_file;
             this.chkAppend.UseVisualStyleBackColor = true;
             this.chkAppend.CheckedChanged += new System.EventHandler(this.chkAppend_CheckedChanged);
             this.toolTip.SetToolTip(this.chkAppend, Resources.str_append_tooltip);

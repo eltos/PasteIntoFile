@@ -149,12 +149,10 @@
   <data name="str_open" xml:space="preserve">
     <value>Ouvrir</value>
   </data>
-  <data name="str_contextentry_replaceintofile" xml:space="preserve">
-    <value>Remplacer par le contenu du presse-papiers</value>
-    <comment>Context menu entry for replace-pasting
-</comment>
-  </data>
   <data name="str_always_on_top" xml:space="preserve">
       <value>Toujours au premier plan</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+      <value>Remplacer</value>
   </data>
 </root>
