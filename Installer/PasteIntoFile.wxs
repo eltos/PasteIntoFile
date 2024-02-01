@@ -32,7 +32,7 @@
                   AllowSameVersionUpgrades="no" />
 
     <!-- After install: launch wizard -->
-    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='wizard' Impersonate='yes' Return='asyncNoWait' />
+    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='wizard' Impersonate='yes'  />
 
     <InstallExecuteSequence>
       <!-- This action is not executed during uninstall and silent mode -->
@@ -81,46 +81,19 @@
   </Fragment>
 
 
-  <!-- register context menu entry (and remove on uninstall) -->
+  <!-- register context menu entries (and remove on uninstall) -->
   <Fragment>
     <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
-      <!-- for directory: paste into file -->
-      <RegistryKey Root='HKCU' Key='Software\Classes\Directory'>
-        <RegistryKey Key='shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='Paste into file'/>
-          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
-          <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste "%V"'/>
-          </RegistryKey>
-        </RegistryKey>
-        <RegistryKey Key='Background\shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='Paste into file'/>
-          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
-          <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste "%V"'/>
-          </RegistryKey>
-        </RegistryKey>
-      </RegistryKey>
-      <!-- for files: copy from file -->
-      <RegistryKey Root='HKCU' Key='Software\Classes\*'>
-        <RegistryKey Key='shell\PasteIntoFile'>
-          <RegistryValue Type='string' Value='Copy file content'/>
-          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
-          <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" copy "%V"'/>
-          </RegistryKey>
-        </RegistryKey>
-      </RegistryKey>
-      <!-- for files: replace file content -->
-      <RegistryKey Root='HKCU' Key='Software\Classes\*'>
-        <RegistryKey Key='shell\PasteIntoFile_replace'>
-          <RegistryValue Type='string' Value='Replace with clipboard content'/>
-          <RegistryValue Type='string' Name='Icon' Value='"[INSTALLFOLDER]PasteIntoFile.exe",0'/>
-          <RegistryKey Key='command'>
-            <RegistryValue Type='string' Value='"[INSTALLFOLDER]PasteIntoFile.exe" paste --directory="%w" --filename="%V" --autosave=true --overwrite=true"'/>
-          </RegistryKey>
-        </RegistryKey>
-      </RegistryKey>
+        <!-- install placeholders (will be filled in by InstallExecuteSequence > LaunchProgram) -->
+        <RegistryValue Root='HKCU' Key='Software\Classes\Directory\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
+        <RegistryValue Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
+        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
+        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace' Type='string' Name='MUIVerb' Value='Paste into file'/>
+        <!-- clean up on uninstall -->
+        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\shell\PasteIntoFile'/>
+        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile'/>
+        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile'/>
+        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace'/>
     </Component>
   </Fragment>
 
