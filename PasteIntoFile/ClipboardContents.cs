@@ -688,15 +688,16 @@ namespace PasteIntoFile {
             if (SvgContent.FromClipboard() is BaseContent content)
                 container.Contents.Add(content);
 
-            if (Clipboard.ContainsFileDropList())
-                container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
-
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.RelativeOrAbsolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
-            // make sure text content comes last, so it does not overwrite extensions used by previous special formats
+            // make sure text content comes last, so it does not overwrite extensions used by previous special formats...
             if (Clipboard.ContainsText())
                 container.Contents.Add(new TextContent(Clipboard.GetText()));
+
+            // ...except for file list, which has even lower priority so as not to overwrite *.txt
+            if (Clipboard.ContainsFileDropList())
+                container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
 
 
             return container;
