@@ -89,10 +89,10 @@ namespace PasteIntoFile {
                 filename = Path.GetFileNameWithoutExtension(filename);
             } else {
                 // use extension based on format type
-                comExt.Text = "*";
+                comExt.Text = "";
             }
 
-            var clipRead = readClipboard(); // might change extension if no matching format available
+            var clipRead = readClipboard(); // will set extension automatically if empty
 
             updateFilename(filename);
 
@@ -198,12 +198,17 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="content">Clipboard content for which to determine extension</param>
         /// <returns>Extension</returns>
-        public static string determineExtension(BaseContent content) {
-            // chose file extension based on available contents in this order
-            if (content is ImageContent)
-                return content.Extensions.Contains(Settings.Default.extensionImage) ? Settings.Default.extensionImage : content.DefaultExtension;
-            if (content is TextContent)
-                return Settings.Default.extensionText == null ? content.DefaultExtension : Settings.Default.extensionText;
+        public static string determineExtension(ClipboardContents clipData) {
+            // Determines primary data in clipboard according to a custom prioritisation order
+            BaseContent content = clipData.ForContentType(typeof(ImageLikeContent)) ??
+                                  clipData.ForContentType(typeof(TextContent)) ??
+                                  clipData.ForContentType(typeof(BaseContent));
+
+            // chose file extension based on user preference if available
+            if (content is ImageContent && content.Extensions.Contains(Settings.Default.extensionImage))
+                return Settings.Default.extensionImage;
+            if (content is TextContent && Settings.Default.extensionText != null)
+                return Settings.Default.extensionText;
             if (content != null)
                 return content.DefaultExtension;
             return "";
@@ -222,10 +227,11 @@ namespace PasteIntoFile {
             foreach (var content in clipData.Contents) {
                 comExt.AddWithSeparator(content.Extensions.Except(comExt.ItemArray()));
             }
+            comExt.AddWithSeparator(new[] { "*" });
 
-            // if selected extension does not match available contents, adjust it
-            if (comExt.Text == "*" || comExt.Text == null || clipData.ForExtension(comExt.Text) == null) {
-                comExt.Text = determineExtension(clipData.PrimaryContent);
+            // if no extension selected, update from available contents
+            if (string.IsNullOrWhiteSpace(comExt.Text)) {
+                comExt.Text = determineExtension(clipData);
             }
 
             updateContentPreview();
@@ -272,7 +278,7 @@ namespace PasteIntoFile {
             imagePreview.Hide();
             treePreview.Hide();
 
-            BaseContent content = clipData.ForExtension(comExt.Text);
+            var (content, ext) = contentToSave();
             if (content == null) {
                 // no matching data found
                 box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
@@ -282,7 +288,7 @@ namespace PasteIntoFile {
             box.Text = content.Description;
 
             if (content is ImageLikeContent imageContent) {
-                var img = imageContent.ImagePreview(comExt.Text);
+                var img = imageContent.ImagePreview(ext);
                 if (img != null) {
                     imagePreview.Image = img;
 
@@ -310,13 +316,13 @@ namespace PasteIntoFile {
 
             } else if (content is TextLikeContent textLikeContent) {
                 if (content is RtfContent)
-                    textPreview.Rtf = textLikeContent.TextPreview(comExt.Text);
+                    textPreview.Rtf = textLikeContent.TextPreview(ext);
                 else
-                    textPreview.Text = textLikeContent.TextPreview(comExt.Text);
+                    textPreview.Text = textLikeContent.TextPreview(ext);
                 textPreview.Show();
 
             } else if (content is FilesContent filesContent) {
-                if (filesContent.TextPreview(comExt.Text) is string preview) {
+                if (filesContent.TextPreview(ext) is string preview) {
                     textPreview.Text = preview;
                     textPreview.Show();
                 } else {
@@ -353,11 +359,30 @@ namespace PasteIntoFile {
             }
         }
 
+        /// <summary>
+        /// Return the content to be saved and the file extension to use
+        /// </summary>
+        /// <returns>(content to be saved, file extension)</returns>
+        (BaseContent content, string ext) contentToSave() {
+            var ext = comExt.Text != "*" ? comExt.Text : determineExtension(clipData);
+            ext = ext.ToLowerInvariant().Trim();
+            var content = clipData.ForExtension(ext);
+            if (ext.StartsWith(".")) ext = ext.Substring(1);
+            return (content, ext);
+        }
+
+        /// <summary>
+        /// Saves the clipboard content according to the current UI settings
+        /// </summary>
+        /// <param name="overwriteIfExists"></param>
+        /// <param name="clearClipboardOverwrite"></param>
+        /// <returns></returns>
         string save(bool overwriteIfExists = false, bool? clearClipboardOverwrite = false) {
             try {
+                var (content, ext) = contentToSave();
+
+                // build path to save
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
-                string ext = comExt.Text.ToLowerInvariant().Trim();
-                if (ext.StartsWith(".")) ext = ext.Substring(1);
                 string filename = txtFilename.Text;
                 if (!string.IsNullOrWhiteSpace(ext) && !filename.EndsWith("." + ext))
                     filename += "." + ext;
@@ -386,18 +411,16 @@ namespace PasteIntoFile {
                 // create folders if required
                 Directory.CreateDirectory(dirname);
 
-                BaseContent contentToSave = clipData.ForExtension(comExt.Text);
-
-                if (contentToSave != null) {
+                if (content != null) {
                     try {
-                        contentToSave.SaveAs(file, ext, chkAppend.Checked);
+                        content.SaveAs(file, ext, chkAppend.Checked);
                     } catch (AppendNotSupportedException) {
                         // So ask user if we should replace instead
-                        var msg = string.Format(Resources.str_append_not_supported, comExt.Text) + "\n\n" +
+                        var msg = string.Format(Resources.str_append_not_supported, ext) + "\n\n" +
                                   string.Format(Resources.str_file_exists, file);
                         var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (result == DialogResult.Yes) {
-                            contentToSave.SaveAs(file, ext);
+                            content.SaveAs(file, ext);
                         } else {
                             return null;
                         }
@@ -411,6 +434,15 @@ namespace PasteIntoFile {
                     clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
                     Clipboard.Clear();
                     clipMonitor.MonitorClipboard = true;
+                }
+
+                // remember user preferences for certain content types
+                if (!string.IsNullOrWhiteSpace(comExt.Text) && comExt.Text != "*") {
+                    if (content is TextContent)
+                        Settings.Default.extensionText = comExt.Text;
+                    if (content is ImageContent)
+                        Settings.Default.extensionImage = comExt.Text;
+                    Settings.Default.Save();
                 }
 
                 saveCount++;
@@ -500,17 +532,7 @@ namespace PasteIntoFile {
         }
 
         private void comExt_Update(object sender, EventArgs e) {
-
             updateContentPreview();
-
-            // remember user selected defaults for certain content types
-            BaseContent content = clipData.ForExtension(comExt.Text);
-            if (content is TextLikeContent)
-                Settings.Default.extensionText = comExt.Text;
-            if (content is ImageLikeContent)
-                Settings.Default.extensionImage = comExt.Text;
-
-            Settings.Default.Save();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

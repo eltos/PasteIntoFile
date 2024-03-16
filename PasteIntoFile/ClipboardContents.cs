@@ -579,18 +579,11 @@ namespace PasteIntoFile {
         /// <returns></returns>
         public BaseContent ForContentType(Type type) {
             foreach (var content in Contents) {
-                if (content.GetType() == type)
+                if (type.IsInstanceOfType(content))
                     return content;
             }
             return null;
         }
-
-        /// <summary>
-        /// Determines the primary type of data in this container according to a custom prioritisation order
-        /// </summary>
-        public BaseContent PrimaryContent => ForContentType(typeof(ImageContent)) ??
-                                             ForContentType(typeof(TextContent)) ??
-                                             ForContentType(typeof(BaseContent));
 
         /// <summary>
         /// Static constructor to create an instance from the current clipboard data
@@ -688,7 +681,7 @@ namespace PasteIntoFile {
             if (SvgContent.FromClipboard() is BaseContent content)
                 container.Contents.Add(content);
 
-            if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.RelativeOrAbsolute))
+            if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
             // make sure text content comes last, so it does not overwrite extensions used by previous special formats...

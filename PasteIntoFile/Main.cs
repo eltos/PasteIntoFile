@@ -334,7 +334,7 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsFileDropList()) return null;
             var clipData = ClipboardContents.FromClipboard();
             var filename = Dialog.formatFilenameTemplate(Settings.Default.filenameTemplate, clipData.Timestamp, saveCount);
-            var ext = Dialog.determineExtension(clipData.PrimaryContent);
+            var ext = Dialog.determineExtension(clipData);
             var contentToSave = clipData.ForExtension(ext);
             if (contentToSave == null) return null;
 
