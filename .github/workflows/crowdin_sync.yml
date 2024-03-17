@@ -102,7 +102,7 @@ jobs:
         echo 'EOF' >> $GITHUB_ENV
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4.2.3
+      uses: peter-evans/create-pull-request@v6.0.2
       with:
         branch: ${{ env.BRANCH }}
         commit-message: Update from crowdin
