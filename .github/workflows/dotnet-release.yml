@@ -28,7 +28,8 @@ jobs:
           name: release_artifact_portable
           path: release_artifact_portable
       - name: Create zip
-        run: tar -czf release_artifact_portable.zip -C release_artifact_portable *
+        run: Compress-Archive -Path release_artifact_portable/* -Destination release_artifact_portable.zip
+        #run: tar -cvzf release_artifact_portable.tar.gz -C release_artifact_portable *
       - name: Upload release artifact
         uses: actions/upload-release-asset@v1
         env:
