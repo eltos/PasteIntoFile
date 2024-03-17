@@ -639,7 +639,7 @@ namespace PasteIntoFile {
             if (ReadClipboardHtml() is string html)
                 container.Contents.Add(new HtmlContent(html));
 
-            if (ReadClipboardString(DataFormats.CommaSeparatedValue, "text/csv") is string csv)
+            if (ReadClipboardString(DataFormats.CommaSeparatedValue, "text/csv", "text/tab-separated-values") is string csv)
                 container.Contents.Add(new CsvContent(csv));
 
             if (ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
@@ -658,8 +658,8 @@ namespace PasteIntoFile {
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
             // make sure text content comes last, so it does not overwrite extensions used by previous special formats...
-            if (Clipboard.ContainsText())
-                container.Contents.Add(new TextContent(Clipboard.GetText()));
+            if (ReadClipboardString(DataFormats.UnicodeText, DataFormats.Text, "text/plain") is string text)
+                container.Contents.Add(new TextContent(text));
 
             // ...except for file list, which has even lower priority so as not to overwrite *.txt
             if (Clipboard.ContainsFileDropList())
