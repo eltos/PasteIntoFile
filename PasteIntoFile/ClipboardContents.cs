@@ -657,20 +657,20 @@ namespace PasteIntoFile {
 
             // Other formats
             // =============
-            if (Clipboard.ContainsData(DataFormats.Html)
-                    && ReadClipboardHtml() is string html)
+
+            if (ReadClipboardHtml() is string html)
                 container.Contents.Add(new HtmlContent(html));
-            if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue)
-                && ReadClipboardString(DataFormats.CommaSeparatedValue) is string csv)
+
+            if (ReadClipboardString(DataFormats.CommaSeparatedValue, "text/csv") is string csv)
                 container.Contents.Add(new CsvContent(csv));
-            if (Clipboard.ContainsData(DataFormats.SymbolicLink)
-                && ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
+
+            if (ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
                 container.Contents.Add(new SylkContent(lnk));
-            if (Clipboard.ContainsData(DataFormats.Rtf)
-                && ReadClipboardString(DataFormats.Rtf) is string rtf)
+
+            if (ReadClipboardString(DataFormats.Rtf, "text/rtf") is string rtf)
                 container.Contents.Add(new RtfContent(rtf));
-            if (Clipboard.ContainsData(DataFormats.Dif)
-                && ReadClipboardString(DataFormats.Dif) is string dif)
+
+            if (ReadClipboardString(DataFormats.Dif) is string dif)
                 container.Contents.Add(new DifContent(dif));
 
             if (ReadClipboardString("image/svg+xml") is string svg)
@@ -692,26 +692,31 @@ namespace PasteIntoFile {
         }
 
         private static string ReadClipboardHtml() {
-            var content = Clipboard.GetText(TextDataFormat.Html);
-            var match = Regex.Match(content, @"StartHTML:(?<startHTML>\d*).*?EndHTML:(?<endHTML>\d*)", RegexOptions.Singleline);
-            if (match.Success) {
-                var startHtml = Math.Max(int.Parse(match.Groups["startHTML"].Value), 0);
-                var endHtml = Math.Min(int.Parse(match.Groups["endHTML"].Value), content.Length);
-                return content.Substring(startHtml, endHtml - startHtml);
+            if (Clipboard.ContainsData(DataFormats.Html)) {
+                var content = Clipboard.GetText(TextDataFormat.Html);
+                var match = Regex.Match(content, @"StartHTML:(?<startHTML>\d*).*?EndHTML:(?<endHTML>\d*)", RegexOptions.Singleline);
+                if (match.Success) {
+                    var startHtml = Math.Max(int.Parse(match.Groups["startHTML"].Value), 0);
+                    var endHtml = Math.Min(int.Parse(match.Groups["endHTML"].Value), content.Length);
+                    return content.Substring(startHtml, endHtml - startHtml);
+                }
             }
-            return null;
+            return ReadClipboardString("text/html");
         }
 
-        private static string ReadClipboardString(string format) {
-            var data = Clipboard.GetData(format);
-            switch (data) {
-                case string str:
-                    return str;
-                case MemoryStream stream:
-                    return new StreamReader(stream).ReadToEnd().TrimEnd('\0');
-                default:
-                    return null;
+        private static string ReadClipboardString(params string[] formats) {
+            foreach (var format in formats) {
+                if (!Clipboard.ContainsData(format))
+                    continue;
+                var data = Clipboard.GetData(format);
+                switch (data) {
+                    case string str:
+                        return str;
+                    case MemoryStream stream:
+                        return new StreamReader(stream).ReadToEnd().TrimEnd('\0');
+                }
             }
+            return null;
         }
 
         private static Metafile ReadClipboardMetafile() {
