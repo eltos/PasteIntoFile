@@ -226,43 +226,37 @@ namespace PasteIntoFile {
     /// <summary>
     /// Class to hold SVG data
     /// </summary>
-    public class SvgContent : BaseContent {
+    public class SvgContent : TextLikeContent {
+        public SvgContent(string xml) : base(xml) { }
 
-        public static SvgContent FromClipboard() {
-            var format = "image/svg+xml";
-            if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
-                return new SvgContent(stream);
-            return null;
-        }
-        public SvgContent(Stream data) {
-            Data = data;
-        }
-
-        public Stream Stream => Data as Stream;
-        public string XmlString {
+        public string Xml {
             get {
-                Stream.Seek(0, SeekOrigin.Begin);
-                return new StreamReader(Stream).ReadToEnd();
+                var xml = Text;
+                if (!xml.StartsWith("<?xml"))
+                    xml = "<?xml version=\"1.0\" encoding=\"" + Encoding.BodyName + "\"?>\n" + xml;
+                return xml;
             }
         }
 
         public override string[] Extensions => new[] { "svg" };
         public override string Description => Resources.str_preview_svg;
+
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
             switch (extension) {
                 case "svg":
-                    using (FileStream w = File.Create(path)) {
-                        Stream.Seek(0, SeekOrigin.Begin);
-                        Stream.CopyTo(w);
-                    }
+                default:
+                    Save(path, Xml);
                     break;
             }
         }
 
         public override void AddTo(IDataObject data) {
             data.SetData("image/svg+xml", Stream);
+        }
+        public override string TextPreview(string extension) {
+            return Xml;
         }
     }
 
@@ -273,12 +267,13 @@ namespace PasteIntoFile {
             Data = text;
         }
         public string Text => Data as string;
+        public Stream Stream => new MemoryStream(Encoding.GetBytes(Text));
         public static readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
         public override void SaveAs(string path, string extension, bool append = false) {
             Save(path, Text, append);
         }
 
-        public static void Save(string path, string text, bool append = false) {
+        protected static void Save(string path, string text, bool append = false) {
             using (StreamWriter streamWriter = new StreamWriter(path, append))
                 streamWriter.Write(EnsureNewline(text), Encoding);
         }
@@ -503,7 +498,7 @@ namespace PasteIntoFile {
                     break;
 
                 default:
-                    TextLikeContent.Save(path, FileListString, append);
+                    new TextContent(FileListString).SaveAs(path, extension, append);
                     break;
             }
         }
@@ -678,8 +673,8 @@ namespace PasteIntoFile {
                 && ReadClipboardString(DataFormats.Dif) is string dif)
                 container.Contents.Add(new DifContent(dif));
 
-            if (SvgContent.FromClipboard() is BaseContent content)
-                container.Contents.Add(content);
+            if (ReadClipboardString("image/svg+xml") is string svg)
+                container.Contents.Add(new SvgContent(svg));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
@@ -756,21 +751,27 @@ namespace PasteIntoFile {
                 var contents = File.ReadAllText(path);
                 container.Contents.Add(new TextContent(contents));
 
-                // html files
-                string firstLine = File.ReadLines(path).First();
-                if (ext == "html" || ext == "htm" || firstLine.StartsWith("<!DOCTYPE html>")) {
+                // check for doctype
+                var firstLines = "";
+                using (var reader = new StringReader(contents)) {
+                    for (var i = 0; i < 2; i++)
+                        firstLines += reader.ReadLine() + "\n";
+                }
+                var doctype = new Regex(@"<!DOCTYPE\s+(\S+).*>").Match(firstLines).Groups[1].Value.ToLower();
+
+                // text like contents
+                if (ext == "html" || ext == "htm" || doctype == "html")
                     container.Contents.Add(new HtmlContent(contents));
-                }
-
-                // csv files
-                if (ext == "csv") {
+                if (ext == "svg" || doctype == "svg")
+                    container.Contents.Add(new SvgContent(contents));
+                if (ext == "csv")
                     container.Contents.Add(new CsvContent(contents));
-                }
-
-                // rtf files
-                if (ext == "rtf") {
+                if (ext == "dif")
+                    container.Contents.Add(new DifContent(contents));
+                if (ext == "rtf")
                     container.Contents.Add(new RtfContent(contents));
-                }
+                if (ext == "syk")
+                    container.Contents.Add(new SylkContent(contents));
 
             }
 

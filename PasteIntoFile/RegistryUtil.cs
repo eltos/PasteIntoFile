@@ -73,7 +73,7 @@ namespace PasteIntoFile {
         private static string APPEND_NOT_SUPPORTED = "System.FileExtension:=." + string.Join(" OR System.FileExtension:=.",
             new ImageContent(null).Extensions.Concat(
                 new VectorImageContent(null).Extensions.Concat(
-                    new SvgContent(null).Extensions.Concat(
+                    new SvgContent("").Extensions.Concat(
                         new UrlContent(null).Extensions))));
 
 

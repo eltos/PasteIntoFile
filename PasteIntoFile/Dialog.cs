@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
-using Svg;
 using WK.Libraries.BetterFolderBrowserNS;
 using WK.Libraries.SharpClipboardNS;
 
@@ -314,6 +313,10 @@ namespace PasteIntoFile {
                 htmlPreview.DocumentText = htmlContent.Text;
                 htmlPreview.Show();
 
+            } else if (content is SvgContent svgContent) {
+                htmlPreview.DocumentText = svgContent.Xml;
+                htmlPreview.Show();
+
             } else if (content is TextLikeContent textLikeContent) {
                 if (content is RtfContent)
                     textPreview.Rtf = textLikeContent.TextPreview(ext);
@@ -334,11 +337,6 @@ namespace PasteIntoFile {
                     treePreview.EndUpdate();
                     treePreview.Show();
                 }
-
-            } else if (content is SvgContent svgContent) {
-                // Render SVG for preview
-                imagePreview.Image = SvgDocument.FromSvg<SvgDocument>(svgContent.XmlString).Draw();
-                imagePreview.Show();
 
             }
 
