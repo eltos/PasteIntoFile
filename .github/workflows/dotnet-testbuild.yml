@@ -18,6 +18,29 @@ jobs:
           flavor: ${{ matrix.flavor }}
           artifact: ${{ matrix.flavor == 'Portable' && 'PasteIntoFile_debug_portable' || '' }}
 
+  installer:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build program executable
+        id: build
+        uses: ./.github/build
+        with:
+          configuration: Release
+          flavor: Installer
+      - name: Add WiX toolkit to PATH
+        shell: bash
+        run: echo "${WIX}bin" >> $GITHUB_PATH
+      - name: Build MSI file with WiX toolchain
+        run: |
+          cd Installer
+          heat dir ../${{steps.build.outputs.path}} -dr INSTALLFOLDER -ag -cg ReleaseFragment -ke -srd -sfrag -nologo -pog:Binaries -pog:Documents -pog: Satellites -pog:Sources -pog:Content -t releaseFiles.xslt -out releaseFiles.wxs
+          candle releaseFiles.wxs
+          candle PasteIntoFile.wxs
+          light -b ../${{steps.build.outputs.path}} releaseFiles.wixobj PasteIntoFile.wixobj -ext WixNetFxExtension -out Installer.msi
+      
+
 #  test:
 #    runs-on: windows-2019    # For a list of available runner types, refer to https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 #
