@@ -756,6 +756,9 @@ namespace PasteIntoFile {
                 if (ext == "syk")
                     container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
 
+            } else {
+                container.Contents.Add(new TextContent(path));
+
             }
 
             return container.Contents.Count > 0 ? container : null;

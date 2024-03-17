@@ -356,6 +356,8 @@ namespace PasteIntoFile {
                 }
             }
             data.SetData(DataFormats.FileDrop, new[] { file });
+            if (!data.GetDataPresent(DataFormats.UnicodeText, true))
+                data.SetData(DataFormats.UnicodeText, file);
             data.SetData(PATCHED_CLIPBOARD_MAGIC, true); // tag used to distinguish original and patched clipboard
             return data;
         }
