@@ -318,7 +318,7 @@ namespace PasteIntoFile {
                 htmlPreview.Show();
 
             } else if (content is TextLikeContent textLikeContent) {
-                if (content is RtfContent)
+                if (content.Extensions.FirstOrDefault() == "rtf")
                     textPreview.Rtf = textLikeContent.TextPreview(ext);
                 else
                     textPreview.Text = textLikeContent.TextPreview(ext);

@@ -408,38 +408,16 @@ namespace PasteIntoFile {
     }
 
 
-    public class SylkContent : TextLikeContent {
-        public SylkContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "slk" };
-        public override string Description => Resources.str_preview_sylk;
+    public class GenericTextContent : TextLikeContent {
+        private readonly string _format;
+        public GenericTextContent(string format, string extension, string text) : base(text) {
+            _format = format;
+            Extensions = new[] { extension };
+        }
+        public override string[] Extensions { get; }
+        public override string Description => Resources.str_preview;
         public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.SymbolicLink, Text);
-        }
-        public override string TextPreview(string extension) {
-            return Text;
-        }
-    }
-
-
-    public class DifContent : TextLikeContent {
-        public DifContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "dif" };
-        public override string Description => Resources.str_preview_dif;
-        public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.Dif, Text);
-        }
-        public override string TextPreview(string extension) {
-            return Text;
-        }
-    }
-
-
-    public class RtfContent : TextLikeContent {
-        public RtfContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "rtf" };
-        public override string Description => Resources.str_preview_rtf;
-        public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.Rtf, Text);
+            data.SetData(_format, Text);
         }
         public override string TextPreview(string extension) {
             return Text;
@@ -665,13 +643,13 @@ namespace PasteIntoFile {
                 container.Contents.Add(new CsvContent(csv));
 
             if (ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
-                container.Contents.Add(new SylkContent(lnk));
+                container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, "slk", lnk));
 
             if (ReadClipboardString(DataFormats.Rtf, "text/rtf") is string rtf)
-                container.Contents.Add(new RtfContent(rtf));
+                container.Contents.Add(new GenericTextContent(DataFormats.Rtf, "rtf", rtf));
 
             if (ReadClipboardString(DataFormats.Dif) is string dif)
-                container.Contents.Add(new DifContent(dif));
+                container.Contents.Add(new GenericTextContent(DataFormats.Dif, "dif", dif));
 
             if (ReadClipboardString("image/svg+xml") is string svg)
                 container.Contents.Add(new SvgContent(svg));
@@ -772,11 +750,11 @@ namespace PasteIntoFile {
                 if (ext == "csv")
                     container.Contents.Add(new CsvContent(contents));
                 if (ext == "dif")
-                    container.Contents.Add(new DifContent(contents));
+                    container.Contents.Add(new GenericTextContent(DataFormats.Dif, ext, contents));
                 if (ext == "rtf")
-                    container.Contents.Add(new RtfContent(contents));
+                    container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
                 if (ext == "syk")
-                    container.Contents.Add(new SylkContent(contents));
+                    container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
 
             }
 
