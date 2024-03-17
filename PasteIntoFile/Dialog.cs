@@ -381,6 +381,11 @@ namespace PasteIntoFile {
             try {
                 var (content, ext) = contentToSave();
 
+                if (content == null) {
+                    MessageBox.Show(string.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text), Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
                 // build path to save
                 string dirname = Path.GetFullPath(txtCurrentLocation.Text);
                 string filename = txtFilename.Text;
@@ -411,23 +416,18 @@ namespace PasteIntoFile {
                 // create folders if required
                 Directory.CreateDirectory(dirname);
 
-                if (content != null) {
-                    try {
-                        content.SaveAs(file, ext, chkAppend.Checked);
-                    } catch (AppendNotSupportedException) {
-                        // So ask user if we should replace instead
-                        var msg = string.Format(Resources.str_append_not_supported, ext) + "\n\n" +
-                                  string.Format(Resources.str_file_exists, file);
-                        var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (result == DialogResult.Yes) {
-                            content.SaveAs(file, ext);
-                        } else {
-                            return null;
-                        }
+                try {
+                    content.SaveAs(file, ext, chkAppend.Checked);
+                } catch (AppendNotSupportedException) {
+                    // So ask user if we should replace instead
+                    var msg = string.Format(Resources.str_append_not_supported, ext) + "\n\n" +
+                              string.Format(Resources.str_file_exists, file);
+                    var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes) {
+                        content.SaveAs(file, ext);
+                    } else {
+                        return null;
                     }
-
-                } else {
-                    return null;
                 }
 
                 if (clearClipboardOverwrite ?? Settings.Default.clrClipboard) {
