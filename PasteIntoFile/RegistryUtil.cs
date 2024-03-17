@@ -15,10 +15,10 @@ namespace PasteIntoFile {
             public readonly string Args;
             public readonly HasDialog Dialog;
 
-            public Command(string title, string args, HasDialog dialog) {
+            public Command(string title, string args, HasDialog dialog = null) {
                 Title = title;
                 Args = args;
-                Dialog = dialog;
+                Dialog = dialog ?? (() => false);
             }
 
             public void Register(RegistryKey key) {
@@ -30,52 +30,87 @@ namespace PasteIntoFile {
 
         // Please note that registry keys are also created by installer and removed upon uninstall
         // Always keep the "Installer/PasteIntoFile.wxs" up to date with the keys used below!
-        public static readonly ContextMenuEntry ContextMenuPaste = new ContextMenuEntry(
-            "Directory", "PasteIntoFile", Resources.str_contextentry,
-            "paste \"%V\"", () => !Settings.Default.autoSave);
-        public static readonly ContextMenuEntry ContextMenuCopy = new ContextMenuEntry(
-            "*", "PasteIntoFile", Resources.str_contextentry_copyfromfile,
-            "copy \"%V\"", () => false);
-        public static readonly ContextMenuEntry ContextMenuReplace = new ContextMenuEntry(
-            "*", "PasteIntoFile_replace", Resources.str_contextentry_paste_into_existing_file,
-            new Command(Resources.str_replace, "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true", () => false),
-            new Command(Resources.str_append, "paste --append --directory=\"%w\" --filename=\"%V\" --autosave=true", () => false));
+
+        public static readonly ContextMenuEntryPaste ContextMenuPaste = new ContextMenuEntryPaste();
+        public class ContextMenuEntryPaste : ContextMenuEntry {
+            public ContextMenuEntryPaste() : base("Directory", "PasteIntoFile") { }
+            protected override Command Command => new Command(Resources.str_contextentry, "paste \"%V\"", () => !Settings.Default.autoSave);
+        }
+
+        public static readonly ContextMenuEntryCopy ContextMenuCopy = new ContextMenuEntryCopy();
+        public class ContextMenuEntryCopy : ContextMenuEntry {
+            public ContextMenuEntryCopy() : base("*", "PasteIntoFile") { }
+            protected override Command Command => new Command(Resources.str_contextentry_copyfromfile, "copy \"%V\"");
+        }
+
+        public static readonly ContextMenuEntryReplace ContextMenuReplace = new ContextMenuEntryReplace();
+        public class ContextMenuEntryReplace : ContextMenuEntry {
+            public ContextMenuEntryReplace() : base("*", "PasteIntoFile_replace") { }
+            protected override string AppliesTo() => APPEND_NOT_SUPPORTED;
+            protected override Command Command => new Command(
+                Resources.str_contextentry_paste_into_existing_file + " (" + Resources.str_replace + ")",
+                "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true"
+            );
+            public override void Register() {
+                base.Register();
+                new ContextMenuEntryReplaceAppend().Register();
+            }
+            public override void UnRegister() {
+                base.UnRegister();
+                new ContextMenuEntryReplaceAppend().UnRegister();
+            }
+        }
+        private class ContextMenuEntryReplaceAppend : ContextMenuEntry {
+            public ContextMenuEntryReplaceAppend() : base("*", "PasteIntoFile_replace_append") { }
+            protected override string AppliesTo() => "NOT ( " + APPEND_NOT_SUPPORTED + " )";
+            protected override string Title => Resources.str_contextentry_paste_into_existing_file;
+            protected override Command[] SubCommands => new[]{
+                new Command(Resources.str_replace, "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true"),
+                new Command(Resources.str_append, "paste --append --directory=\"%w\" --filename=\"%V\" --autosave=true")
+            };
+        }
+        // for file types that are known not to support appending, show an entry without subcommands instead
+        private static string APPEND_NOT_SUPPORTED = "System.FileExtension:=." + string.Join(" OR System.FileExtension:=.",
+            new ImageContent(null).Extensions.Concat(
+                new VectorImageContent(null).Extensions.Concat(
+                    new SvgContent(null).Extensions.Concat(
+                        new UrlContent(null).Extensions))));
+
+
 
         public static readonly ContextMenuEntry[] AllContextMenu = { ContextMenuPaste, ContextMenuCopy, ContextMenuReplace };
 
 
-        public class ContextMenuEntry {
+
+        /// <summary>
+        /// Base class for context menu entries
+        ///
+        /// These must have a type (file extension or "Directory"), key and
+        /// either a command, or a title and subcommands.
+        /// </summary>
+        public abstract class ContextMenuEntry {
             // Documentation:
             // https://docs.microsoft.com/en-us/windows/win32/shell/context
             // https://docs.microsoft.com/en-us/windows/win32/shell/context-menu
 
-            private readonly string _type;
-            private readonly string _key;
-            private readonly Command _command;
-            private readonly string _title;
-            private readonly Command[] _subCommands;
+            protected readonly string Type;
+            protected readonly string Key;
 
-            /// <summary>
-            ///
-            /// </summary>
-            /// <param name="type">File type or "Directory" or "*"</param>
-            /// <param name="key"></param>
-            /// <param name="title">Title to show in context menu entry</param>
-            /// <param name="args">Arguments to pass to binary</param>
-            /// <param name="hasDialog"></param>
-            public ContextMenuEntry(string type, string key, string title, string args, Command.HasDialog hasDialog)
-                : this(type, key, new Command(title, args, hasDialog)) { }
-            public ContextMenuEntry(string type, string key, Command command) {
-                _type = type;
-                _key = key;
-                _command = command;
+            protected ContextMenuEntry(string type, string key) {
+                Type = type;
+                Key = key;
             }
-            public ContextMenuEntry(string type, string key, string title, params Command[] entries) {
-                _type = type;
-                _key = key;
-                _title = title;
-                _subCommands = entries;
-            }
+
+            protected virtual string AppliesTo() => null;
+
+            // single command for regular entries
+            protected virtual Command Command => null;
+
+            // title and subcommands for submenu entries
+            protected virtual string Title => null;
+            protected virtual Command[] SubCommands => null;
+
+
 
             private static RegistryKey RootKey => Registry.CurrentUser.CreateSubKey(@"Software\Classes");
 
@@ -84,9 +119,9 @@ namespace PasteIntoFile {
             /// </summary>
             /// <returns>List of registry keys</returns>
             private IEnumerable<RegistryKey> OpenClassKeys() {
-                if (_type == "Directory")
+                if (Type == "Directory")
                     return new[] { RootKey.CreateSubKey(@"Directory\shell"), RootKey.CreateSubKey(@"Directory\Background\shell") };
-                return new[] { RootKey.CreateSubKey(_type + @"\shell") };
+                return new[] { RootKey.CreateSubKey(Type + @"\shell") };
             }
 
             /// <summary>
@@ -95,7 +130,7 @@ namespace PasteIntoFile {
             /// <returns>context menu entry registration status (true/false)</returns>
             public bool IsRegistered() {
                 foreach (var classKey in OpenClassKeys()) {
-                    if (classKey == null || !classKey.GetSubKeyNames().Contains(_key)) return false;
+                    if (classKey == null || !classKey.GetSubKeyNames().Contains(Key)) return false;
                 }
 
                 return true;
@@ -104,26 +139,27 @@ namespace PasteIntoFile {
             /// <summary>
             /// Remove context menu entry
             /// </summary>
-            public void UnRegister() {
+            public virtual void UnRegister() {
                 foreach (var classKey in OpenClassKeys()) {
-                    classKey.DeleteSubKeyTree(_key);
+                    classKey.DeleteSubKeyTree(Key);
                 }
             }
 
             /// <summary>
             /// Create context menu entry
             /// </summary>
-            public void Register() {
+            public virtual void Register() {
                 foreach (var classKey in OpenClassKeys()) {
-                    var key = classKey.CreateSubKey(_key);
+                    var key = classKey.CreateSubKey(Key);
                     key.SetValue("Icon", "\"" + Application.ExecutablePath + "\",0");
-                    if (_title != null) key.SetValue("MUIVerb", _title);
-                    _command?.Register(key);
-                    if (_subCommands?.Length > 0) {
+                    if (AppliesTo() is string appliesTo) key.SetValue("AppliesTo", appliesTo);
+                    Command?.Register(key);
+                    if (SubCommands?.Length > 0) {
+                        key.SetValue("MUIVerb", Title);
                         key.SetValue("ExtendedSubCommandsKey", key.Name.Substring(RootKey.Name.Length + 1));
                         var subkey = key.CreateSubKey("shell");
-                        for (var i = 0; i < _subCommands.Length; i++) {
-                            _subCommands[i].Register(subkey.CreateSubKey("cmd" + i));
+                        for (var i = 0; i < SubCommands.Length; i++) {
+                            SubCommands[i].Register(subkey.CreateSubKey("cmd" + i));
                         }
                     }
                 }
@@ -140,6 +176,7 @@ namespace PasteIntoFile {
         public static void ReRegisterContextMenuEntries() {
             foreach (var entry in AllContextMenu) {
                 if (entry.IsRegistered()) {
+                    entry.UnRegister();
                     entry.Register();
                 }
             }

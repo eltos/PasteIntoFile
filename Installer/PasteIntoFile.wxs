@@ -89,11 +89,13 @@
         <RegistryValue Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
         <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
         <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace' Type='string' Name='MUIVerb' Value='Paste into file'/>
+        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace_append' Type='string' Name='MUIVerb' Value='Paste into file'/>
         <!-- clean up on uninstall -->
         <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\shell\PasteIntoFile'/>
         <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile'/>
         <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile'/>
         <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace'/>
+        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace_append'/>
     </Component>
   </Fragment>
 
