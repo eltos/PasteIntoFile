@@ -380,7 +380,8 @@ namespace PasteIntoFile {
                 var (content, ext) = contentToSave();
 
                 if (content == null) {
-                    MessageBox.Show(string.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text), Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!chkContinuousMode.Checked)
+                        MessageBox.Show(string.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text), Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
 
@@ -493,19 +494,21 @@ namespace PasteIntoFile {
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
             if (disableUiEvents) return;
-            if (chkContinuousMode.Checked) {
-                var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (saveNow == DialogResult.Yes) // save current clipboard now
-                {
-                    // for first time save, keep current filename
-                    save();
-                } else if (saveNow != DialogResult.No)
-                    chkContinuousMode.Checked = false;
-            }
-
-            Settings.Default.continuousMode = chkContinuousMode.Checked;
+            Settings.Default.continuousMode = chkContinuousMode.Checked; // updates UI via event
             Settings.Default.Save();
-            updateSavebutton();
+
+            if (chkContinuousMode.Checked) {
+                saveCount = 0;
+                // ask weather save current clipboard now
+                var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (saveNow == DialogResult.Cancel) {
+                    Settings.Default.continuousMode = false; // updates UI via event
+                    Settings.Default.Save();
+                } else if (saveNow == DialogResult.Yes) {
+                    save();
+                    updateSavebutton();
+                }
+            }
 
         }
 
