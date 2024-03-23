@@ -214,7 +214,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxReplace.Name = "contextEntryCheckBoxReplace";
             this.contextEntryCheckBoxReplace.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxReplace.TabIndex = 3;
-            this.contextEntryCheckBoxReplace.Text = Resources.str_contextentry_paste_into_existing_file + " → " + Resources.str_replace + " / " + Resources.str_append;
+            this.contextEntryCheckBoxReplace.Text = Resources.str_contextentry_paste_into_existing_file + " (" + Resources.str_replace + "/" + Resources.str_append + ")";
             this.contextEntryCheckBoxReplace.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxReplace.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
