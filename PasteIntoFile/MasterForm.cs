@@ -51,19 +51,31 @@ namespace PasteIntoFile {
             if (msg.Msg == WM_SYSCOMMAND) {
                 switch (msg.WParam.ToInt32()) {
                     case ALWAYS_ON_TOP:
-                        // Toogle always on top state
-                        TopMost = !TopMost;
-                        var info = new MENUITEMINFO {
-                            cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
-                            fMask = MIIM_STATE, // mask what to be changed
-                            fState = TopMost ? MF_CHECKED : MF_UNCHECKED,
-                        };
-                        IntPtr MenuHandle = GetSystemMenu(Handle, false);
-                        SetMenuItemInfo(MenuHandle, 0, true, ref info);
+                        // Toggle always on top state
+                        SetAlwaysOnTop(!TopMost);
                         return;
                 }
             }
             base.WndProc(ref msg);
+        }
+
+        /// <summary>
+        /// Updates the form's always on top state
+        /// and the corresponding checkbox in the window bar context menu
+        /// </summary>
+        /// <param name="topMost">Always on top or not</param>
+        public void SetAlwaysOnTop(bool topMost) {
+            // Set the form to always be on top
+            TopMost = topMost;
+
+            // Update the window bar context menu
+            var info = new MENUITEMINFO {
+                cbSize = (uint)Marshal.SizeOf(typeof(MENUITEMINFO)),
+                fMask = MIIM_STATE, // mask what to be changed
+                fState = TopMost ? MF_CHECKED : MF_UNCHECKED,
+            };
+            IntPtr MenuHandle = GetSystemMenu(Handle, false);
+            SetMenuItemInfo(MenuHandle, 0, true, ref info);
         }
 
         [DllImport("dwmapi.dll", PreserveSig = true)]

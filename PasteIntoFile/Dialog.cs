@@ -18,6 +18,7 @@ namespace PasteIntoFile {
 
         private SharpClipboard _clipMonitor;
         private bool disableUiEvents = false;
+        private bool _topMostPreviousState = false;
 
         public SharpClipboard clipMonitor {
             get {
@@ -500,15 +501,25 @@ namespace PasteIntoFile {
 
             if (chkContinuousMode.Checked) {
                 saveCount = 0;
+
                 // ask weather save current clipboard now
                 var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (saveNow == DialogResult.Cancel) {
                     Settings.Default.continuousMode = false; // updates UI via event
                     Settings.Default.Save();
+                    return;
                 } else if (saveNow == DialogResult.Yes) {
                     save();
                     updateSavebutton();
                 }
+
+                // save always on top state and enforce it
+                _topMostPreviousState = TopMost;
+                SetAlwaysOnTop(true);
+
+            } else {
+                // restore always on top state
+                SetAlwaysOnTop(_topMostPreviousState);
             }
 
         }
