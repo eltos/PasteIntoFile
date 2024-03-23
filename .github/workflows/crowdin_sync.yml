@@ -105,7 +105,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6.0.2
       with:
         branch: ${{ env.BRANCH }}
-        commit-message: Update from crowdin
+        commit-message: Translation updates from Crowdin
         author: "Contributing Translators <crowdin-bot@users.noreply.github.com>"
         title: Translation updates from Crowdin
         labels: |
@@ -122,6 +122,6 @@ jobs:
           ----
 
           - To re-sync and update this PR include /sync in a comment.
-          - To attribute translators, use squash merge with "Co-authored-by: eltos <eltos@users.noreply.github.com>"
+          - To attribute translators, use squash merge with ´Co-authored-by: eltos <eltos@users.noreply.github.com>´
           - *Do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin without overwriting either.*
 
