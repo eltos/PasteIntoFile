@@ -9,7 +9,7 @@
 
 ## About
 
-A Windows desktop application to paste clipboard contents into files and copy file contents to the clipboard via the context menu
+A Windows desktop application to paste clipboard contents directly into files and copy file contents to the clipboard via the context menu or hotkey
 
 
 
@@ -23,7 +23,7 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
 
 ### Features
 
-+ Explorer context menu entries "[Paste into file](#paste-clipboard-contents)", "[Replace with clipboard content](#replace-with-clipboard-content)" and "[Copy file contents](#copy-file-contents)"
++ Explorer context menu entries "[Paste into file](#paste-clipboard-contents)", "[Paste into this file (Append/Replace)](#paste-into-existing-files-appendreplace)" and "[Copy file contents](#copy-file-contents)"
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
 + [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
 + [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
@@ -69,7 +69,7 @@ In addition to the instructions given below, help is also available via [GitHub 
 
 ### Paste clipboard contents
 
-This is the main mode of PasteIntoFile which allows saving clipboard contents into files.
+This is the main mode of Paste Into File which allows saving clipboard contents directly into files.
 To use this mode, run the program from the file explorer context menu, with the hotkey `WIN`+`ALT`+`V` (if enabled), from the tray (if enabled), from the start menu or via command line.
 If **clipboard patching** is enabled, the regular paste command and `CTRL`+`V` hotkey can also be used.
 
@@ -99,16 +99,17 @@ using `html` will cause the html-formatted text to be saved,
 while using `HTML` will save the plain text.
 
 
-### Replace with clipboard content
-The context menu entry **Replace with clipboard content** allows you to paste clipboard contents into existing files by replacing them.
+### Paste into existing files (Append/Replace)
+The context menu entry **Paste into this file (Append/Replace)** allows you to paste clipboard contents into existing files by either appending or replacing them.
 This works as long as the clipboard contains data compatible with the selected file type.
-The old file is moved to the recycle bin and can be restored with the usual undo options of the file explorer.
+In the case of replace, the old file is moved to the recycle bin and can be restored with the usual undo options of the file explorer (e.g. `CTRL-Z`).
 
 
 ### Copy file contents
 
 To copy the contents of a file to the clipboard, use the file explorer context menu, the hotkey `WIN`+`ALT`+`C` (if enabled) or the command line option.
 Currently, image and text files are supported. If the file format is not understood, an error message will be shown.
+For non-text files, the file path is copied as text in addition to the image contents and file.
 
 
 
@@ -117,7 +118,7 @@ Currently, image and text files are supported. If the file format is not underst
 Use `help`, `help paste`, `help config` etc. as argument to show available command line options, e.g.:
 ```
 > .\PasteIntoFile.exe help
-PasteIntoFile 5.0.0.0
+PasteIntoFile 5.3.0.0
 Copyright © PasteIntoFile GitHub contributors
 
   config     Change configuration (without saving clipboard)
@@ -130,23 +131,24 @@ Copyright © PasteIntoFile GitHub contributors
 ```
 ```
 > .\PasteIntoFile.exe help paste
-PasteIntoFile 5.0.0.0
+PasteIntoFile 5.3.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  -a, --autosave       Autosave file without prompt (true/false)
-  -c, --clear          Clear clipboard after save (true/false)
-  -d, --directory      Path of directory to save file into
-  -f, --filename       Filename template with optional format variables such as
-                       {0:yyyyMMdd HHmmSS} for current date and time
-                       {1:000} for batch-mode save counter
-                       May also contain a file extension and path fragment if
-                       used in paste mode.
-  --help               Display this help screen.
-  --image-extension    Set default file extension for image contents
-  --overwrite          (Default: false) Overwrite existing file without prompt.
-                       Requires --autosave=true.
-  --text-extension     Set default file extension for text contents
-  --version            Display version information.
+  --append           (Default: false) Append to file if it exists (and extension
+                     supports appending).
+  -a, --autosave     Autosave file without prompt (true/false)
+  -c, --clear        Clear clipboard after save (true/false)
+  -d, --directory    Path of directory to save file into
+  -f, --filename     Filename template with optional format variables such as
+                     {0:yyyyMMdd HHmmSS} for current date and time
+                     {1:000} for batch-mode save counter
+                     May also contain a file extension and path fragment if used
+                     in paste mode.
+  --help             Display this help screen.
+  --overwrite        (Default: false) Overwrite existing file without prompt.
+                     Requires --autosave=true. If append is also given, this
+                     only applies in case appending fails.
+  --version          Display version information.
 ```
 
 **Examples:**
