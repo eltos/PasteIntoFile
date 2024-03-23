@@ -286,12 +286,12 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append_to_file" xml:space="preserve">
       <value>Zur Datei hinzufügen</value>
   </data>
-  <data name="str_append_not_supported" xml:space="preserve">
-      <value>Hinzufügen zu bestehender Datei wird für "{0}" nicht unterstützt.</value>
-  </data>
   <data name="str_append_tooltip" xml:space="preserve">
       <value>Falls die Datei bereits existiert wird der Inhalt zur Datei hinzugefügt.
 (Nur für unterstützte Dateitypen)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+      <value>Hinzufügen zu bestehender Datei wird für "{0}" nicht unterstützt.</value>
   </data>
   <data name="str_replace" xml:space="preserve">
       <value>Ersetzen</value>

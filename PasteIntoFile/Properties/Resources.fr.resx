@@ -150,7 +150,10 @@
     <value>Ouvrir</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-      <value>Toujours au premier plan</value>
+    <value>Toujours au premier plan</value>
+    <comment>Checkbox in window bar context menu.
+Allows to keep application window always on top (in foreground of other windows), even if not focussed.
+</comment>
   </data>
   <data name="str_replace" xml:space="preserve">
       <value>Remplacer</value>
