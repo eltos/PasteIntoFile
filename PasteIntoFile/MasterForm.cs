@@ -14,7 +14,7 @@ namespace PasteIntoFile {
         public const Int32 ALWAYS_ON_TOP = 1000;
 
 
-        public IEnumerable<Control> GetAllChild(Control control, System.Type type = null) {
+        public IEnumerable<Control> GetAllChild(Control control, Type type = null) {
             var controls = control.Controls.Cast<Control>();
             var enumerable = controls as Control[] ?? controls.ToArray();
             return enumerable.SelectMany(ctrl => GetAllChild(ctrl, type))

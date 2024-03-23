@@ -221,7 +221,7 @@ namespace PasteIntoFile {
             // Will use full paths, e.g. "C:\Users\User\Downloads" for Downloads
             // https://docs.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
             SHGetDesktopFolder(out IShellFolder desktopFolder);
-            desktopFolder.ParseDisplayName(IntPtr.Zero, null, path, out var pchEaten, out var ppidl, 0);
+            desktopFolder.ParseDisplayName(IntPtr.Zero, null, path, out _, out var ppidl, 0);
             return ppidl;
         }
 
@@ -245,14 +245,8 @@ namespace PasteIntoFile {
         [DllImport("shell32.dll")]
         private static extern void ILFree(IntPtr pidl);
 
-        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr ILCreateFromPathW(string pszPath);
-
         [DllImport("shell32.dll")]
         private static extern int SHGetDesktopFolder(out IShellFolder ppshf);
-
-        [DllImport("ole32.dll")]
-        private static extern int CreateBindCtx(int reserved, out IBindCtx ppbc);
 
         [ComImport, Guid("000214E6-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         internal interface IShellFolder {

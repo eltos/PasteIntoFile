@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
-    partial class Wizard {
+    sealed partial class Wizard {
         /// <summary>
         /// Required designer variable.
         /// </summary>

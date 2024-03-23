@@ -3,7 +3,7 @@ using System.Drawing;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
-    partial class TemplateEdit {
+    sealed partial class TemplateEdit {
         /// <summary>
         /// Required designer variable.
         /// </summary>

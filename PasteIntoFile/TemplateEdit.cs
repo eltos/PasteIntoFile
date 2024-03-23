@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
-    public partial class TemplateEdit : MasterForm {
+    public sealed partial class TemplateEdit : MasterForm {
 
         public TemplateEdit() {
             InitializeComponent();
@@ -56,9 +56,9 @@ namespace PasteIntoFile {
                 labelPreview.ForeColor = TextColor;
                 buttonAccept.Enabled = true;
 
-                var i = labelPreview.Text.IndexOfAny(Path.GetInvalidFileNameChars());
-                if (i >= 0)
-                    throw new FormatException(string.Format(Resources.str_invalid_character, labelPreview.Text[i]));
+                var i = labelPreview.Text?.IndexOfAny(Path.GetInvalidFileNameChars());
+                if (i is int j && j >= 0)
+                    throw new FormatException(string.Format(Resources.str_invalid_character, labelPreview.Text[j]));
             } catch (FormatException ex) {
                 labelPreview.Text = ex.Message;
                 labelPreview.ForeColor = Color.Red;

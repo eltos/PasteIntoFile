@@ -7,7 +7,7 @@ using PasteIntoFile.Properties;
 using Color = System.Drawing.Color;
 
 namespace PasteIntoFile {
-    public partial class Wizard : MasterForm {
+    public sealed partial class Wizard : MasterForm {
 
         public Wizard() {
             InitializeComponent();
@@ -108,7 +108,7 @@ namespace PasteIntoFile {
         }
 
         private void SavedAnimation(Control control) {
-            control.Text += " ✔";
+            control.Text += @" ✔";
             control.ForeColor = DarkMode ? Color.LawnGreen : Color.Green;
             Task.Delay(1000).ContinueWith(t => {
                 control.ForeColor = TextColor;

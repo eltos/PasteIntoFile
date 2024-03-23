@@ -2,7 +2,7 @@ using System.ComponentModel;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
-    partial class Dialog {
+    sealed partial class Dialog {
         /// <summary>
         /// Required designer variable.
         /// </summary>

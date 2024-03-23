@@ -18,7 +18,7 @@ namespace PasteIntoFile {
         /// <summary>
         /// Represents the window that is used internally to get the messages.
         /// </summary>
-        private class Window : NativeWindow, IDisposable {
+        private sealed class Window : NativeWindow, IDisposable {
             private static int WM_HOTKEY = 0x0312;
 
             public Window() {

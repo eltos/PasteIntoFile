@@ -11,14 +11,15 @@ using WK.Libraries.BetterFolderBrowserNS;
 using WK.Libraries.SharpClipboardNS;
 
 namespace PasteIntoFile {
-    public partial class Dialog : MasterForm {
+    public sealed partial class Dialog : MasterForm {
         private ClipboardContents clipData = new ClipboardContents();
         private int saveCount = 0;
         private bool _formLoaded = false;
 
         private SharpClipboard _clipMonitor;
-        private bool disableUiEvents = false;
+        private bool _disableUiEvents = false;
         private bool _topMostPreviousState = false;
+        private const string DYNAMIC_EXTENSION = "*"; // special value to determine extension dynamically
 
         public SharpClipboard clipMonitor {
             get {
@@ -172,11 +173,11 @@ namespace PasteIntoFile {
         }
 
         private void updateUiFromSettings() {
-            disableUiEvents = true;
+            _disableUiEvents = true;
             chkContinuousMode.Checked = Settings.Default.continuousMode;
             chkAutoSave.Checked = Settings.Default.autoSave;
             updateSavebutton();
-            disableUiEvents = false;
+            _disableUiEvents = false;
         }
 
         public static string formatFilenameTemplate(string template, DateTime timestamp, int count) {
@@ -196,7 +197,7 @@ namespace PasteIntoFile {
         /// <summary>
         /// Determine the extension to use based on user settings and defaults
         /// </summary>
-        /// <param name="content">Clipboard content for which to determine extension</param>
+        /// <param name="clipData">Clipboard content for which to determine extension</param>
         /// <returns>Extension</returns>
         public static string determineExtension(ClipboardContents clipData) {
             // Determines primary data in clipboard according to a custom prioritisation order
@@ -227,7 +228,7 @@ namespace PasteIntoFile {
             foreach (var content in clipData.Contents) {
                 comExt.AddWithSeparator(content.Extensions.Except(comExt.ItemArray()));
             }
-            comExt.AddWithSeparator(new[] { "*" });
+            comExt.AddWithSeparator(new[] { DYNAMIC_EXTENSION });
 
             // if no extension selected, update from available contents
             if (string.IsNullOrWhiteSpace(comExt.Text)) {
@@ -363,7 +364,7 @@ namespace PasteIntoFile {
         /// </summary>
         /// <returns>(content to be saved, file extension)</returns>
         (BaseContent content, string ext) contentToSave() {
-            var ext = comExt.Text != "*" ? comExt.Text : determineExtension(clipData);
+            var ext = comExt.Text != DYNAMIC_EXTENSION ? comExt.Text : determineExtension(clipData);
             ext = ext.ToLowerInvariant().Trim();
             var content = clipData.ForExtension(ext);
             if (ext.StartsWith(".")) ext = ext.Substring(1);
@@ -438,7 +439,7 @@ namespace PasteIntoFile {
                 }
 
                 // remember user preferences for certain content types
-                if (!string.IsNullOrWhiteSpace(comExt.Text) && comExt.Text != "*") {
+                if (!string.IsNullOrWhiteSpace(comExt.Text) && comExt.Text != DYNAMIC_EXTENSION) {
                     if (content is TextContent)
                         Settings.Default.extensionText = comExt.Text;
                     if (content is ImageContent)
@@ -490,12 +491,12 @@ namespace PasteIntoFile {
         }
 
         private void chkAppend_CheckedChanged(object sender, EventArgs e) {
-            if (disableUiEvents) return;
+            if (_disableUiEvents) return;
             updateSavebutton();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
-            if (disableUiEvents) return;
+            if (_disableUiEvents) return;
             Settings.Default.continuousMode = chkContinuousMode.Checked; // updates UI via event
             Settings.Default.Save();
 
@@ -525,7 +526,7 @@ namespace PasteIntoFile {
         }
 
         private void ChkAutoSave_CheckedChanged(object sender, EventArgs e) {
-            if (disableUiEvents) return;
+            if (_disableUiEvents) return;
             if (chkAutoSave.Checked && !Settings.Default.autoSave) {
                 MessageBox.Show(Resources.str_autosave_infotext, Resources.str_autosave_checkbox, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
