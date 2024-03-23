@@ -418,15 +418,16 @@ namespace PasteIntoFile {
                 try {
                     content.SaveAs(file, ext, chkAppend.Checked);
                 } catch (AppendNotSupportedException) {
-                    // So ask user if we should replace instead
-                    var msg = string.Format(Resources.str_append_not_supported, ext) + "\n\n" +
-                              string.Format(Resources.str_file_exists, file);
-                    var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes) {
-                        content.SaveAs(file, ext);
-                    } else {
-                        return null;
+                    if (File.Exists(file)) {
+                        // Ask user if we should replace instead
+                        var msg = string.Format(Resources.str_append_not_supported, ext) + "\n\n" +
+                                  string.Format(Resources.str_file_exists, file);
+                        var result = MessageBox.Show(msg, Resources.app_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result != DialogResult.Yes) {
+                            return null;
+                        }
                     }
+                    content.SaveAs(file, ext);
                 }
 
                 if (clearClipboardOverwrite ?? Settings.Default.clrClipboard) {
