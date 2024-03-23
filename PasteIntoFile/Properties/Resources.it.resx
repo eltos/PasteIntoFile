@@ -273,12 +273,34 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
 Tieni premuto Maiusc per invertire temporaneamente questa impostazione.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
-      <value>Notifica aggiornamenti</value>
+    <value>Notifica aggiornamenti</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-      <value>Il salvataggio automatico può aprire esplora file (ad esempio quando si incolla in una sottocartella)</value>
+    <value>Il salvataggio automatico può aprire esplora file (ad esempio quando si incolla in una sottocartella)</value>
+  </data>
+  <data name="str_always_on_top" xml:space="preserve">
+    <value>Sempre in primo piano</value>
+    <comment>Checkbox in window bar context menu.
+Allows to keep application window always on top (in foreground of other windows), even if not focussed.
+</comment>
+  </data>
+  <data name="str_append_to_file" xml:space="preserve">
+      <value>Aggiungi al file</value>
+  </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+      <value>Aggiunge il contenuto al file selezionato, se esiste già.
+(Solo per i tipi di file supportati)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+      <value>L'aggiunta non è supportata per l'estensione "{0}".</value>
   </data>
   <data name="str_replace" xml:space="preserve">
       <value>Sostituisci</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+      <value>Incolla in questo file</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+      <value>Aggiungi</value>
   </data>
 </root>
