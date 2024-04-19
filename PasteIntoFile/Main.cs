@@ -206,7 +206,7 @@ namespace PasteIntoFile {
                 var contents = ClipboardContents.FromFile(path);
 
                 if (contents != null) {
-                    contents.CopyToClipboard(path);
+                    contents.CopyToClipboard();
                     return 0;
                 }
 

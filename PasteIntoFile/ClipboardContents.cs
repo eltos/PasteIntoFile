@@ -717,6 +717,9 @@ namespace PasteIntoFile {
                 Timestamp = DateTime.Now
             };
 
+            // add the file itself
+            container.Contents.Add(new FilesContent(new StringCollection { path }));
+
             // if it's an image (try&catch instead of maintaining a list of supported extensions)
             try {
                 var img = Image.FromFile(path);
@@ -831,12 +834,11 @@ namespace PasteIntoFile {
             return img;
         }
 
-        public void CopyToClipboard(string fileDropPath = null) {
+        public void CopyToClipboard() {
             IDataObject data = new DataObject();
             foreach (var content in Contents) {
                 content.AddTo(data);
             }
-            if (fileDropPath != null) data.SetData(DataFormats.FileDrop, new[] { fileDropPath });
             Clipboard.SetDataObject(data, true);
         }
 
