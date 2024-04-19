@@ -86,8 +86,7 @@ The available **file extensions** depend on the formats available in the clipboa
 For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot.
 Either select one of the suggested or enter a custom extension (which will be remembered).
 An appropriate format is then chosen automatically[^save_plain_text] and a preview shown.
-In autosave mode, the clipboard is saved as image, if available, or else as text.
-The file extension is then determined by the last used extension for the respective filetype (which can also be set via command line).
+When selecting `*` as extension or in autosave mode, the file extensions is determined automatically, i.e. the clipboard is saved as image, if available, or else as text. The format is determined by the last used extension for the respective filetype (which can also be set via command line).
 
 A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
