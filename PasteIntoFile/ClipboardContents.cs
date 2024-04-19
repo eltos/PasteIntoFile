@@ -86,7 +86,7 @@ namespace PasteIntoFile {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif" };
+        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension, bool append = false) {
@@ -115,6 +115,12 @@ namespace PasteIntoFile {
                     document.Save(path);
                     return;
 
+                case "ico":
+                    using (var fs = new FileStream(path, FileMode.Create)) {
+                        ImageAsIcon.Save(fs);
+                        return;
+                    }
+
                 default:
                     image.Save(path);
                     return;
@@ -130,6 +136,7 @@ namespace PasteIntoFile {
             // Special formats with intermediate conversion types
             switch (extension.ToLower()) {
                 case "pdf": extension = "png"; break;
+                case "ico": return ImageAsIcon.ToBitmap();
             }
             // Find suitable codec and convert image
             foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
@@ -139,7 +146,7 @@ namespace PasteIntoFile {
                     return Image.FromStream(stream);
                 }
             }
-            // TODO: Support conversion to EMF, WMF and ICO
+            // TODO: Support conversion to EMF, WMF
             // Previously we had these in the list, but apparently these were silently saved as PNG in lack of a proper codec.
 
             // No suitable coded available
@@ -149,6 +156,31 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Bitmap, Image);
         }
+
+        public Icon ImageAsIcon {
+            get {
+                using (var msImg = new MemoryStream())
+                using (var msIco = new MemoryStream())
+                using (var bw = new BinaryWriter(msIco)) {
+                    Image.Save(msImg, ImageFormat.Png);
+                    // https://stackoverflow.com/a/21389253/13324744
+                    bw.Write((short)0);           //0 reserved
+                    bw.Write((short)1);           //2 image type (1=icon)
+                    bw.Write((short)1);           //4 number of images
+                    bw.Write((byte)0);            //6 image width
+                    bw.Write((byte)0);            //7 image height
+                    bw.Write((byte)0);            //8 number of colors
+                    bw.Write((byte)0);            //9 reserved
+                    bw.Write((short)1);           //10 color planes
+                    bw.Write((short)32);          //12 bits per pixel
+                    bw.Write((int)msImg.Length);  //14 size of image data
+                    bw.Write(22);                 //18 offset of image data
+                    bw.Write(msImg.ToArray());    //22 image data
+                    bw.Seek(0, SeekOrigin.Begin);
+                    return new Icon(msIco);
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -156,7 +188,7 @@ namespace PasteIntoFile {
     /// </summary>
     public class TransparentImageContent : ImageContent {
         public TransparentImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif" }; // Note: gif has only alpha 100% or 0%
+        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif", "ico" }; // Note: gif has only alpha 100% or 0%
     }
 
     /// <summary>
