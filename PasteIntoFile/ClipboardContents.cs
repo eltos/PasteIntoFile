@@ -209,7 +209,7 @@ namespace PasteIntoFile {
         }
         public Metafile Metafile => Data as Metafile;
         public override string[] Extensions => new[] { "emf" };
-        public override string Description => Resources.str_preview_image_vector;
+        public override string Description => string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)

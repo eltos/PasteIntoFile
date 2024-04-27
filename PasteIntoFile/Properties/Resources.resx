@@ -265,7 +265,7 @@ These setting will take effect on the next login.</value>
     <value>Open</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Vector image preview</value>
+      <value>Vector image preview ({0}x{1} px at {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Scalable Vector Graphic preview</value>

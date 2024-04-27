@@ -257,7 +257,7 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
     <value>Apri</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Anteprima immagine vettoriale</value>
+      <value>Anteprima immagine vettoriale ({0}x{1} px, {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Anteprima grafica vettoriale scalabile</value>

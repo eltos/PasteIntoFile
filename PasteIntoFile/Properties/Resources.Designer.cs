@@ -471,7 +471,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Vector image preview.
+        ///   Looks up a localized string similar to Vector image preview ({0}x{1} px at {2} dpi).
         /// </summary>
         internal static string str_preview_image_vector {
             get {
