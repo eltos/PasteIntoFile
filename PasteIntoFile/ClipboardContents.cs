@@ -556,9 +556,15 @@ namespace PasteIntoFile {
         }
 
         public override void AddTo(IDataObject data) {
+            // file drop list
             string[] strArray = new string[Files.Count];
             Files.CopyTo(strArray, 0);
             data.SetData(DataFormats.FileDrop, true, strArray);
+            if (Files.Count == 1) {
+                // extension format
+                data.SetData(Path.GetExtension(Files[0]).Trim('.'), File.OpenRead(Files[0]));
+            }
+
         }
     }
 
