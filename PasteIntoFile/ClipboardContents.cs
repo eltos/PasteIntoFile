@@ -65,6 +65,17 @@ namespace PasteIntoFile {
         /// <param name="data">The data object to place contents to</param>
         public abstract void AddTo(IDataObject data);
 
+
+        public static string NormalizeExtension(string extension) {
+            switch (extension.ToLower()) {
+                case "htm": return "html";
+                case "jpeg": case "jpe": case "jfif": return "jpg";
+                case "dib": return "bmp";
+                case "tiff": return "tif";
+                default: return extension.ToLower();
+            }
+        }
+
     }
 
 
@@ -82,11 +93,12 @@ namespace PasteIntoFile {
 
 
     public class ImageContent : ImageLikeContent {
+        public static readonly string[] EXTENSIONS = { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
         public ImageContent(Image image) {
             Data = image;
         }
         public Image Image => Data as Image;
-        public override string[] Extensions => new[] { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
+        public override string[] Extensions => EXTENSIONS;
         public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension, bool append = false) {
@@ -96,7 +108,7 @@ namespace PasteIntoFile {
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "pdf":
                     // convert image to ximage
                     var stream = new MemoryStream();
@@ -133,14 +145,15 @@ namespace PasteIntoFile {
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
         public override Image ImagePreview(string extension) {
+            extension = NormalizeExtension(extension);
             // Special formats with intermediate conversion types
-            switch (extension.ToLower()) {
+            switch (extension) {
                 case "pdf": extension = "png"; break;
                 case "ico": return ImageAsIcon.ToBitmap();
             }
             // Find suitable codec and convert image
             foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
-                if (encoder.FilenameExtension.ToLower().Contains(extension.ToLower())) {
+                if (encoder.FilenameExtension.ToLower().Contains(extension)) {
                     var stream = new MemoryStream();
                     Image.Save(stream, encoder, null);
                     return Image.FromStream(stream);
@@ -187,16 +200,18 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support alpha channel
     /// </summary>
     public class TransparentImageContent : ImageContent {
+        public static new readonly string[] EXTENSIONS = { "png", "gif", "pdf", "tif", "ico" };
         public TransparentImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "png", "gif", "pdf", "tif", "ico" }; // Note: gif has only alpha 100% or 0%
+        public override string[] Extensions => EXTENSIONS; // Note: gif has only alpha 100% or 0%
     }
 
     /// <summary>
     /// Like ImageContent, but only for formats which support animated frames
     /// </summary>
     public class AnimatedImageContent : ImageContent {
+        public static new readonly string[] EXTENSIONS = { "gif" };
         public AnimatedImageContent(Image image) : base(image) { }
-        public override string[] Extensions => new[] { "gif" };
+        public override string[] Extensions => EXTENSIONS;
     }
 
     /// <summary>
@@ -204,17 +219,18 @@ namespace PasteIntoFile {
     /// Currently, this is tailored to Metafiles (EMF). Later, SVG, PDF, etc. might be added
     /// </summary>
     public class VectorImageContent : ImageLikeContent {
+        public static readonly string[] EXTENSIONS = { "emf" };
         public VectorImageContent(Metafile metafile) {
             Data = metafile;
         }
         public Metafile Metafile => Data as Metafile;
-        public override string[] Extensions => new[] { "emf" };
+        public override string[] Extensions => EXTENSIONS;
         public override string Description => string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "emf":
                     IntPtr h = Metafile.GetHenhmetafile();
                     uint size = GetEnhMetaFileBits(h, 0, null);
@@ -238,7 +254,7 @@ namespace PasteIntoFile {
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
         public override Image ImagePreview(string extension) {
-            switch (extension.ToLower()) {
+            switch (NormalizeExtension(extension)) {
                 case "emf":
                     return Metafile;
 
@@ -259,6 +275,7 @@ namespace PasteIntoFile {
     /// Class to hold SVG data
     /// </summary>
     public class SvgContent : TextLikeContent {
+        public static readonly string[] EXTENSIONS = { "svg" };
         public SvgContent(string xml) : base(xml) { }
 
         public string Xml {
@@ -270,13 +287,13 @@ namespace PasteIntoFile {
             }
         }
 
-        public override string[] Extensions => new[] { "svg" };
+        public override string[] Extensions => EXTENSIONS;
         public override string Description => Resources.str_preview_svg;
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "svg":
                 default:
                     Save(path, Xml);
@@ -426,7 +443,7 @@ namespace PasteIntoFile {
         }
 
         public override string TextPreview(string extension) {
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "md":
                     return AsMarkdown();
                 default:
@@ -458,8 +475,9 @@ namespace PasteIntoFile {
 
 
     public class UrlContent : TextLikeContent {
+        public static readonly string[] EXTENSIONS = { "url" };
         public UrlContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "url" };
+        public override string[] Extensions => EXTENSIONS;
         public override string Description => Resources.str_preview_url;
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
@@ -492,7 +510,7 @@ namespace PasteIntoFile {
         public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
         public override string Description => string.Format(Resources.str_preview_files, Files.Count);
         public override void SaveAs(string path, string extension, bool append = false) {
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "zip":
                     // TODO: since zipping can take a while depending on file size, this should show a progress to the user
                     using (var archive = ZipFile.Open(path, append ? ZipArchiveMode.Update : ZipArchiveMode.Create)) {
@@ -520,7 +538,7 @@ namespace PasteIntoFile {
         /// <returns>Preview as text string</returns>
         ///
         public string TextPreview(string extension) {
-            switch (extension) {
+            switch (NormalizeExtension(extension)) {
                 case "zip":
                     return null;
                 default:
@@ -563,16 +581,15 @@ namespace PasteIntoFile {
         /// <param name="ext"></param>
         /// <returns></returns>
         public BaseContent ForExtension(string ext) {
+            ext = BaseContent.NormalizeExtension(ext);
             foreach (var content in Contents) {
                 if (content.Extensions.Contains(ext))
                     return content;
             }
             // if ext is not compatible with text, return null ...
-            foreach (var reserved in new BaseContent[]
-                         {new ImageContent(null), new UrlContent(null)}) {
-                if (reserved.Extensions.Contains(ext))
-                    return null;
-            }
+            var reserved = new[] { ImageContent.EXTENSIONS, UrlContent.EXTENSIONS };
+            if (reserved.SelectMany(i => i).Contains(ext))
+                return null;
             // ... otherwise default to text
             return Contents.OfType<TextContent>().FirstOrDefault();
         }
@@ -683,7 +700,7 @@ namespace PasteIntoFile {
             if (ReadClipboardString(DataFormats.Dif) is string dif)
                 container.Contents.Add(new GenericTextContent(DataFormats.Dif, "dif", dif));
 
-            if (ReadClipboardString("image/svg+xml") is string svg)
+            if (ReadClipboardString("image/svg+xml", "svg") is string svg)
                 container.Contents.Add(new SvgContent(svg));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
@@ -711,7 +728,7 @@ namespace PasteIntoFile {
                     return content.Substring(startHtml, endHtml - startHtml);
                 }
             }
-            return ReadClipboardString("text/html");
+            return ReadClipboardString("text/html", "html");
         }
 
         private static string ReadClipboardString(params string[] formats) {
@@ -744,7 +761,7 @@ namespace PasteIntoFile {
         }
 
         public static ClipboardContents FromFile(string path) {
-            var ext = Path.GetExtension(path).ToLower().Trim('.');
+            var ext = BaseContent.NormalizeExtension(Path.GetExtension(path).Trim('.'));
             var container = new ClipboardContents {
                 Timestamp = DateTime.Now
             };
@@ -778,7 +795,7 @@ namespace PasteIntoFile {
                 var doctype = new Regex(@"<!DOCTYPE\s+(\S+).*>").Match(firstLines).Groups[1].Value.ToLower();
 
                 // text like contents
-                if (ext == "html" || ext == "htm" || doctype == "html")
+                if (ext == "html" || doctype == "html")
                     container.Contents.Add(new HtmlContent(contents));
                 if (ext == "svg" || doctype == "svg")
                     container.Contents.Add(new SvgContent(contents));
