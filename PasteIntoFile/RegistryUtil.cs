@@ -70,10 +70,7 @@ namespace PasteIntoFile {
         }
         // for file types that are known not to support appending, show an entry without subcommands instead
         private static string APPEND_NOT_SUPPORTED = "System.FileExtension:=." + string.Join(" OR System.FileExtension:=.",
-            new ImageContent(null).Extensions.Concat(
-                new VectorImageContent(null).Extensions.Concat(
-                    new SvgContent("").Extensions.Concat(
-                        new UrlContent(null).Extensions))));
+            new[] { ImageContent.EXTENSIONS, VectorImageContent.EXTENSIONS, SvgContent.EXTENSIONS, UrlContent.EXTENSIONS }.SelectMany(i => i));
 
 
 
