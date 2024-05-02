@@ -236,7 +236,7 @@ namespace PasteIntoFile {
                     uint size = GetEnhMetaFileBits(h, 0, null);
                     byte[] data = new byte[size];
                     GetEnhMetaFileBits(h, size, data);
-                    using (FileStream w = File.Create(path)) {
+                    using (var w = File.Create(path)) {
                         w.Write(data, 0, checked((int)size));
                     }
                     break;
@@ -323,7 +323,7 @@ namespace PasteIntoFile {
         }
 
         protected static void Save(string path, string text, bool append = false) {
-            using (StreamWriter streamWriter = new StreamWriter(path, append))
+            using (var streamWriter = new StreamWriter(path, append))
                 streamWriter.Write(EnsureNewline(text), Encoding);
         }
 
@@ -828,13 +828,14 @@ namespace PasteIntoFile {
         /// <param name="filepath">Path to file</param>
         /// <returns>true if most likely binary</returns>
         private static bool LooksLikeBinaryFile(string filepath) {
-            var stream = File.OpenRead(filepath);
-            int b;
-            do {
-                b = stream.ReadByte();
+            using (var stream = File.OpenRead(filepath)) {
+                int b;
+                do {
+                    b = stream.ReadByte();
+                }
+                while (b > 0);
+                return b == 0;
             }
-            while (b > 0);
-            return b == 0;
         }
 
         /// <summary>
