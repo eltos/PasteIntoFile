@@ -753,16 +753,21 @@ namespace PasteIntoFile {
         }
 
         private static Metafile ReadClipboardMetafile() {
+            // Clipboard.GetData(DataFormats.EnhancedMetafile) seems to be broken
+            // so use P/Invoke instead
             Metafile emf = null;
             if (OpenClipboard(IntPtr.Zero)) {
-                if (IsClipboardFormatAvailable(CF_ENHMETAFILE)) {
-                    var ptr = GetClipboardData(CF_ENHMETAFILE);
-                    if (!ptr.Equals(IntPtr.Zero))
-                        emf = new Metafile(ptr, true);
+                foreach (uint format in new[] { CF.ENHMETAFILE, CF.METAFILEPICT }) {
+                    if (IsClipboardFormatAvailable(format)) {
+                        var ptr = GetClipboardData(format);
+                        if (!ptr.Equals(IntPtr.Zero)) {
+                            emf = new Metafile(ptr, true);
+                            break;
+                        }
+                    }
                 }
                 CloseClipboard();
             }
-
             return emf;
         }
 
@@ -899,9 +904,39 @@ namespace PasteIntoFile {
         }
 
 
-
-        private const uint CF_METAFILEPICT = 3;
-        private const uint CF_ENHMETAFILE = 14;
+        /// <summary>
+        /// Clipboard formats
+        /// See https://learn.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
+        /// </summary>
+        [Flags]
+        private enum CF : uint {
+            TEXT = 1,
+            BITMAP = 2,
+            METAFILEPICT = 3,
+            SYLK = 4,
+            DIF = 5,
+            TIFF = 6,
+            OEMTEXT = 7,
+            DIB = 8,
+            PALETTE = 9,
+            PENDATA = 10,
+            RIFF = 11,
+            WAVE = 12,
+            UNICODETEXT = 13,
+            ENHMETAFILE = 14,
+            HDROP = 15,
+            LOCALE = 16,
+            DIBV5 = 17,
+            OWNERDISPLAY = 0x0080,
+            DSPTEXT = 0x0081,
+            DSPBITMAP = 0x0082,
+            DSPMETAFILEPICT = 0x0083,
+            DSPENHMETAFILE = 0x008E,
+            PRIVATEFIRST = 0x0200,
+            PRIVATELAST = 0x02FF,
+            GDIOBJFIRST = 0x0300,
+            GDIOBJLAST = 0x03FF,
+        }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         private static extern bool OpenClipboard(IntPtr hWndNewOwner);
