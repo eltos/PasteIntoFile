@@ -206,7 +206,7 @@ namespace PasteIntoFile {
                                   clipData.ForContentType(typeof(BaseContent));
 
             // chose file extension based on user preference if available
-            if (content is ImageContent && content.Extensions.Contains(Settings.Default.extensionImage))
+            if (content is ImageContent && Settings.Default.extensionImage != null)
                 return Settings.Default.extensionImage;
             if (content is TextContent && Settings.Default.extensionText != null)
                 return Settings.Default.extensionText;
