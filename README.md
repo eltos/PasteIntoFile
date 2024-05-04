@@ -9,26 +9,22 @@
 
 ## About
 
-A Windows desktop application to paste clipboard contents directly into files and copy file contents to the clipboard via the context menu or hotkey
+Windows explorer can only paste copied files, but is not able to paste images, text and other content copied from within applications or when taking a screenshot.
+Paste Into File allows you to paste clipboard contents directly into files via a new entry in the file explorer context menu and/or additional hotkeys.
+It can also do the reverse: copy file contents to the clipboard directly.
 
-
-
-_This is a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile)._
-_See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators._
-_It is simmilar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere) or [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ)._
-_This fork comes with many new features, a new fluid GUI and new console options._
-_The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases)._
-
+Where previously you had to open an image editing application to paste a copied image and then save it to a file (or open a file and copy it to the clipboard), Paste Into File helps you to do this in a single step.
+It can even monitor the clipboard and automatically save contents as you copy them (batch processing).
 
 
 ### Features
 
 + Explorer context menu entries "[Paste into file](#paste-clipboard-contents)", "[Paste into this file (Append/Replace)](#paste-into-existing-files-appendreplace)" and "[Copy file contents](#copy-file-contents)"
 + Hotkey `Win`+`Alt`+`V` to paste and `Win`+`Alt`+`C` to copy file contents
-+ [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename inside file explorer without dialog
-+ [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save on change
++ [Autosave mode](https://github.com/eltos/PasteIntoFile/discussions/2): rename directly inside file explorer without a dialog
++ [Batch mode](https://github.com/eltos/PasteIntoFile/discussions/4): monitor clipboard and save contents as you copy them
 + [Clipboard patching](https://github.com/eltos/PasteIntoFile/discussions/11): use regular paste options and `CTRL`+`V` (experimental)
-+ Supports many formats: PNG, JPG, GIF, SVG, TXT, HTML, CSV, URL, PDF, RTF, DIF, SLK, EMF, TIF, ZIP, file drop list, ...
++ Supports many formats: PNG, JPEG, GIF, SVG, TXT, HTML, CSV, URL, PDF, RTF, DIF, SLK, EMF, TIF, ZIP, file drop list, ...
 + First launch wizard
 
 <picture>
@@ -41,6 +37,16 @@ _The full changelog can be found on the [release page](https://github.com/eltos/
   <source media="(prefers-color-scheme: light)" srcset=".github/screenrecord.gif">
   <img alt="Paste Into File screen recording" src=".github/screenrecord.gif">
 </picture>
+
+### Related projects
+
+This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile).
+It is simmilar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere) or [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ).
+
+This fork comes with many new features, a new fluid GUI and new console options.
+The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases).
+See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators.
+
 
 
 ## Installation
