@@ -98,10 +98,10 @@ A special **batch mode** exists to monitor the clipboard and save it every time 
 If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
 
 [^save_plain_text]: To force saving plain text data to a file with a special extension,
-use uppercase letters or prepend a dot to the file extension (neither will change the actual filename).
+prepend a dot to the file extension (the actual filename will still have only a single dot).
 For example, when copying syntax highlighted HTML code snippets from a browser,
 using `html` will cause the html-formatted text to be saved,
-while using `HTML` will save the plain text.
+while using `.html` will save the plain text.
 
 
 ### Paste into existing files (Append/Replace)
