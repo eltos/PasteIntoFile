@@ -6,6 +6,7 @@ on:
     paths:
       - '**/Resources*.resx'
       - '.github/workflows/crowdin_sync.yml'
+      - '.github/.crowdin.yml'
   issue_comment:
     types: [created]
   workflow_dispatch:
