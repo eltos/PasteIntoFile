@@ -123,6 +123,6 @@ jobs:
           ----
 
           - To re-sync and update this PR include /sync in a comment.
-          - To attribute translators, use squash merge with ´Co-authored-by: eltos <eltos@users.noreply.github.com>´
+          - To attribute translators, use squash merge with `Co-authored-by: eltos <eltos@users.noreply.github.com>`
           - *Do not delete the branch after merging! It is required to correctly merge future changes from GitHub and Crowdin without overwriting either.*
 
