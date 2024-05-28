@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Microsoft ResX Schema Version 2.0 -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+  <!-- Data -->
+  <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
+  </data>
+  <data name="str_save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="str_filename" xml:space="preserve">
+    <value>檔案名稱</value>
+    <comment>Filename to save as
+</comment>
+  </data>
+  <data name="str_extension" xml:space="preserve">
+    <value>副檔名</value>
+    <comment>File extension / type to save as
+</comment>
+  </data>
+  <data name="str_location" xml:space="preserve">
+    <value>資料夾</value>
+    <comment>Folder path location to save file into</comment>
+  </data>
+  <data name="str_message_run_as_admin" xml:space="preserve">
+    <value>請以管理員模式執行本應用程式！</value>
+  </data>
+  <data name="str_contextentry" xml:space="preserve">
+    <value>貼入檔案</value>
+    <comment>Context menu entry for pasting</comment>
+  </data>
+  <data name="str_select_folder" xml:space="preserve">
+    <value>選擇資料夾來儲存此檔案</value>
+    <comment>str_select_folder
+Tooltip</comment>
+  </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>檔案現在會自動儲存，不會詢問檔案名稱與副檔名，而是會建立檔案後開啟檔案總管並選擇它供重新命名。要再次顯示詢問對話框，可以直接在不提供參數的情況下執行 PasteIntoFile，或是在選擇右鍵選單項目時按住 SHIFT。</value>
+  </data>
+  <data name="str_noclip_text" xml:space="preserve">
+    <value>剪貼簿是空的或是內含不支援的資料</value>
+  </data>
+  <data name="str_wizard_title" xml:space="preserve">
+    <value>歡迎使用《貼入檔案》</value>
+  </data>
+  <data name="str_clear_clipboard" xml:space="preserve">
+    <value>清空剪貼簿</value>
+    <comment>Checkbox to clear clipboard after saving
+</comment>
+  </data>
+  <data name="str_main_info" xml:space="preserve">
+    <value>在 GitHub 上開啟此專案</value>
+  </data>
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
+    <value>將此應用程式的項目加入檔案總管的右鍵選單後，您便可以快速透過右鍵選單貼上剪貼簿內容或是複製檔案內容。</value>
+  </data>
+  <data name="str_wizard_contextentry_title" xml:space="preserve">
+    <value>要新增右鍵選單項目嗎？</value>
+  </data>
+  <data name="str_version" xml:space="preserve">
+    <value>版本 {0}</value>
+    <comment>Program version info
+</comment>
+  </data>
+  <data name="str_preview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="str_preview_image" xml:space="preserve">
+    <value>圖片預覽（{0}x{1} 像素）</value>
+  </data>
+  <data name="str_preview_text" xml:space="preserve">
+    <value>文字預覽（{0} 個字元，{1} 行）</value>
+  </data>
+  <data name="str_file_exists_directory" xml:space="preserve">
+    <value>名稱相同的目錄已存在於 {0}。</value>
+  </data>
+  <data name="str_file_exists" xml:space="preserve">
+    <value>檔案 {0} 已經存在。
+您是否要覆寫它？</value>
+  </data>
+  <data name="str_autosave_checkbox" xml:space="preserve">
+    <value>自動儲存（跳過對話框）</value>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
+  </data>
+  <data name="str_wizard_autosave_title" xml:space="preserve">
+    <value>要自動儲存檔案而不詢問確認嗎？</value>
+  </data>
+  <data name="str_wizard_autosave_button" xml:space="preserve">
+    <value>啟用自動儲存</value>
+  </data>
+  <data name="str_wizard_finish" xml:space="preserve">
+    <value>完成設定</value>
+  </data>
+  <data name="str_wizard_autosave_info" xml:space="preserve">
+    <value>您可以設定讓《貼入檔案》自動儲存檔案。啟用時，會跳過詢問檔案名稱與副檔名的對話框，而改成直接建立檔案並開啟檔案總管供後續重新命名。要暫時反轉此選項，請在執行《貼入檔案》動作時按住 SHIFT 鍵。請注意，在指令列沒有提供參數給《貼入檔案》時總是會顯示對話框。</value>
+  </data>
+  <data name="str_continuous_mode" xml:space="preserve">
+    <value>批次處理模式</value>
+    <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
+</comment>
+  </data>
+  <data name="str_n_saved" xml:space="preserve">
+    <value>已儲存 {0} 項</value>
+  </data>
+  <data name="str_edit_template" xml:space="preserve">
+    <value>編輯樣本</value>
+  </data>
+  <data name="str_accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="str_cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>用來產生檔案名稱的樣本。可以使用以下變數：
+  {0} - 日期與時間
+  {1} - 批次處理模式的儲存計數
+關於格式指定子的細節&lt;a&gt;請見此處&lt;/a&gt;。</value>
+  </data>
+  <data name="str_template_edit_info_url" xml:space="preserve">
+    <value>https://learn.microsoft.com/zh-tw/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>檔名樣本</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>使用批次處理模式時，複製新資料時便會馬上儲存剪貼簿內容。
+
+要現在儲存目前的剪貼簿內容嗎？</value>
+  </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>無效字元：{0}</value>
+  </data>
+  <data name="str_contextentry_copyfromfile" xml:space="preserve">
+    <value>複製檔案內容</value>
+    <comment>Context menu entry for copying
+</comment>
+  </data>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>檔案 {0} 內含未知的資料格式而無法複製到剪貼簿。</value>
+  </data>
+  <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
+    <value>剪貼簿內的資料無法轉換至副檔名 {0}，或是轉換失敗了。</value>
+  </data>
+  <data name="str_preview_html" xml:space="preserve">
+    <value>HTML 預覽</value>
+  </data>
+  <data name="str_preview_url" xml:space="preserve">
+    <value>網址預覽</value>
+  </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>CSV 預覽</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>符號連結 (SYLK) 預覽</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>豐富格式文字預覽</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>資料交換格式預覽</value>
+  </data>
+  <data name="str_exit" xml:space="preserve">
+    <value>離開</value>
+  </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>開啟《貼入檔案》</value>
+  </data>
+  <data name="str_settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="str_wizard_tray_title" xml:space="preserve">
+    <value>要啟用自動啟動和快捷鍵嗎？</value>
+  </data>
+  <data name="str_wizard_tray_autostart_button" xml:space="preserve">
+    <value>自動啟動於系統匣中</value>
+  </data>
+  <data name="str_wizard_tray_info" xml:space="preserve">
+    <value>啟用時，《貼入檔案》會在 Windows 啟動時一同啟動並持續於系統匣內執行。這讓您可以使用 Win+Alt+V 貼入檔案，或用 Win+Alt+C 複製檔案內容。
+另外，您也可以啟用剪貼簿補丁。這會監控剪貼簿並自動依場合適時為它打補丁，來讓 Ctrl+V 在檔案總管中還是能正常貼上。
+這兩個選項會在下次登入時生效。</value>
+  </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>請選擇僅一個檔案以複製檔案內容</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
+  </data>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>檔案列表預覽（{0} 個檔案與資料夾）</value>
+  </data>
+  <data name="str_wizard_tray_patching_button" xml:space="preserve">
+    <value>啟用剪貼簿補丁（實驗性）</value>
+  </data>
+  <data name="str_version_update_available" xml:space="preserve">
+    <value>有可用的更新：{0} ➜ {1}</value>
+  </data>
+  <data name="str_open" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="str_preview_image_vector" xml:space="preserve">
+      <value>向量圖預覽（{0}x{1} 像素，{2} DPI）</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>SVG 預覽</value>
+  </data>
+  <data name="str_portable" xml:space="preserve">
+    <value>可攜版</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+    <value>儲存剪貼簿內容後清空剪貼簿。</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+    <value>將剪貼簿資料存至預設檔案類型的檔案中而不詢問確認。按住 SHIFT 來暫時反轉此設定。</value>
+  </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+    <value>有更新時通知</value>
+  </data>
+  <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
+    <value>自動儲存能夠開啟檔案總管（如貼上至子資料夾中時）</value>
+  </data>
+  <data name="str_always_on_top" xml:space="preserve">
+    <value>將視窗保持於其他視窗之上</value>
+    <comment>Checkbox in window bar context menu.
+Allows to keep application window always on top (in foreground of other windows), even if not focussed.
+</comment>
+  </data>
+  <data name="str_append_to_file" xml:space="preserve">
+      <value>貼入檔案尾端</value>
+  </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+      <value>將內容貼入選取檔案的尾端（如果它已經存在的話）。
+（僅支援部分檔案類型）</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+      <value>貼入尾端功能不支援副檔名 "{0}"。</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+      <value>取代</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+      <value>貼入此檔案</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+      <value>貼入尾端</value>
+  </data>
+</root>
