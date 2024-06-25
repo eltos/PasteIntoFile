@@ -257,7 +257,7 @@ Queste impostazioni avranno effetto sul prossimo accesso.</value>
     <value>Apri</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>Anteprima immagine vettoriale ({0}x{1} px, {2} dpi)</value>
+    <value>Anteprima immagine vettoriale ({0}x{1} px, {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Anteprima grafica vettoriale scalabile</value>
@@ -285,22 +285,22 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-      <value>Aggiungi al file</value>
+    <value>Aggiungi al file</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-      <value>Aggiunge il contenuto al file selezionato, se esiste già.
+    <value>Aggiunge il contenuto al file selezionato, se esiste già.
 (Solo per i tipi di file supportati)</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-      <value>L'aggiunta non è supportata per l'estensione "{0}".</value>
+    <value>L'aggiunta non è supportata per l'estensione "{0}".</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-      <value>Sostituisci</value>
+    <value>Sostituisci</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-      <value>Incolla in questo file</value>
+    <value>Incolla in questo file</value>
   </data>
   <data name="str_append" xml:space="preserve">
-      <value>Aggiungi</value>
+    <value>Aggiungi</value>
   </data>
 </root>

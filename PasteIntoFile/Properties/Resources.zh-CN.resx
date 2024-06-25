@@ -257,7 +257,7 @@ Tooltip</comment>
     <value>打开</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>矢量图像预览（{0}x{1} px @ {2} dpi）</value>
+    <value>矢量图像预览（{0}x{1} px @ {2} dpi）</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>可缩放矢量图形（SVG）预览</value>
@@ -285,22 +285,22 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-      <value>追加到文件</value>
+    <value>追加到文件</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-      <value>如果选择的文件已经存在，则将其追加到此文件中。
+    <value>如果选择的文件已经存在，则将其追加到此文件中。
 （仅限支持追加的文件类型）</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-      <value>追加功能不支持拓展名 “{0}”。</value>
+    <value>追加功能不支持拓展名 “{0}”。</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-      <value>替换</value>
+    <value>替换</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-      <value>粘贴到此文件中</value>
+    <value>粘贴到此文件中</value>
   </data>
   <data name="str_append" xml:space="preserve">
-      <value>追加</value>
+    <value>追加</value>
   </data>
 </root>

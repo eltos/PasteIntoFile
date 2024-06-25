@@ -160,7 +160,7 @@ Do you want to overwrite it?</value>
     <value>Finish setup</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments.</value>
+    <value>When enabled, the dialog prompting for filename and extension is skipped. Instead, the file is saved directly in an automatically determined format and selected for renaming in the file explorer window (when pasting into subfolders, this may open a new explorer window). To temporarily invert this setting, hold the SHIFT key while running Paste Into File.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Batch mode</value>
@@ -265,7 +265,7 @@ These setting will take effect on the next login.</value>
     <value>Open</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>Vector image preview ({0}x{1} px at {2} dpi)</value>
+    <value>Vector image preview ({0}x{1} px at {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Scalable Vector Graphic preview</value>
@@ -293,22 +293,22 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-      <value>Append into file</value>
+    <value>Append into file</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-      <value>Appends the contents to the selected file, if it already exists.
+    <value>Appends the contents to the selected file, if it already exists.
 (Only for supported file types)</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-      <value>Appending is not supported for extension "{0}".</value>
+    <value>Appending is not supported for extension "{0}".</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-      <value>Replace</value>
+    <value>Replace</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-      <value>Paste into this file</value>
+    <value>Paste into this file</value>
   </data>
   <data name="str_append" xml:space="preserve">
-      <value>Append</value>
+    <value>Append</value>
   </data>
 </root>
