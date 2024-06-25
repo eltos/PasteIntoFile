@@ -21,6 +21,36 @@ namespace PasteIntoFile {
     public class AppendNotSupportedException : ArgumentException { }
 
     /// <summary>
+    /// A dictionary with some useful extensions
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    public class Dict<TKey, TValue> : Dictionary<TKey, TValue> {
+        public Dict() { }
+        public Dict(IDictionary<TKey, TValue> dict) : base(dict) { }
+        public IEnumerable<(TKey Key, TValue Value)> Items => this.Select(item => (item.Key, item.Value));
+        public void RemoveAll(IEnumerable<TKey> keys) {
+            foreach (var key in keys)
+                Remove(key);
+        }
+        /// <summary>
+        /// Return all values for the given keys which are in the dict
+        /// </summary>
+        /// <returns>List of values</returns>
+        public IEnumerable<TValue> GetAll(IEnumerable<TKey> keys) {
+            return keys.Intersect(Keys).Select(key => this[key]);
+        }
+        /// <summary>
+        /// Return the key for the given value
+        /// </summary>
+        /// <returns>The Key</returns>
+        public TKey KeyOf(TValue value) {
+            return Items.First(item => item.Value.Equals(value)).Key;
+        }
+    }
+
+
+    /// <summary>
     /// This is the base class to hold clipboard contents, metadata, and perform actions with it
     /// </summary>
     public abstract class BaseContent {
@@ -631,61 +661,104 @@ namespace PasteIntoFile {
             // Images
             // ======
 
-            // Collect images from in various formats (in order of priority)
-            IList<Image> images = new List<Image>();
+            var images = new Dict<string, Image>();
+            var extensions = new HashSet<string>(new[] {
+                ImageContent.EXTENSIONS,
+                TransparentImageContent.EXTENSIONS,
+                AnimatedImageContent.EXTENSIONS,
+                VectorImageContent.EXTENSIONS,
+            }.SelectMany(i => i));
 
             // Native clipboard bitmap image
-            if (Clipboard.ContainsImage() && Clipboard.GetImage() is Image bmp)
-                images.Add(bmp);
+            if (Clipboard.GetData(DataFormats.Dib) is Image dib) // device independent bitmap
+                images.Add("bmp", dib);
+            else if (Clipboard.GetData(DataFormats.Bitmap) is Image bmp) // device specific bitmap
+                images.Add("bmp", bmp);
+            else if (Clipboard.GetImage() is Image converted) // anything converted to device specific bitmap
+                images.Add("bmp", converted);
+
+            // Native clipboard tiff image
+            if (Clipboard.GetData(DataFormats.Tiff) is Image tif)
+                images.Add("tif", tif);
+
+            // Native clipboard metafile (emf or wmf)
+            if (ReadClipboardMetafile() is Metafile emf)
+                images.Add("emf", emf);
+
             // Mime and file extension formats
-            foreach (var ext in new[] { "png", "gif", "tif", "tiff", "jpg", "jpeg", "jfif", "bmp" }) {
-                foreach (var format in new[] { ext.ToUpper(), "image/" + ext.ToLower() }) {
-                    if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream && Image.FromStream(stream) is Image img)
-                        images.Add(img);
-                }
+            var formats = extensions.SelectMany(ext => MimeForExtension(ext).Concat(new[] { ext }));
+            foreach (var format in formats) { // case insensitive
+                if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
+                    if (Image.FromStream(stream) is Image img)
+                        images.Add(format, img);
             }
-            // Native clipboard enhanced metafile
-            if (Clipboard.ContainsData(DataFormats.EnhancedMetafile) && ReadClipboardMetafile() is Metafile emf)
-                images.Add(emf);
+
             // Generic image from encoded data uri
-            if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image image)
-                images.Add(image);
+            if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image uriImage)
+                images.Add(uriImage.RawFormat.ToString().ToLower(), uriImage);
+
             // Generic image from file
             if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
                 try {
-                    images.Add(Image.FromFile(files[0]));
+                    images.Add(Path.GetExtension(files[0]).Trim('.').ToLower(), Image.FromFile(files[0]));
                 } catch { /* format not supported */ }
             }
 
             // Since images can have features (transparency, animations) which are not supported by all file format,
-            // we handel images with such features separately:
+            // we handel images with such features separately (in order of priority):
+            var remainingExtensions = new HashSet<string>(extensions);
+
             // 0. Vector image (if any)
-            foreach (var img in images) {
+            foreach (var (ext, img) in images.Items) {
                 if (img is Metafile mf) {
                     container.Contents.Add(new VectorImageContent(mf));
-                }
-            }
-            // 1. Animated image (if any)
-            foreach (var img in images) {
-                try {
-                    if (img.GetFrameCount(FrameDimension.Time) > 1) {
-                        container.Contents.Add(new AnimatedImageContent(img));
-                        break;
-                    }
-                } catch { /* format does not support frames */ }
-            }
-            // 2. Transparent image (if any)
-            foreach (var img in images) {
-                if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha)) {
-                    container.Contents.Add(new TransparentImageContent(img));
+                    remainingExtensions.ExceptWith(VectorImageContent.EXTENSIONS);
                     break;
                 }
             }
-            // 3. Image with no special features (if any)
-            foreach (var img in images) {
-                container.Contents.Add(new ImageContent(img));
-                break;
+
+            // 1. Animated image (if any)
+            if (images.GetAll(AnimatedImageContent.EXTENSIONS).FirstOrDefault() is Image animated) {
+                container.Contents.Add(new AnimatedImageContent(animated));
+                remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
+            } else {
+                // no direct match, search for anything that looks like it's animated
+                foreach (var (ext, img) in images.Items) {
+                    try {
+                        if (img.GetFrameCount(FrameDimension.Time) > 1) {
+                            container.Contents.Add(new AnimatedImageContent(img));
+                            remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
+                            break;
+                        }
+                    } catch { /* format does not support frames */
+                    }
+                }
             }
+
+            // 2. Transparent image (if any)
+            if (images.GetAll(TransparentImageContent.EXTENSIONS).FirstOrDefault() is Image transparent) {
+                container.Contents.Add(new TransparentImageContent(transparent));
+                remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
+            } else {
+                // no direct match, search for anything that looks like it's transparent
+                foreach (var (ext, img) in images.Items) {
+                    if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha)) {
+                        container.Contents.Add(new TransparentImageContent(img));
+                        remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
+                        break;
+                    }
+                }
+            }
+
+            // 3. Remaining image with no special features (if any)
+            if (images.GetAll(remainingExtensions).FirstOrDefault() is Image image) {
+                container.Contents.Add(new ImageContent(image));
+            } else if (images.Values.FirstOrDefault() is Image anything) {
+                // no unique match, so accept anything (even if already used as special format)
+                container.Contents.Add(new ImageContent(anything));
+            }
+
+
 
 
             // Other formats
@@ -722,6 +795,18 @@ namespace PasteIntoFile {
 
 
             return container;
+        }
+
+        private static IEnumerable<string> MimeForExtension(string extension) {
+            switch (BaseContent.NormalizeExtension(extension)) {
+                case "jpg": return new[] { "image/jpeg" };
+                case "bmp": return new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" };
+                case "tif": return new[] { "image/tiff", "image/tiff-fx" };
+                case "ico": return new[] { "image/x-ico", "image/vnd.microsoft.icon" };
+                case "emf": return new[] { "image/emf", "image/x-emf" };
+                case "wmf": return new[] { "image/wmf", "image/x-wmf" };
+                default: return new[] { "image/" + extension.ToLower() };
+            }
         }
 
         private static string ReadClipboardHtml() {
