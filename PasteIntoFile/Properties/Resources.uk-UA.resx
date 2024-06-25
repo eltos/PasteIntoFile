@@ -65,106 +65,145 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Sauvegarder</value>
+    <value>Зберегти</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>Nom du fichier</value>
+    <value>Ім'я файлу</value>
     <comment>Filename to save as
 </comment>
   </data>
   <data name="str_extension" xml:space="preserve">
-    <value>Extension</value>
+    <value>Розширення</value>
     <comment>File extension / type to save as
 </comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>Dossier</value>
+    <value>Папка</value>
     <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Coller dans un fichier</value>
+    <value>Вставити до файлу</value>
     <comment>Context menu entry for pasting</comment>
   </data>
+  <data name="str_select_folder" xml:space="preserve">
+    <value>Виберіть папку для збереження цього файлу</value>
+    <comment>str_select_folder
+Tooltip</comment>
+  </data>
+  <data name="str_wizard_title" xml:space="preserve">
+    <value>Ласкаво просимо до Вставити до Файлу</value>
+  </data>
   <data name="str_clear_clipboard" xml:space="preserve">
-    <value>Vider le presse-papiers</value>
+    <value>Очистити буфер обміну</value>
     <comment>Checkbox to clear clipboard after saving
 </comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Voir le projet sur GitHub</value>
+    <value>Знайти цей проєкт на GitHub</value>
   </data>
   <data name="str_version" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>Версія {0}</value>
     <comment>Program version info
 </comment>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>Prévisualisation</value>
+    <value>Попередній перегляд</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>Aperçu de l'image ({0}x{1} px)</value>
+    <value>Попередній перегляд зображення ({0}x{1} px)</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>Aperçu du texte ({0} caractères, {1} lignes)</value>
-  </data>
-  <data name="str_file_exists_directory" xml:space="preserve">
-    <value>Un dossier portant le même nom existe déjà à {0}.</value>
-  </data>
-  <data name="str_file_exists" xml:space="preserve">
-    <value>Le fichier {0} existe déjà. Voulez-vous l'écraser?</value>
+    <value>Попередній перегляд тексту ({0} символів, {1} рядків)</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Sauter le dialogue</value>
+    <value>Автозбереження (пропустити діалог)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Mode batch</value>
+    <value>Пакетний режим</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>{0} sauvegardés</value>
+    <value>{0} збережено</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
-    <value>Modifier le gabarit</value>
+    <value>Редагувати шаблон</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>Accepter</value>
+    <value>Прийняти</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
-    <value>Annuler</value>
+    <value>Закрити</value>
   </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copier le contenu du fichier</value>
-    <comment>Context menu entry for copying
-</comment>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>Шаблон використовується для форматування імені файлу. Підтримуються наступні змінні:
+  {0} - дата і час
+  {1} - Збереження кількості у пакетному режимі
+Детальніше про специфікатори форматування &lt;a&gt;натисніть тут&lt;/a&gt;.</value>
+  </data>
+  <data name="str_template_edit_info_url" xml:space="preserve">
+    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>Шаблон імені файлу</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>У пакетному режимі вміст буфера обміну буде збережено відразу під час копіювання нових даних.
+
+Зберегти поточний вміст буфера обміну?</value>
+  </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>Неприпустимий символ: {0}</value>
+  </data>
+  <data name="str_preview_html" xml:space="preserve">
+    <value>Попередній перегляд HTML</value>
+  </data>
+  <data name="str_preview_url" xml:space="preserve">
+    <value>Попередній перегляд URL-адреси</value>
+  </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>Попередній перегляд CSV</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>Попередній перегляд символьного посилання</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Попередній перегляд форматованого тексту</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Попередній перегляд обміну даних</value>
   </data>
   <data name="str_exit" xml:space="preserve">
-    <value>Quitter</value>
+    <value>Вихід</value>
+  </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>Відкрити вставлення у файл</value>
   </data>
   <data name="str_settings" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Налаштування</value>
   </data>
-  <data name="str_open" xml:space="preserve">
-    <value>Ouvrir</value>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>Попередній перегляд списку файлів ({0} файлів і папок)</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>Попередній перегляд файлів формату SVG</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+    <value>Очищення буфера обміну після збереження його вмісту.</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+    <value>Збереження даних буфера обміну у стандартний тип файлу без запиту.
+Щоб тимчасово інвертувати цей параметр, утримуйте клавішу Shift.</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-    <value>Toujours au premier plan</value>
+    <value>Поверх інших вікон</value>
     <comment>Checkbox in window bar context menu.
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-    <value>Ajouter au fichier</value>
-  </data>
-  <data name="str_replace" xml:space="preserve">
-    <value>Remplacer</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>Coller dans ce fichier</value>
-  </data>
-  <data name="str_append" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Додати до файлу</value>
   </data>
 </root>

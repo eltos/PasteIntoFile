@@ -257,7 +257,7 @@ Tooltip</comment>
     <value>開啟</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>向量圖預覽（{0}x{1} 像素，{2} DPI）</value>
+    <value>向量圖預覽（{0}x{1} 像素，{2} DPI）</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>SVG 預覽</value>
@@ -284,22 +284,22 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-      <value>貼入檔案尾端</value>
+    <value>貼入檔案尾端</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-      <value>將內容貼入選取檔案的尾端（如果它已經存在的話）。
+    <value>將內容貼入選取檔案的尾端（如果它已經存在的話）。
 （僅支援部分檔案類型）</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-      <value>貼入尾端功能不支援副檔名 "{0}"。</value>
+    <value>貼入尾端功能不支援副檔名 "{0}"。</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-      <value>取代</value>
+    <value>取代</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-      <value>貼入此檔案</value>
+    <value>貼入此檔案</value>
   </data>
   <data name="str_append" xml:space="preserve">
-      <value>貼入尾端</value>
+    <value>貼入尾端</value>
   </data>
 </root>

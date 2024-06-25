@@ -151,7 +151,7 @@ Tooltip</comment>
     <value>Setup fertigstellen</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>Das Programm kann so konfiguriert werden, dass Dateien automatisch gespeichert werden. Dabei wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, und die erstellte Datei im Explorer zum Umbenennen markiert. Diese Einstellung kann jederzeit durch Halten der Umschalttaste temporär umgekehrt werden. Wenn Paste Into File ohne Argumente ausgeführt wird, wird der Dialog immer angezeigt.</value>
+    <value>Im automatischen Modus wird der Dialog zur Eingabe von Dateinamen und -typ übersprungen, das Dateiformat automatisch bestimmt, und die erstellte Datei im Explorer zum Umbenennen markiert (beim Speichern in Unterordner wird ein neues Explorer Fenster geöffnet). Diese Einstellung kann jederzeit temporär invertiert werden, indem beim Programmstart die Umschalttaste gedrückt und gehalten wird.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Stapelverarbeitung</value>
@@ -256,7 +256,7 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
     <value>Öffnen</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>Vektorgrafik Vorschau ({0}x{1} px bei {2} dpi)</value>
+    <value>Vektorgrafik Vorschau ({0}x{1} px bei {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Skalierbare Vektorgrafik Vorschau</value>
@@ -284,22 +284,22 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-      <value>Zur Datei hinzufügen</value>
+    <value>Zur Datei hinzufügen</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-      <value>Falls die Datei bereits existiert wird der Inhalt zur Datei hinzugefügt.
+    <value>Falls die Datei bereits existiert wird der Inhalt zur Datei hinzugefügt.
 (Nur für unterstützte Dateitypen)</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-      <value>Hinzufügen zu bestehender Datei wird für "{0}" nicht unterstützt.</value>
+    <value>Hinzufügen zu bestehender Datei wird für "{0}" nicht unterstützt.</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-      <value>Ersetzen</value>
+    <value>Ersetzen</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-      <value>Einfügen in diese Datei</value>
+    <value>Einfügen in diese Datei</value>
   </data>
   <data name="str_append" xml:space="preserve">
-      <value>Anfügen</value>
+    <value>Anfügen</value>
   </data>
 </root>

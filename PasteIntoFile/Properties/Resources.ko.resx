@@ -256,7 +256,7 @@ Tooltip</comment>
     <value>열기</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-      <value>벡터 이미지 미리 보기 ({0}x{1} px, {2} dpi)</value>
+    <value>벡터 이미지 미리 보기 ({0}x{1} px, {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>SVG 파일 미리 보기</value>
