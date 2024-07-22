@@ -201,19 +201,39 @@ namespace PasteIntoFile {
         /// <returns>Extension</returns>
         public static string determineExtension(ClipboardContents clipData) {
             // Determines primary data in clipboard according to a custom prioritisation order
-            BaseContent content = clipData.ForContentType(typeof(ImageLikeContent)) ??
-                                  clipData.ForContentType(typeof(TextContent)) ??
-                                  clipData.ForContentType(typeof(BaseContent));
+            var content = clipData.ForContentType(typeof(ImageLikeContent)) ??
+                          clipData.ForContentType(typeof(TextContent)) ??
+                          clipData.ForContentType(typeof(BaseContent));
 
             // chose file extension based on user preference if available
-            if (content is ImageLikeContent && Settings.Default.extensionImage != null)
-                return Settings.Default.extensionImage;
-            if (content is TextContent && Settings.Default.extensionText != null)
-                return Settings.Default.extensionText;
-            if (content != null)
-                return content.DefaultExtension;
-            return "";
+            switch (content) {
+                case ImageLikeContent _ when Settings.Default.extensionImage != null:
+                    return Settings.Default.extensionImage;
+                case TextContent _ when Settings.Default.extensionText != null:
+                    return Settings.Default.extensionText;
+                default:
+                    return content?.DefaultExtension ?? "";
+            }
         }
+
+        /// <summary>
+        /// Remember the extension for the next time
+        /// by saving user preferences for certain content types
+        /// </summary>
+        /// <param name="content">The content type to distinguish if the extension is for an image or text etc.</param>
+        /// <param name="extension">The extension to remember</param>
+        private void rememberExtension(BaseContent content, string extension) {
+            if (string.IsNullOrWhiteSpace(extension) || extension == DYNAMIC_EXTENSION)
+                return; // ignore empty or special value
+
+            if (content is ImageLikeContent)
+                Settings.Default.extensionImage = extension;
+            else if (content is TextContent)
+                Settings.Default.extensionText = extension;
+            Settings.Default.Save();
+        }
+
+
 
         /// <summary>
         /// Read the clipboard and update the UI
@@ -438,15 +458,7 @@ namespace PasteIntoFile {
                     clipMonitor.MonitorClipboard = true;
                 }
 
-                // remember user preferences for certain content types
-                if (!string.IsNullOrWhiteSpace(comExt.Text) && comExt.Text != DYNAMIC_EXTENSION) {
-                    if (content is TextContent)
-                        Settings.Default.extensionText = comExt.Text;
-                    if (content is ImageContent)
-                        Settings.Default.extensionImage = comExt.Text;
-                    Settings.Default.Save();
-                }
-
+                rememberExtension(content, comExt.Text);
                 saveCount++;
                 return file;
 
