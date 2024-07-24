@@ -181,11 +181,19 @@ namespace PasteIntoFile {
         }
 
         public static string formatFilenameTemplate(string template, DateTime timestamp, int count) {
+            if (template.Contains("jjj"))
+                return timestamp.ToString("yyyy-") + timestamp.DayOfYear.ToString("000") + timestamp.ToString(" HH-mm-ss");
+
+            if (template.Contains('j'))
+                return timestamp.ToString("yyyy-") + timestamp.DayOfYear.ToString() + timestamp.ToString(" HH-mm-ss");
+
             return String.Format(template, timestamp, count);
         }
+
         public string formatFilenameTemplate(string template) {
             return formatFilenameTemplate(template, clipData.Timestamp, saveCount);
         }
+
         public void updateFilename(string filenameTemplate = null) {
             try {
                 txtFilename.Text = formatFilenameTemplate(filenameTemplate ?? Settings.Default.filenameTemplate);

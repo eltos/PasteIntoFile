@@ -25,6 +25,8 @@ namespace PasteIntoFile {
             // setup predefined templates
             textTemplate.Items.AddRange(new object[]{
                 Settings.Default.filenameTemplate,
+                "{0:yyyy-j HH-mm-ss}",
+                "{0:yyyy-jjj HH-mm-ss}",
                 "{0:yyyy-MM-dd HH-mm-ss}",
                 "{0:yyyyMMdd_HHmmss}",
                 "{0:yyyy-MM-dd}_{1:000}",
