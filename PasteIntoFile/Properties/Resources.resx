@@ -187,7 +187,7 @@ Do you want to overwrite it?</value>
 For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
+    <value>https://github.com/eltos/PasteIntoFile#template-format</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>Filename template</value>

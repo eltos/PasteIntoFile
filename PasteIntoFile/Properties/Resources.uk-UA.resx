@@ -143,9 +143,6 @@ Tooltip</comment>
   {1} - Збереження кількості у пакетному режимі
 Детальніше про специфікатори форматування &lt;a&gt;натисніть тут&lt;/a&gt;.</value>
   </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
-  </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>Шаблон імені файлу</value>
   </data>

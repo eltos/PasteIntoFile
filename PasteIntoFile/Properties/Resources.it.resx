@@ -177,9 +177,6 @@ Vuoi sovrascriverlo?</value>
   {1} - Salva conteggio in modalità batch
 Per i dettagli sugli specificatori di formato &lt;a&gt;clicca qui&lt;/a&gt;.</value>
   </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
-  </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>Modello nome file</value>
   </data>

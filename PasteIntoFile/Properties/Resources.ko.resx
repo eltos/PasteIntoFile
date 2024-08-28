@@ -176,9 +176,6 @@ Tooltip</comment>
   {1} - 저장 횟수 (배치 모드)
 서식 지정자에 대한 자세한 내용은 &lt;a&gt;링크를 참고하세요&lt;/a&gt;.</value>
   </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
-  </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>파일명 템플릿</value>
   </data>

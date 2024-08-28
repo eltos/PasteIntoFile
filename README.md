@@ -84,9 +84,9 @@ Otherwise, a dialog will prompt for filename and type.
 By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
 When running Paste Into File from the start menu or tray, the dialog will always be shown.
 
-The **filename template** can be edited from the dialog or via command line.
+The **filename template** can be edited from the dialog or via command line (see [below](#template-format) for a description of the available formats).
 When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
-The corresponding template can be configured via command line.
+The corresponding template can be configured via command line (see below).
 
 The available **file extensions** depend on the formats available in the clipboard.
 For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot.
@@ -117,6 +117,15 @@ Currently, image and text files are supported. If the file format is not underst
 For non-text files, the file path is copied as text in addition to the image contents and file.
 
 
+<a id="template-format"></a>
+### Filename template format
+The filename and/or subfolder template string may contain the following placeholders:
+- `{0}`: The current date and time.
+    The format can be specified, e.g. `{0:yyyy-MM-dd HH-mm-ss}`, see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings) for details.
+- `{1}`: A counter for batch mode.
+    The format can be specified, e.g. `{1:000}` for zero padding, see [format specifiers](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings) for details.
+- `{2}`: The clipboard text.
+    The format can be specified, e.g. `{2:15}` to limit it to 15 characters.
 
 ### Command Line
 

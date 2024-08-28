@@ -574,7 +574,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings.
+        ///   Looks up a localized string similar to https://github.com/eltos/PasteIntoFile#template-format.
         /// </summary>
         internal static string str_template_edit_info_url {
             get {

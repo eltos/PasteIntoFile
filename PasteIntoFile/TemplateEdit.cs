@@ -29,7 +29,7 @@ namespace PasteIntoFile {
                 "{0:yyyyMMdd_HHmmss}",
                 "{0:yyyy-MM-dd}_{1:000}",
                 "PasteIntoFile_{1:000}_{0:fffffff}",
-                "{2}",
+                "{2:10}",
             });
             textTemplate.Text = Settings.Default.filenameTemplate;
 

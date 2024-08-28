@@ -181,13 +181,13 @@ namespace PasteIntoFile {
         }
 
         public static string formatFilenameTemplate(string template, DateTime timestamp, int count, string textcontent) {
-            return string.Format(template, timestamp, count, textcontent);
+            return string.Format(new CustomFormatProvider(), template, timestamp, count, textcontent);
         }
         public static string formatFilenameTemplate(string template, ClipboardContents contents, int count) {
             var text = contents.Contents.OfType<TextContent>().FirstOrDefault()?.Text;
             if (text != null) {
                 text = text.Trim().Split('\n').First().Trim(); // only first non-empty line
-                text = text.Substring(0, Math.Min(text.Length, 64)); // limit to 64 characters
+                text = text.Substring(0, Math.Min(text.Length, 256)); // limit to 256 characters
                 text = Path.GetInvalidFileNameChars().Aggregate(text, (str, c) => str.Replace(c, '_')); // replace invalid chars
             }
             return formatFilenameTemplate(template, contents.Timestamp, count, text);

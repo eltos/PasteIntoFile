@@ -177,9 +177,6 @@ Tooltip</comment>
   	{2}  	Text in der Zwischenablage
 Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
   </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/de-de/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
-  </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>Dateinamen-Vorlage</value>
   </data>

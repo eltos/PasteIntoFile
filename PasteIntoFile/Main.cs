@@ -520,4 +520,30 @@ namespace PasteIntoFile {
         private const int ATTACH_PARENT_PROCESS = -1;
 
     }
+
+
+    /// <summary>
+    /// A custom format provider that allows to
+    /// - For strings, specify the maximum length, e.g. "{0:15}" for max 15 characters
+    /// </summary>
+    public class CustomFormatProvider : IFormatProvider, ICustomFormatter {
+
+        public object GetFormat(Type formatType) {
+            return formatType == typeof(ICustomFormatter) ? this : null;
+        }
+
+        public string Format(string format, object arg, IFormatProvider formatProvider) {
+            // strings
+            if (arg is string str && !string.IsNullOrEmpty(format)) {
+                if (int.TryParse(format, out var length) && length > 0) {
+                    return str.Substring(0, Math.Min(str.Length, length));
+                }
+                throw new FormatException("Invalid format string '" + format + "'. Expected a positive integer specifying maximum length.");
+            }
+            // default formatting
+            return string.Format("{0:" + format + "}", arg);
+        }
+
+    }
+
 }
