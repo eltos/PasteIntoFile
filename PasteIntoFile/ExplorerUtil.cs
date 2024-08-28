@@ -25,19 +25,13 @@ namespace PasteIntoFile {
         /// <param name="explorer">File Explorer or Desktop shell window</param>
         /// <returns></returns>
         private static string GetExplorerPath(InternetExplorer explorer) {
-            // check location URL
-            if (!string.IsNullOrEmpty(explorer?.LocationURL)) {
-                var uri = new Uri(explorer.LocationURL);
-                return uri.LocalPath;
-            }
-
             // check special case of Desktop
             if (explorer == GetDesktop()) {
                 return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
 
-            // Fallback to folder item path heuristic
-            // this is subjected to fail for virtual folders (e.g. Desktop which includes Public/Desktop)
+            // Try folder item path
+            // this is subjected to fail for empty folders and some virtual folders (e.g. Desktop)
             var items = (explorer?.Document as IShellFolderViewDual)?.Folder?.Items();
             if (items != null) {
                 foreach (FolderItem item in items) {
@@ -47,6 +41,23 @@ namespace PasteIntoFile {
                     }
                 }
             }
+
+            // Use LocationURL attribute
+            if (!string.IsNullOrEmpty(explorer?.LocationURL)) {
+                var path = new Uri(explorer.LocationURL).LocalPath;
+                // Unfortunately LocationURL contains a percent-encoded UNC path, even though that is not valid anymore according to
+                // https://learn.microsoft.com/en-us/troubleshoot/windows-client/networking/url-encoding-unc-paths-not-url-decoded
+                // The UNC encoding uses the ancient Windows-1251 encoding, so a simple UrlDecode fails (e.g. %F6 -> ? instead of ö)
+                // Therefore we have to manually replace %XX with the corresponding character in Windows-1251
+                // Note that this is subjected to fail in the unlikely case that the folder name actually contains e.g. "%F6" since windows
+                // fails to properly encode that as "%25F6" in the LocationURL
+                var decoded_path = "";
+                for (var i = 0; i < path.Length;) {
+                    decoded_path += Uri.HexUnescape(path, ref i);
+                }
+                return decoded_path;
+            }
+
             return null;
         }
 
