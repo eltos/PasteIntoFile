@@ -444,7 +444,7 @@ namespace PasteIntoFile {
 
 
                 // create folders if required
-                Directory.CreateDirectory(dirname);
+                Directory.CreateDirectory(Path.GetDirectoryName(file) ?? dirname);
 
                 try {
                     content.SaveAs(file, ext, chkAppend.Checked);

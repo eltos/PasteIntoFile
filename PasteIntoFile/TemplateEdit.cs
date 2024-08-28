@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
@@ -57,7 +58,7 @@ namespace PasteIntoFile {
                 labelPreview.ForeColor = TextColor;
                 buttonAccept.Enabled = true;
 
-                var i = labelPreview.Text?.IndexOfAny(Path.GetInvalidFileNameChars());
+                var i = labelPreview.Text?.IndexOfAny(Path.GetInvalidFileNameChars().Except(new[] { '\\', '/' }).ToArray());
                 if (i is int j && j >= 0)
                     throw new FormatException(string.Format(Resources.str_invalid_character, labelPreview.Text[j]));
             } catch (FormatException ex) {
