@@ -180,11 +180,20 @@ namespace PasteIntoFile {
             _disableUiEvents = false;
         }
 
-        public static string formatFilenameTemplate(string template, DateTime timestamp, int count) {
-            return String.Format(template, timestamp, count);
+        public static string formatFilenameTemplate(string template, DateTime timestamp, int count, string textcontent) {
+            return string.Format(template, timestamp, count, textcontent);
+        }
+        public static string formatFilenameTemplate(string template, ClipboardContents contents, int count) {
+            var text = contents.Contents.OfType<TextContent>().FirstOrDefault()?.Text;
+            if (text != null) {
+                text = text.Trim().Split('\n').First().Trim(); // only first non-empty line
+                text = text.Substring(0, Math.Min(text.Length, 64)); // limit to 64 characters
+                text = Path.GetInvalidFileNameChars().Aggregate(text, (str, c) => str.Replace(c, '_')); // replace invalid chars
+            }
+            return formatFilenameTemplate(template, contents.Timestamp, count, text);
         }
         public string formatFilenameTemplate(string template) {
-            return formatFilenameTemplate(template, clipData.Timestamp, saveCount);
+            return formatFilenameTemplate(template, clipData, saveCount);
         }
         public void updateFilename(string filenameTemplate = null) {
             try {

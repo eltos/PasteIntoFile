@@ -181,8 +181,9 @@ Do you want to overwrite it?</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>The template is used to format the filename. The following variables are supported:
-  {0} - Date and time
-  {1} - Save count in batch mode
+  	{0}  	Date and time
+  	{1}  	Save count in batch mode
+  	{2}  	Clipboard text
 For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">

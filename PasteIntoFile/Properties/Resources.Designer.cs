@@ -562,8 +562,9 @@ namespace PasteIntoFile.Properties {
 
         /// <summary>
         ///   Looks up a localized string similar to The template is used to format the filename. The following variables are supported:
-        ///  {0} - Date and time
-        ///  {1} - Save count in batch mode
+        ///  	{0}  	Date and time
+        ///  	{1}  	Save count in batch mode
+        ///  	{2}  	Clipboard text
         ///For details on the format specifiers &lt;a&gt;click here&lt;/a&gt;..
         /// </summary>
         internal static string str_template_edit_info {

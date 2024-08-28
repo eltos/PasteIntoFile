@@ -172,8 +172,9 @@ Tooltip</comment>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>Die Vorlage wird zum Formatieren des Standarddateinamens verwendet. Folgende Variablen stehen zur Verfügung:
-  {0} - Datum und Zeit
-  {1} - Zahl gespeicherter Dateien (Stapelverarbeitung)
+  	{0}  	Datum und Zeit
+  	{1}  	Zahl gespeicherter Dateien (Stapelverarbeitung)
+  	{2}  	Text in der Zwischenablage
 Für Details zur Formatierung &lt;a&gt;hier klicken&lt;/a&gt;.</value>
   </data>
   <data name="str_template_edit_info_url" xml:space="preserve">
