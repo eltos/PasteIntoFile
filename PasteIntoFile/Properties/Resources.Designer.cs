@@ -610,7 +610,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to You can configure Paste Into File to automatically save the file. When enabled, the dialog prompting for filename and extension is skipped and the file will be created and selected for renaming in the explorer window instead. To temporarily invert the setting, hold the SHIFT key when running Paste Into File. Note that the dialog is always shown when executing Paste Into File without command line arguments..
+        ///   Looks up a localized string similar to When enabled, the dialog prompting for filename and extension is skipped. Instead, the file is saved directly in an automatically determined format and selected for renaming in the file explorer window (when pasting into subfolders, this may open a new explorer window). To temporarily invert this setting, hold the SHIFT key while running Paste Into File..
         /// </summary>
         internal static string str_wizard_autosave_info {
             get {
