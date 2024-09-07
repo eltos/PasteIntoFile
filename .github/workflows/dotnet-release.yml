@@ -11,7 +11,7 @@ jobs:
   portable-build:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ./.github/build
         with:
           configuration: Release
@@ -23,7 +23,7 @@ jobs:
     needs: portable-build
     steps:
       - name: Collect artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4
         with:
           name: release_artifact_portable
           path: release_artifact_portable
@@ -44,7 +44,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Build program executable
         id: build
         uses: ./.github/build
