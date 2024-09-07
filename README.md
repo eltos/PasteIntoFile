@@ -120,12 +120,11 @@ For non-text files, the file path is copied as text in addition to the image con
 <a id="template-format"></a>
 ### Filename template format
 The filename and/or subfolder template string may contain the following placeholders:
-- `{0}`: The current date and time.
-    The format can be specified, e.g. `{0:yyyy-MM-dd HH-mm-ss}`, see [format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings) for details.
-- `{1}`: A counter for batch mode.
-    The format can be specified, e.g. `{1:000}` for zero padding, see [format specifiers](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings) for details.
-- `{2}`: The clipboard text.
-    The format can be specified, e.g. `{2:15}` to limit it to 15 characters.
+- `{0}`: The current date and time, e.g. `{0:yyyy-MM-dd HH-mm-ss}`.
+    In addition to the [standard format specifiers](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings),
+    `j` for day-of-year and `w` for week-of-year are supported.
+- `{1}`: The save counter for batch mode. E.g. `{1:000}` for 3-digit zero padding. See [format specifiers](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings) for details.
+- `{2}`: The clipboard text. E.g. `{2:15}` to limit it to 15 characters.
 
 ### Command Line
 

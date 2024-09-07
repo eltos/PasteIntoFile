@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -539,6 +540,14 @@ namespace PasteIntoFile {
                     return str.Substring(0, Math.Min(str.Length, length));
                 }
                 throw new FormatException("Invalid format string '" + format + "'. Expected a positive integer specifying maximum length.");
+            }
+            // DateTime
+            if (arg is DateTime dt && !string.IsNullOrEmpty(format)) {
+                // `j` for day of year
+                format = Regex.Replace(format, @"j+", m => dt.DayOfYear.ToString(new string('0', m.Value.Length)));
+                // `w` for week of year
+                var week = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(dt, CultureInfo.CurrentCulture.DateTimeFormat.CalendarWeekRule, CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
+                format = Regex.Replace(format, @"w+", m => week.ToString(new string('0', m.Value.Length)));
             }
             // default formatting
             return string.Format("{0:" + format + "}", arg);

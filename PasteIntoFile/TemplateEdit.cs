@@ -28,8 +28,9 @@ namespace PasteIntoFile {
                 Settings.Default.filenameTemplate,
                 "{0:yyyy-MM-dd HH-mm-ss}",
                 "{0:yyyyMMdd_HHmmss}",
-                "{0:yyyy-MM-dd}_{1:000}",
+                "{0:yyyy-jjj}_{1:000}",
                 "PasteIntoFile_{1:000}_{0:fffffff}",
+                "{0:yyyy-ww}/{0:ddd HHᵸmm´ss´´}",
                 "{2:10}",
             });
             textTemplate.Text = Settings.Default.filenameTemplate;
