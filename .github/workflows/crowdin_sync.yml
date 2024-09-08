@@ -102,6 +102,20 @@ jobs:
 
     - name: Collect statistics
       run: |
+        echo 'DIFF<<EOF' >> $GITHUB_ENV
+        git diff -U9999999 | awk '{
+          if(/^---/){sub(/.*\//,"");F=$0;A=M=D=0}
+          if(/<data/){i=1;a=d=0}
+          if(i){if(/^+/){a++}if(/^-/){d++}}
+          if(/<\/data/){i=0;M+=a&&d;A+=a&&!d;D+=!a&&d}
+          if(/<\/root/){MM+=M;AA+=A;DD+=D;O=O sprintf("# %-20s %9s %11s %11s\n",F,A?A" added":"",M?M" updated":"",D?D" deleted":"")}
+        }END{
+          if(AA){print"+ "AA" translations added"}
+          if(MM){print"+ "MM" translations updated"}
+          if(DD){print"- "DD" translations deleted"}
+          print O
+        }' >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
         echo 'INFO<<EOF' >> $GITHUB_ENV
         crowdin status -v $ARGS >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
@@ -117,12 +131,19 @@ jobs:
             translation
         body: |
           Translation updates from [Crowdin project](https://crowdin.com/project/PasteIntoFile)
+          ```diff
+          ${{ env.DIFF }}
+          ```
 
           See [recent activity](https://crowdin.com/project/PasteIntoFile/activity-stream)
+
+          <details><summary>Translation info</summary>
 
           ```
           ${{ env.INFO }}
           ```
+
+          </details>
 
           ----
 
