@@ -139,8 +139,9 @@ Tooltip</comment>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>Шаблон використовується для форматування імені файлу. Підтримуються наступні змінні:
-  {0} - дата і час
-  {1} - Збереження кількості у пакетному режимі
+  	{0}  	дата і час
+  	{1}  	Збереження кількості у пакетному режимі
+  	{2}  	Clipboard text
 Детальніше про специфікатори форматування &lt;a&gt;натисніть тут&lt;/a&gt;.</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">

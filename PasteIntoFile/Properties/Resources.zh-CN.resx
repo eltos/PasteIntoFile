@@ -173,12 +173,10 @@ Tooltip</comment>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>用于格式化文件名的模板。支持以下变量：
-  {0} - 日期和时间
-  {1} - 批量处理模式下的文件序号
+  	{0}  	日期和时间
+  	{1}  	批量处理模式下的文件序号
+  	{2}  	Clipboard text
 &lt;a&gt;点这里&lt;/a&gt;查看关于格式的详细信息。</value>
-  </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>文件名模板</value>
