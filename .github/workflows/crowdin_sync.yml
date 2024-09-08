@@ -25,7 +25,7 @@ concurrency:
 jobs:
   sync:
     name: Sync translations with crowdin
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: |
       github.event_name != 'issue_comment' || (
         contains(github.event.issue.labels.*.name, 'translation') &&
@@ -35,8 +35,10 @@ jobs:
     steps:
     - name: Install crowdin cli
       run: |
-        wget https://artifacts.crowdin.com/repo/deb/crowdin3.deb -O crowdin.deb --no-verbose
-        sudo dpkg -i crowdin.deb
+        wget https://github.com/crowdin/crowdin-cli/releases/download/4.1.2/crowdin-cli.zip --no-verbose
+        unzip crowdin-cli.zip -d crowdin-cli
+        cd crowdin-cli/*/
+        sudo ./install-crowdin-cli.sh
 
     - name: Checkout repo
       uses: actions/checkout@v4
@@ -63,7 +65,8 @@ jobs:
     - name: Download changes from crowdin
       run: |
         crowdin download sources $ARGS
-        crowdin download $ARGS
+        LANGUAGES=$(crowdin status translation --plain $ARGS | awk '$2>0 { print "-l" $1 }')
+        crowdin download $LANGUAGES $ARGS
         git status -s
         git diff
         git add .
@@ -92,7 +95,8 @@ jobs:
     - name: Download from crowdin
       run: |
         crowdin download sources $ARGS
-        crowdin download $ARGS
+        LANGUAGES=$(crowdin status translation --plain $ARGS | awk '$2>0 { print "-l" $1 }')
+        crowdin download $LANGUAGES $ARGS
         git status -s
         git diff
 
