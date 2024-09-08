@@ -173,12 +173,10 @@ Tooltip</comment>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>用來產生檔案名稱的樣本。可以使用以下變數：
-  {0} - 日期與時間
-  {1} - 批次處理模式的儲存計數
+  	{0}  	日期與時間
+  	{1}  	批次處理模式的儲存計數
+  	{2}  	Clipboard text
 關於格式指定子的細節&lt;a&gt;請見此處&lt;/a&gt;。</value>
-  </data>
-  <data name="str_template_edit_info_url" xml:space="preserve">
-    <value>https://learn.microsoft.com/zh-tw/dotnet/standard/base-types/custom-date-and-time-format-strings</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>檔名樣本</value>

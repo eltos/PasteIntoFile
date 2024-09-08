@@ -173,8 +173,9 @@ Vuoi sovrascriverlo?</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
     <value>Il modello viene utilizzato per formattare il nome del file. Sono supportate le seguenti variabili:
-  {0} - Data e ora
-  {1} - Salva conteggio in modalità batch
+  	{0}  	Data e ora
+  	{1}  	Salva conteggio in modalità batch
+  	{2}  	Testo appunti
 Per i dettagli sugli specificatori di formato &lt;a&gt;clicca qui&lt;/a&gt;.</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
