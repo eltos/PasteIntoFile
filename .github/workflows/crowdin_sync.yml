@@ -9,6 +9,8 @@ on:
       - '.github/.crowdin.yml'
   issue_comment:
     types: [created]
+  schedule:
+    - cron: '47 9 * * SUN'
   workflow_dispatch:
 
 env:
