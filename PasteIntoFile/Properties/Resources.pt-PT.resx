@@ -65,10 +65,10 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Salvar</value>
+    <value>Guardar</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>Nome do arquivo</value>
+    <value>Nome do ficheiro</value>
     <comment>Filename to save as
 </comment>
   </data>
@@ -82,22 +82,22 @@
     <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>Por favor, execute o aplicativo como administrador!</value>
+    <value>Por favor, execute a aplicação como administrador!</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Colar no arquivo</value>
+    <value>Colar no ficheiro</value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>Selecione uma pasta para salvar este arquivo</value>
+    <value>Selecione uma pasta para salvar este ficheiro</value>
     <comment>str_select_folder
 Tooltip</comment>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>Os arquivos são salvos automaticamente sem precisar sugerir pelo nome do arquivo ou extensão. Em vez disso, o arquivo criado será selecionado para renomear na janela explorer. Para mostrar o diálogo novamente, execute o PasteIntoFile executável sem argumentos ou pressione a tecla SHIFT enquanto selecione a entrada do menu de contexto.</value>
+    <value>Os ficheiros agora são guardados automaticamente sem incitar pelo nome do ficheiro ou a extensão. Ao invés disso, o ficheiro criado será selecionado para renomear na janela do Explorer. Para exibir o diálogo novamente, execute o PasteIntoFile sem argumentos ou prime a tecla SHIFT enquanto seleciona a entrada do menu de contexto.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>A área de transferência está vazia ou contém dados não suportados</value>
+    <value>A área de transferência está vazia ou contém dados incompatíveis</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
     <value>Bem-vindo ao Paste Into File</value>
@@ -108,10 +108,10 @@ Tooltip</comment>
 </comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>Encontrar projeto no GitHub</value>
+    <value>Busca este projeto no GitHub</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>Ao adicionar entradas ao menu de contexto do Explorador de Arquivos, Você pode colar conteúdos da área de transferência mais rapidamente em arquivos ou copiar o conteúdo do arquivo através do clique direito.</value>
+    <value>Ao adicionar entradas no menu de contexto do Explorador de Ficheiros, pode rapidamente copiar conteúdos da área de transferência em ficheiros ou copiar conteúdos com o clique direito.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
     <value>Adicionar entradas no menu de contexto?</value>
@@ -122,45 +122,45 @@ Tooltip</comment>
 </comment>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>Prévia</value>
+    <value>Pré-visualização</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>Prévia da imagem ({0}x{1} px)</value>
+    <value>Pré-visualização de imagem ({0}x{1} px)</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>Prévia do texto ({0} carac., {1} linhas)</value>
+    <value>Pré-visualização de texto ({0} caracteres, {1} linhas)</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
     <value>Já existe um diretório com o mesmo nome em {0}.</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
-    <value>O arquivo {0} já existe.
-Você quer substituí-lo?</value>
+    <value>O ficheiro {0} já existe.
+Quer lo sobrescrever?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Salvar automaticamente (pular diálogo)</value>
+    <value>Guardar automaticamente (pular diálogo)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>Salvar arquivo automaticamente sem sugerir?</value>
+    <value>Guardar ficheiro automaticamente sem incitar?</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
-    <value>Ativar salvamento automático</value>
+    <value>Habilitar guardar automático</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
-    <value>Finalizar configuração</value>
+    <value>Finalizar definição</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>Quando ativado, a sugestão de diálogo para o arquivo e extensão é pulado. Ao invés disso, o arquivo é salvo diretamente em um formato determinado automaticamente e selecionado para renomear a janela no Explorador de Arquivos (Ao colar em subpastas, isso talvez abrirá uma nova janela do explorer). Para temporariamente inverter essa configuração, segure a tecla SHIFT enquanto executa o Paste Into File.</value>
+    <value>Ao ativar, a incitação de diálogo para o nome do ficheiro e a extensão é pulada. Ao invés, o ficheiro é guardado diretamente num formato determinado automaticamente e selecionado para renomear na janela do Explorador de Ficheiros (ao colar em subpastas, isto talvez abra uma nova janela do Explorer). Para inverter temporariamente esta definição, prime a tecla SHIFT enquanto executa o Paste Into File.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>Modo lote</value>
+    <value>Modo batch</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>{0} salvo</value>
+    <value>{0} guardado</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
     <value>Editar modelo</value>
@@ -172,51 +172,51 @@ Você quer substituí-lo?</value>
     <value>Cancelar</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>O modelo é usado para formatar o nome do arquivo. Os variáveis a seguir são suportados:
+    <value>O modelo é usado para formatar o nome do ficheiro. Os seguintes variáveis são suportados:
   	{0}  	Data e hora
-  	{1}  	Salvar contagem em modo lote
-  	{2}  	Texto da área de transferência
-Para mais detalhes em especificadores &lt;a&gt;clique aqui&lt;/a&gt;.</value>
+  	{1}  	Guardar contagem no modo batch
+  	{2}  	Texto de área de transferência
+Para mais detalhes sobre especificadores de formato &lt;a&gt;clique aqui&lt;/a&gt;.</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
-    <value>Modelo do nome do arquivo</value>
+    <value>Modelo do nome do ficheiro</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>No modo lote, os conteúdos da área de transferência serão salvos instantaneamente quando novos dados são copiados.
+    <value>No modo batch, os conteúdos da área de transferência serão guardados instantemente quando novos dados são copiados.
 
-Salvar conteúdos atuais da área de transferência?</value>
+Guardar atuais conteúdos da área de transferência?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
     <value>Carácter inválido: {0}</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copiar conteúdo do arquivo</value>
+    <value>Copiar conteúdo do ficheiro</value>
     <comment>Context menu entry for copying
 </comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
-    <value>O arquivo {0} contém dados de um formato desconhecido em que não pode ser copiado para a área de transferência.</value>
+    <value>O ficheiro {0} contém dados de formato desconhecido que não pode ser copiado para a área de transferência</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>A área de transferência não contém dados conversíveis para a extensão {0} ou a conversão falhou.</value>
+    <value>A área de transferência não contém dados descapotáveis para a extensão {0} ou a conversão falhou.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
-    <value>Prévia HTML</value>
+    <value>Pré-visualização HTML</value>
   </data>
   <data name="str_preview_url" xml:space="preserve">
-    <value>Prévia do URL</value>
+    <value>Pré-visualização de URL</value>
   </data>
   <data name="str_preview_csv" xml:space="preserve">
-    <value>Prévia do CSV</value>
+    <value>Pré-visualização do CSV</value>
   </data>
   <data name="str_preview_sylk" xml:space="preserve">
-    <value>Prévia do link simbólico (SYLK)</value>
+    <value>Pré-visualização do link simbólico (SYLK)</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>Prévia de texto formatado</value>
+    <value>Pré-visualização do texto formatado</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
-    <value>Prévia de inter mudança de dados</value>
+    <value>Pré-visualização de interalteração de dados</value>
   </data>
   <data name="str_exit" xml:space="preserve">
     <value>Sair</value>
@@ -225,25 +225,25 @@ Salvar conteúdos atuais da área de transferência?</value>
     <value>Abrir Paste Into File</value>
   </data>
   <data name="str_settings" xml:space="preserve">
-    <value>Opções</value>
+    <value>Definições</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
-    <value>Ativar iniciamento automático e teclas de atalho?</value>
+    <value>Habilitar autoiniciamento e atalhos?</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-    <value>Iniciar automaticamente na barra de notificações</value>
+    <value>Autoiniciar na barra de notificações</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-    <value>Ao ativar, O Paste Into File será iniciado no início do windows e continuará executando na barra de notificações do sistema. Isso permite que você acesse o Paste Into File ao pressionar WIN+ALT+V (e WIN+ALT+C para copiar conteúdos do arquivo).
-Além disso, você talvez queira ativar a correção da área de transferência. Estes monitores, e corrige automaticamente a área de transferência, então você pode usar CTRL+V no explorador de arquivos como sempre.
-Estas opções começaram a ter efeito no próximo registro.</value>
+    <value>Ao ativar, O Paste Into File é iniciado no início do windows e continua a executar na barra de notificações do sistema. Isto permite acessar o Paste Into File ao premir WIN+ALT+V (e WIN+ALT+C para copiar conteúdos de ficheiro)
+Além disso, possa querer habilitar a correção da área de transferência. Estes monitores, a área de transferência e o auto corrige, então pode usar o CTRL+V no explorador de ficheiros como sempre.
+Estas definições irão afetar no próximo início.</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>Selecione um arquivo só para copiar os conteúdos do arquivo</value>
+    <value>Seleciona um ficheiro para copiar os conteúdos do ficheiro</value>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>Prévia da lista de arquivos ({0} arquivos e pastas)</value>
+    <value>Pré-visualização da lista de ficheiros ({0} pastas e ficheiros)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
     <value>Ativar correção da área de transferência (experimental)</value>
@@ -255,26 +255,26 @@ Estas opções começaram a ter efeito no próximo registro.</value>
     <value>Abrir</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>Prévia da imagem do Vector ({0}x{1} px em {2} dpi)</value>
+    <value>Pré-visualização da imagem do Vector ({0}x{1} px em {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>Prévia gráfica escalável do Vector</value>
+    <value>Pré-visualização gráfica escalável do Vector</value>
   </data>
   <data name="str_portable" xml:space="preserve">
     <value>Portável</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-    <value>Limpa a área de transferência após o conteúdo for salvo.</value>
+    <value>Limpa a área de transferência após o conteúdo for guardado.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-    <value>Salva os dados da área de transferência para o tipo de arquivo padrão sem sugerir.
-Pressione SHIFT para temporariamente inverter esta configuração.</value>
+    <value>Guarda os dados da área de transferência para o tipo de ficheiro padrão sem incitar.
+Prime SHIFT para inverter temporariamente esta definição.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
-    <value>Avisar sobre atualizações</value>
+    <value>Notificar sobre atualizações</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-    <value>Salvar automaticamente talvez abra o explorer (p. e.x. quando colando em uma subpasta)</value>
+    <value>Guardar automaticamente talvez abra o explorer (p. ex.: quando estiver colando numa subpasta)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
     <value>Sempre no topo</value>
@@ -283,20 +283,20 @@ Allows to keep application window always on top (in foreground of other windows)
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-    <value>Acrescentar ao arquivo</value>
+    <value>Acrescentar ao ficheiro</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-    <value>Acrescenta os conteúdos para o arquivo selecionado, se ele existe.
-(Apenas para tipos de arquivo suportado)</value>
+    <value>Acrescenta os conteúdos ao ficheiro selecionado, se ele já existe.
+(Apenas para tipos de ficheiro suportados)</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-    <value>Acrescentar não é suportado para a extensão "{0}".</value>
+    <value>Impossível acrescentar para a extensão "{0}".</value>
   </data>
   <data name="str_replace" xml:space="preserve">
     <value>Substituir</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>Colar nesse arquivo</value>
+    <value>Colar neste ficheiro</value>
   </data>
   <data name="str_append" xml:space="preserve">
     <value>Acrescentar</value>
