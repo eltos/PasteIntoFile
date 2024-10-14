@@ -13,8 +13,8 @@ Windows explorer can only paste copied files, but is not able to paste images, t
 Paste Into File allows you to paste clipboard contents directly into files via a new entry in the file explorer context menu and/or additional hotkeys.
 It can also do the reverse: copy file contents to the clipboard directly.
 
-Where previously you had to open an image editing application to paste a copied image and then save it to a file (or open a file and copy it to the clipboard), Paste Into File helps you to do this in a single step.
-It can even monitor the clipboard and automatically save contents as you copy them (batch processing).
+Where previously you had to open an image/text/office/archive application, paste what you just copied, hit save, select the folder again and type the filename (or open a file, select everything and copy it) just to realise your GIF became a static JPEG, Paste Into File helps you to do all this in a single step, preserving transparency and animations.
+It can even monitor the clipboard and automatically save or append contents as you copy them (batch processing).
 
 
 ### Features
