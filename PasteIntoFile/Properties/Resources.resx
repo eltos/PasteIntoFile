@@ -180,7 +180,7 @@ Do you want to overwrite it?</value>
     <value>Cancel</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>The template is used to format the filename. The following variables are supported:
+      <value>The following variables are supported:
   	{0}  	Date and time
   	{1}  	Save count in batch mode
   	{2}  	Clipboard text
@@ -311,5 +311,14 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append" xml:space="preserve">
     <value>Append</value>
+  </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+      <value>The subfolder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder.</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+      <value>The filename template is used to format the filename. </value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+      <value>Subfolder template</value>
   </data>
 </root>

@@ -171,7 +171,7 @@ Tooltip</comment>
     <value>취소</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>템플릿을 설정하여 파일명 지정 규칙을 세울 수 있습니다.  지원되는 변수는 다음과 같습니다:
+      <value>지원되는 변수는 다음과 같습니다:
   	{0}  	날짜 및 시간
   	{1}  	저장 횟수 (배치 모드)
   	{2}  	Clipboard text
@@ -298,5 +298,8 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append" xml:space="preserve">
     <value>덧붙이기</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+      <value>템플릿을 설정하여 파일명 지정 규칙을 세울 수 있습니다.</value>
   </data>
 </root>

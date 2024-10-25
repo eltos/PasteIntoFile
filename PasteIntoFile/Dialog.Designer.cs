@@ -47,6 +47,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.editSubfolder = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.chkContinuousMode = new System.Windows.Forms.CheckBox();
@@ -119,7 +120,6 @@ namespace PasteIntoFile {
             //
             // txtFilename
             //
-            this.tableLayoutPanel3.SetColumnSpan(this.txtFilename, 2);
             this.txtFilename.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFilename.Location = new System.Drawing.Point(4, 24);
             this.txtFilename.Margin = new System.Windows.Forms.Padding(4);
@@ -290,6 +290,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel3.Controls.Add(this.txtFilename, 0, 1);
+            this.tableLayoutPanel3.SetColumnSpan(this.txtFilename, 2);
             this.tableLayoutPanel3.Controls.Add(this.lblFileName, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.lblExt, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.comExt, 2, 1);
@@ -322,12 +323,15 @@ namespace PasteIntoFile {
             //
             this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel4.Controls.Add(this.txtCurrentLocation, 0, 1);
+            this.tableLayoutPanel4.SetColumnSpan(this.txtCurrentLocation, 2);
             this.tableLayoutPanel4.Controls.Add(this.lblCurrentLocation, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btnBrowseForFolder, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.editSubfolder, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnBrowseForFolder, 2, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(15, 71);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
@@ -337,6 +341,20 @@ namespace PasteIntoFile {
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.Size = new System.Drawing.Size(546, 54);
             this.tableLayoutPanel4.TabIndex = 11;
+            //
+            // editSubfolder
+            //
+            this.editSubfolder.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
+            this.editSubfolder.AutoSize = true;
+            this.editSubfolder.LinkColor = System.Drawing.SystemColors.ControlDark;
+            this.editSubfolder.Location = new System.Drawing.Point(301, 0);
+            this.editSubfolder.Margin = new System.Windows.Forms.Padding(0);
+            this.editSubfolder.Name = "editSubfolder";
+            this.editSubfolder.Size = new System.Drawing.Size(133, 20);
+            this.editSubfolder.TabIndex = 0;
+            this.editSubfolder.TabStop = true;
+            this.editSubfolder.Text = Resources.str_subfolder_template;
+            this.editSubfolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.editSubfolder_LinkClicked);
             //
             // tableLayoutPanel2
             //
@@ -445,6 +463,7 @@ namespace PasteIntoFile {
         }
 
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel editSubfolder;
 
         private System.Windows.Forms.CheckBox chkContinuousMode;
         private System.Windows.Forms.LinkLabel settingsLinkLabel;

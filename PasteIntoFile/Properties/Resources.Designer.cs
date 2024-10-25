@@ -561,7 +561,25 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to The template is used to format the filename. The following variables are supported:
+        ///   Looks up a localized string similar to Subfolder template.
+        /// </summary>
+        internal static string str_subfolder_template {
+            get {
+                return ResourceManager.GetString("str_subfolder_template", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The filename template is used to format the filename. .
+        /// </summary>
+        internal static string str_template_edit_filename_info {
+            get {
+                return ResourceManager.GetString("str_template_edit_filename_info", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The following variables are supported:
         ///  	{0}  	Date and time
         ///  	{1}  	Save count in batch mode
         ///  	{2}  	Clipboard text
@@ -579,6 +597,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_template_edit_info_url {
             get {
                 return ResourceManager.GetString("str_template_edit_info_url", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The subfolder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder..
+        /// </summary>
+        internal static string str_template_edit_subfolder_info {
+            get {
+                return ResourceManager.GetString("str_template_edit_subfolder_info", resourceCulture);
             }
         }
 

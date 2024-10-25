@@ -171,7 +171,7 @@ Tooltip</comment>
     <value>Abbrechen</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>Die Vorlage wird zum Formatieren des Standarddateinamens verwendet. Folgende Variablen stehen zur Verfügung:
+      <value>Folgende Variablen stehen zur Verfügung:
   	{0}  	Datum und Zeit
   	{1}  	Zahl gespeicherter Dateien (Stapelverarbeitung)
   	{2}  	Text in der Zwischenablage
@@ -299,5 +299,14 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append" xml:space="preserve">
     <value>Anfügen</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+      <value>Die Dateinamen-Vorlage wird zum Formatieren des Standarddateinamens verwendet.</value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+      <value>Unterordner-Vorlage</value>
+  </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+      <value>Die Unterordner-Vorlage wird bei gedrückter STRG Taste an den Zielordner angefügt. Absolute Pfade sind auch möglich und ersetzten den Zielordner.</value>
   </data>
 </root>

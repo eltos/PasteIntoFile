@@ -7,13 +7,36 @@ using System.Windows.Forms;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
-    public sealed partial class TemplateEdit : MasterForm {
 
-        public TemplateEdit() {
+    public enum Template {
+        FILENAME,
+        SUBFOLDER,
+    }
+
+    public sealed partial class TemplateEdit : MasterForm {
+        public readonly Template template;
+
+        public TemplateEdit(Template template) {
+            this.template = template;
             InitializeComponent();
 
+
             Icon = Resources.app_icon;
-            Text = Resources.str_edit_template;
+            var preset = "";
+            switch (this.template) {
+                case Template.FILENAME:
+                    Text = Resources.str_edit_template;
+                    labelInfo.Text = Resources.str_template_edit_filename_info + @" " + Resources.str_template_edit_info;
+                    labelTemplate.Text = Resources.str_filename_template;
+                    preset = Settings.Default.filenameTemplate;
+                    break;
+                case Template.SUBFOLDER:
+                    Text = Resources.str_subfolder_template;
+                    labelInfo.Text = Resources.str_template_edit_subfolder_info + @" " + Resources.str_template_edit_info;
+                    labelTemplate.Text = Resources.str_subfolder_template;
+                    preset = Settings.Default.subdirTemplate;
+                    break;
+            }
 
             // setup link in info text
             var linkStart = labelInfo.Text.IndexOf(@"<a>", StringComparison.Ordinal);
@@ -25,7 +48,7 @@ namespace PasteIntoFile {
 
             // setup predefined templates
             textTemplate.Items.AddRange(new object[]{
-                Settings.Default.filenameTemplate,
+                preset,
                 "{0:yyyy-MM-dd HH-mm-ss}",
                 "{0:yyyyMMdd_HHmmss}",
                 "{0:yyyy-jjj}_{1:000}",
@@ -33,7 +56,7 @@ namespace PasteIntoFile {
                 "{0:yyyy-ww}/{0:ddd HHᵸmm´ss´´}",
                 "{2:10}",
             });
-            textTemplate.Text = Settings.Default.filenameTemplate;
+            textTemplate.Text = preset;
 
             // Dark theme
             if (RegistryUtil.IsDarkMode()) {
@@ -44,7 +67,14 @@ namespace PasteIntoFile {
 
 
         private void buttonAccept_Click(object sender, EventArgs e) {
-            Settings.Default.filenameTemplate = textTemplate.Text;
+            switch (template) {
+                case Template.FILENAME:
+                    Settings.Default.filenameTemplate = textTemplate.Text;
+                    break;
+                case Template.SUBFOLDER:
+                    Settings.Default.subdirTemplate = textTemplate.Text;
+                    break;
+            }
             Settings.Default.Save();
             Close();
         }
@@ -59,7 +89,16 @@ namespace PasteIntoFile {
                 labelPreview.ForeColor = TextColor;
                 buttonAccept.Enabled = true;
 
-                var i = labelPreview.Text?.IndexOfAny(Path.GetInvalidFileNameChars().Except(new[] { '\\', '/' }).ToArray());
+                var invalidChars = Array.Empty<char>();
+                switch (template) {
+                    case Template.FILENAME:
+                        invalidChars = Path.GetInvalidFileNameChars().Except(new[] { '\\', '/' }).ToArray();
+                        break;
+                    case Template.SUBFOLDER:
+                        invalidChars = Path.GetInvalidFileNameChars().Except(new[] { '\\', '/', ':' }).ToArray();
+                        break;
+                }
+                var i = labelPreview.Text?.IndexOfAny(invalidChars);
                 if (i is int j && j >= 0)
                     throw new FormatException(string.Format(Resources.str_invalid_character, labelPreview.Text[j]));
             } catch (FormatException ex) {

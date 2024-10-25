@@ -172,7 +172,7 @@ Vuoi sovrascriverlo?</value>
     <value>Annulla</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>Il modello viene utilizzato per formattare il nome del file. Sono supportate le seguenti variabili:
+      <value>Sono supportate le seguenti variabili:
   	{0}  	Data e ora
   	{1}  	Salva conteggio in modalità batch
   	{2}  	Testo appunti
@@ -300,5 +300,8 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append" xml:space="preserve">
     <value>Aggiungi</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+      <value>Il modello viene utilizzato per formattare il nome del file.</value>
   </data>
 </root>

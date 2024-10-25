@@ -97,7 +97,10 @@ namespace PasteIntoFile {
 
             updateFilename(filename);
 
-            if (saveIntoSubdir) location += @"\" + formatFilenameTemplate(Settings.Default.subdirTemplate);
+            if (saveIntoSubdir) {
+                var subdir = formatFilenameTemplate(Settings.Default.subdirTemplate);
+                location = Path.IsPathRooted(subdir) ? subdir : Path.Combine(location, subdir);
+            }
             txtCurrentLocation.Text = location;
 
             chkAppend.Checked = append;  // non-persistent setting
@@ -571,9 +574,15 @@ namespace PasteIntoFile {
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            var dialog = new TemplateEdit();
+            var dialog = new TemplateEdit(Template.FILENAME);
             dialog.TopMost = TopMost; // https://github.com/dotnet/winforms/issues/6190
             dialog.FormClosed += DialogOnFormClosed;
+            dialog.ShowDialog(this);
+        }
+
+        private void editSubfolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            var dialog = new TemplateEdit(Template.SUBFOLDER);
+            dialog.TopMost = TopMost; // https://github.com/dotnet/winforms/issues/6190
             dialog.ShowDialog(this);
         }
 

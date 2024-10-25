@@ -172,7 +172,7 @@ Você quer substituí-lo?</value>
     <value>Cancelar</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>O modelo é usado para formatar o nome do arquivo. Os variáveis a seguir são suportados:
+      <value>Os variáveis a seguir são suportados:
   	{0}  	Data e hora
   	{1}  	Salvar contagem em modo lote
   	{2}  	Texto da área de transferência
@@ -300,5 +300,8 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append" xml:space="preserve">
     <value>Acrescentar</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+      <value>O modelo é usado para formatar o nome do arquivo.</value>
   </data>
 </root>
