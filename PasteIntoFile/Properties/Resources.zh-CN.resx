@@ -172,7 +172,7 @@ Tooltip</comment>
     <value>取消</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>用于格式化文件名的模板。支持以下变量：
+      <value>用于格式化文件名的模板。支持以下变量：
   	{0}  	日期和时间
   	{1}  	批量处理模式下的文件序号
   	{2}  	Clipboard text
