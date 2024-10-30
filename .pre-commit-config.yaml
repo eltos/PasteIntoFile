@@ -1,6 +1,7 @@
 ﻿
 repos:
-  - repo: local
+  - repo: https://github.com/dotnet/format
+    rev: v5.1.225507
     hooks:
       - id: dotnet-format
         name: dotnet-format
