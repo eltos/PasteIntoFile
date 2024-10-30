@@ -6,26 +6,12 @@
     </filter>
     <symbol id="shape">
       <g>
-        <path
-          fill="currentColor"
-          stroke="currentColor"
-          stroke-width="6"
-          stroke-linejoin="round"
-          d="M6,6 l46,0 l0,16 l-22,0 l0,42 l-24,0 z M11,7 l0,11 l36,0 l0,-11 z"
-        />
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-width="6"
-          stroke-linejoin="round"
-          d="M32,22 l21,0 l21,21 l0,31 l-42,0 z M53,22 l21,21 l-21,0 z"
-        />
+        <path fill="currentColor" stroke="currentColor" stroke-width="6" stroke-linejoin="round" d="M6,6 l46,0 l0,16 l-22,0 l0,42 l-24,0 z M11,7 l0,11 l36,0 l0,-11 z" />
+        <path fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" d="M32,22 l21,0 l21,21 l0,31 l-42,0 z M53,22 l21,21 l-21,0 z" />
       </g>
     </symbol>
   </defs>
-
-  <use href="#shape" style="color:#000" filter="url(#blur)"/>
-  <use href="#shape" style="color:#000" filter="url(#blur)"/>
-  <use href="#shape" style="color:#fff"/>
-
+  <use href="#shape" style="color:#000" filter="url(#blur)" />
+  <use href="#shape" style="color:#000" filter="url(#blur)" />
+  <use href="#shape" style="color:#fff" />
 </svg>

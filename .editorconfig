@@ -13,6 +13,13 @@ end_of_line = crlf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+# XML Formatting Rules
+[*.resx]
+indent_size = 2
+
+[*.svg]
+indent_size = 2
+
 ###############################
 # C# Formatting Rules         #
 ###############################
