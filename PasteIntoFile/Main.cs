@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -244,84 +245,96 @@ namespace PasteIntoFile {
         /// <param name="args">Command line arguments</param>
         /// <returns>Exit code</returns>
         static int RunTray(ArgsTray args = null) {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
-            // Register hotkeys
-            KeyboardHook paste = new KeyboardHook();
-            paste.KeyPressed += (s, e) => {
-                var arg = new ArgsPaste();
-                arg.Directory = ExplorerUtil.GetActiveExplorerPath();
-                RunPaste(arg);
-            };
-            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
-            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
-            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
-            paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
-
-            KeyboardHook copy = new KeyboardHook();
-            copy.KeyPressed += (s, e) => {
-                var files = ExplorerUtil.GetActiveExplorerSelectedFiles();
-                if (files.Count == 1) {
-                    var arg = new ArgsCopy();
-                    arg.FilePath = files.Item(0).Path;
-                    RunCopy(arg);
-                } else {
-                    MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var mutex = new Mutex(false, "PasteIntoFile-Tray:0fc405f4-6b23-4fd5-af4d-1291a2130531");
+            try {
+                if (!mutex.WaitOne(0, false)) {
+                    Console.WriteLine(@"Error: PasteIntoFile is already running in the try. Not starting another instance.");
+                    return 1;
                 }
-            };
-            copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
-            // Register clipboard observer for patching
-            SharpClipboard clipMonitor = null;
-            if (Settings.Default.trayPatchingEnabled) {
-                bool skipFirst = true;
-                void PatchClipboard(object s, SharpClipboard.ClipboardChangedEventArgs e) {
-                    if (skipFirst) { skipFirst = false; return; }
-                    Settings.Default.Reload(); // load modifications made from other instance
-                    if (!Settings.Default.trayPatchingEnabled) return; // allow to temporarily disable
-                    if (Settings.Default.continuousMode) return; // don't interfere with batch mode
-                    if (PatchedClipboardContents() is IDataObject data) {
-                        // TODO: This is experimental (might impact performance, might break proprietary formats used internally by other programs, not 100% stable)
-                        // Temporarily pausing monitoring seams unstable with the SharpClipboard library, so close and re-create the monitor instead
 
-                        // Stop monitoring and leave clipboard chain cleanly
-                        clipMonitor.MonitorClipboard = false;
-                        clipMonitor.StopMonitoring();
-                        // Re-write clipboard contents
-                        Clipboard.SetDataObject(data, false);
-                        // Create a new monitor to handle future updates
-                        clipMonitor = new SharpClipboard();
-                        clipMonitor.ClipboardChanged += PatchClipboard;
+                // Register hotkeys
+                KeyboardHook paste = new KeyboardHook();
+                paste.KeyPressed += (s, e) => {
+                    var arg = new ArgsPaste();
+                    arg.Directory = ExplorerUtil.GetActiveExplorerPath();
+                    RunPaste(arg);
+                };
+                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
+                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
+                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
+                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+
+                KeyboardHook copy = new KeyboardHook();
+                copy.KeyPressed += (s, e) => {
+                    var files = ExplorerUtil.GetActiveExplorerSelectedFiles();
+                    if (files.Count == 1) {
+                        var arg = new ArgsCopy();
+                        arg.FilePath = files.Item(0).Path;
+                        RunCopy(arg);
+                    } else {
+                        MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
-                clipMonitor = new SharpClipboard();
-                clipMonitor.ClipboardChanged += PatchClipboard;
-            }
+                };
+                copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
 
-            // Tray icon
-            NotifyIcon icon = new NotifyIcon();
-            icon.Icon = Resources.app_icon;
-            icon.Text = Resources.app_title;
-            icon.ContextMenu = new ContextMenu(new[] {
+                // Register clipboard observer for patching
+                SharpClipboard clipMonitor = null;
+                if (Settings.Default.trayPatchingEnabled) {
+                    bool skipFirst = true;
+                    void PatchClipboard(object s, SharpClipboard.ClipboardChangedEventArgs e) {
+                        if (skipFirst) { skipFirst = false; return; }
+                        Settings.Default.Reload(); // load modifications made from other instance
+                        if (!Settings.Default.trayPatchingEnabled) return; // allow to temporarily disable
+                        if (Settings.Default.continuousMode) return; // don't interfere with batch mode
+                        if (PatchedClipboardContents() is IDataObject data) {
+                            // TODO: This is experimental (might impact performance, might break proprietary formats used internally by other programs, not 100% stable)
+                            // Temporarily pausing monitoring seams unstable with the SharpClipboard library, so close and re-create the monitor instead
+
+                            // Stop monitoring and leave clipboard chain cleanly
+                            clipMonitor.MonitorClipboard = false;
+                            clipMonitor.StopMonitoring();
+                            // Re-write clipboard contents
+                            Clipboard.SetDataObject(data, false);
+                            // Create a new monitor to handle future updates
+                            clipMonitor = new SharpClipboard();
+                            clipMonitor.ClipboardChanged += PatchClipboard;
+                        }
+                    }
+                    clipMonitor = new SharpClipboard();
+                    clipMonitor.ClipboardChanged += PatchClipboard;
+                }
+
+                // Tray icon
+                NotifyIcon icon = new NotifyIcon();
+                icon.Icon = Resources.app_icon;
+                icon.Text = Resources.app_title;
+                icon.ContextMenu = new ContextMenu(new[] {
                 new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(showDialogOverwrite: true).Show()),
                 new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
                 new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
             });
-            icon.MouseClick += (sender, eventArgs) => {
-                if (eventArgs.Button == MouseButtons.Left) new Dialog(showDialogOverwrite: true).Show();
-            };
-            icon.Visible = true;
+                icon.MouseClick += (sender, eventArgs) => {
+                    if (eventArgs.Button == MouseButtons.Left) new Dialog(showDialogOverwrite: true).Show();
+                };
+                icon.Visible = true;
 
-            // Check for updates (async)
-            var backgroundTask = CheckForUpdates();
+                // Check for updates (async)
+                var backgroundTask = CheckForUpdates();
 
-            Application.Run();
+                Application.Run();
 
-            // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
-            clipMonitor?.StopMonitoring();
+                // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
+                clipMonitor?.StopMonitoring();
 
-            icon.Visible = false;
+                icon.Visible = false;
+
+
+            } finally {
+                mutex.Close();
+            }
+
             return 0;
         }
 
