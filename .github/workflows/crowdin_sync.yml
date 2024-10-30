@@ -47,6 +47,14 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Install python
+      uses: actions/setup-python@v3
+
+    - name: Install pre-commit
+      run: |
+          python3 -m pip install pre-commit
+          pre-commit install
+
     - name: Setup crowdin branch
       run: |
         ARGS="--base-path=. --config=$CONFIG --project-id=$PROJECT --token=$TOKEN --no-progress"
@@ -69,6 +77,7 @@ jobs:
         crowdin download sources $ARGS
         LANGUAGES=$(crowdin status translation --plain $ARGS | awk '$2>0 { print "-l" $1 }')
         crowdin download $LANGUAGES $ARGS
+        pre-commit run --all-files || true
         git status -s
         git diff
         git add .
@@ -99,6 +108,7 @@ jobs:
         crowdin download sources $ARGS
         LANGUAGES=$(crowdin status translation --plain $ARGS | awk '$2>0 { print "-l" $1 }')
         crowdin download $LANGUAGES $ARGS
+        pre-commit run --all-files || true
         git status -s
         git diff
 
