@@ -274,8 +274,8 @@ namespace PasteIntoFile {
         }
 
         protected static void Save(string path, string text, bool append = false) {
-            using (StreamWriter streamWriter = new StreamWriter(path, append))
-                streamWriter.Write(EnsureNewline(text), Encoding);
+            using (StreamWriter streamWriter = new StreamWriter(path, append, Encoding))
+                streamWriter.Write(EnsureNewline(text));
         }
 
         public static string EnsureNewline(string text) {
