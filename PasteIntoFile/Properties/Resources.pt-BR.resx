@@ -301,7 +301,13 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append" xml:space="preserve">
     <value>Acrescentar</value>
   </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+      <value>O modelo da subpasta é acrescentada para o caminho da pasta ao executar Paste Into File quando pressionar a tecla CTRL. Caminhos absolutos também são compatíveis e vão substituir a pasta.</value>
+  </data>
   <data name="str_template_edit_filename_info" xml:space="preserve">
       <value>O modelo é usado para formatar o nome do arquivo.</value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+      <value>Modelo de subpasta</value>
   </data>
 </root>
