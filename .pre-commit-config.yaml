@@ -11,3 +11,6 @@ repos:
     rev: v0.1.4
     hooks:
       - id: format-xml
+
+ci:
+  skip: [dotnet-format]  # not available on https://pre-commit.ci
