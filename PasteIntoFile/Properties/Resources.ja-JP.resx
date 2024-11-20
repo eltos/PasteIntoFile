@@ -65,249 +65,249 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>保存</value>
+    <value>保存する</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>文件名</value>
+    <value>ファイル名</value>
     <comment>Filename to save as
 </comment>
   </data>
   <data name="str_extension" xml:space="preserve">
-    <value>拓展名</value>
+    <value>拡張子</value>
     <comment>File extension / type to save as
 </comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>文件夹</value>
+    <value>フォルダー</value>
     <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>请以管理员身份运行此应用程序！</value>
+    <value>管理者としてアプリケーションを実行してください！</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Paste Into File</value>
+    <value>ファイルに貼り付け</value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>选择保存此文件的文件夹</value>
+    <value>このファイルを保存するフォルダーを選択してください</value>
     <comment>str_select_folder
 Tooltip</comment>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>（译者注：使用 Paste Into File 的右键菜单时）现在会自动保存文件，不再需要选择文件名和扩展名。同时，将会在资源管理器中选中被保存的文件以便重命名。若要再次显示对话框，只要不加参数运行 PasteInfoFile 的可执行文件，或在选择右键菜单项时按住 SHIFT 键即可。</value>
+    <value>ファイルはファイル名と拡張子のプロンプトなしで自動的に保存されるようになりました。代わりに、エクスプローラーウィンドウで名前を変更するために作成されたファイルが選択されます。 ダイアログを再び表示するには、PasteInfoFile 実行ファイルを引数なしで実行するか、コンテキストメニューエントリを選択して SHIFT キーを押したままにします。</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>剪贴板为空或包含不支持的数据</value>
+    <value>クリップボードが空またはサポートされていないデータが含まれています</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
-    <value>欢迎使用 Paste Into File</value>
+    <value>Paste Into File へようこそ</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
-    <value>清空剪贴板</value>
+    <value>クリップボードの消去</value>
     <comment>Checkbox to clear clipboard after saving
 </comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>在 GitHub 上查看本项目</value>
+    <value>GitHubでこのプロジェクトを探す</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>添加条目到文件资源管理器的右键菜单，以便快捷地将剪贴板内容粘贴为文件，或通过右键菜单在不打开文件的情况下直接复制文件内容。</value>
+    <value>ファイルエクスプローラーのコンテキストメニューに項目を追加することで、クリップボードの内容をファイルにすばやく貼り付けたり、右クリックでファイルの内容をコピーしたりできます。</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>要不要添加右键菜单项？</value>
+    <value>コンテキストメニューのエントリーを追加しますか？</value>
   </data>
   <data name="str_version" xml:space="preserve">
-    <value>版本 {0}</value>
+    <value>バージョン {0}</value>
     <comment>Program version info
 </comment>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>预览</value>
+    <value>プレビュー</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>图像预览（{0}x{1} px）</value>
+    <value>画像プレビュー（{0}x{1} px）</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>文本预览（{0} 字符，{1} 行）</value>
+    <value>テキストプレビュー（{0} 文字、 {1} 行）</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
-    <value>{0} 中已存在具有相同名称的目录。</value>
+    <value>同じ名前のディレクトリが既に {0} に存在します。</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
-    <value>文件 {0} 已存在。
-您想要覆盖它吗？</value>
+    <value>ファイル {0} は存在します。
+上書きしますか？</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>自动保存（跳过对话框）</value>
+    <value>自動保存（ダイアログをスキップ）</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>无需确认自动保存文件？</value>
+    <value>プロンプトなしでファイルを自動的に保存しますか？</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
-    <value>启用自动保存</value>
+    <value>自動保存を有効にする</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
-    <value>完成设置</value>
+    <value>セットアップの完了</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>您可以将 Paste Into File 配置为自动保存文件。启用后，会跳过选择文件名和扩展名的对话框，并直接在资源管理器窗口中保存并选中文件，以便重命名。若要暂时反转此设置，请在使用 Paste Into File 时按住 SHIFT 键。另外，不带命令行参数运行 Paste Into File 时，总是会显示对话框。</value>
+    <value>有効にすると、ファイル名と拡張子を表示するダイアログがスキップされます。 代わりに、ファイルは自動的に決定された形式で直接保存され、ファイルエクスプローラーウィンドウで名前を変更するために選択されます（サブフォルダーに貼り付ける場合、新しいウィンドウで開かれるかも） この設定を一時的に反転させるには、 Paste Into File を実行中に SHIFT キーを押し続けます。</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>批量处理模式</value>
+    <value>バッチモード</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>已保存 {0} 个</value>
+    <value>{0} を保存しました</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
-    <value>编辑模板</value>
+    <value>テンプレートを編集</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>保存</value>
+    <value>同意する</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>キャンセル</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>用于格式化文件名的模板。支持以下变量：
-  	{0}  	日期和时间
-  	{1}  	批量处理模式下的文件序号
-  	{2}  	Clipboard text
-&lt;a&gt;点这里&lt;/a&gt;查看关于格式的详细信息。</value>
+    <value>以下の変数がサポートされてます:
+  	{0}  	日付と時間
+  	{1}  	バッチモードでの保存回数
+  	{2}  	クリップボードテキスト
+さらなる形式の詳細は &lt;a&gt;ここをクリック&lt;/a&gt;。</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
-    <value>文件名模板</value>
+    <value>ファイル名テンプレート</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>在批处理模式下，每当剪贴板复制进新数据时，都会立即保存。
+    <value>バッチモードでは、新しいデータをコピーするとクリップボードの内容が瞬時に保存されます。
 
-是否现在就保存一次当前剪贴板内容？</value>
+現在のクリップボードの内容を保存しますか？</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
-    <value>无效字符：{0}</value>
+    <value>無効な文字: {0}</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>复制文件内容</value>
+    <value>ファイルの内容をコピー</value>
     <comment>Context menu entry for copying
 </comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
-    <value>文件 {0} 包含未知格式的数据，无法复制到剪贴板。</value>
+    <value>ファイル {0} は、クリップボードにコピーできない不明なフォーマットのデータを含んでいます。</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>剪贴板中没有可转换为扩展名 {0} 的数据，或数据转换失败。</value>
+    <value>クリップボードには拡張子 {0} へのデータ変換や変換に失敗したデータがありません。</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
-    <value>HTML 预览</value>
+    <value>HTMLプレビュー</value>
   </data>
   <data name="str_preview_url" xml:space="preserve">
-    <value>URL 预览</value>
+    <value>URLプレビュー</value>
   </data>
   <data name="str_preview_csv" xml:space="preserve">
-    <value>CSV 预览</value>
+    <value>CSVプレビュー</value>
   </data>
   <data name="str_preview_sylk" xml:space="preserve">
-    <value>符号链接（SYLK）预览</value>
+    <value>シンボリックリンク(SYLK)プレビュー</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>富文本预览</value>
+    <value>リッチテキストのプレビュー</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
-    <value>数据交换预览</value>
+    <value>データ交換のプレビュー</value>
   </data>
   <data name="str_exit" xml:space="preserve">
-    <value>退出</value>
+    <value>終了</value>
   </data>
   <data name="str_open_paste_into_file" xml:space="preserve">
-    <value>打开 Paste Into File</value>
+    <value>Paste Into File を開く</value>
   </data>
   <data name="str_settings" xml:space="preserve">
-    <value>设置</value>
+    <value>設定</value>
   </data>
   <data name="str_wizard_tray_title" xml:space="preserve">
-    <value>要不要启用开机自启和快捷键？</value>
+    <value>自動起動とホットキーを有効にしますか？</value>
   </data>
   <data name="str_wizard_tray_autostart_button" xml:space="preserve">
-    <value>自启动到托盘</value>
+    <value>自動起動はトレイに収納</value>
   </data>
   <data name="str_wizard_tray_info" xml:space="preserve">
-    <value>启用后，Paste Into File 会在 Windows 启动时一并启动到系统托盘中。 这同时能启用快捷键，通过 WIN+ALT+V 粘贴为文件（还有 WIN+ALT+C，用于直接复制文件内容）。
-此外，您可以启用 clipboard patching 功能。此功能会监视剪贴板，并自动将被复制内容变为文件，以便直接在资源管理器中使用 CTRL+V 粘贴。
-这些设置将在下一次登录时生效。</value>
+    <value>有効にすると、Paste Into File はウィンドウズ起動時に開始され、システムトレイで実行され続ける。これにより、WIN+ALT+V（ファイルの内容をコピーする場合はWIN+ALT+C）で Paste Into File を呼び出すことができる。
+さらに、クリップボードパッチングを有効にすることもできます。これはクリップボードを監視し、自動的にパッチを適用するため、ファイルエクスプローラでCTRL+Vを通常通り使用できます。
+これらの設定は次回ログイン時に有効になります。</value>
   </data>
   <data name="str_copy_failed_not_single_file" xml:space="preserve">
-    <value>请选择一个文件以复制其内容</value>
+    <value>ファイルの内容をコピーするには、単一のファイルを選択してください</value>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>文件列表预览（{0} 个文件和文件夹）</value>
+    <value>ファイル一覧のプレビュー ({0} ファイル/フォルダ)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-    <value>启用 clipboard patching（实验性功能）</value>
+    <value>クリップボードのパッチ適用を有効にする (実験的)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
-    <value>有新版本可用： {0} ➜ {1}</value>
+    <value>アップデートが利用できます: {0}➜{1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
-    <value>打开</value>
+    <value>開く</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>矢量图像预览（{0}x{1} px @ {2} dpi）</value>
+    <value>ベクトル画像プレビュー（{0} x {1} px at {2} dpi）</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>可缩放矢量图形（SVG）预览</value>
+    <value>スケーラブルなベクトルグラフィックプレビュー</value>
   </data>
   <data name="str_portable" xml:space="preserve">
-    <value>便携</value>
+    <value>ポータブル</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-    <value>剪贴板内容保存完成后清空剪贴板。</value>
+    <value>コンテンツが保存された後にクリップボードをクリアします。</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-    <value>无需确认，自动将剪贴板数据保存为默认文件类型。
-按住 SHIFT 可暂时反转此设置。</value>
+    <value>クリップボードのデータをプロンプトなしでデフォルトのファイル形式で保存します。
+SHIFTを長押しすると、この設定を一時的に反転します。</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
-    <value>有新版本时通知</value>
+    <value>アップデートを通知する</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-    <value>自动保存时可打开资源管理器（例如粘贴到子文件夹时）</value>
+    <value>自動保存はエクスプローラーが開かれるかもしれません（例：サブフォルダーに貼り付けるときなど）</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-    <value>始终置顶</value>
+    <value>常に手前に表示</value>
     <comment>Checkbox in window bar context menu.
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-    <value>追加到文件</value>
+    <value>ファイルに追加する</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-    <value>如果选择的文件已经存在，则将其追加到此文件中。
-（仅限支持追加的文件类型）</value>
+    <value>既に存在する場合、選択したファイルに内容を追加します。
+（サポートされているファイル形式のみ）</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-    <value>追加功能不支持拓展名 “{0}”。</value>
+    <value>拡張機能「{0}」の追加はサポートされていません。</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-    <value>替换</value>
+    <value>置き換え</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>粘贴到此文件中</value>
+    <value>このファイルに貼り付け</value>
   </data>
   <data name="str_append" xml:space="preserve">
-    <value>追加</value>
+    <value>追記</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
-    <value>当按下CTRL键执行 Paste Into File 时，子文件夹模板被附加到文件夹路径。 也支持绝对路径，并将替换文件夹。</value>
+    <value>CTRLキーを押しながら Paste Into File を実行すると、サブフォルダーテンプレートがフォルダーパスに追加されます。 絶対パスもサポートされ、フォルダーを置き換えます。</value>
   </data>
   <data name="str_template_edit_filename_info" xml:space="preserve">
-    <value>文件名模板用于更改文件名格式。 </value>
+    <value>ファイル名テンプレートは、ファイル名の書式設定に使用されます。 </value>
   </data>
   <data name="str_subfolder_template" xml:space="preserve">
-    <value>子文件夹模板</value>
+    <value>サブフォルダーテンプレート</value>
   </data>
 </root>
