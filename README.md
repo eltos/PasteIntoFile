@@ -41,7 +41,7 @@ It can even monitor the clipboard and automatically save or append contents as y
 ### Related projects
 
 This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile).
-It is simmilar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere) or [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ).
+It is simmilar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) and [Advanced Paste](https://github.com/microsoft/PowerToys/releases/tag/v0.86.0).
 
 This fork comes with many new features, a new fluid GUI and new console options.
 The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases).
