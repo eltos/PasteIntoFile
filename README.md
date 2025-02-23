@@ -56,7 +56,8 @@ Paste Into File is free
 + [**Download latest release** from GitHub](https://github.com/eltos/PasteIntoFile/releases)
   + We provide an **installer** (.msi file)
   + And a **portable version** (.zip file)
-+ [Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)
++ ~[Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)~
+  + The Microsoft Store version can not be updated anymore, see [this announcement](https://github.com/eltos/PasteIntoFile/discussions/67) for details
 
 | [📥 DOWNLOAD](https://github.com/eltos/PasteIntoFile/releases) | [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) | [🌐 TRANSLATE](https://github.com/eltos/PasteIntoFile/issues/18) | [💻 CONTRIBUTE](https://github.com/eltos/PasteIntoFile/contribute)
 |---|---|---|---|---|
