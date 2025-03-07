@@ -9,7 +9,7 @@ namespace PasteIntoFile {
     /// </summary>
     public sealed class KeyboardHook : IDisposable {
         // Registers a hot key with Windows.
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         // Unregisters the hot key with Windows.
         [DllImport("user32.dll")]
@@ -77,8 +77,10 @@ namespace PasteIntoFile {
             _currentId += 1;
 
             // register the hot key.
-            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new InvalidOperationException("Couldn’t register the hot key.");
+            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key)) {
+                var error = new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+                throw new InvalidOperationException($"Registration of HotKey {modifier.ToString().Replace(", ", "+").ToUpper()}+{key} failed with error {error.NativeErrorCode}: {error.Message}");
+            }
         }
 
         /// <summary>
