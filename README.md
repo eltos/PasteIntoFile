@@ -41,7 +41,7 @@ It can even monitor the clipboard and automatically save or append contents as y
 ### Related projects
 
 This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile).
-It is simmilar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) and [Advanced Paste](https://github.com/microsoft/PowerToys/releases/tag/v0.86.0).
+It is similar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) and [Advanced Paste](https://github.com/microsoft/PowerToys/releases/tag/v0.86.0).
 
 This fork comes with many new features, a new fluid GUI and new console options.
 The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases).
@@ -58,13 +58,15 @@ Paste Into File is free
   + And a **portable version** (.zip file)
 + ~[Install from Microsoft Store](https://apps.microsoft.com/store/detail/XP88X1XTPKZJDJ)~
   + The Microsoft Store version can not be updated anymore, see [this announcement](https://github.com/eltos/PasteIntoFile/discussions/67) for details
++ [Install using WinGet](https://winstall.app/apps/PasteIntoFile.PasteIntoFile)
+  + `winget install PasteIntoFile.PasteIntoFile`
 
 | [📥 DOWNLOAD](https://github.com/eltos/PasteIntoFile/releases) | [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) | [🌐 TRANSLATE](https://github.com/eltos/PasteIntoFile/issues/18) | [💻 CONTRIBUTE](https://github.com/eltos/PasteIntoFile/contribute)
 |---|---|---|---|---|
 
 _Tested on Windows 10._
 _If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._
-_If the Microsoft Defender SmartScreen promp appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._
+_If the Microsoft Defender SmartScreen prompt appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._
 
 
 ## Usage
