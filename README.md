@@ -16,6 +16,8 @@ It can also do the reverse: copy file contents to the clipboard directly.
 Where previously you had to open an image/text/office/archive application, paste what you just copied, hit save, select the folder again and type the filename (or open a file, select everything and copy it) — just to realise your GIF became a static JPEG — Paste Into File helps you to do all this in a single step, preserving transparency and animations.
 It can even monitor the clipboard and automatically save or append contents as you copy them (batch processing).
 
+_Note: On Windows 11, the context menu entries are located in the extended menu ("show more options"). Use Shift + right click to access it directly._
+
 
 ### Features
 
@@ -64,7 +66,7 @@ Paste Into File is free
 | [📥 DOWNLOAD](https://github.com/eltos/PasteIntoFile/releases) | [🪙 DONATE](https://github.com/sponsors/eltos) | [❤️ SAY THANKS](https://saythanks.io/to/eltos) | [🌐 TRANSLATE](https://github.com/eltos/PasteIntoFile/issues/18) | [💻 CONTRIBUTE](https://github.com/eltos/PasteIntoFile/contribute)
 |---|---|---|---|---|
 
-_Tested on Windows 10._
+_Tested on Windows 10 and 11._
 _If you are running an older Windows version make sure the .NET Framework 4.8+ is installed._
 _If the Microsoft Defender SmartScreen prompt appears read [this](https://github.com/eltos/PasteIntoFile/discussions/10)._
 
