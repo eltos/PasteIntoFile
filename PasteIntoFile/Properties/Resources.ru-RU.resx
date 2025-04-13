@@ -93,6 +93,9 @@
     <comment>str_select_folder
 Tooltip</comment>
   </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>Файлы теперь автоматически сохраняются без запроса имени файла и расширения. Вместо этого, созданный файл будет выбран для переименования в окне Проводника. Чтобы показать диалог снова, запустите исполняемый файл Paste Into File без аргументов или удерживайте клавишу SHIFT при выборе пункта контекстного меню.</value>
+  </data>
   <data name="str_noclip_text" xml:space="preserve">
     <value>Буфер обмена пуст или содержит неподдерживаемые данные</value>
   </data>
@@ -107,8 +110,11 @@ Tooltip</comment>
   <data name="str_main_info" xml:space="preserve">
     <value>Найти этот проект на GitHub</value>
   </data>
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
+    <value>Добавив пункты в контекстное меню Проводника, вы можете быстро вставить содержимое буфера обмена в файлы или копировать содержимое файла правой кнопкой мыши.</value>
+  </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>Добавить записи в контекстное меню?</value>
+    <value>Добавить пункты в контекстное меню?</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Версия {0}</value>
@@ -124,6 +130,9 @@ Tooltip</comment>
   <data name="str_preview_text" xml:space="preserve">
     <value>Предпросмотр текста ({0} символов, {1} строк)</value>
   </data>
+  <data name="str_file_exists_directory" xml:space="preserve">
+    <value>Каталог с таким же именем уже существует в {0}.</value>
+  </data>
   <data name="str_file_exists" xml:space="preserve">
     <value>Файл {0} уже существует.
 Вы хотите его перезаписать?</value>
@@ -133,28 +142,49 @@ Tooltip</comment>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
+  <data name="str_wizard_autosave_title" xml:space="preserve">
+    <value>Автоматически сохранять файлы без запроса?</value>
+  </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
     <value>Включить автосохранение</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
     <value>Завершить настройку</value>
   </data>
+  <data name="str_wizard_autosave_info" xml:space="preserve">
+    <value>Если этот параметр включен, диалоговое окно, запрашивающее имя файла и расширение, пропускается. Вместо этого файл сохраняется непосредственно в автоматически определенном формате и выбирается для переименования в окне проводника (при вставке во вложенные папки может открыться новое окно проводника). Чтобы временно изменить этот параметр, удерживайте клавишу SHIFT, запустив Paste Into File.</value>
+  </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Пакетный режим</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
+  <data name="str_n_saved" xml:space="preserve">
+    <value>{0} сохранён</value>
+  </data>
   <data name="str_edit_template" xml:space="preserve">
     <value>Редактировать шаблон</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>Принять</value>
+    <value>Применить</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>Поддерживаются следующие переменные:
+  	{0}  	Дата и время
+  	{1}  	Сохранение количества в пакетном режиме
+  	{2}  	Текст буфера обмена
+Для получения подробной информации о спецификациях формата &lt;a&gt;нажмите здесь&lt;/a&gt;.</value>
+  </data>
   <data name="str_filename_template" xml:space="preserve">
     <value>Шаблон имени файла</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>В пакетном режиме содержимое буфера обмена будет сохранено мгновенно при копировании новых данных.
+
+Сохранить текущее содержимое буфера обмена?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
     <value>Недопустимый символ: {0}</value>
@@ -163,6 +193,9 @@ Tooltip</comment>
     <value>Копировать содержимое файла</value>
     <comment>Context menu entry for copying
 </comment>
+  </data>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>Файл {0} содержит данные неизвестного формата, которые невозможно скопировать в буфер обмена.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
     <value>Буфер обмена не содержит никаких данных, которые можно конвертировать в расширение {0} или конвертация не удалась.</value>
@@ -173,8 +206,17 @@ Tooltip</comment>
   <data name="str_preview_url" xml:space="preserve">
     <value>Предпросмотр URL</value>
   </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>Предпросмотр CSV</value>
+  </data>
   <data name="str_preview_sylk" xml:space="preserve">
     <value>Предпросмотр символической ссылки (SYLK)</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Предпросмотр RTF</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Предпросмотр DIF</value>
   </data>
   <data name="str_exit" xml:space="preserve">
     <value>Выйти</value>
@@ -188,14 +230,44 @@ Tooltip</comment>
   <data name="str_wizard_tray_title" xml:space="preserve">
     <value>Включить автозапуск и горячие клавиши?</value>
   </data>
+  <data name="str_wizard_tray_autostart_button" xml:space="preserve">
+    <value>Автозапуск в трей</value>
+  </data>
+  <data name="str_wizard_tray_info" xml:space="preserve">
+    <value>Если этот параметр включен, Paste Into File запускается при запуске Windows и продолжает отображаться в системном трее. Это позволяет вызвать Paste Into File нажав WIN+ALT+V (и WIN+ALT+C для копирования содержимого файла).
+Кроме того, вы можете включить исправление буфера обмена. Программа отслеживает буфер обмена и автоматически исправляет его, поэтому вы можете использовать сочетание клавиш CTRL+V в проводнике, как обычно.</value>
+  </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>Пожалуйста, выберите один файл для копирования содержимого</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
+  </data>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>Предпросмотр списка файлов ({0} файлов и папок)</value>
+  </data>
+  <data name="str_wizard_tray_patching_button" xml:space="preserve">
+    <value>Включить исправление буфера обмена (экспериментально)</value>
+  </data>
   <data name="str_version_update_available" xml:space="preserve">
     <value>Доступно обновление: {0} ➜ {1}</value>
   </data>
   <data name="str_open" xml:space="preserve">
     <value>Открыть</value>
   </data>
+  <data name="str_preview_image_vector" xml:space="preserve">
+    <value>Предпросмотр векторного изображения ({0}x{1} px с {2} dpi)</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>Предпросмотр SVG</value>
+  </data>
+  <data name="str_portable" xml:space="preserve">
+    <value>Портативный</value>
+  </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
     <value>Очищает буфер обмена после сохранения содержимого.</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+    <value>Сохраняет данные буфера обмена в формате файла по умолчанию без запроса.
+Удерживайте нажатой клавишу SHIFT, чтобы временно изменить этот параметр.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
     <value>Уведомлять о наличии обновлений</value>
@@ -204,7 +276,7 @@ Tooltip</comment>
     <value>Автосохранение может открыть проводник (например, при вставке в подпапку)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-    <value>Всегда поверх окон</value>
+    <value>Поверх остальных окон</value>
     <comment>Checkbox in window bar context menu.
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
@@ -212,7 +284,29 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append_to_file" xml:space="preserve">
     <value>Добавить в файл</value>
   </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+    <value>Дополняет содержимое к выбранному файлу, если он уже существует.
+(Только для поддерживаемых типов файлов)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+    <value>Дополнение содержимого не поддерживается для файла с расширением "{0}".</value>
+  </data>
   <data name="str_replace" xml:space="preserve">
     <value>Заменить</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+    <value>Вставить в этот файл</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+    <value>Дополнить</value>
+  </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+    <value>Шаблон вложенной папки добавляется к пути к папке при выполнении Paste Into File с нажатой клавишей CTRL. Также поддерживаются абсолютные пути, которые заменяют папку.</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+    <value>Шаблон имени файла используется для форматирования имени файла. </value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+    <value>Шаблон подпапки</value>
   </data>
 </root>
