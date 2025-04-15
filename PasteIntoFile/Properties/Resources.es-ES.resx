@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Microsoft ResX Schema Version 2.0 -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <!-- Data -->
+  <data name="app_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
+  </data>
+  <data name="str_save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="str_filename" xml:space="preserve">
+    <value>Nombre de Archivo</value>
+    <comment>Filename to save as
+</comment>
+  </data>
+  <data name="str_extension" xml:space="preserve">
+    <value>Extensión</value>
+    <comment>File extension / type to save as
+</comment>
+  </data>
+  <data name="str_location" xml:space="preserve">
+    <value>Carpeta</value>
+    <comment>Folder path location to save file into</comment>
+  </data>
+  <data name="str_message_run_as_admin" xml:space="preserve">
+    <value>¡Por favor, ejecute la aplicación como administrador!</value>
+  </data>
+  <data name="str_contextentry" xml:space="preserve">
+    <value>Pegar en fichero</value>
+    <comment>Context menu entry for pasting</comment>
+  </data>
+  <data name="str_select_folder" xml:space="preserve">
+    <value>Seleccione una carpeta para guardar este archivo</value>
+    <comment>str_select_folder
+Tooltip</comment>
+  </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>Los archivos ahora se guardan automáticamente sin pedir el nombre de archivo y la extensión. En su lugar, el archivo creado será seleccionado para cambiar el nombre en la ventana del explorador. Para volver a mostrar el diálogo, ejecute el ejecutable PasteInfoFile sin argumentos o mantenga presionada la tecla SHIFT mientras selecciona la entrada de menú contextual.</value>
+  </data>
+  <data name="str_noclip_text" xml:space="preserve">
+    <value>El Portapapeles está vacío o contiene datos no soportados</value>
+  </data>
+  <data name="str_wizard_title" xml:space="preserve">
+    <value>Bienvenido a Paste Into File</value>
+  </data>
+  <data name="str_clear_clipboard" xml:space="preserve">
+    <value>Vaciar el Portapapeles</value>
+    <comment>Checkbox to clear clipboard after saving
+</comment>
+  </data>
+  <data name="str_main_info" xml:space="preserve">
+    <value>Buscar este proyecto en GitHub</value>
+  </data>
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
+    <value>Añadiendo entradas al menú contextual del Explorador de archivos, puede pegar rápidamente el contenido del portapapeles en archivos o copiar el contenido del archivo con el botón derecho del ratón.</value>
+  </data>
+  <data name="str_wizard_contextentry_title" xml:space="preserve">
+    <value>¿Añadir entradas de menú contextual?</value>
+  </data>
+  <data name="str_version" xml:space="preserve">
+    <value>Versión {0}</value>
+    <comment>Program version info
+</comment>
+  </data>
+  <data name="str_preview" xml:space="preserve">
+    <value>Vista Previa</value>
+  </data>
+  <data name="str_preview_image" xml:space="preserve">
+    <value>Vista previa de la imagen ({0}x{1} px)</value>
+  </data>
+  <data name="str_preview_text" xml:space="preserve">
+    <value>Vista previa de texto ({0} caracteres, {1} líneas)</value>
+  </data>
+  <data name="str_file_exists_directory" xml:space="preserve">
+    <value>Ya existe un directorio con el mismo nombre en {0}.</value>
+  </data>
+  <data name="str_file_exists" xml:space="preserve">
+    <value>El archivo {0} ya existe. ¿Desea sobreescribirlo?</value>
+  </data>
+  <data name="str_autosave_checkbox" xml:space="preserve">
+    <value>Autoguardado (Saltar  diálogo)</value>
+    <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
+</comment>
+  </data>
+  <data name="str_wizard_autosave_title" xml:space="preserve">
+    <value>¿Guardar archivo automáticamente sin preguntar?</value>
+  </data>
+  <data name="str_wizard_autosave_button" xml:space="preserve">
+    <value>Habilitar autoguardado</value>
+  </data>
+  <data name="str_wizard_finish" xml:space="preserve">
+    <value>Finalizar la configuración</value>
+  </data>
+  <data name="str_wizard_autosave_info" xml:space="preserve">
+    <value>Cuando está activado, se omite el diálogo que solicita el nombre de archivo y la extensión. En su lugar, el archivo se guarda directamente en un formato determinado automáticamente y seleccionado para renombrar en la ventana de explorador de archivos (al pegar en subcarpetas, esto puede abrir una nueva ventana de explorador). Para invertir temporalmente esta configuración, mantén presionada la tecla SHIFT mientras se ejecuta Paste Into File.</value>
+  </data>
+  <data name="str_continuous_mode" xml:space="preserve">
+    <value>Modo por lotes</value>
+    <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
+</comment>
+  </data>
+  <data name="str_n_saved" xml:space="preserve">
+    <value>Se ha guardado: {0}</value>
+  </data>
+  <data name="str_edit_template" xml:space="preserve">
+    <value>Editar plantilla</value>
+  </data>
+  <data name="str_accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="str_cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>Se admiten las siguientes variables:
+  	{0}  	Fecha y hora
+  	{1}  	Guardar contador en el modo de lotes
+  	{2}  	Texto del portapapeles
+Para más detalles sobre el formato especificados &lt;a&gt;haga clic aquí&lt;/a&gt;.</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>Nombre de archivo plantilla</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>En modo Batch, el contenido del Portapapeles se guardará instantáneamente cuando se copien nuevos datos.
+
+¿Guardar el contenido Actual ahora?</value>
+  </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>Carácter no válido: '{0}'</value>
+  </data>
+  <data name="str_contextentry_copyfromfile" xml:space="preserve">
+    <value>Copiar contenido del archivo</value>
+    <comment>Context menu entry for copying
+</comment>
+  </data>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>El archivo {0} contiene datos de formato desconocido que no pueden copiarse al portapapeles.</value>
+  </data>
+  <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
+    <value>El portapapeles no contiene datos convertibles a extensión {0} o la conversión ha fallado.</value>
+  </data>
+  <data name="str_preview_html" xml:space="preserve">
+    <value>Vista previa de HTML</value>
+  </data>
+  <data name="str_preview_url" xml:space="preserve">
+    <value>Vista previa de URL:</value>
+  </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>Vista previa CSV</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>Vista previa del enlace simbólico (SYLK)</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Vista previa de texto enriquecido</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Vista previa de Intercambio de Datos</value>
+  </data>
+  <data name="str_exit" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>Abrir Pegar en archivo</value>
+  </data>
+  <data name="str_settings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="str_wizard_tray_title" xml:space="preserve">
+    <value>¿Habilitar autoarranque y teclas de acceso?</value>
+  </data>
+  <data name="str_wizard_tray_autostart_button" xml:space="preserve">
+    <value>Autoiniciar en bandeja</value>
+  </data>
+  <data name="str_wizard_tray_info" xml:space="preserve">
+    <value>Si está habilitado, la función "Pegar en archivo" se inicia al iniciar Windows y continúa ejecutándose en la bandeja del sistema. Esto permite ejecutar "Pegar en archivo" presionando WIN+ALT+V (y WIN+ALT+C para copiar el contenido del archivo).
+Además, puede habilitar la corrección del portapapeles. Esta función supervisa el portapapeles y lo corrige automáticamente, para que pueda usar Ctrl+V en el explorador de archivos como de costumbre.
+Esta configuración se aplicará la próxima vez que inicie sesión.</value>
+  </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>Por favor, seleccione un único archivo para copiar el contenido del archivo</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
+  </data>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>Vista previa de lista de archivos ({0} archivos y carpetas)</value>
+  </data>
+  <data name="str_wizard_tray_patching_button" xml:space="preserve">
+    <value>Habilitar parche del portapapeles (experimental)</value>
+  </data>
+  <data name="str_version_update_available" xml:space="preserve">
+    <value>Actualización disponible: {0} ➜ {1}</value>
+  </data>
+  <data name="str_open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="str_preview_image_vector" xml:space="preserve">
+    <value>Vista previa de imagen vectorial ({0}x{1} px en {2} dpi)</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>Vista previa de gráficos vectoriales escalables</value>
+  </data>
+  <data name="str_portable" xml:space="preserve">
+    <value>Portable</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+    <value>Limpia el portapapeles después de guardar su contenido.</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+    <value>Guarda los datos del portapapeles en el tipo de archivo predeterminado sin preguntar.
+Mantén pulsado SHIFT para invertir temporalmente esta configuración.</value>
+  </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+    <value>Notificar sobre actualizaciones</value>
+  </data>
+  <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
+    <value>El autoguardado puede abrir el explorador (por ejemplo, al pegar en subcarpeta)</value>
+  </data>
+  <data name="str_always_on_top" xml:space="preserve">
+    <value>Siempre visible</value>
+    <comment>Checkbox in window bar context menu.
+Allows to keep application window always on top (in foreground of other windows), even if not focussed.
+</comment>
+  </data>
+  <data name="str_append_to_file" xml:space="preserve">
+    <value>Añadir al archivo</value>
+  </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+    <value>Añade el contenido al archivo seleccionado, si ya existe.
+(Solo para los tipos de archivo soportados)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+    <value>Adjuntar no está soportado para la extensión "{0}".</value>
+  </data>
+  <data name="str_replace" xml:space="preserve">
+    <value>Reemplazar</value>
+  </data>
+  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
+    <value>Pegar en este archivo</value>
+  </data>
+  <data name="str_append" xml:space="preserve">
+    <value>Anexar</value>
+  </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+    <value>La plantilla de subcarpeta se añade a la ruta de la carpeta cuando se ejecuta Pegar en el archivo con la tecla CTRL presionada. Las rutas absolutas también están soportadas y reemplazarán la carpeta.</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+    <value>La plantilla de nombre de archivo se usa para formatear el nombre del archivo. </value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+    <value>Plantilla de subcarpeta</value>
+  </data>
+</root>
