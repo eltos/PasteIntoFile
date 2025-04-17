@@ -732,7 +732,7 @@ namespace PasteIntoFile {
                 images.Add("emf", emf);
 
             // Mime and file extension formats
-            var formats = extensions.SelectMany(ext => MimeForExtension(ext).Concat(new[] { ext }));
+            var formats = extensions.SelectMany(ext => MimeForImageExtension(ext).Concat(new[] { ext }));
             foreach (var format in formats) { // case insensitive
                 if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
                     if (Image.FromStream(stream) is Image img)
@@ -859,7 +859,7 @@ namespace PasteIntoFile {
             return container;
         }
 
-        private static IEnumerable<string> MimeForExtension(string extension) {
+        private static IEnumerable<string> MimeForImageExtension(string extension) {
             switch (BaseContent.NormalizeExtension(extension)) {
                 case "jpg": return new[] { "image/jpeg" };
                 case "bmp": return new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" };
