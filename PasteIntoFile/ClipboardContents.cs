@@ -838,8 +838,12 @@ namespace PasteIntoFile {
             var formats = extensions.SelectMany(ext => MimeForImageExtension(ext).Concat(new[] { ext }));
             foreach (var format in formats) { // case insensitive
                 if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
-                    if (Image.FromStream(stream) is Image img)
-                        images.Add(format, img);
+                    try {
+                        if (Image.FromStream(stream) is Image img)
+                            images.Add(format, img);
+                    } catch (Exception e) {
+                        Console.WriteLine(e);
+                    }
             }
 
             // Generic image from encoded data uri
