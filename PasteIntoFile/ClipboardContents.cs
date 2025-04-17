@@ -342,6 +342,7 @@ namespace PasteIntoFile {
 
 
     public abstract class TextLikeContent : BaseContent {
+        public static new readonly string[] CLIP_FORMATS = { DataFormats.UnicodeText, DataFormats.Text };
         public TextLikeContent(string text) {
             Data = text;
         }
@@ -483,6 +484,34 @@ namespace PasteIntoFile {
 
         public override void SaveAs(string path, string extension, bool append = false) {
             Save(path, TextPreview(extension), append);
+        }
+    }
+
+
+    public class CalendarContent : TextLikeContent {
+        public CalendarContent(string text) : base(text) { }
+        public static new readonly string[] CLIP_FORMATS = TextLikeContent.CLIP_FORMATS.Concat(new[] { "text/calendar", "application/ics" }).ToArray();
+        public static new readonly string[] FILE_EXTENSIONS = { "ics" };
+        public override string[] Extensions => FILE_EXTENSIONS;
+        public override string Description => Resources.str_preview_calendar;
+        public static bool IsValidCalendar(string text) {
+            return text.StartsWith("BEGIN:VCALENDAR");
+        }
+        public override void AddTo(IDataObject data) {
+            foreach (var f in CLIP_FORMATS) {
+                data.SetData(f, Text);
+            }
+        }
+
+        public override string TextPreview(string extension) {
+            return Text;
+        }
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
+            Save(path, Text);
+
+
         }
     }
 
@@ -785,6 +814,10 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
+            if (ReadClipboardString(CalendarContent.CLIP_FORMATS)?.Trim() is string cal)
+                if (CalendarContent.IsValidCalendar(cal))
+                    container.Contents.Add(new CalendarContent(cal));
+
             // make sure text content comes last, so it does not overwrite extensions used by previous special formats...
             if (ReadClipboardString(DataFormats.UnicodeText, DataFormats.Text, "text/plain") is string text)
                 container.Contents.Add(new TextContent(text));
@@ -899,6 +932,8 @@ namespace PasteIntoFile {
                     container.Contents.Add(new CsvContent(contents));
                 if (ext == "dif")
                     container.Contents.Add(new GenericTextContent(DataFormats.Dif, ext, contents));
+                if (CalendarContent.FILE_EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new CalendarContent(contents));
                 if (ext == "rtf")
                     container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
                 if (ext == "syk")
