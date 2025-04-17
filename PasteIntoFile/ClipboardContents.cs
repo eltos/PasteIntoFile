@@ -49,6 +49,57 @@ namespace PasteIntoFile {
         }
     }
 
+    /// <summary>
+    /// Class holding the preview of the clipboard contents, and the preview type as an enum
+    /// </summary>
+    public class PreviewHolder {
+        public Image Image = null;
+        public string Text = null;
+        public string Html = null;
+        public string Rtf = null;
+        public string[] List = null;
+
+        /// <summary>
+        /// A friendly description of the contents
+        /// </summary>
+        public string Description = Resources.str_preview;
+
+        private PreviewHolder(string description) {
+            Description = description ?? Resources.str_preview;
+        }
+        public static PreviewHolder ForImage(Image image, string description = null) {
+            if (description == null)
+                description = string.Format(Resources.str_preview_image, image.Width, image.Height);
+            var p = new PreviewHolder(description);
+            p.Image = image;
+            return p;
+        }
+        public static PreviewHolder ForText(string text, string description = null) {
+            if (description == null)
+                description = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
+            var p = new PreviewHolder(description);
+            p.Text = text;
+            return p;
+        }
+        public static PreviewHolder ForHtml(string html, string description) {
+            var p = new PreviewHolder(description);
+            p.Html = html;
+            return p;
+        }
+        public static PreviewHolder ForRtf(string rtf, string description = null) {
+            if (description == null)
+                description = Resources.str_preview_rtf;
+            var p = new PreviewHolder(description);
+            p.Rtf = rtf;
+            return p;
+        }
+        public static PreviewHolder ForList(string[] list, string description) {
+            var p = new PreviewHolder(description);
+            p.List = list;
+            return p;
+        }
+    }
+
 
     /// <summary>
     /// This is the base class to hold clipboard contents, metadata, and perform actions with it
@@ -62,9 +113,11 @@ namespace PasteIntoFile {
         public abstract string[] Extensions { get; }
 
         /// <summary>
-        /// A friendly description of the contents
+        /// The preview of the contents
         /// </summary>
-        public abstract string Description { get; }
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns></returns>
+        public abstract PreviewHolder Preview(string extension);
 
         /// <summary>
         /// The actual data content
@@ -113,12 +166,6 @@ namespace PasteIntoFile {
     /// Holds image contents
     /// </summary>
     public abstract class ImageLikeContent : BaseContent {
-        /// <summary>
-        /// Convert the image to the format used for saving it, so it can be used for a preview
-        /// </summary>
-        /// <param name="extension">File extension determining the format</param>
-        /// <returns>Image in target format or null if no suitable format is found</returns>
-        public abstract Image ImagePreview(string extension);
     }
 
 
@@ -129,12 +176,11 @@ namespace PasteIntoFile {
         }
         public Image Image => Data as Image;
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
-            Image image = ImagePreview(extension);
+            Image image = Preview(extension).Image;
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
@@ -174,19 +220,19 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
-        public override Image ImagePreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
             extension = NormalizeExtension(extension);
             // Special formats with intermediate conversion types
             switch (extension) {
                 case "pdf": extension = "png"; break;
-                case "ico": return ImageAsIcon.ToBitmap();
+                case "ico": return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
             }
             // Find suitable codec and convert image
             foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
                 if (encoder.FilenameExtension.ToLower().Contains(extension)) {
                     var stream = new MemoryStream();
                     Image.Save(stream, encoder, null);
-                    return Image.FromStream(stream);
+                    return PreviewHolder.ForImage(Image.FromStream(stream));
                 }
             }
             // TODO: Support conversion to EMF, WMF
@@ -255,7 +301,6 @@ namespace PasteIntoFile {
         }
         public Metafile Metafile => Data as Metafile;
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
@@ -283,13 +328,14 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
-        public override Image ImagePreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
             switch (NormalizeExtension(extension)) {
                 case "emf":
-                    return Metafile;
+                    var description = string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
+                    return PreviewHolder.ForImage(Metafile, description);
 
                 default: // fallback to save as raster image
-                    return new ImageContent(Metafile).ImagePreview(extension);
+                    return new ImageContent(Metafile).Preview(extension);
             }
         }
         public override void AddTo(IDataObject data) {
@@ -315,7 +361,11 @@ namespace PasteIntoFile {
 
         public static readonly Encoding DefaultEncoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
 
-        public override string Description => Resources.str_preview;
+        public virtual string Description => null;
+
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForText(TextFor(extension), Description);
+        }
 
         public override void AddTo(IDataObject data) {
             AddTo(data, Text);
@@ -334,7 +384,7 @@ namespace PasteIntoFile {
         }
 
         public override void SaveAs(string path, string extension, bool append = false) {
-            Save(path, TextPreview(extension), append);
+            Save(path, TextFor(extension), append);
         }
 
         protected static void Save(string path, string text, bool append = false, Encoding encoding = null) {
@@ -350,7 +400,7 @@ namespace PasteIntoFile {
         /// Return a string used for preview
         /// </summary>
         /// <returns></returns>
-        public virtual string TextPreview(string extension) {
+        public virtual string TextFor(string extension) {
             return Text;
         }
     }
@@ -361,8 +411,6 @@ namespace PasteIntoFile {
         public static readonly string[] EXTENSIONS = { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv" };
 
         public TextContent(string text) : base(FORMATS, EXTENSIONS, text) { }
-
-        public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
 
     }
 
@@ -413,14 +461,16 @@ namespace PasteIntoFile {
             }
         }
 
-        public override string Description => Resources.str_preview_svg;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForHtml(Xml, Resources.str_preview_svg);
+        }
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append) throw new AppendNotSupportedException();
             base.SaveAs(path, extension, append);
         }
 
-        public override string TextPreview(string extension) {
+        public override string TextFor(string extension) {
             return Xml;
         }
     }
@@ -432,7 +482,10 @@ namespace PasteIntoFile {
 
         public HtmlContent(string text) : base(FORMATS, EXTENSIONS, text) { }
 
-        public override string Description => Resources.str_preview_html;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForHtml(Text, Resources.str_preview_html);
+        }
+
         public override void SaveAs(string path, string extension, bool append = false) {
             var html = Text;
             if (!append && !html.StartsWith("<!DOCTYPE html>"))
@@ -464,6 +517,7 @@ namespace PasteIntoFile {
         public static readonly string[] EXTENSIONS = { "csv", "tsv", "tab", "md" };
 
         public CsvContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
         public override string Description => Resources.str_preview_csv;
 
         /// <summary>
@@ -515,12 +569,12 @@ namespace PasteIntoFile {
             return header + markdown;
         }
 
-        public override string TextPreview(string extension) {
+        public override string TextFor(string extension) {
             switch (NormalizeExtension(extension)) {
                 case "md":
                     return AsMarkdown();
                 default:
-                    return base.TextPreview(extension);
+                    return base.TextFor(extension);
             }
         }
 
@@ -580,7 +634,6 @@ namespace PasteIntoFile {
         public string FileListString => string.Join("\n", FileList);
 
         public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
-        public override string Description => string.Format(Resources.str_preview_files, Files.Count);
         public override void SaveAs(string path, string extension, bool append = false) {
             switch (NormalizeExtension(extension)) {
                 case "zip":
@@ -609,12 +662,13 @@ namespace PasteIntoFile {
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Preview as text string</returns>
         ///
-        public string TextPreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
+            var description = string.Format(Resources.str_preview_files, Files.Count);
             switch (NormalizeExtension(extension)) {
                 case "zip":
-                    return null;
+                    return PreviewHolder.ForList(FileList.ToArray(), description);
                 default:
-                    return FileListString;
+                    return PreviewHolder.ForText(FileListString, description);
             }
         }
 
@@ -849,8 +903,8 @@ namespace PasteIntoFile {
             // print a list of all contens in the container to the console
             foreach (var content in container.Contents) {
                 Console.WriteLine("> " + content.GetType());
-                if (content is TextLikeContent textContent) {
-                    var preview = textContent.TextPreview(content.DefaultExtension).Replace('\r', ' ').Replace('\n', ' ').Trim();
+                if (content.Preview(content.DefaultExtension).Text is string preview) {
+                    preview = preview.Replace('\r', ' ').Replace('\n', ' ').Trim();
                     Console.WriteLine("  " + preview.Substring(0, preview.Length > 100 ? 100 : preview.Length));
                 }
             }

@@ -322,62 +322,50 @@ namespace PasteIntoFile {
                 return;
             }
 
-            box.Text = content.Description;
+            var preview = content.Preview(ext);
+            box.Text = preview.Description;
 
-            if (content is ImageLikeContent imageContent) {
-                var img = imageContent.ImagePreview(ext);
-                if (img != null) {
-                    imagePreview.Image = img;
+            if (preview.Image is Image img) {
+                imagePreview.Image = img;
 
-                    // Checkerboard background in case image is transparent
-                    Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
-                    Graphics g = Graphics.FromImage(bg);
-                    Brush brush = new SolidBrush(Color.LightGray);
-                    float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
-                    for (int x = 0; x < bg.Width / d; x++) {
-                        for (int y = 0; y < bg.Height / d; y += 2) {
-                            g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
-                        }
+                // Checkerboard background in case image is transparent
+                Bitmap bg = new Bitmap(img.Width, img.Height, PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(bg);
+                Brush brush = new SolidBrush(Color.LightGray);
+                float d = Math.Max(10, Math.Max(bg.Width, bg.Height) / 50f);
+                for (int x = 0; x < bg.Width / d; x++) {
+                    for (int y = 0; y < bg.Height / d; y += 2) {
+                        g.FillRectangle(brush, x * d, d * (y + x % 2), d, d);
                     }
-                    imagePreview.BackgroundImage = bg;
-
-                    imagePreview.Show();
-                } else {
-                    // conversion failed
-                    box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
                 }
+                imagePreview.BackgroundImage = bg;
+                imagePreview.Show();
 
-            } else if (content is HtmlContent htmlContent) {
-                htmlPreview.DocumentText = htmlContent.Text;
-                htmlPreview.Show();
-
-            } else if (content is SvgContent svgContent) {
-                htmlPreview.DocumentText = svgContent.Xml;
-                htmlPreview.Show();
-
-            } else if (content is TextLikeContent textLikeContent) {
-                if (content.Extensions.FirstOrDefault() == "rtf")
-                    textPreview.Rtf = textLikeContent.TextPreview(ext);
-                else
-                    textPreview.Text = textLikeContent.TextPreview(ext);
+            } else if (preview.Text is string text) {
+                textPreview.Text = text;
                 textPreview.Show();
 
-            } else if (content is FilesContent filesContent) {
-                if (filesContent.TextPreview(ext) is string preview) {
-                    textPreview.Text = preview;
-                    textPreview.Show();
-                } else {
-                    treePreview.BeginUpdate();
-                    treePreview.Nodes.Clear();
-                    foreach (var file in filesContent.FileList) {
-                        treePreview.Nodes.Add(file);
-                    }
-                    treePreview.EndUpdate();
-                    treePreview.Show();
+            } else if (preview.Html is string html) {
+                htmlPreview.DocumentText = html;
+                htmlPreview.Show();
+
+            } else if (preview.Rtf is string rtf) {
+                textPreview.Rtf = rtf;
+                textPreview.Show();
+
+            } else if (preview.List is string[] list) {
+                treePreview.BeginUpdate();
+                treePreview.Nodes.Clear();
+                foreach (var entry in list) {
+                    treePreview.Nodes.Add(entry);
                 }
+                treePreview.EndUpdate();
+                treePreview.Show();
 
+            } else {
+                // conversion failed
+                box.Text = String.Format(Resources.str_error_cliboard_format_missmatch, comExt.Text);
             }
-
 
         }
 
