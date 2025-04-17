@@ -967,6 +967,8 @@ namespace PasteIntoFile {
                     container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
                 if (ext == "syk")
                     container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
+                if (ext == "url")
+                    container.Contents.Add(new UrlContent(contents));
 
             } else {
                 container.Contents.Add(new TextContent(path));
