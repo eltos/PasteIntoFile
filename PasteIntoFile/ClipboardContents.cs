@@ -986,6 +986,8 @@ namespace PasteIntoFile {
                     container.Contents.Add(new CsvContent(contents));
                 if (ext == "ics")
                     container.Contents.Add(new CalendarContent(contents));
+                if (UrlContent.EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new UrlContent(contents));
                 if (DifContent.EXTENSIONS.Contains(ext))
                     container.Contents.Add(new DifContent(contents));
                 if (RtfContent.EXTENSIONS.Contains(ext))
