@@ -213,9 +213,13 @@ namespace PasteIntoFile {
         /// <returns>Extension</returns>
         public static string determineExtension(ClipboardContents clipData) {
             // Determines primary data in clipboard according to a custom prioritisation order
-            var content = clipData.ForContentType(typeof(ImageLikeContent)) ??
-                          clipData.ForContentType(typeof(TextContent)) ??
-                          clipData.ForContentType(typeof(BaseContent));
+            var content =
+                clipData.ForContentType(typeof(CsvContent)) ??
+                clipData.ForContentType(typeof(ImageLikeContent)) ??
+                clipData.ForContentType(typeof(SvgContent)) ??
+                clipData.ForContentType(typeof(CalendarContent)) ??
+                clipData.ForContentType(typeof(TextContent)) ??
+                clipData.ForContentType(typeof(BaseContent));
 
             // chose file extension based on user preference if available
             switch (content) {
