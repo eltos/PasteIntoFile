@@ -686,6 +686,23 @@ namespace PasteIntoFile {
             //
             // Note: if multiple clipboard contents support to same extension, the first in Contents is used
 
+#if DEBUG
+            Console.WriteLine(">>> Clipboard contents as of " + container.Timestamp + " <<<");
+            var table = new List<string>();
+            foreach (var format in Clipboard.GetDataObject().GetFormats(false)) {
+                var df = DataFormats.GetFormat(format);
+                table.Add(
+                    df.Id.ToString().PadLeft(6) + " "
+                    + (Enum.IsDefined(typeof(CF), (uint)df.Id) ? "CF_" + (CF)(uint)df.Id : "").PadRight(15) + " "
+                    + format.PadRight(30)
+                );
+            }
+            table.Sort();
+            foreach (var row in table)
+                Console.WriteLine(row);
+            Console.WriteLine("");
+#endif
+
 
             // Images
             // ======
@@ -825,6 +842,18 @@ namespace PasteIntoFile {
             // ...except for file list, which has even lower priority so as not to overwrite *.txt
             if (Clipboard.ContainsFileDropList())
                 container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
+
+#if DEBUG
+            // print a list of all contens in the container to the console
+            foreach (var content in container.Contents) {
+                Console.WriteLine("> " + content.GetType());
+                if (content is TextLikeContent textContent) {
+                    var preview = textContent.TextPreview(content.DefaultExtension).Replace('\r', ' ').Replace('\n', ' ').Trim();
+                    Console.WriteLine("  " + preview.Substring(0, preview.Length > 100 ? 100 : preview.Length));
+                }
+            }
+            Console.WriteLine();
+#endif
 
 
             return container;
