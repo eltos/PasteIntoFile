@@ -16,6 +16,7 @@ using LINQtoCSV;
 using PasteIntoFile.Properties;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using SkiaSharp;
 
 namespace PasteIntoFile {
 
@@ -171,7 +172,7 @@ namespace PasteIntoFile {
 
 
     public class ImageContent : ImageLikeContent {
-        public static readonly string[] EXTENSIONS = { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
+        public static readonly string[] EXTENSIONS = { "png", "webp", "jpg", "bmp", "gif", "pdf", "tif", "ico" };
         public ImageContent(Image image) {
             Data = image;
         }
@@ -181,16 +182,24 @@ namespace PasteIntoFile {
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
-            Image image = Preview(extension).Image;
+            var image = Preview(extension).Image;
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
+            var stream = new MemoryStream();
+            image.Save(stream, image.RawFormat);
+            stream.Position = 0;
+
             switch (NormalizeExtension(extension)) {
+                case "webp":
+                    //SKImage.FromEncodedData(stream).Encode(SKEncodedImageFormat.Webp, 90).SaveTo(File.OpenWrite(path));
+                    var webp = SKBitmap.Decode(stream).PeekPixels().Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 100));
+                    using (var fs = new FileStream(path, FileMode.Create)) {
+                        webp.SaveTo(fs);
+                        return;
+                    }
                 case "pdf":
                     // convert image to ximage
-                    var stream = new MemoryStream();
-                    image.Save(stream, image.RawFormat);
-                    stream.Position = 0;
                     XImage img = XImage.FromStream(stream);
                     // create pdf document
                     PdfDocument document = new PdfDocument();
@@ -225,8 +234,13 @@ namespace PasteIntoFile {
             extension = NormalizeExtension(extension);
             // Special formats with intermediate conversion types
             switch (extension) {
-                case "pdf": extension = "png"; break;
-                case "ico": return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
+                case "pdf":
+                case "webp":
+                    // Use png as intermediate format
+                    extension = "png";
+                    break;
+                case "ico":
+                    return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
             }
             // Find suitable codec and convert image
             foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
@@ -277,7 +291,7 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support alpha channel
     /// </summary>
     public class TransparentImageContent : ImageContent {
-        public static new readonly string[] EXTENSIONS = { "png", "gif", "pdf", "tif", "ico" };
+        public static new readonly string[] EXTENSIONS = { "png", "webp", "gif", "pdf", "tif", "ico" };
         public TransparentImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS; // Note: gif has only alpha 100% or 0%
     }
@@ -286,7 +300,7 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support animated frames
     /// </summary>
     public class AnimatedImageContent : ImageContent {
-        public static new readonly string[] EXTENSIONS = { "gif" };
+        public static new readonly string[] EXTENSIONS = { "gif" }; // TODO: in principle "webp" can also support animated frames
         public AnimatedImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS;
     }
@@ -1003,7 +1017,22 @@ namespace PasteIntoFile {
                 } else {
                     container.Contents.Add(new ImageContent(img));
                 }
-            } catch { /* it's not */ }
+            } catch {
+                // Try again with Skia (to support webp)
+                try {
+                    using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
+                        var img = SKBitmap.Decode(fs);
+                        using (var stream = img.PeekPixels().Encode(SKPngEncoderOptions.Default).AsStream()) {
+                            if (img.AlphaType == SKAlphaType.Opaque) {
+                                container.Contents.Add(new ImageContent(Image.FromStream(stream)));
+                            } else {
+                                // TODO: FIXME: transparency seems to get lost during conversion
+                                container.Contents.Add(new TransparentImageContent(Image.FromStream(stream)));
+                            }
+                        }
+                    }
+                } catch { /* it's not */ }
+            }
 
 
             // if it's text like (check for absence of zero byte)

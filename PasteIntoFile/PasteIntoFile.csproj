@@ -53,6 +53,7 @@
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
         <PackageReference Include="PDFsharp" Version="1.50.5147" />
         <PackageReference Include="SharpClipboard" Version="3.5.2" />
+        <PackageReference Include="SkiaSharp" Version="3.116.1" />
     </ItemGroup>
     <ItemGroup Condition="'$(Flavor)'=='Portable'">
         <PackageReference Include="PortableSettingsProvider" Version="0.2.4" />
