@@ -8,6 +8,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -532,6 +533,7 @@ namespace PasteIntoFile {
         public static bool IsValidCalendar(string text) {
             return text.StartsWith("BEGIN:VCALENDAR");
         }
+        public Ical.Net.Calendar Calendar => Ical.Net.Calendar.Load(Text);
         public override void AddTo(IDataObject data) {
             foreach (var f in CLIP_FORMATS) {
                 data.SetData(f, Text);
@@ -540,6 +542,23 @@ namespace PasteIntoFile {
 
         public override PreviewHolder Preview(string extension) {
             switch (extension) {
+                case "ics":
+                    try {
+                        return PreviewHolder.ForHtml(
+                            "<!DOCTYPE html>\n<html>\n<head>\n<style>\n"
+                            + "* { font-family: Sans-serif; font-size: small; }\n"
+                            + "strong { font-size: medium; }\nbody { margin: 0; }\n"
+                            + "p { background: aliceblue; border: solid silver 1pt; padding: 0.5em; margin: 0.5em; }\n"
+                            + "</style>\n</head>\n<body>\n"
+                            + string.Join("\n", Calendar.Events.Select(
+                                e => string.Format("<p>{0}<br/><strong>{1}</strong></p>", e.Start, e.Summary)
+                            ))
+                            + "\n</body>\n</html>\n",
+                            Resources.str_preview_calendar
+                        );
+                    } catch (SerializationException e) {
+                        return PreviewHolder.ForText(Text, Resources.str_preview_calendar);
+                    }
                 default:
                     return PreviewHolder.ForText(Text, Resources.str_preview_calendar);
             }
