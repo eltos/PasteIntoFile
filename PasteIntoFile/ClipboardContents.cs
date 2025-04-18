@@ -784,93 +784,86 @@ namespace PasteIntoFile {
             // Images
             // ======
 
-            var images = new Dict<string, Image>();
-            var extensions = new HashSet<string>(new[] {
+            // Collect images (preferred first)
+            var images = new Dict<string, ImageLikeContent>();
+
+            // Generic image from file
+            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is { Count: 1 } files) {
+                var ext = BaseContent.NormalizeExtension(Path.GetExtension(files[0]).Trim('.'));
+                if (ImageContentFromBytes(ext, File.ReadAllBytes(files[0])) is { } imageContent)
+                    images.Add(ext, imageContent);
+            }
+
+            // Mime and file extension formats
+            foreach (var types in IMAGE_MIME_TYPES) {
+                var ext = BaseContent.NormalizeExtension(types.Key);
+                if (images.ContainsKey(ext))
+                    continue;
+                foreach (var format in types.Value.Concat([ext])) {
+                    if (!Clipboard.ContainsData(format) || Clipboard.GetData(format) is not MemoryStream stream)
+                        continue;
+                    if (ImageContentFromBytes(ext, stream.ToArray()) is { } imageContent)
+                        images.Add(ext, imageContent);
+                }
+            }
+
+            // Image from encoded data uri
+            if (Clipboard.ContainsText()) {
+                var (mime_ext, bytes) = BytesFromDataUri(Clipboard.GetText());
+                if (bytes != null && !images.ContainsKey(mime_ext))
+                    if (ImageContentFromBytes(mime_ext, bytes) is { } imageContent)
+                        images.Add(mime_ext, imageContent);
+            }
+
+            // Native clipboard bitmap image
+            if (!images.ContainsKey("bmp")) {
+                if (Clipboard.GetData(DataFormats.Dib) is Image dib) // device independent bitmap
+                    images.Add("bmp", new ImageContent(dib));
+                else if (Clipboard.GetData(DataFormats.Bitmap) is Image bmp) // device specific bitmap
+                    images.Add("bmp", new ImageContent(bmp));
+                else if (Clipboard.GetImage() is Image converted) // anything converted to device specific bitmap
+                    images.Add("bmp", new ImageContent(converted));
+            }
+
+            // Native clipboard tiff image
+            if (!images.ContainsKey("tif") && Clipboard.GetData(DataFormats.Tiff) is Image tif)
+                images.Add("tif", new ImageContent(tif));
+
+            // Native clipboard metafile (emf or wmf)
+            if (!images.ContainsKey("emf") && ReadClipboardMetafile() is Metafile emf)
+                images.Add("emf", new VectorImageContent(emf));
+
+
+            // Since images can have features (transparency, animations) which are not supported by all file format,
+            // we handel images with such features separately (in order of priority):
+            var remainingExtensions = new HashSet<string>(new[] {
                 ImageContent.EXTENSIONS,
                 TransparentImageContent.EXTENSIONS,
                 AnimatedImageContent.EXTENSIONS,
                 VectorImageContent.EXTENSIONS,
-            }.SelectMany(i => i));
-
-            // Native clipboard bitmap image
-            if (Clipboard.GetData(DataFormats.Dib) is Image dib) // device independent bitmap
-                images.Add("bmp", dib);
-            else if (Clipboard.GetData(DataFormats.Bitmap) is Image bmp) // device specific bitmap
-                images.Add("bmp", bmp);
-            else if (Clipboard.GetImage() is Image converted) // anything converted to device specific bitmap
-                images.Add("bmp", converted);
-
-            // Native clipboard tiff image
-            if (Clipboard.GetData(DataFormats.Tiff) is Image tif)
-                images.Add("tif", tif);
-
-            // Native clipboard metafile (emf or wmf)
-            if (ReadClipboardMetafile() is Metafile emf)
-                images.Add("emf", emf);
-
-            // Mime and file extension formats
-            var formats = extensions.SelectMany(ext => MimeForImageExtension(ext).Concat(new[] { ext }));
-            foreach (var format in formats) { // case insensitive
-                if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
-                    try {
-                        if (Image.FromStream(stream) is Image img)
-                            images.Add(format, img);
-                    } catch (Exception e) {
-                        Console.WriteLine(e);
-                    }
-            }
-
-            // Generic image from encoded data uri
-            if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image uriImage)
-                images.Add(uriImage.RawFormat.ToString().ToLower(), uriImage);
-
-            // Generic image from file
-            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
-                try {
-                    images.Add(Path.GetExtension(files[0]).Trim('.').ToLower(), Image.FromFile(files[0]));
-                } catch { /* format not supported */ }
-            }
-
-            // Since images can have features (transparency, animations) which are not supported by all file format,
-            // we handel images with such features separately (in order of priority):
-            var remainingExtensions = new HashSet<string>(extensions);
+            }.SelectMany(i => i)); ;
 
             // 0. Vector image (if any)
-            foreach (var (ext, img) in images.Items) {
-                if (img is Metafile mf) {
-                    container.Contents.Add(new VectorImageContent(mf));
-                    remainingExtensions.ExceptWith(VectorImageContent.EXTENSIONS);
-                    break;
-                }
+            if (images.Values.FirstOrDefault(content => content is VectorImageContent) is { } vectorContent) {
+                container.Contents.Add(vectorContent);
+                remainingExtensions.ExceptWith(vectorContent.Extensions);
             }
 
             // 1. Animated image (if any)
-            if (images.GetAll(AnimatedImageContent.EXTENSIONS).FirstOrDefault() is Image animated) {
-                container.Contents.Add(new AnimatedImageContent(animated));
-                remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
-            } else {
-                // no direct match, search for anything that looks like it's animated
-                foreach (var (ext, img) in images.Items) {
-                    try {
-                        if (img.GetFrameCount(FrameDimension.Time) > 1) {
-                            container.Contents.Add(new AnimatedImageContent(img));
-                            remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
-                            break;
-                        }
-                    } catch { /* format does not support frames */
-                    }
-                }
+            if (images.Values.FirstOrDefault(content => content is AnimatedImageContent) is { } animatedContent) {
+                container.Contents.Add(animatedContent);
+                remainingExtensions.ExceptWith(animatedContent.Extensions);
             }
 
             // 2. Transparent image (if any)
-            if (images.GetAll(TransparentImageContent.EXTENSIONS).FirstOrDefault() is Image transparent) {
-                container.Contents.Add(new TransparentImageContent(transparent));
-                remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
+            if (images.Values.FirstOrDefault(content => content is TransparentImageContent) is { } transparentContent) {
+                container.Contents.Add(transparentContent);
+                remainingExtensions.ExceptWith(transparentContent.Extensions);
             } else {
-                // no direct match, search for anything that looks like it's transparent
-                foreach (var (ext, img) in images.Items) {
-                    if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha)) {
-                        container.Contents.Add(new TransparentImageContent(img));
+                // no direct match, search for anything that looks like it's transparent (e.g. transparent animated or vector image)
+                foreach (var cnt in images.Values) {
+                    if (cnt is ImageContent imgCnt && ((ImageFlags)imgCnt.Image.Flags).HasFlag(ImageFlags.HasAlpha)) {
+                        container.Contents.Add(new TransparentImageContent(imgCnt.Image));
                         remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
                         break;
                     }
@@ -878,11 +871,11 @@ namespace PasteIntoFile {
             }
 
             // 3. Remaining image with no special features (if any)
-            if (images.GetAll(remainingExtensions).FirstOrDefault() is Image image) {
-                container.Contents.Add(new ImageContent(image));
-            } else if (images.Values.FirstOrDefault() is Image anything) {
+            if (images.GetAll(remainingExtensions).FirstOrDefault() is ImageContent imgContent) {
+                container.Contents.Add(new ImageContent(imgContent.Image)); // as generic ImageContent
+            } else if (images.Values.FirstOrDefault() is ImageContent anything) {
                 // no unique match, so accept anything (even if already used as special format)
-                container.Contents.Add(new ImageContent(anything));
+                container.Contents.Add(new ImageContent(anything.Image)); // as generic ImageContent
             }
 
 
@@ -940,17 +933,17 @@ namespace PasteIntoFile {
             return container;
         }
 
-        private static IEnumerable<string> MimeForImageExtension(string extension) {
-            switch (BaseContent.NormalizeExtension(extension)) {
-                case "jpg": return new[] { "image/jpeg" };
-                case "bmp": return new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" };
-                case "tif": return new[] { "image/tiff", "image/tiff-fx" };
-                case "ico": return new[] { "image/x-ico", "image/vnd.microsoft.icon" };
-                case "emf": return new[] { "image/emf", "image/x-emf" };
-                case "wmf": return new[] { "image/wmf", "image/x-wmf" };
-                default: return new[] { "image/" + extension.ToLower() };
-            }
-        }
+        private static Dict<string, string[]> IMAGE_MIME_TYPES = new() {
+            { "bmp", new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" } },
+            { "emf", new[] { "image/emf", "image/x-emf" } },
+            { "gif", new[] { "image/gif" } },
+            { "ico", new[] { "image/x-ico", "image/vnd.microsoft.icon" } },
+            { "jpg", new[] { "image/jpeg" } },
+            { "png", new[] { "image/png" } },
+            { "tif", new[] { "image/tiff", "image/tiff-fx" } },
+            { "webp", new[] { "image/webp" } },
+            { "wmf", new[] { "image/wmf", "image/x-wmf" } },
+        };
 
         private static string ReadClipboardHtml() {
             if (Clipboard.ContainsData(DataFormats.Html)) {
@@ -1073,23 +1066,24 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="uri">The data URI, typically starting with data:image/</param>
         /// <returns>The image or null if the uri is not an image or conversion failed</returns>
-        private static Image ImageFromDataUri(string uri) {
+        private static (string, byte[]) BytesFromDataUri(string uri) {
             try {
-                var match = Regex.Match(uri, @"^data:image/\w+(?<base64>;base64)?,(?<data>.+)$");
+                var match = Regex.Match(uri, @"^data:image/(?<ext>;\w+)(?<base64>;base64)?,(?<data>.+)$");
                 if (match.Success) {
+                    var ext = BaseContent.NormalizeExtension(match.Groups["ext"].Value);
+                    byte[] bytes;
                     if (match.Groups["base64"].Success) {
                         // Base64 encoded
-                        var bytes = Convert.FromBase64String(match.Groups["data"].Value);
-                        return Image.FromStream(new MemoryStream(bytes));
+                        bytes = Convert.FromBase64String(match.Groups["data"].Value);
                     } else {
                         // URL encoded
-                        var bytes = Encoding.Default.GetBytes(match.Groups["data"].Value);
+                        bytes = Encoding.Default.GetBytes(match.Groups["data"].Value);
                         bytes = WebUtility.UrlDecodeToBytes(bytes, 0, bytes.Length);
-                        return Image.FromStream(new MemoryStream(bytes));
                     }
+                    return (ext, bytes);
                 }
             } catch { /* data uri malformed or not supported */ }
-            return null;
+            return (null, null);
         }
 
         private static ImageLikeContent ImageContentFromBytes(string ext, byte[] bytes) {
