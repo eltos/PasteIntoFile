@@ -6,7 +6,7 @@ on: [ push, pull_request ]
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-2019
+    runs-on: windows-2025
     permissions:
       actions: read
       contents: read
@@ -36,6 +36,6 @@ jobs:
         with:
           configuration: Debug
           build_options: '/p:UseSharedCompilation=false'
-       
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3

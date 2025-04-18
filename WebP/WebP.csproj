@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="Build">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{20E1114B-C211-46E5-A2E0-10A598FF4A44}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>WebP</RootNamespace>
+        <AssemblyName>WebP</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Helpers\ThrowHelper.cs" />
+        <Compile Include="Natives\Enums\Vp8StatusCode.cs" />
+        <Compile Include="Natives\Enums\WebPCspMode.cs" />
+        <Compile Include="Natives\Enums\WebPImageHint.cs" />
+        <Compile Include="Natives\Enums\WebPPreset.cs" />
+        <Compile Include="Natives\Native.cs" />
+        <Compile Include="Natives\Native64.cs" />
+        <Compile Include="Natives\Native86.cs" />
+        <Compile Include="Natives\Structs\RgbaYuvaBuffer.cs" />
+        <Compile Include="Natives\Structs\WebPAuxStats.cs" />
+        <Compile Include="Natives\Structs\WebPBitstreamFeatures.cs" />
+        <Compile Include="Natives\Structs\WebPConfig.cs" />
+        <Compile Include="Natives\Structs\WebPDecBuffer.cs" />
+        <Compile Include="Natives\Structs\WebPDecoderConfig.cs" />
+        <Compile Include="Natives\Structs\WebPDecoderOptions.cs" />
+        <Compile Include="Natives\Structs\WebPPicture.cs" />
+        <Compile Include="Natives\Structs\WebPRgbaBuffer.cs" />
+        <Compile Include="Natives\Structs\WebPYuvaBuffer.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="WebPInfo.cs" />
+        <Compile Include="WebPObject.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Natives\libwebp.x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Link>libwebp.x64.dll</Link>
+        </Content>
+        <Content Include="Natives\libwebp.x86.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Link>libwebp.x86.dll</Link>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="runtimes\any\native\" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>
