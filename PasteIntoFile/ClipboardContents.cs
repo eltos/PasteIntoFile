@@ -16,7 +16,7 @@ using LINQtoCSV;
 using PasteIntoFile.Properties;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using SkiaSharp;
+using WebP;
 
 namespace PasteIntoFile {
 
@@ -186,20 +186,17 @@ namespace PasteIntoFile {
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
-            var stream = new MemoryStream();
-            image.Save(stream, image.RawFormat);
-            stream.Position = 0;
 
             switch (NormalizeExtension(extension)) {
                 case "webp":
-                    //SKImage.FromEncodedData(stream).Encode(SKEncodedImageFormat.Webp, 90).SaveTo(File.OpenWrite(path));
-                    var webp = SKBitmap.Decode(stream).PeekPixels().Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 100));
-                    using (var fs = new FileStream(path, FileMode.Create)) {
-                        webp.SaveTo(fs);
-                        return;
-                    }
+                    var bytes = new WebPObject(image).GetWebPLossless();
+                    File.WriteAllBytes(path, bytes);
+                    return;
                 case "pdf":
                     // convert image to ximage
+                    var stream = new MemoryStream();
+                    image.Save(stream, image.RawFormat);
+                    stream.Position = 0;
                     XImage img = XImage.FromStream(stream);
                     // create pdf document
                     PdfDocument document = new PdfDocument();
@@ -235,10 +232,12 @@ namespace PasteIntoFile {
             // Special formats with intermediate conversion types
             switch (extension) {
                 case "pdf":
-                case "webp":
                     // Use png as intermediate format
                     extension = "png";
                     break;
+                case "webp":
+                    // Lossless as-is
+                    return PreviewHolder.ForImage(Image);
                 case "ico":
                     return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
             }
@@ -300,7 +299,8 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support animated frames
     /// </summary>
     public class AnimatedImageContent : ImageContent {
-        public static new readonly string[] EXTENSIONS = { "gif" }; // TODO: in principle "webp" can also support animated frames
+        // TODO: in principle "webp" can also support animated frames, but the library we use doesn't support it
+        public static new readonly string[] EXTENSIONS = { "gif" };
         public AnimatedImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS;
     }
@@ -1008,31 +1008,9 @@ namespace PasteIntoFile {
             // add the file itself
             container.Contents.Add(new FilesContent(new StringCollection { path }));
 
-            // if it's an image (try&catch instead of maintaining a list of supported extensions)
-            try {
-                var img = Image.FromFile(path);
-                img = RotateFlipImageFromExif(img);
-                if (img is Metafile mf) {
-                    container.Contents.Add(new VectorImageContent(mf));
-                } else {
-                    container.Contents.Add(new ImageContent(img));
-                }
-            } catch {
-                // Try again with Skia (to support webp)
-                try {
-                    using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
-                        var img = SKBitmap.Decode(fs);
-                        using (var stream = img.PeekPixels().Encode(SKPngEncoderOptions.Default).AsStream()) {
-                            if (img.AlphaType == SKAlphaType.Opaque) {
-                                container.Contents.Add(new ImageContent(Image.FromStream(stream)));
-                            } else {
-                                // TODO: FIXME: transparency seems to get lost during conversion
-                                container.Contents.Add(new TransparentImageContent(Image.FromStream(stream)));
-                            }
-                        }
-                    }
-                } catch { /* it's not */ }
-            }
+            // if it's an image
+            if (ImageContentFromBytes(ext, File.ReadAllBytes(path)) is BaseContent content)
+                container.Contents.Add(content);
 
 
             // if it's text like (check for absence of zero byte)
@@ -1111,6 +1089,38 @@ namespace PasteIntoFile {
                     }
                 }
             } catch { /* data uri malformed or not supported */ }
+            return null;
+        }
+
+        private static ImageLikeContent ImageContentFromBytes(string ext, byte[] bytes) {
+            try {
+                if (ext == "webp") {
+                    var webp = new WebPObject(bytes);
+                    var img = new Bitmap(webp.GetImage()); // create copy
+                    if (webp.GetInfo().IsAnimated)
+                        return new AnimatedImageContent(img);
+                    if (webp.GetInfo().HasAlpha)
+                        return new TransparentImageContent(img);
+                    return new ImageContent(img);
+                }
+            } catch (Exception e) { /* not a webp, or an animated webp which we don't support yet */
+                Console.WriteLine(e);
+            }
+            try {
+                var img = Image.FromStream(new MemoryStream(bytes));
+                img = RotateFlipImageFromExif(img);
+                if (img is Metafile mf)
+                    return new VectorImageContent(mf);
+                try {
+                    if (img.GetFrameCount(FrameDimension.Time) > 1)
+                        return new AnimatedImageContent(img);
+                } catch { /* not an animated image */ }
+                if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha))
+                    return new TransparentImageContent(img);
+                return new ImageContent(img);
+            } catch (Exception e) { /* not an image? */
+                Console.WriteLine(e);
+            }
             return null;
         }
 

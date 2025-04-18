@@ -12,6 +12,7 @@
         <StartupObject>PasteIntoFile.Program</StartupObject>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <ApplicationIcon>Resources/icon.ico</ApplicationIcon>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
     <!-- Build variants -->
     <PropertyGroup>
@@ -53,7 +54,6 @@
         <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
         <PackageReference Include="PDFsharp" Version="1.50.5147" />
         <PackageReference Include="SharpClipboard" Version="3.5.2" />
-        <PackageReference Include="SkiaSharp" Version="3.116.1" />
     </ItemGroup>
     <ItemGroup Condition="'$(Flavor)'=='Portable'">
         <PackageReference Include="PortableSettingsProvider" Version="0.2.4" />
@@ -156,6 +156,12 @@
             <Isolated>False</Isolated>
             <EmbedInteropTypes>True</EmbedInteropTypes>
         </COMReference>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\WebP\WebP.csproj">
+            <Project>{20e1114b-c211-46e5-a2e0-10a598ff4a44}</Project>
+            <Name>WebP</Name>
+        </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
