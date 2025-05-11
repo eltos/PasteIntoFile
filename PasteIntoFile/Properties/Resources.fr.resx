@@ -65,7 +65,7 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Sauvegarder</value>
+    <value>Enregistre</value>
   </data>
   <data name="str_filename" xml:space="preserve">
     <value>Nom du fichier</value>
@@ -114,7 +114,7 @@
     <value>Le fichier {0} existe déjà. Voulez-vous l'écraser?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Enreg. automatique</value>
+    <value>Enregistre automatique</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
