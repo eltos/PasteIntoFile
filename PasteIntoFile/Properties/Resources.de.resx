@@ -309,4 +309,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_subfolder_template" xml:space="preserve">
     <value>Unterordner-Vorlage</value>
   </data>
+  <data name="str_preview_calendar" xml:space="preserve">
+    <value>Termin Vorschau</value>
+  </data>
 </root>

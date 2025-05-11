@@ -8,6 +8,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ using LINQtoCSV;
 using PasteIntoFile.Properties;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using WebP;
 
 namespace PasteIntoFile {
 
@@ -49,6 +51,57 @@ namespace PasteIntoFile {
         }
     }
 
+    /// <summary>
+    /// Class holding the preview of the clipboard contents, and the preview type as an enum
+    /// </summary>
+    public class PreviewHolder {
+        public Image Image = null;
+        public string Text = null;
+        public string Html = null;
+        public string Rtf = null;
+        public string[] List = null;
+
+        /// <summary>
+        /// A friendly description of the contents
+        /// </summary>
+        public string Description = Resources.str_preview;
+
+        private PreviewHolder(string description) {
+            Description = description ?? Resources.str_preview;
+        }
+        public static PreviewHolder ForImage(Image image, string description = null) {
+            if (description == null)
+                description = string.Format(Resources.str_preview_image, image.Width, image.Height);
+            var p = new PreviewHolder(description);
+            p.Image = image;
+            return p;
+        }
+        public static PreviewHolder ForText(string text, string description = null) {
+            if (description == null)
+                description = string.Format(Resources.str_preview_text, text.Length, text.Split('\n').Length);
+            var p = new PreviewHolder(description);
+            p.Text = text;
+            return p;
+        }
+        public static PreviewHolder ForHtml(string html, string description) {
+            var p = new PreviewHolder(description);
+            p.Html = html;
+            return p;
+        }
+        public static PreviewHolder ForRtf(string rtf, string description = null) {
+            if (description == null)
+                description = Resources.str_preview_rtf;
+            var p = new PreviewHolder(description);
+            p.Rtf = rtf;
+            return p;
+        }
+        public static PreviewHolder ForList(string[] list, string description) {
+            var p = new PreviewHolder(description);
+            p.List = list;
+            return p;
+        }
+    }
+
 
     /// <summary>
     /// This is the base class to hold clipboard contents, metadata, and perform actions with it
@@ -62,9 +115,11 @@ namespace PasteIntoFile {
         public abstract string[] Extensions { get; }
 
         /// <summary>
-        /// A friendly description of the contents
+        /// The preview of the contents
         /// </summary>
-        public abstract string Description { get; }
+        /// <param name="extension">File extension determining the format</param>
+        /// <returns></returns>
+        public abstract PreviewHolder Preview(string extension);
 
         /// <summary>
         /// The actual data content
@@ -113,32 +168,30 @@ namespace PasteIntoFile {
     /// Holds image contents
     /// </summary>
     public abstract class ImageLikeContent : BaseContent {
-        /// <summary>
-        /// Convert the image to the format used for saving it, so it can be used for a preview
-        /// </summary>
-        /// <param name="extension">File extension determining the format</param>
-        /// <returns>Image in target format or null if no suitable format is found</returns>
-        public abstract Image ImagePreview(string extension);
     }
 
 
     public class ImageContent : ImageLikeContent {
-        public static readonly string[] EXTENSIONS = { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
+        public static readonly string[] EXTENSIONS = { "png", "webp", "jpg", "bmp", "gif", "pdf", "tif", "ico" };
         public ImageContent(Image image) {
             Data = image;
         }
         public Image Image => Data as Image;
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => string.Format(Resources.str_preview_image, Image.Width, Image.Height);
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
-            Image image = ImagePreview(extension);
+            var image = Preview(extension).Image;
             if (image == null)
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
+
             switch (NormalizeExtension(extension)) {
+                case "webp":
+                    var bytes = new WebPObject(image).GetWebPLossless();
+                    File.WriteAllBytes(path, bytes);
+                    return;
                 case "pdf":
                     // convert image to ximage
                     var stream = new MemoryStream();
@@ -174,19 +227,26 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
-        public override Image ImagePreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
             extension = NormalizeExtension(extension);
             // Special formats with intermediate conversion types
             switch (extension) {
-                case "pdf": extension = "png"; break;
-                case "ico": return ImageAsIcon.ToBitmap();
+                case "pdf":
+                    // Use png as intermediate format
+                    extension = "png";
+                    break;
+                case "webp":
+                    // Lossless as-is
+                    return PreviewHolder.ForImage(Image);
+                case "ico":
+                    return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
             }
             // Find suitable codec and convert image
             foreach (var encoder in ImageCodecInfo.GetImageEncoders()) {
                 if (encoder.FilenameExtension.ToLower().Contains(extension)) {
                     var stream = new MemoryStream();
                     Image.Save(stream, encoder, null);
-                    return Image.FromStream(stream);
+                    return PreviewHolder.ForImage(Image.FromStream(stream));
                 }
             }
             // TODO: Support conversion to EMF, WMF
@@ -230,7 +290,7 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support alpha channel
     /// </summary>
     public class TransparentImageContent : ImageContent {
-        public static new readonly string[] EXTENSIONS = { "png", "gif", "pdf", "tif", "ico" };
+        public static new readonly string[] EXTENSIONS = { "png", "webp", "gif", "pdf", "tif", "ico" };
         public TransparentImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS; // Note: gif has only alpha 100% or 0%
     }
@@ -239,6 +299,7 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support animated frames
     /// </summary>
     public class AnimatedImageContent : ImageContent {
+        // TODO: in principle "webp" can also support animated frames, but the library we use doesn't support it
         public static new readonly string[] EXTENSIONS = { "gif" };
         public AnimatedImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS;
@@ -255,7 +316,6 @@ namespace PasteIntoFile {
         }
         public Metafile Metafile => Data as Metafile;
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
@@ -283,13 +343,14 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Image in target format or null if no suitable format is found</returns>
-        public override Image ImagePreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
             switch (NormalizeExtension(extension)) {
                 case "emf":
-                    return Metafile;
+                    var description = string.Format(Resources.str_preview_image_vector, Metafile.Width, Metafile.Height, Math.Round(Metafile.HorizontalResolution / 2 + Metafile.VerticalResolution / 2));
+                    return PreviewHolder.ForImage(Metafile, description);
 
                 default: // fallback to save as raster image
-                    return new ImageContent(Metafile).ImagePreview(extension);
+                    return new ImageContent(Metafile).Preview(extension);
             }
         }
         public override void AddTo(IDataObject data) {
@@ -318,7 +379,6 @@ namespace PasteIntoFile {
         }
 
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => Resources.str_preview_svg;
 
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
@@ -334,14 +394,15 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData("image/svg+xml", Stream);
         }
-        public override string TextPreview(string extension) {
-            return Xml;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForHtml(Xml, Resources.str_preview_svg);
         }
     }
 
 
 
     public abstract class TextLikeContent : BaseContent {
+        public static new readonly string[] CLIP_FORMATS = { DataFormats.UnicodeText, DataFormats.Text };
         public TextLikeContent(string text) {
             Data = text;
         }
@@ -360,25 +421,18 @@ namespace PasteIntoFile {
         public static string EnsureNewline(string text) {
             return text.TrimEnd('\n') + '\n';
         }
-
-        /// <summary>
-        /// Return a string used for preview
-        /// </summary>
-        /// <returns></returns>
-        public abstract string TextPreview(string extension);
     }
 
 
     public class TextContent : TextLikeContent {
         public TextContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv" };
-        public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
             data.SetData(DataFormats.UnicodeText, Text);
         }
-        public override string TextPreview(string extension) {
-            return Text;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForText(Text);
         }
     }
 
@@ -386,7 +440,6 @@ namespace PasteIntoFile {
     public class HtmlContent : TextLikeContent {
         public HtmlContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "html", "htm", "xhtml" };
-        public override string Description => Resources.str_preview_html;
         public override void SaveAs(string path, string extension, bool append = false) {
             var html = Text;
             if (!append && !html.StartsWith("<!DOCTYPE html>"))
@@ -409,8 +462,8 @@ namespace PasteIntoFile {
 
             data.SetData(DataFormats.Html, header + Text);
         }
-        public override string TextPreview(string extension) {
-            return Text;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForHtml(Text, Resources.str_preview_html);
         }
     }
 
@@ -418,7 +471,6 @@ namespace PasteIntoFile {
     public class CsvContent : TextLikeContent {
         public CsvContent(string text) : base(text) { }
         public override string[] Extensions => new[] { "csv", "tsv", "tab", "md" };
-        public override string Description => Resources.str_preview_csv;
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.CommaSeparatedValue, Text);
         }
@@ -472,17 +524,65 @@ namespace PasteIntoFile {
             return header + markdown;
         }
 
-        public override string TextPreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
             switch (NormalizeExtension(extension)) {
                 case "md":
-                    return AsMarkdown();
+                    return PreviewHolder.ForText(AsMarkdown(), Resources.str_preview_csv);
                 default:
-                    return Text;
+                    return PreviewHolder.ForText(Text, Resources.str_preview_csv);
             }
         }
 
         public override void SaveAs(string path, string extension, bool append = false) {
-            Save(path, TextPreview(extension), append);
+            Save(path, Preview(extension).Text, append);
+        }
+    }
+
+
+    public class CalendarContent : TextLikeContent {
+        public CalendarContent(string text) : base(text) { }
+        public static new readonly string[] CLIP_FORMATS = TextLikeContent.CLIP_FORMATS.Concat(new[] { "text/calendar", "application/ics" }).ToArray();
+        public static new readonly string[] FILE_EXTENSIONS = { "ics" };
+        public override string[] Extensions => FILE_EXTENSIONS;
+        public static bool IsValidCalendar(string text) {
+            return text.StartsWith("BEGIN:VCALENDAR");
+        }
+        public Ical.Net.Calendar Calendar => Ical.Net.Calendar.Load(Text);
+        public override void AddTo(IDataObject data) {
+            foreach (var f in CLIP_FORMATS) {
+                data.SetData(f, Text);
+            }
+        }
+
+        public override PreviewHolder Preview(string extension) {
+            switch (extension) {
+                case "ics":
+                    try {
+                        return PreviewHolder.ForHtml(
+                            "<!DOCTYPE html>\n<html>\n<head>\n<style>\n"
+                            + "* { font-family: Sans-serif; font-size: small; }\n"
+                            + "strong { font-size: medium; }\nbody { margin: 0; }\n"
+                            + "p { background: aliceblue; border: solid silver 1pt; padding: 0.5em; margin: 0.5em; }\n"
+                            + "</style>\n</head>\n<body>\n"
+                            + string.Join("\n", Calendar.Events.Select(
+                                e => string.Format("<p>{0}<br/><strong>{1}</strong></p>", e.Start, e.Summary)
+                            ))
+                            + "\n</body>\n</html>\n",
+                            Resources.str_preview_calendar
+                        );
+                    } catch (SerializationException e) {
+                        return PreviewHolder.ForText(Text, Resources.str_preview_calendar);
+                    }
+                default:
+                    return PreviewHolder.ForText(Text, Resources.str_preview_calendar);
+            }
+        }
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append)
+                throw new AppendNotSupportedException();
+            Save(path, Text);
+
+
         }
     }
 
@@ -494,12 +594,19 @@ namespace PasteIntoFile {
             Extensions = new[] { extension };
         }
         public override string[] Extensions { get; }
-        public override string Description => Resources.str_preview;
         public override void AddTo(IDataObject data) {
             data.SetData(_format, Text);
         }
-        public override string TextPreview(string extension) {
-            return Text;
+        public override PreviewHolder Preview(string extension) {
+            switch (extension) {
+                case "rtf":
+                    return PreviewHolder.ForRtf(Text);
+                case "dif":
+                    return PreviewHolder.ForText(Text, Resources.str_preview_dif);
+                default:
+                    return PreviewHolder.ForText(Text);
+            }
+
         }
     }
 
@@ -508,7 +615,6 @@ namespace PasteIntoFile {
         public static readonly string[] EXTENSIONS = { "url" };
         public UrlContent(string text) : base(text) { }
         public override string[] Extensions => EXTENSIONS;
-        public override string Description => Resources.str_preview_url;
         public override void SaveAs(string path, string extension, bool append = false) {
             if (append)
                 throw new AppendNotSupportedException();
@@ -517,8 +623,8 @@ namespace PasteIntoFile {
         public override void AddTo(IDataObject data) {
             data.SetData(DataFormats.Text, Text);
         }
-        public override string TextPreview(string extension) {
-            return Text;
+        public override PreviewHolder Preview(string extension) {
+            return PreviewHolder.ForText(Text, Resources.str_preview_url);
         }
     }
 
@@ -538,7 +644,6 @@ namespace PasteIntoFile {
         public string FileListString => string.Join("\n", FileList);
 
         public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
-        public override string Description => string.Format(Resources.str_preview_files, Files.Count);
         public override void SaveAs(string path, string extension, bool append = false) {
             switch (NormalizeExtension(extension)) {
                 case "zip":
@@ -567,12 +672,13 @@ namespace PasteIntoFile {
         /// <param name="extension">File extension determining the format</param>
         /// <returns>Preview as text string</returns>
         ///
-        public string TextPreview(string extension) {
+        public override PreviewHolder Preview(string extension) {
+            var description = string.Format(Resources.str_preview_files, Files.Count);
             switch (NormalizeExtension(extension)) {
                 case "zip":
-                    return null;
+                    return PreviewHolder.ForList(FileList.ToArray(), description);
                 default:
-                    return FileListString;
+                    return PreviewHolder.ForText(FileListString, description);
             }
         }
 
@@ -657,93 +763,107 @@ namespace PasteIntoFile {
             //
             // Note: if multiple clipboard contents support to same extension, the first in Contents is used
 
+#if DEBUG
+            Console.WriteLine(">>> Clipboard contents as of " + container.Timestamp + " <<<");
+            var table = new List<string>();
+            foreach (var format in Clipboard.GetDataObject().GetFormats(false)) {
+                var df = DataFormats.GetFormat(format);
+                table.Add(
+                    df.Id.ToString().PadLeft(6) + " "
+                    + (Enum.IsDefined(typeof(CF), (uint)df.Id) ? "CF_" + (CF)(uint)df.Id : "").PadRight(15) + " "
+                    + format.PadRight(30)
+                );
+            }
+            table.Sort();
+            foreach (var row in table)
+                Console.WriteLine(row);
+            Console.WriteLine("");
+#endif
+
 
             // Images
             // ======
 
-            var images = new Dict<string, Image>();
-            var extensions = new HashSet<string>(new[] {
+            // Collect images (preferred first)
+            var images = new Dict<string, ImageLikeContent>();
+
+            // Generic image from file
+            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is { Count: 1 } files) {
+                var ext = BaseContent.NormalizeExtension(Path.GetExtension(files[0]).Trim('.'));
+                if (ImageContentFromBytes(ext, File.ReadAllBytes(files[0])) is { } imageContent)
+                    images.Add(ext, imageContent);
+            }
+
+            // Mime and file extension formats
+            foreach (var types in IMAGE_MIME_TYPES) {
+                var ext = BaseContent.NormalizeExtension(types.Key);
+                if (images.ContainsKey(ext))
+                    continue;
+                foreach (var format in types.Value.Concat([ext])) {
+                    if (!Clipboard.ContainsData(format) || Clipboard.GetData(format) is not MemoryStream stream)
+                        continue;
+                    if (ImageContentFromBytes(ext, stream.ToArray()) is { } imageContent)
+                        images.Add(ext, imageContent);
+                }
+            }
+
+            // Image from encoded data uri
+            if (Clipboard.ContainsText()) {
+                var (mime_ext, bytes) = BytesFromDataUri(Clipboard.GetText());
+                if (bytes != null && !images.ContainsKey(mime_ext))
+                    if (ImageContentFromBytes(mime_ext, bytes) is { } imageContent)
+                        images.Add(mime_ext, imageContent);
+            }
+
+            // Native clipboard bitmap image
+            if (!images.ContainsKey("bmp")) {
+                if (Clipboard.GetData(DataFormats.Dib) is Image dib) // device independent bitmap
+                    images.Add("bmp", new ImageContent(dib));
+                else if (Clipboard.GetData(DataFormats.Bitmap) is Image bmp) // device specific bitmap
+                    images.Add("bmp", new ImageContent(bmp));
+                else if (Clipboard.GetImage() is Image converted) // anything converted to device specific bitmap
+                    images.Add("bmp", new ImageContent(converted));
+            }
+
+            // Native clipboard tiff image
+            if (!images.ContainsKey("tif") && Clipboard.GetData(DataFormats.Tiff) is Image tif)
+                images.Add("tif", new ImageContent(tif));
+
+            // Native clipboard metafile (emf or wmf)
+            if (!images.ContainsKey("emf") && ReadClipboardMetafile() is Metafile emf)
+                images.Add("emf", new VectorImageContent(emf));
+
+
+            // Since images can have features (transparency, animations) which are not supported by all file format,
+            // we handel images with such features separately (in order of priority):
+            var remainingExtensions = new HashSet<string>(new[] {
                 ImageContent.EXTENSIONS,
                 TransparentImageContent.EXTENSIONS,
                 AnimatedImageContent.EXTENSIONS,
                 VectorImageContent.EXTENSIONS,
-            }.SelectMany(i => i));
-
-            // Native clipboard bitmap image
-            if (Clipboard.GetData(DataFormats.Dib) is Image dib) // device independent bitmap
-                images.Add("bmp", dib);
-            else if (Clipboard.GetData(DataFormats.Bitmap) is Image bmp) // device specific bitmap
-                images.Add("bmp", bmp);
-            else if (Clipboard.GetImage() is Image converted) // anything converted to device specific bitmap
-                images.Add("bmp", converted);
-
-            // Native clipboard tiff image
-            if (Clipboard.GetData(DataFormats.Tiff) is Image tif)
-                images.Add("tif", tif);
-
-            // Native clipboard metafile (emf or wmf)
-            if (ReadClipboardMetafile() is Metafile emf)
-                images.Add("emf", emf);
-
-            // Mime and file extension formats
-            var formats = extensions.SelectMany(ext => MimeForExtension(ext).Concat(new[] { ext }));
-            foreach (var format in formats) { // case insensitive
-                if (Clipboard.ContainsData(format) && Clipboard.GetData(format) is MemoryStream stream)
-                    if (Image.FromStream(stream) is Image img)
-                        images.Add(format, img);
-            }
-
-            // Generic image from encoded data uri
-            if (Clipboard.ContainsText() && ImageFromDataUri(Clipboard.GetText()) is Image uriImage)
-                images.Add(uriImage.RawFormat.ToString().ToLower(), uriImage);
-
-            // Generic image from file
-            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
-                try {
-                    images.Add(Path.GetExtension(files[0]).Trim('.').ToLower(), Image.FromFile(files[0]));
-                } catch { /* format not supported */ }
-            }
-
-            // Since images can have features (transparency, animations) which are not supported by all file format,
-            // we handel images with such features separately (in order of priority):
-            var remainingExtensions = new HashSet<string>(extensions);
+            }.SelectMany(i => i)); ;
 
             // 0. Vector image (if any)
-            foreach (var (ext, img) in images.Items) {
-                if (img is Metafile mf) {
-                    container.Contents.Add(new VectorImageContent(mf));
-                    remainingExtensions.ExceptWith(VectorImageContent.EXTENSIONS);
-                    break;
-                }
+            if (images.Values.FirstOrDefault(content => content is VectorImageContent) is { } vectorContent) {
+                container.Contents.Add(vectorContent);
+                remainingExtensions.ExceptWith(vectorContent.Extensions);
             }
 
             // 1. Animated image (if any)
-            if (images.GetAll(AnimatedImageContent.EXTENSIONS).FirstOrDefault() is Image animated) {
-                container.Contents.Add(new AnimatedImageContent(animated));
-                remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
-            } else {
-                // no direct match, search for anything that looks like it's animated
-                foreach (var (ext, img) in images.Items) {
-                    try {
-                        if (img.GetFrameCount(FrameDimension.Time) > 1) {
-                            container.Contents.Add(new AnimatedImageContent(img));
-                            remainingExtensions.ExceptWith(AnimatedImageContent.EXTENSIONS);
-                            break;
-                        }
-                    } catch { /* format does not support frames */
-                    }
-                }
+            if (images.Values.FirstOrDefault(content => content is AnimatedImageContent) is { } animatedContent) {
+                container.Contents.Add(animatedContent);
+                remainingExtensions.ExceptWith(animatedContent.Extensions);
             }
 
             // 2. Transparent image (if any)
-            if (images.GetAll(TransparentImageContent.EXTENSIONS).FirstOrDefault() is Image transparent) {
-                container.Contents.Add(new TransparentImageContent(transparent));
-                remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
+            if (images.Values.FirstOrDefault(content => content is TransparentImageContent) is { } transparentContent) {
+                container.Contents.Add(transparentContent);
+                remainingExtensions.ExceptWith(transparentContent.Extensions);
             } else {
-                // no direct match, search for anything that looks like it's transparent
-                foreach (var (ext, img) in images.Items) {
-                    if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha)) {
-                        container.Contents.Add(new TransparentImageContent(img));
+                // no direct match, search for anything that looks like it's transparent (e.g. transparent animated or vector image)
+                foreach (var cnt in images.Values) {
+                    if (cnt is ImageContent imgCnt && ((ImageFlags)imgCnt.Image.Flags).HasFlag(ImageFlags.HasAlpha)) {
+                        container.Contents.Add(new TransparentImageContent(imgCnt.Image));
                         remainingExtensions.ExceptWith(TransparentImageContent.EXTENSIONS);
                         break;
                     }
@@ -751,11 +871,11 @@ namespace PasteIntoFile {
             }
 
             // 3. Remaining image with no special features (if any)
-            if (images.GetAll(remainingExtensions).FirstOrDefault() is Image image) {
-                container.Contents.Add(new ImageContent(image));
-            } else if (images.Values.FirstOrDefault() is Image anything) {
+            if (images.GetAll(remainingExtensions).FirstOrDefault() is ImageContent imgContent) {
+                container.Contents.Add(new ImageContent(imgContent.Image)); // as generic ImageContent
+            } else if (images.Values.FirstOrDefault() is ImageContent anything) {
                 // no unique match, so accept anything (even if already used as special format)
-                container.Contents.Add(new ImageContent(anything));
+                container.Contents.Add(new ImageContent(anything.Image)); // as generic ImageContent
             }
 
 
@@ -785,6 +905,10 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
 
+            if (ReadClipboardString(CalendarContent.CLIP_FORMATS)?.Trim() is string cal)
+                if (CalendarContent.IsValidCalendar(cal))
+                    container.Contents.Add(new CalendarContent(cal));
+
             // make sure text content comes last, so it does not overwrite extensions used by previous special formats...
             if (ReadClipboardString(DataFormats.UnicodeText, DataFormats.Text, "text/plain") is string text)
                 container.Contents.Add(new TextContent(text));
@@ -793,21 +917,33 @@ namespace PasteIntoFile {
             if (Clipboard.ContainsFileDropList())
                 container.Contents.Add(new FilesContent(Clipboard.GetFileDropList()));
 
+#if DEBUG
+            // print a list of all contens in the container to the console
+            foreach (var content in container.Contents) {
+                Console.WriteLine("> " + content.GetType());
+                if (content.Preview(content.DefaultExtension).Text is string preview) {
+                    preview = preview.Replace('\r', ' ').Replace('\n', ' ').Trim();
+                    Console.WriteLine("  " + preview.Substring(0, preview.Length > 100 ? 100 : preview.Length));
+                }
+            }
+            Console.WriteLine();
+#endif
+
 
             return container;
         }
 
-        private static IEnumerable<string> MimeForExtension(string extension) {
-            switch (BaseContent.NormalizeExtension(extension)) {
-                case "jpg": return new[] { "image/jpeg" };
-                case "bmp": return new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" };
-                case "tif": return new[] { "image/tiff", "image/tiff-fx" };
-                case "ico": return new[] { "image/x-ico", "image/vnd.microsoft.icon" };
-                case "emf": return new[] { "image/emf", "image/x-emf" };
-                case "wmf": return new[] { "image/wmf", "image/x-wmf" };
-                default: return new[] { "image/" + extension.ToLower() };
-            }
-        }
+        private static Dict<string, string[]> IMAGE_MIME_TYPES = new() {
+            { "bmp", new[] { "image/bmp", "image/x-bmp", "image/x-ms-bmp" } },
+            { "emf", new[] { "image/emf", "image/x-emf" } },
+            { "gif", new[] { "image/gif" } },
+            { "ico", new[] { "image/x-ico", "image/vnd.microsoft.icon" } },
+            { "jpg", new[] { "image/jpeg" } },
+            { "png", new[] { "image/png" } },
+            { "tif", new[] { "image/tiff", "image/tiff-fx" } },
+            { "webp", new[] { "image/webp" } },
+            { "wmf", new[] { "image/wmf", "image/x-wmf" } },
+        };
 
         private static string ReadClipboardHtml() {
             if (Clipboard.ContainsData(DataFormats.Html)) {
@@ -865,16 +1001,9 @@ namespace PasteIntoFile {
             // add the file itself
             container.Contents.Add(new FilesContent(new StringCollection { path }));
 
-            // if it's an image (try&catch instead of maintaining a list of supported extensions)
-            try {
-                var img = Image.FromFile(path);
-                img = RotateFlipImageFromExif(img);
-                if (img is Metafile mf) {
-                    container.Contents.Add(new VectorImageContent(mf));
-                } else {
-                    container.Contents.Add(new ImageContent(img));
-                }
-            } catch { /* it's not */ }
+            // if it's an image
+            if (ImageContentFromBytes(ext, File.ReadAllBytes(path)) is BaseContent content)
+                container.Contents.Add(content);
 
 
             // if it's text like (check for absence of zero byte)
@@ -899,10 +1028,14 @@ namespace PasteIntoFile {
                     container.Contents.Add(new CsvContent(contents));
                 if (ext == "dif")
                     container.Contents.Add(new GenericTextContent(DataFormats.Dif, ext, contents));
+                if (CalendarContent.FILE_EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new CalendarContent(contents));
                 if (ext == "rtf")
                     container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
                 if (ext == "syk")
                     container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
+                if (ext == "url")
+                    container.Contents.Add(new UrlContent(contents));
 
             } else {
                 container.Contents.Add(new TextContent(path));
@@ -933,22 +1066,55 @@ namespace PasteIntoFile {
         /// </summary>
         /// <param name="uri">The data URI, typically starting with data:image/</param>
         /// <returns>The image or null if the uri is not an image or conversion failed</returns>
-        private static Image ImageFromDataUri(string uri) {
+        private static (string, byte[]) BytesFromDataUri(string uri) {
             try {
-                var match = Regex.Match(uri, @"^data:image/\w+(?<base64>;base64)?,(?<data>.+)$");
+                var match = Regex.Match(uri, @"^data:image/(?<ext>;\w+)(?<base64>;base64)?,(?<data>.+)$");
                 if (match.Success) {
+                    var ext = BaseContent.NormalizeExtension(match.Groups["ext"].Value);
+                    byte[] bytes;
                     if (match.Groups["base64"].Success) {
                         // Base64 encoded
-                        var bytes = Convert.FromBase64String(match.Groups["data"].Value);
-                        return Image.FromStream(new MemoryStream(bytes));
+                        bytes = Convert.FromBase64String(match.Groups["data"].Value);
                     } else {
                         // URL encoded
-                        var bytes = Encoding.Default.GetBytes(match.Groups["data"].Value);
+                        bytes = Encoding.Default.GetBytes(match.Groups["data"].Value);
                         bytes = WebUtility.UrlDecodeToBytes(bytes, 0, bytes.Length);
-                        return Image.FromStream(new MemoryStream(bytes));
                     }
+                    return (ext, bytes);
                 }
             } catch { /* data uri malformed or not supported */ }
+            return (null, null);
+        }
+
+        private static ImageLikeContent ImageContentFromBytes(string ext, byte[] bytes) {
+            try {
+                if (ext == "webp") {
+                    var webp = new WebPObject(bytes);
+                    var img = new Bitmap(webp.GetImage()); // create copy
+                    if (webp.GetInfo().IsAnimated)
+                        return new AnimatedImageContent(img);
+                    if (webp.GetInfo().HasAlpha)
+                        return new TransparentImageContent(img);
+                    return new ImageContent(img);
+                }
+            } catch (Exception e) { /* not a webp, or an animated webp which we don't support yet */
+                Console.WriteLine(e);
+            }
+            try {
+                var img = Image.FromStream(new MemoryStream(bytes));
+                img = RotateFlipImageFromExif(img);
+                if (img is Metafile mf)
+                    return new VectorImageContent(mf);
+                try {
+                    if (img.GetFrameCount(FrameDimension.Time) > 1)
+                        return new AnimatedImageContent(img);
+                } catch { /* not an animated image */ }
+                if (((ImageFlags)img.Flags).HasFlag(ImageFlags.HasAlpha))
+                    return new TransparentImageContent(img);
+                return new ImageContent(img);
+            } catch (Exception e) { /* not an image? */
+                Console.WriteLine(e);
+            }
             return null;
         }
 
