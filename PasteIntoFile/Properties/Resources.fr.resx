@@ -82,7 +82,7 @@
     <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Coller dans un fichier</value>
+    <value>Coller dans un fichier </value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
@@ -114,7 +114,7 @@
     <value>Le fichier {0} existe déjà. Voulez-vous l'écraser?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Sauter le dialogue</value>
+    <value>Enreg. automatique</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
@@ -124,7 +124,7 @@
 </comment>
   </data>
   <data name="str_n_saved" xml:space="preserve">
-    <value>{0} sauvegardés</value>
+    <value>{0} enregistrés</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
     <value>Modifier le gabarit</value>
@@ -135,6 +135,9 @@
   <data name="str_cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="str_invalid_character" xml:space="preserve">
+    <value>Caractère invalide : {0}</value>
+  </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>Copier le contenu du fichier</value>
     <comment>Context menu entry for copying
@@ -143,11 +146,17 @@
   <data name="str_exit" xml:space="preserve">
     <value>Quitter</value>
   </data>
+  <data name="str_open_paste_into_file" xml:space="preserve">
+    <value>Ouvrir Paste Into File</value>
+  </data>
   <data name="str_settings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
   <data name="str_open" xml:space="preserve">
     <value>Ouvrir</value>
+  </data>
+  <data name="str_autosave_tooltip" xml:space="preserve">
+    <value>Enregistre les données du presse-papiers au format par défaut sans demander. Un appui sur la touche MAJ inverse temporairement cette option.</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
     <value>Toujours au premier plan</value>
