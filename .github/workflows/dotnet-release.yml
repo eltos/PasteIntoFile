@@ -12,6 +12,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/build
         id: build
         with:
@@ -20,16 +21,6 @@ jobs:
           artifact: release_artifact_portable
       - name: Create zip
         run: Compress-Archive -Path ${{steps.build.outputs.path}}/* -Destination release_artifact_portable.zip
-      - uses: signpath/github-action-submit-signing-request@v1.1
-        with:
-          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-          organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
-          project-slug: 'PasteIntoFile'
-          signing-policy-slug: 'test-signing'
-          artifact-configuration-slug: 'portable'
-          github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
-          wait-for-completion: true
-          output-artifact-directory: 'signed'
       - name: Upload release artifact
         uses: actions/upload-release-asset@v1
         env:
@@ -39,13 +30,29 @@ jobs:
           asset_path: release_artifact_portable.zip
           asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable.zip
           asset_content_type: application/zip
+
+      - uses: signpath/github-action-submit-signing-request@v1.1
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
+          project-slug: 'PasteIntoFile'
+          signing-policy-slug: 'test-signing'
+          artifact-configuration-slug: 'portable'
+          github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: 'signing_result'
+      - name: Show signing result
+        run: |
+          ls -la signed/
+      - name: Create zip
+        run: Compress-Archive -Path signing_result/* -Destination release_artifact_portable_signed.zip
       - name: Upload signed release artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: signed/release_artifact_portable.zip
+          asset_path: release_artifact_portable_signed.zip
           asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable_signed.zip
           asset_content_type: application/zip
 
