@@ -13,7 +13,7 @@
     <xsl:template match="wix:File[@Source = 'SourceDir\PasteIntoFile.exe']">
         <xsl:copy>
             <xsl:attribute name="Id">
-                <xsl:value-of select='"mainExecutable"'/>
+                <xsl:value-of select='"main.exe"'/>
             </xsl:attribute>
             <xsl:apply-templates select="@*[not(name()='Id')]" />
             <xsl:apply-templates select="*" />
