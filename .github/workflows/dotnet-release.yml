@@ -43,7 +43,7 @@ jobs:
           output-artifact-directory: 'signing_result'
       - name: Show signing result
         run: |
-          ls -la signed/
+          ls signed/
       - name: Create zip
         run: Compress-Archive -Path signing_result/* -Destination release_artifact_portable_signed.zip
       - name: Upload signed release artifact
