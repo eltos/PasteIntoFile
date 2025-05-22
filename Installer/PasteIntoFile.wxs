@@ -6,7 +6,7 @@
            UpgradeCode='D3BEE3F0-4EC0-44CC-ADDC-E7A3E133B9D2'
            Name='Paste Into File'
            Manufacturer='PasteIntoFile'
-           Version='!(bind.FileVersion.mainExecutable)'>
+           Version='!(bind.FileVersion.main.exe)'>
 
     <Package InstallerVersion='100' Compressed='yes' />
     <MediaTemplate EmbedCab="yes"/>
@@ -32,7 +32,7 @@
                   AllowSameVersionUpgrades="no" />
 
     <!-- After install: launch wizard -->
-    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='wizard' Impersonate='yes'  />
+    <CustomAction Id='LaunchProgram' FileKey='main.exe' ExeCommand='wizard' Impersonate='yes'  />
 
     <InstallExecuteSequence>
       <!-- This action is not executed during uninstall and silent mode -->
