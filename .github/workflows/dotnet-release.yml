@@ -13,10 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/build
+        id: build
         with:
           configuration: Release
           flavor: Portable
           artifact: release_artifact_portable
+      - uses: signpath/github-action-submit-signing-request@v1.1
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
+          project-slug: 'PasteIntoFile'
+          signing-policy-slug: 'test-signing'
+          artifact-configuration-slug: 'portable'
+          github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
 
   portable-publish:
     runs-on: windows-2019
