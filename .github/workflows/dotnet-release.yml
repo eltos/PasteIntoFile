@@ -17,9 +17,8 @@ jobs:
         with:
           configuration: Release
           flavor: Portable
-          artifact: release_artifact_portable
       - name: Create zip
-        run: Compress-Archive -Path release_artifact_portable/* -Destination release_artifact_portable.zip
+        run: Compress-Archive -Path ${{steps.build.outputs.path}}/* -Destination release_artifact_portable.zip
         #run: tar -cvzf release_artifact_portable.tar.gz -C release_artifact_portable *
       - uses: signpath/github-action-submit-signing-request@v1.1
         with:
