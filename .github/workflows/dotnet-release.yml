@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  portable-build:
+  portable:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -18,6 +18,9 @@ jobs:
           configuration: Release
           flavor: Portable
           artifact: release_artifact_portable
+      - name: Create zip
+        run: Compress-Archive -Path release_artifact_portable/* -Destination release_artifact_portable.zip
+        #run: tar -cvzf release_artifact_portable.tar.gz -C release_artifact_portable *
       - uses: signpath/github-action-submit-signing-request@v1.1
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -26,19 +29,8 @@ jobs:
           signing-policy-slug: 'test-signing'
           artifact-configuration-slug: 'portable'
           github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
-
-  portable-publish:
-    runs-on: windows-2019
-    needs: portable-build
-    steps:
-      - name: Collect artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: release_artifact_portable
-          path: release_artifact_portable
-      - name: Create zip
-        run: Compress-Archive -Path release_artifact_portable/* -Destination release_artifact_portable.zip
-        #run: tar -cvzf release_artifact_portable.tar.gz -C release_artifact_portable *
+          wait-for-completion: true
+          output-artifact-directory: 'signed'
       - name: Upload release artifact
         uses: actions/upload-release-asset@v1
         env:
@@ -47,6 +39,15 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: release_artifact_portable.zip
           asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable.zip
+          asset_content_type: application/zip
+      - name: Upload signed release artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: signed/release_artifact_portable.zip
+          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable_signed.zip
           asset_content_type: application/zip
 
   installer:
