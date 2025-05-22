@@ -33,6 +33,9 @@ outputs:
   path:
     description: 'Build output path'
     value: ${{ steps.build.outputs.path }}
+  artifact-id:
+    description: 'Build output artifact ID'
+    value: ${{ steps.upload.outputs.artifact-id }}
 
 runs:
   using: 'composite'
@@ -58,6 +61,7 @@ runs:
       shell: pwsh
 
     - name: Upload build artifacts
+      id: upload
       if: ${{ inputs.artifact != '' }}
       uses: actions/upload-artifact@v4
       with:
