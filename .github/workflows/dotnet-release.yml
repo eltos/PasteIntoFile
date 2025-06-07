@@ -42,6 +42,8 @@ jobs:
           signing-policy-slug: 'test-signing'
           artifact-configuration-slug: 'portable'
           github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
+          parameters: |
+              version: "${{ github.event.release.tag_name }}"
           wait-for-completion: true
           output-artifact-directory: 'signing_result'
 
@@ -109,6 +111,8 @@ jobs:
             signing-policy-slug: 'test-signing'
             artifact-configuration-slug: 'installer-zip'
             github-artifact-id: '${{ steps.upload.outputs.artifact-id }}'
+            parameters: |
+                version: "${{ github.event.release.tag_name }}"
             wait-for-completion: true
             output-artifact-directory: 'signing_result'
 
