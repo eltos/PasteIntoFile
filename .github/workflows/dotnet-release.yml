@@ -31,7 +31,8 @@ jobs:
           asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable_unsigned.zip
           asset_content_type: application/zip
 
-      - uses: signpath/github-action-submit-signing-request@v1.1
+      - name: Sign with Signpath
+        uses: signpath/github-action-submit-signing-request@v1.1
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
@@ -81,6 +82,38 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: Installer/Installer.msi
-          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer.msi
+          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer_unsigned.msi
           asset_content_type: application/msi
+
+
+      - name: Upload for signing
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+            path: Installer/Installer.msi
+      - name: Sign with Signpath
+        uses: signpath/github-action-submit-signing-request@v1.1
+        with:
+            api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+            organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
+            project-slug: 'PasteIntoFile'
+            signing-policy-slug: 'test-signing'
+            artifact-configuration-slug: 'installer-zip'
+            github-artifact-id: '${{ steps.upload.outputs.artifact-id }}'
+            wait-for-completion: true
+            output-artifact-directory: 'signing_result'
+      - name: Rename signed artifact
+        run: |
+          ls signing_result
+          mv signing_result/*.msi signing_result/installer.msi
+      - name: Upload signed release artifact
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ github.event.release.upload_url }}
+            asset_path: signing_result/installer.msi
+            asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer_signed.msi
+            asset_content_type: application/msi
+
 
