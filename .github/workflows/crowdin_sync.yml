@@ -16,6 +16,9 @@ on:
 env:
   # The git branch used for sync with crowdin and for the pull request
   BRANCH: crowdin
+  # SSH Deploy Key with write access (needed to trigger push workflow runs in created pull request)
+  SSH_KEY: ${{ secrets.SSH_KEY_GITHUB_ACTION }}
+
   # crowdin config
   CONFIG: '.github/.crowdin.yml'
   PROJECT: ${{ secrets.CROWDIN_PROJECT_ID }}
@@ -45,6 +48,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
       with:
+        ssh-key: ${{ env.SSH_KEY }}
         fetch-depth: 0
 
     - name: Install python
