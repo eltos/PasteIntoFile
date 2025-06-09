@@ -114,7 +114,7 @@
     <value>Le fichier {0} existe déjà. Voulez-vous l'écraser?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Enregistre automatique</value>
+    <value>Enregistrement automatique (sans dlg)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
@@ -154,6 +154,9 @@
   </data>
   <data name="str_open" xml:space="preserve">
     <value>Ouvrir</value>
+  </data>
+  <data name="str_preview_svg" xml:space="preserve">
+    <value>Prévisualisation SVG</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>Enregistre les données du presse-papiers au format par défaut sans demander. Un appui sur la touche MAJ inverse temporairement cette option.</value>
