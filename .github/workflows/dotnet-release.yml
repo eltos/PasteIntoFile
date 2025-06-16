@@ -39,7 +39,7 @@ jobs:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
           project-slug: 'PasteIntoFile'
-          signing-policy-slug: 'test-signing'
+          signing-policy-slug: 'release-signing'
           artifact-configuration-slug: 'portable'
           github-artifact-id: '${{ steps.build.outputs.artifact-id }}'
           parameters: |
@@ -108,7 +108,7 @@ jobs:
             api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
             organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
             project-slug: 'PasteIntoFile'
-            signing-policy-slug: 'test-signing'
+            signing-policy-slug: 'release-signing'
             artifact-configuration-slug: 'installer-zip'
             github-artifact-id: '${{ steps.upload.outputs.artifact-id }}'
             parameters: |
