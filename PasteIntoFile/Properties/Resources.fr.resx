@@ -114,7 +114,7 @@
     <value>Le fichier {0} existe déjà. Voulez-vous l'écraser?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>Enregistrement automatique (sans dlg)</value>
+    <value>Enregistrement auto. (zappe le dialogue)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
