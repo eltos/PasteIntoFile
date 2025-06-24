@@ -33,6 +33,12 @@ outputs:
   path:
     description: 'Build output path'
     value: ${{ steps.build.outputs.path }}
+  version:
+    description: 'Program version'
+    value: ${{ steps.build.outputs.version }}
+  artifact-id:
+    description: 'Build output artifact ID'
+    value: ${{ steps.upload.outputs.artifact-id }}
 
 runs:
   using: 'composite'
@@ -55,9 +61,12 @@ runs:
         msbuild /r /p:Configuration=${{ inputs.configuration }} /p:Flavor=${{ inputs.flavor }} ${{ inputs.build_options }}
         copy LICENSE ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}
         echo "path=${{ inputs.project_directory }}\bin\${{ inputs.configuration }}" >> $env:GITHUB_OUTPUT
+        $VERSION=(Get-Item -Path ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}\*.exe).VersionInfo.ProductVersion
+        echo "version=$VERSION" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
     - name: Upload build artifacts
+      id: upload
       if: ${{ inputs.artifact != '' }}
       uses: actions/upload-artifact@v4
       with:
