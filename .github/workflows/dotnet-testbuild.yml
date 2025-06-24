@@ -6,7 +6,7 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-2025
     strategy:
       matrix:
         flavor: [Installer, Portable]
@@ -19,7 +19,7 @@ jobs:
           artifact: ${{ matrix.flavor == 'Portable' && 'PasteIntoFile_debug_portable' || '' }}
 
   installer:
-    runs-on: windows-2019
+    runs-on: windows-2025
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,17 +39,17 @@ jobs:
           candle releaseFiles.wxs
           candle PasteIntoFile.wxs
           light -b ../${{steps.build.outputs.path}} releaseFiles.wixobj PasteIntoFile.wixobj -ext WixNetFxExtension -out Installer.msi
-      
+
 
 #  test:
-#    runs-on: windows-2019    # For a list of available runner types, refer to https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+#    runs-on: windows-2025    # For a list of available runner types, refer to https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 #
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v4
 #
 #      ## Install the .NET Core workload
-#      ## This is not required since the windows-2019 runner comes with pre-installed .NET Framework
+#      ## This is not required since the windows-2025 runner comes with pre-installed .NET Framework
 #      #- name: Install .NET Core
 #      #  uses: actions/setup-dotnet@v4
 #      #  with:

@@ -1,5 +1,5 @@
 # This action will build a .NET Windows Forms desktop application
-# It must be executed from a job using windows-2019
+# It must be executed from a job using windows-2025
 
 
 name: Build
@@ -44,7 +44,7 @@ runs:
   using: 'composite'
   steps:
     ## Install the .NET Core workload
-    ## This is not required since the windows-2019 runner comes with pre-installed .NET Framework
+    ## This is not required since the windows-2025 runner comes with pre-installed .NET Framework
     #- name: Install .NET Core
     #  uses: actions/setup-dotnet@v4
     #  with:
