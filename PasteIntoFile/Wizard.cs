@@ -1,6 +1,10 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
@@ -10,6 +14,11 @@ namespace PasteIntoFile {
     public sealed partial class Wizard : MasterForm {
 
         public Wizard() {
+            ReloadUi();
+        }
+
+        private void ReloadUi() {
+            Controls.Clear();
             InitializeComponent();
             Settings.Default.Reload(); // load modifications made from other instance
 
@@ -25,6 +34,9 @@ namespace PasteIntoFile {
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
+
+            // Menu
+            UpdateLanguageMenu();
 
             // Version info
             var versionstr = ProductVersion;
@@ -43,6 +55,31 @@ namespace PasteIntoFile {
             if (RegistryUtil.IsDarkMode()) {
                 MakeDarkMode();
             }
+        }
+        private void UpdateLanguageMenu() {
+            var dir = Path.GetDirectoryName(Application.ExecutablePath);
+            var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                .Where(culture => culture.Name == "en" || Directory.Exists(Path.Combine(dir, culture.Name)));
+
+            settingsMenuLanguage.DropDownItems.Clear();
+            foreach (var culture in cultures) {
+                var flag = string.Concat(culture.TwoLetterISOLanguageName.ToUpperInvariant().Select(x => char.ConvertFromUtf32(x + 0x1F1A5))); // + "\ufe0f"
+                var description = Equals(culture, CultureInfo.InvariantCulture) ? Resources.str_system_language + @" 💻️"
+                    : culture.DisplayName + @" – " + culture.NativeName + @" [" + culture.Name + @"]";
+
+                var item = new ToolStripMenuItem(description, null, (sender, args) => {
+                    Settings.Default.language = culture.Name;
+                    Settings.Default.Save();
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
+                    ReloadUi();
+                    Height += 100;
+                });
+
+                item.Checked = Settings.Default.language == culture.Name;
+                settingsMenuLanguage.DropDownItems.Add(item);
+
+            }
+
         }
 
         async Task CheckForUpdates() {

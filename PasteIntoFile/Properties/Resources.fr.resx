@@ -179,4 +179,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="str_language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
 </root>

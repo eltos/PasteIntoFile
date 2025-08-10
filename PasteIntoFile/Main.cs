@@ -90,6 +90,9 @@ namespace PasteIntoFile {
             [Option("disable-patching", HelpText = "Disables clipboard patching", SetName = "patching")]
             public bool UnregisterPatching { get; set; }
 
+            [Option("language", HelpText = "ISO 639-1 language code for UI Localization ('auto' for system language)", SetName = "language")]
+            public string Language { get; set; }
+
         }
 
         [Verb("wizard", HelpText = "Open the first-launch wizard")]
@@ -118,6 +121,13 @@ namespace PasteIntoFile {
             PortableSettingsProvider.SettingsFileName = "settings.config";
             PortableSettingsProvider.ApplyProvider(Settings.Default);
 #endif
+
+            // Localization
+            try {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
+            } catch (CultureNotFoundException e) {
+                Console.WriteLine(e.Message);
+            }
 
             Settings.Default.continuousMode = false; // always start in normal mode
             Settings.Default.Save();
@@ -397,6 +407,10 @@ namespace PasteIntoFile {
                     Settings.Default.clrClipboard = (bool)args.ClearClipboard;
                 if (args.Autosave != null)
                     Wizard.SetAutosaveMode((bool)args.Autosave);
+                if (args.Language != null) {
+                    Settings.Default.language = args.Language.ToLowerInvariant() == "auto" ? "" : args.Language;
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
+                }
                 if (args.RegisterContextMenu)
                     foreach (var entry in RegistryUtil.AllContextMenu) {
                         entry.Register();

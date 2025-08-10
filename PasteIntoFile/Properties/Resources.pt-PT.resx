@@ -310,4 +310,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_subfolder_template" xml:space="preserve">
     <value>Modelo de subpasta</value>
   </data>
+  <data name="language_name" xml:space="preserve">
+    <value>(PT-PT)</value>
+  </data>
 </root>
