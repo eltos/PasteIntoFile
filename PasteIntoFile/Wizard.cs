@@ -63,19 +63,21 @@ namespace PasteIntoFile {
 
             settingsMenuLanguage.DropDownItems.Clear();
             foreach (var culture in cultures) {
-                var flag = string.Concat(culture.TwoLetterISOLanguageName.ToUpperInvariant().Select(x => char.ConvertFromUtf32(x + 0x1F1A5))); // + "\ufe0f"
-                var description = Equals(culture, CultureInfo.InvariantCulture) ? Resources.str_system_language + @" 💻️"
+                //var flag = string.Concat(culture.TwoLetterISOLanguageName.ToUpperInvariant().Select(x => char.ConvertFromUtf32(x + 0x1F1A5))); // + "\ufe0f"
+                var code = Equals(culture, CultureInfo.InvariantCulture) ? "" : culture.Name;
+                var description = code == "" ? Resources.str_system_language + @" 💻️"
                     : culture.DisplayName + @" – " + culture.NativeName + @" [" + culture.Name + @"]";
 
                 var item = new ToolStripMenuItem(description, null, (sender, args) => {
-                    Settings.Default.language = culture.Name;
+                    Settings.Default.language = code;
                     Settings.Default.Save();
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
+                    Thread.CurrentThread.CurrentUICulture = string.IsNullOrEmpty(Settings.Default.language) ? Program.SystemCulture
+                        : CultureInfo.CreateSpecificCulture(Settings.Default.language);
                     ReloadUi();
                     Height += 100;
                 });
 
-                item.Checked = Settings.Default.language == culture.Name;
+                item.Checked = Settings.Default.language == code;
                 settingsMenuLanguage.DropDownItems.Add(item);
 
             }

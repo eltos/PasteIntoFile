@@ -130,7 +130,9 @@ namespace PasteIntoFile {
 
             // Localization
             try {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
+                SystemCulture = CultureInfo.CurrentCulture;
+                if (!string.IsNullOrEmpty(Settings.Default.language))
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
             } catch (CultureNotFoundException e) {
                 Console.WriteLine(e.Message);
             }
@@ -161,6 +163,7 @@ namespace PasteIntoFile {
                 errs => DisplayHelp(parseResult, errs));
 
         }
+        public static CultureInfo SystemCulture { get; set; }
 
         static int DisplayHelp<T>(ParserResult<T> result, IEnumerable<Error> errs) {
             HelpText helpText;
@@ -415,7 +418,6 @@ namespace PasteIntoFile {
                     Wizard.SetAutosaveMode((bool)args.Autosave);
                 if (args.Language != null) {
                     Settings.Default.language = args.Language.ToLowerInvariant() == "auto" ? "" : args.Language;
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.language);
                 }
                 if (args.RegisterContextMenu)
                     foreach (var entry in RegistryUtil.AllContextMenu) {
