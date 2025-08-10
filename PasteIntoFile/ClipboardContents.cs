@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Ical.Net.DataTypes;
 using LINQtoCSV;
 using PasteIntoFile.Properties;
 using PdfSharp.Drawing;
@@ -602,6 +605,39 @@ namespace PasteIntoFile {
         public static readonly string[] EXTENSIONS = { "ics" };
 
         public CalendarContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public Ical.Net.Calendar Calendar => Ical.Net.Calendar.Load(Text);
+
+        public override PreviewHolder Preview(string extension) {
+            var description = string.Format(Resources.str_preview_calendar,
+                Text.ToUpperInvariant().Split('\n').Count(l => l.Trim().StartsWith("BEGIN:VEVENT")));
+            if (EXTENSIONS.Contains(extension)) {
+                try {
+                    return PreviewHolder.ForHtml(
+                        "<!DOCTYPE html>\n<html>\n<head>\n<style>\n"
+                        + "* { font-family: Sans-serif; font-size: small; }\n"
+                        + "strong { font-size: medium; }\nbody { margin: 0; }\n"
+                        + "p { background: aliceblue; border: solid silver 1pt; padding: 0.5em; margin: 0.5em; }\n"
+                        + "</style>\n</head>\n<body>\n"
+                        + string.Join("\n", Calendar.Events.Select(e
+                            => {
+                                var occurences = e.Evaluator.Evaluate(e.Start != null ? e.Start : new CalDateTime(DateTime.UtcNow), null, null).Take(6).ToArray();
+                                return "<p>"
+                                       + string.Join("<br/>", occurences.Take(occurences.Length > 5 ? 4 : 5).Select(p
+                                           => p.StartTime.ToString(p.StartTime.HasTime ? "g" : "d", CultureInfo.CurrentCulture)
+                                              + $"   ({p.EffectiveDuration?.ToString()?.TrimStart('P')?.TrimStart('T')})"))
+                                       + (occurences.Length > 5 ? "<br/>..." : "")
+                                       + $"<br/><strong>{e.Summary}</strong><br/>{e.Location}</p>";
+                            }))
+                        + "\n</body>\n</html>\n",
+                        description
+                    );
+                } catch (SerializationException e) {
+                    // ignored (default to text preview below)
+                }
+            }
+            return PreviewHolder.ForText(Text, description);
+        }
 
         public override string Description => string.Format(Resources.str_preview_calendar,
             Text.ToUpperInvariant().Split('\n').Count(l => l.Trim().StartsWith("BEGIN:VEVENT")));
