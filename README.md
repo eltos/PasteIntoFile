@@ -41,10 +41,10 @@ _Note: On Windows 11, the context menu entries are located in the extended menu 
 
 ### Related projects
 
-This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile).
-It is similar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx), [Paste As File](https://pasteasfile.org), [PasteHere](https://github.com/tomzorz/PasteHere), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) and [Advanced Paste](https://github.com/microsoft/PowerToys/releases/tag/v0.86.0).
+This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile), both of which are no longer maintained.
+It is similar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx) (FOSS), [Paste As File](https://pasteasfile.org) (trialware), [PasteHere](https://github.com/tomzorz/PasteHere) (unmaintained), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) (no longer available) and [PowerToys Advanced Paste](https://learn.microsoft.com/en-us/windows/powertoys/advanced-paste).
 
-This fork comes with many new features, a new fluid GUI and new console options.
+This fork comes with many new features: autosave, batch mode, more formats, keyboard shortcuts, a new fluid GUI and new console options.
 The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases).
 See the [contributors page](https://github.com/eltos/PasteIntoFile/graphs/contributors) for details on collaborators.
 
@@ -79,14 +79,23 @@ This is the main mode of Paste Into File which allows saving clipboard contents 
 To use this mode, run the program from the file explorer context menu, with the hotkey `WIN`+`ALT`+`V` (if enabled), from the tray (if enabled), from the start menu or via command line.
 If **clipboard patching** is enabled, the regular paste command and `CTRL`+`V` hotkey can also be used.
 
+The file explorer context menu is accessed with a right click on a folder or the file explorer background (for windows 11 it is in the extended context menu ("more options" or SHIFT + right click).
+The context menu of existing files allows to replace or append into existing files, preserving filename and file type without showing the dialog.
+In the case of replace, the old file is moved to the recycle bin and can be restored with the usual undo options of the file explorer (e.g. `CTRL-Z`).
+
+The **append into file** option allows to append data to existing files.
+This works only for supported file types (such as text or zip, not for images) and as long as the clipboard contains data compatible with the selected file type.
+If the file does not exist, it is created.
+This option is exspecially useful in combination with batch mode (see below).
+
 If **autosave mode** is enabled, the file to paste will directly be created and selected for renaming.
 Otherwise, a dialog will prompt for filename and type.
 By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
 When running Paste Into File from the start menu or tray, the dialog will always be shown.
 
-The **filename template** can be edited from the dialog or via command line (see [below](#template-format) for a description of the available formats).
+The **filename template** can be edited from the UI or via command line (see [below](#template-format) for a description of the available formats).
 When holding `CTRL` while the program starts, the file will be saved to a subdirectory.
-The corresponding template can be configured via command line (see below).
+The corresponding template can be configured from the UI or via command line (see below).
 
 The available **file extensions** depend on the formats available in the clipboard.
 For example, if you copy a range of cells from a spreadsheet, the data is available not only as text, but also in DIF, RTF, SLK and HTML formats and even as screenshot.
@@ -95,7 +104,9 @@ An appropriate format is then chosen automatically[^save_plain_text] and a previ
 When selecting `*` as extension or in autosave mode, the file extensions is determined automatically, i.e. the clipboard is saved as image, if available, or else as text. The format is determined by the last used extension for the respective filetype (which can also be set via command line).
 
 A special **batch mode** exists to monitor the clipboard and save it every time new contents are copied.
-If enabled, the filename is purely determined by the template (which supports a dedicated counter variable).
+If enabled, the filename is purely determined by the template and a new file is created for each copy (which supports a dedicated counter variable).
+In combination with "append into file", the data is collected in a single file instead (fixed filename).
+
 
 [^save_plain_text]: To force saving plain text data to a file with a special extension,
 prepend a dot to the file extension (the actual filename will still have only a single dot).
@@ -103,11 +114,6 @@ For example, when copying syntax highlighted HTML code snippets from a browser,
 using `html` will cause the html-formatted text to be saved,
 while using `.html` will save the plain text.
 
-
-### Paste into existing files (Append/Replace)
-The context menu entry **Paste into this file (Append/Replace)** allows you to paste clipboard contents into existing files by either appending or replacing them.
-This works as long as the clipboard contains data compatible with the selected file type.
-In the case of replace, the old file is moved to the recycle bin and can be restored with the usual undo options of the file explorer (e.g. `CTRL-Z`).
 
 
 ### Copy file contents
@@ -147,20 +153,17 @@ Copyright © PasteIntoFile GitHub contributors
 PasteIntoFile 5.3.0.0
 Copyright © PasteIntoFile GitHub contributors
 
-  --append           (Default: false) Append to file if it exists (and extension
-                     supports appending).
+  --append           (Default: false) Append to file if it exists (and extension supports appending).
   -a, --autosave     Autosave file without prompt (true/false)
   -c, --clear        Clear clipboard after save (true/false)
   -d, --directory    Path of directory to save file into
   -f, --filename     Filename template with optional format variables such as
                      {0:yyyyMMdd HHmmSS} for current date and time
                      {1:000} for batch-mode save counter
-                     May also contain a file extension and path fragment if used
-                     in paste mode.
+                     May also contain a file extension and path fragment if used in paste mode.
   --help             Display this help screen.
   --overwrite        (Default: false) Overwrite existing file without prompt.
-                     Requires --autosave=true. If append is also given, this
-                     only applies in case appending fails.
+                     Requires --autosave=true. If append is also given, this only applies in case appending fails.
   --version          Display version information.
 ```
 
