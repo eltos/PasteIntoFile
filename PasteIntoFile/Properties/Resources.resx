@@ -321,4 +321,10 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_subfolder_template" xml:space="preserve">
     <value>Subfolder template</value>
   </data>
+  <data name="str_language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="str_system_language" xml:space="preserve">
+    <value>System language</value>
+  </data>
 </root>

@@ -50,6 +50,8 @@ namespace PasteIntoFile {
             //
             // tableLayoutPanel1
             //
+            this.tableLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.title, 0, 0);
@@ -308,6 +310,9 @@ namespace PasteIntoFile {
             this.settingsMenuClearClipboard.Text = Resources.str_clear_clipboard;
             this.settingsMenuClearClipboard.ToolTipText = Resources.str_clear_clipboard_tooltip;
             this.settingsMenu.Items.Add(this.settingsMenuClearClipboard);
+            this.settingsMenuLanguage = new ToolStripMenuItem();
+            this.settingsMenuLanguage.Text = Resources.str_language + " 🌐";
+            this.settingsMenu.Items.Add(this.settingsMenuLanguage);
             //
             // settings button
             //
@@ -345,6 +350,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.ContextMenuStrip settingsMenu;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuUpdateChecks;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuClearClipboard;
+        private System.Windows.Forms.ToolStripMenuItem settingsMenuLanguage;
         private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
         private System.Windows.Forms.CheckBox contextEntryCheckBoxPaste;

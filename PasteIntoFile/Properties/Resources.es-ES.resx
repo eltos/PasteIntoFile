@@ -309,4 +309,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_subfolder_template" xml:space="preserve">
     <value>Plantilla de subcarpeta</value>
   </data>
+  <data name="str_language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
 </root>

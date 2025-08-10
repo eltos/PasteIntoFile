@@ -336,6 +336,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string str_language {
+            get {
+                return ResourceManager.GetString("str_language", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Folder.
         /// </summary>
         internal static string str_location {
@@ -566,6 +575,15 @@ namespace PasteIntoFile.Properties {
         internal static string str_subfolder_template {
             get {
                 return ResourceManager.GetString("str_subfolder_template", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to System language.
+        /// </summary>
+        internal static string str_system_language {
+            get {
+                return ResourceManager.GetString("str_system_language", resourceCulture);
             }
         }
 
