@@ -113,10 +113,14 @@ namespace PasteIntoFile {
         /// </summary>
         [STAThread]
         static int Main(string[] args) {
-            // redirect console output to parent process, for command line help etc.
-            // not perfect, but probably as good as it can be: https://stackoverflow.com/a/11058118
-            AttachConsole(ATTACH_PARENT_PROCESS);
-            Console.OutputEncoding = Encoding.UTF8;
+            try {
+                // redirect console output to parent process, for command line help etc.
+                // not perfect, but probably as good as it can be: https://stackoverflow.com/a/11058118
+                AttachConsole(ATTACH_PARENT_PROCESS);
+                Console.OutputEncoding = Encoding.UTF8;
+            } catch {
+                // ignored (probably non-console mode)
+            }
 
 #if PORTABLE
             // Portable settings
