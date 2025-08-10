@@ -543,6 +543,28 @@ namespace PasteIntoFile {
     }
 
 
+    public class CalendarContent : TextLikeContent {
+        public static readonly string[] FORMATS = { "text/calendar", "ics", DataFormats.Text };
+        public static readonly string[] EXTENSIONS = { "ics" };
+
+        public CalendarContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => string.Format(Resources.str_preview_calendar,
+            Text.ToUpperInvariant().Split('\n').Count(l => l.Trim().StartsWith("BEGIN:VEVENT")));
+
+        public override void AddTo(IDataObject data) {
+            // Note: Spec says UTF8 is the default, but thunderbird only accepts UTF16 (simply called "Unicode" in .NET)
+            AddTo(data, Text, Encoding.Unicode);
+        }
+
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append) throw new AppendNotSupportedException();
+            base.SaveAs(path, extension, append);
+        }
+
+    }
+
+
     public class FilesContent : BaseContent {
         public FilesContent(StringCollection files) {
             Data = files;
@@ -792,7 +814,8 @@ namespace PasteIntoFile {
             if (ReadClipboardString(RtfContent.FORMATS) is string rtf) container.Contents.Add(new RtfContent(rtf));
             if (ReadClipboardString(DifContent.FORMATS) is string dif) container.Contents.Add(new DifContent(dif));
             if (ReadClipboardString(SvgContent.FORMATS) is string svg) container.Contents.Add(new SvgContent(svg));
-
+            if (ReadClipboardString(CalendarContent.FORMATS) is string ics && ics.ToUpperInvariant().StartsWith("BEGIN:VCALENDAR"))
+                container.Contents.Add(new CalendarContent(ics));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
@@ -932,12 +955,8 @@ namespace PasteIntoFile {
                     container.Contents.Add(new SvgContent(contents));
                 if (ext == "csv")
                     container.Contents.Add(new CsvContent(contents));
-                if (ext == "dif")
-                    container.Contents.Add(new GenericTextContent(DataFormats.Dif, ext, contents));
-                if (ext == "rtf")
-                    container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
-                if (ext == "syk")
-                    container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
+                if (ext == "ics")
+                    container.Contents.Add(new CalendarContent(contents));
                 if (DifContent.EXTENSIONS.Contains(ext))
                     container.Contents.Add(new DifContent(contents));
                 if (RtfContent.EXTENSIONS.Contains(ext))
