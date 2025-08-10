@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PasteIntoFile")]
 [assembly: AssemblyDescription("Paste Clipboard Contents Into Files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PasteIntoFile")]
+[assembly: AssemblyCompany("github.com/eltos")]
 [assembly: AssemblyProduct("PasteIntoFile")]
 [assembly: AssemblyCopyright("Copyright © PasteIntoFile GitHub contributors")]
 [assembly: AssemblyTrademark("")]
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 #if DEBUG
-[assembly: AssemblyVersion("5.4.*")]
+[assembly: AssemblyVersion("5.5.*")]
 #else
-[assembly: AssemblyVersion("5.4.4")]
+[assembly: AssemblyVersion("5.5")]
 #endif
