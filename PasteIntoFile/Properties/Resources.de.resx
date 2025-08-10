@@ -315,4 +315,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_system_language" xml:space="preserve">
     <value>Systemsprache</value>
   </data>
+  <data name="str_preview_calendar" xml:space="preserve">
+    <value>Kalender Vorschau ({0} Termin(e))</value>
+  </data>
 </root>

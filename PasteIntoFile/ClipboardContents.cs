@@ -301,59 +301,44 @@ namespace PasteIntoFile {
     }
 
 
-    /// <summary>
-    /// Class to hold SVG data
-    /// </summary>
-    public class SvgContent : TextLikeContent {
-        public static readonly string[] EXTENSIONS = { "svg" };
-        public SvgContent(string xml) : base(xml) { }
 
-        public string Xml {
-            get {
-                var xml = Text;
-                if (!xml.StartsWith("<?xml"))
-                    xml = "<?xml version=\"1.0\" encoding=\"" + Encoding.BodyName + "\"?>\n" + xml;
-                return xml;
-            }
-        }
+    public class TextLikeContent : BaseContent {
+        private readonly string[] Formats;
+        public override string[] Extensions { get; }
 
-        public override string[] Extensions => EXTENSIONS;
-        public override string Description => Resources.str_preview_svg;
-
-        public override void SaveAs(string path, string extension, bool append = false) {
-            if (append)
-                throw new AppendNotSupportedException();
-            switch (NormalizeExtension(extension)) {
-                case "svg":
-                default:
-                    Save(path, Xml);
-                    break;
-            }
-        }
-
-        public override void AddTo(IDataObject data) {
-            data.SetData("image/svg+xml", Stream);
-        }
-        public override string TextPreview(string extension) {
-            return Xml;
-        }
-    }
-
-
-
-    public abstract class TextLikeContent : BaseContent {
-        public TextLikeContent(string text) {
+        public TextLikeContent(string[] formats, string[] extensions, string text) {
+            Formats = formats;
+            Extensions = extensions;
             Data = text;
         }
         public string Text => Data as string;
-        public Stream Stream => new MemoryStream(Encoding.GetBytes(Text));
-        public static readonly Encoding Encoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
-        public override void SaveAs(string path, string extension, bool append = false) {
-            Save(path, Text, append);
+
+        public static readonly Encoding DefaultEncoding = new UTF8Encoding(false); // omit unnecessary BOM bytes
+
+        public override string Description => Resources.str_preview;
+
+        public override void AddTo(IDataObject data) {
+            AddTo(data, Text);
         }
 
-        protected static void Save(string path, string text, bool append = false) {
-            using (var streamWriter = new StreamWriter(path, append, Encoding))
+        protected void AddTo(IDataObject data, string text, Encoding encoding = null) {
+            foreach (var f in Formats) {
+                if (DataFormats.GetFormat(f).Id < 32) { // Native formats, handled well by default
+                    data.SetData(f, text);
+                } else { // Non-native formats
+                    // Manually encode to avoid default object serialization header,
+                    // see https://devblogs.microsoft.com/oldnewthing/20181130-00/?p=100365
+                    data.SetData(f, new MemoryStream((encoding ?? DefaultEncoding).GetBytes(text)));
+                }
+            }
+        }
+
+        public override void SaveAs(string path, string extension, bool append = false) {
+            Save(path, TextPreview(extension), append);
+        }
+
+        protected static void Save(string path, string text, bool append = false, Encoding encoding = null) {
+            using (var streamWriter = new StreamWriter(path, append, (encoding ?? DefaultEncoding)))
                 streamWriter.Write(EnsureNewline(text));
         }
 
@@ -365,27 +350,88 @@ namespace PasteIntoFile {
         /// Return a string used for preview
         /// </summary>
         /// <returns></returns>
-        public abstract string TextPreview(string extension);
-    }
-
-
-    public class TextContent : TextLikeContent {
-        public TextContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv" };
-        public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
-        public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.Text, Text);
-            data.SetData(DataFormats.UnicodeText, Text);
-        }
-        public override string TextPreview(string extension) {
+        public virtual string TextPreview(string extension) {
             return Text;
         }
     }
 
 
+    public class TextContent : TextLikeContent {
+        public static readonly string[] FORMATS = { DataFormats.Text, DataFormats.UnicodeText };
+        public static readonly string[] EXTENSIONS = { "txt", "md", "log", "bat", "ps1", "java", "js", "cpp", "cs", "py", "css", "html", "php", "json", "csv" };
+
+        public TextContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => string.Format(Resources.str_preview_text, Text.Length, Text.Split('\n').Length);
+
+    }
+
+    public class RtfContent : TextLikeContent {
+        public static readonly string[] FORMATS = { DataFormats.Rtf, "text/rtf" };
+        public static readonly string[] EXTENSIONS = { "rtf" };
+
+        public RtfContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => Resources.str_preview_rtf;
+    }
+
+    public class DifContent : TextLikeContent {
+        public static readonly string[] FORMATS = { DataFormats.Dif };
+        public static readonly string[] EXTENSIONS = { "dif" };
+
+        public DifContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => Resources.str_preview_dif;
+    }
+
+    public class SlkContent : TextLikeContent {
+        public static readonly string[] FORMATS = { DataFormats.SymbolicLink };
+        public static readonly string[] EXTENSIONS = { "sylk" };
+
+        public SlkContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => Resources.str_preview_sylk;
+    }
+
+
+
+    /// <summary>
+    /// Class to hold SVG data
+    /// </summary>
+    public class SvgContent : TextLikeContent {
+        public static readonly string[] FORMATS = { "image/svg+xml", "svg" };
+        public static readonly string[] EXTENSIONS = { "svg" };
+
+        public SvgContent(string xml) : base(FORMATS, EXTENSIONS, xml) { }
+
+        public string Xml {
+            get {
+                var xml = Text;
+                if (!xml.StartsWith("<?xml"))
+                    xml = "<?xml version=\"1.0\" encoding=\"" + DefaultEncoding.BodyName + "\"?>\n" + xml;
+                return xml;
+            }
+        }
+
+        public override string Description => Resources.str_preview_svg;
+
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append) throw new AppendNotSupportedException();
+            base.SaveAs(path, extension, append);
+        }
+
+        public override string TextPreview(string extension) {
+            return Xml;
+        }
+    }
+
+
     public class HtmlContent : TextLikeContent {
-        public HtmlContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "html", "htm", "xhtml" };
+        public static readonly string[] FORMATS = { DataFormats.Html };
+        public static readonly string[] EXTENSIONS = { "html", "htm", "xhtml" };
+
+        public HtmlContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
         public override string Description => Resources.str_preview_html;
         public override void SaveAs(string path, string extension, bool append = false) {
             var html = Text;
@@ -403,25 +449,22 @@ namespace PasteIntoFile {
                          "EndHTML:" + STOP + "\r\n" +
                          "StartFragment:" + START + "\r\n" +
                          "EndFragment:" + STOP + "\r\n";
-            var bytecount = Encoding.UTF8.GetByteCount(Text);
+            var bytecount = DefaultEncoding.GetByteCount(Text);
             header = header.Replace(START, (header.Length).ToString().PadLeft(START.Length, '0'));
             header = header.Replace(STOP, (header.Length + bytecount).ToString().PadLeft(STOP.Length, '0'));
 
-            data.SetData(DataFormats.Html, header + Text);
+            AddTo(data, header + Text);
         }
-        public override string TextPreview(string extension) {
-            return Text;
-        }
+
     }
 
 
     public class CsvContent : TextLikeContent {
-        public CsvContent(string text) : base(text) { }
-        public override string[] Extensions => new[] { "csv", "tsv", "tab", "md" };
+        public static readonly string[] FORMATS = { DataFormats.CommaSeparatedValue, "text/csv", "text/tab-separated-values" };
+        public static readonly string[] EXTENSIONS = { "csv", "tsv", "tab", "md" };
+
+        public CsvContent(string text) : base(FORMATS, EXTENSIONS, text) { }
         public override string Description => Resources.str_preview_csv;
-        public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.CommaSeparatedValue, Text);
-        }
 
         /// <summary>
         /// Heuristically determine the (most likely) delimiter
@@ -477,49 +520,48 @@ namespace PasteIntoFile {
                 case "md":
                     return AsMarkdown();
                 default:
-                    return Text;
+                    return base.TextPreview(extension);
             }
         }
 
-        public override void SaveAs(string path, string extension, bool append = false) {
-            Save(path, TextPreview(extension), append);
-        }
-    }
-
-
-    public class GenericTextContent : TextLikeContent {
-        private readonly string _format;
-        public GenericTextContent(string format, string extension, string text) : base(text) {
-            _format = format;
-            Extensions = new[] { extension };
-        }
-        public override string[] Extensions { get; }
-        public override string Description => Resources.str_preview;
-        public override void AddTo(IDataObject data) {
-            data.SetData(_format, Text);
-        }
-        public override string TextPreview(string extension) {
-            return Text;
-        }
     }
 
 
     public class UrlContent : TextLikeContent {
+        public static readonly string[] FORMATS = { DataFormats.Text };
         public static readonly string[] EXTENSIONS = { "url" };
-        public UrlContent(string text) : base(text) { }
-        public override string[] Extensions => EXTENSIONS;
+
+        public UrlContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
         public override string Description => Resources.str_preview_url;
+
         public override void SaveAs(string path, string extension, bool append = false) {
-            if (append)
-                throw new AppendNotSupportedException();
+            if (append) throw new AppendNotSupportedException();
             Save(path, "[InternetShortcut]\nURL=" + Text);
         }
+
+    }
+
+
+    public class CalendarContent : TextLikeContent {
+        public static readonly string[] FORMATS = { "text/calendar", "ics", DataFormats.Text };
+        public static readonly string[] EXTENSIONS = { "ics" };
+
+        public CalendarContent(string text) : base(FORMATS, EXTENSIONS, text) { }
+
+        public override string Description => string.Format(Resources.str_preview_calendar,
+            Text.ToUpperInvariant().Split('\n').Count(l => l.Trim().StartsWith("BEGIN:VEVENT")));
+
         public override void AddTo(IDataObject data) {
-            data.SetData(DataFormats.Text, Text);
+            // Note: Spec says UTF8 is the default, but thunderbird only accepts UTF16 (simply called "Unicode" in .NET)
+            AddTo(data, Text, Encoding.Unicode);
         }
-        public override string TextPreview(string extension) {
-            return Text;
+
+        public override void SaveAs(string path, string extension, bool append = false) {
+            if (append) throw new AppendNotSupportedException();
+            base.SaveAs(path, extension, append);
         }
+
     }
 
 
@@ -767,20 +809,13 @@ namespace PasteIntoFile {
             if (ReadClipboardHtml() is string html)
                 container.Contents.Add(new HtmlContent(html));
 
-            if (ReadClipboardString(DataFormats.CommaSeparatedValue, "text/csv", "text/tab-separated-values") is string csv)
-                container.Contents.Add(new CsvContent(csv));
-
-            if (ReadClipboardString(DataFormats.SymbolicLink) is string lnk)
-                container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, "slk", lnk));
-
-            if (ReadClipboardString(DataFormats.Rtf, "text/rtf") is string rtf)
-                container.Contents.Add(new GenericTextContent(DataFormats.Rtf, "rtf", rtf));
-
-            if (ReadClipboardString(DataFormats.Dif) is string dif)
-                container.Contents.Add(new GenericTextContent(DataFormats.Dif, "dif", dif));
-
-            if (ReadClipboardString("image/svg+xml", "svg") is string svg)
-                container.Contents.Add(new SvgContent(svg));
+            if (ReadClipboardString(CsvContent.FORMATS) is string csv) container.Contents.Add(new CsvContent(csv));
+            if (ReadClipboardString(SlkContent.FORMATS) is string lnk) container.Contents.Add(new SlkContent(lnk));
+            if (ReadClipboardString(RtfContent.FORMATS) is string rtf) container.Contents.Add(new RtfContent(rtf));
+            if (ReadClipboardString(DifContent.FORMATS) is string dif) container.Contents.Add(new DifContent(dif));
+            if (ReadClipboardString(SvgContent.FORMATS) is string svg) container.Contents.Add(new SvgContent(svg));
+            if (ReadClipboardString(CalendarContent.FORMATS) is string ics && ics.ToUpperInvariant().StartsWith("BEGIN:VCALENDAR"))
+                container.Contents.Add(new CalendarContent(ics));
 
             if (Clipboard.ContainsText() && Uri.IsWellFormedUriString(Clipboard.GetText().Trim(), UriKind.Absolute))
                 container.Contents.Add(new UrlContent(Clipboard.GetText().Trim()));
@@ -824,14 +859,37 @@ namespace PasteIntoFile {
 
         private static string ReadClipboardString(params string[] formats) {
             foreach (var format in formats) {
-                if (!Clipboard.ContainsData(format))
-                    continue;
-                var data = Clipboard.GetData(format);
-                switch (data) {
-                    case string str:
-                        return str;
-                    case MemoryStream stream:
-                        return new StreamReader(stream).ReadToEnd().TrimEnd('\0');
+                // Standard formats with native support
+                foreach (var simpleFormat in new Dict<string, TextDataFormat> {
+                     {DataFormats.Text, TextDataFormat.Text},
+                     {DataFormats.UnicodeText, TextDataFormat.UnicodeText},
+                     {DataFormats.Html, TextDataFormat.Html},
+                     {DataFormats.Rtf, TextDataFormat.Rtf},
+                     {DataFormats.CommaSeparatedValue, TextDataFormat.CommaSeparatedValue},
+                }) {
+                    if (string.Equals(format, simpleFormat.Key) && Clipboard.ContainsText(simpleFormat.Value)) {
+                        return Clipboard.GetText(simpleFormat.Value);
+                    }
+                }
+
+                // Other non-standard formats
+                if (Clipboard.ContainsData(format)) {
+                    switch (Clipboard.GetData(format)) {
+                        // Serialized string
+                        case string str:
+                            return str;
+                        // Raw string
+                        case MemoryStream stream:
+                            var encoding = Encoding.UTF8;
+                            if (stream.Length > 2) {
+                                // Heuristic to tell UTF8 and UTF16 apart
+                                int b0 = stream.ReadByte(), b1 = stream.ReadByte();
+                                if (b0 == 0xFE && b1 == 0xFF) encoding = Encoding.BigEndianUnicode;
+                                if (b0 == 0xFF && b1 == 0xFE || b1 == 0x00) encoding = Encoding.Unicode;
+                                stream.Position = 0;
+                            }
+                            return new StreamReader(stream, encoding).ReadToEnd().TrimEnd('\0');
+                    }
                 }
             }
             return null;
@@ -897,12 +955,14 @@ namespace PasteIntoFile {
                     container.Contents.Add(new SvgContent(contents));
                 if (ext == "csv")
                     container.Contents.Add(new CsvContent(contents));
-                if (ext == "dif")
-                    container.Contents.Add(new GenericTextContent(DataFormats.Dif, ext, contents));
-                if (ext == "rtf")
-                    container.Contents.Add(new GenericTextContent(DataFormats.Rtf, ext, contents));
-                if (ext == "syk")
-                    container.Contents.Add(new GenericTextContent(DataFormats.SymbolicLink, ext, contents));
+                if (ext == "ics")
+                    container.Contents.Add(new CalendarContent(contents));
+                if (DifContent.EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new DifContent(contents));
+                if (RtfContent.EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new RtfContent(contents));
+                if (SlkContent.EXTENSIONS.Contains(ext))
+                    container.Contents.Add(new SlkContent(contents));
 
             } else {
                 container.Contents.Add(new TextContent(path));

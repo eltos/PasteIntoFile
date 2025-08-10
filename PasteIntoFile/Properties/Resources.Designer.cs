@@ -435,6 +435,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Calendar preview ({0} event(s)).
+        /// </summary>
+        internal static string str_preview_calendar {
+            get {
+                return ResourceManager.GetString("str_preview_calendar", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to CSV preview.
         /// </summary>
         internal static string str_preview_csv {
