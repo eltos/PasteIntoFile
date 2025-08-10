@@ -9,14 +9,13 @@
 
 ## About
 
-Windows explorer can only paste copied files, but is not able to paste images, text and other content copied from within applications or when taking a screenshot.
-Paste Into File allows you to paste clipboard contents directly into files via a new entry in the file explorer context menu and/or additional hotkeys.
-It can also do the reverse: copy file contents to the clipboard directly.
+Are you tired of opening an image/text/office/archive application, paste what you just copied, hit save, select the folder manually and type the filename, just to realise your transparent GIF became a static JPEG with black background?
+Paste Into File helps you do all this in a single step, preserving transparency and animations.
 
-Where previously you had to open an image/text/office/archive application, paste what you just copied, hit save, select the folder again and type the filename (or open a file, select everything and copy it) — just to realise your GIF became a static JPEG — Paste Into File helps you to do all this in a single step, preserving transparency and animations.
-It can even monitor the clipboard and automatically save or append contents as you copy them (batch processing).
+With Paste Into File you paste clipboard contents directly into files via file explorer context menu and/or keyboard shortcut, and likewise copy file contents to the clipboard without opening the file.
+It can also monitor the clipboard and automatically save or append content in a file/folder/zip as you copy things (batch processing).
 
-_Note: On Windows 11, the context menu entries are located in the extended menu ("show more options"). Use Shift + right click to access it directly._
+_Note: On Windows 11, the context menu entries are located in the extended menu ("show more options"). Use Shift + right click to access it directly; or enable autostart and use keyboard shotcuts._
 
 
 ### Features
