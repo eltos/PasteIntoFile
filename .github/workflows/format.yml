@@ -22,7 +22,7 @@ jobs:
       - name: Skip if bot
         run: |
             AUTHOR=$(git log -1 --pretty=%an)
-            if [[ $AUTHOR =~ "bot|Bot" ]]; then
+            if [[ $AUTHOR =~ [Bb]ot ]]; then
               echo "Commit made by bot, skipping further steps in the pipeline."
               exit 0
             fi
