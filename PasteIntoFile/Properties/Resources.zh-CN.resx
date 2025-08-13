@@ -310,4 +310,13 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_subfolder_template" xml:space="preserve">
     <value>子文件夹模板</value>
   </data>
+  <data name="str_language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="str_system_language" xml:space="preserve">
+    <value>系统语言</value>
+  </data>
+  <data name="str_preview_calendar" xml:space="preserve">
+    <value>日历预览（{0} 个活动）</value>
+  </data>
 </root>
