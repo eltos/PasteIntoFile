@@ -13,7 +13,7 @@ jobs:
     name: Format files with pre-commit
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
           ssh-key: ${{ env.SSH_KEY }}
           fetch-depth: 0
@@ -21,7 +21,8 @@ jobs:
 
       - name: Skip if bot
         run: |
-            AUTHOR=$(git log -1 --pretty=%an)
+            git log -1
+            AUTHOR=$(git log -1 --pretty="%an %ae")
             echo ">$AUTHOR<"
             if [[ $AUTHOR =~ [Bb]ot ]]; then
               echo "Commit made by bot, skipping further steps in the pipeline."
@@ -50,4 +51,5 @@ jobs:
           git config user.name "Bot"
           git config user.email "<action@github.com>"
           git commit -am "Fix file format"
+          git config push.autoSetupRemote true
           git push
