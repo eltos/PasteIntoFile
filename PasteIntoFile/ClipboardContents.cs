@@ -836,8 +836,9 @@ namespace PasteIntoFile {
             }
 
             // Image from encoded data uri
-            if (Clipboard.ContainsText()) {
-                var (mime_ext, bytes) = BytesFromDataUri(Clipboard.GetText());
+            if (Clipboard.ContainsText())
+            {
+        var (mime_ext, bytes) = BytesFromDataUri(Clipboard.GetText());
                 if (bytes != null && !images.ContainsKey(mime_ext))
                     if (ImageContentFromBytes(mime_ext, bytes) is ImageLikeContent imageContent)
                         images.Add(mime_ext, imageContent);
