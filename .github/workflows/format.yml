@@ -1,0 +1,51 @@
+﻿name: Auto-fix file format
+
+# Since pre-commit.ci cannot run local hooks, run them here manually to fixup formatting in pull requests
+
+on: pull_request
+
+env:
+  # SSH Deploy Key with write access (needed to trigger push workflow runs in created pull request)
+  SSH_KEY: ${{ secrets.SSH_KEY_GITHUB_ACTION }}
+
+jobs:
+  pre-commit:
+    name: Format files with pre-commit
+    runs-on: ubuntu-24.04
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ env.SSH_KEY }}
+          fetch-depth: 0
+
+      - name: Install python
+        uses: actions/setup-python@v3
+
+      - name: Fix formatting
+        continue-on-error: true
+        id: format
+        run: |
+            git checkout ${{github.event.pull_request.head.ref}}
+            # Skip for commits created by bots (such as me)
+            AUTHOR=$(git log -1 --pretty="%an %ae")
+            if [[ $AUTHOR =~ [Bb]ot ]]; then
+              echo "Commit made by $AUTHOR, skipping further steps in the pipeline."
+              exit 0
+            fi
+            # Install pre-commit
+            python3 -m pip install pre-commit
+            pre-commit install
+            # Format files
+            FILES=$(git diff --name-only HEAD origin/$GITHUB_BASE_REF | tr '\n' ' ')
+            echo $FILES
+            pre-commit run --files $FILES # non-zero exit code if files were modified
+
+      - name: Push formatted fixes
+        if: steps.format.outcome == 'failure'
+        run: |
+          git config user.name "Bot"
+          git config user.email "<action@github.com>"
+          git commit -am "Fix file format"
+          git config push.autoSetupRemote true
+          git push
