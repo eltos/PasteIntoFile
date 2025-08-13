@@ -814,9 +814,7 @@ namespace PasteIntoFile {
             var images = new Dict<string, ImageLikeContent>();
 
             // Generic image from file
-            if (   Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1)
-
-            {
+            if (Clipboard.ContainsFileDropList() && Clipboard.GetFileDropList() is StringCollection files && files.Count == 1) {
                 var ext = BaseContent.NormalizeExtension(Path.GetExtension(files[0]).Trim('.'));
                 if (ImageContentFromBytes(ext, File.ReadAllBytes(files[0])) is ImageLikeContent imageContent)
                     images.Add(ext, imageContent);
