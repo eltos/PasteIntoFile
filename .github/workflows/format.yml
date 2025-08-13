@@ -22,6 +22,7 @@ jobs:
       - name: Skip if bot
         run: |
             AUTHOR=$(git log -1 --pretty=%an)
+            echo ">$AUTHOR<"
             if [[ $AUTHOR =~ [Bb]ot ]]; then
               echo "Commit made by bot, skipping further steps in the pipeline."
               exit 0
@@ -49,4 +50,4 @@ jobs:
           git config user.name "Bot"
           git config user.email "<action@github.com>"
           git commit -am "Fix file format"
-          git push origin HEAD:${{github.event.pull_request.head.ref}}
+          git push
