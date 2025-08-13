@@ -18,6 +18,15 @@ jobs:
           ssh-key: ${{ env.SSH_KEY }}
           fetch-depth: 0
 
+
+      - name: Skip if bot
+        run: |
+            AUTHOR=$(git log -1 --pretty=%an)
+            if [[ $AUTHOR =~ "bot|Bot" ]]; then
+              echo "Commit made by bot, skipping further steps in the pipeline."
+              exit 0
+            fi
+
       - name: Install python
         uses: actions/setup-python@v3
 
@@ -39,5 +48,5 @@ jobs:
         run: |
           git config user.name "Bot"
           git config user.email "<action@github.com>"
-          git commit -am "Fix file format [skip ci]"
+          git commit -am "Fix file format"
           git push origin HEAD:${{github.event.pull_request.head.ref}}
