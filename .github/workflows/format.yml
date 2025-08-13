@@ -18,9 +18,9 @@ jobs:
           ssh-key: ${{ env.SSH_KEY }}
           fetch-depth: 0
 
-
       - name: Skip if bot
         run: |
+            git checkout ${{github.event.pull_request.head.ref}}
             git log -1
             AUTHOR=$(git log -1 --pretty="%an %ae")
             echo ">$AUTHOR<"
