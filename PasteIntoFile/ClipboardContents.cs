@@ -669,8 +669,22 @@ namespace PasteIntoFile {
         }
         public string FileListString => string.Join("\n", FileList);
 
-        public override string[] Extensions => new[] { "zip", "m3u", "files", "txt" };
+        public override string[] Extensions {
+            get {
+                var extensions = new[] { "zip", "m3u", "files", "txt" };
+                if (SingleFileExtension != null) extensions = extensions.Prepend(SingleFileExtension).ToArray();
+                return extensions;
+            }
+        }
+
+        private string SingleFileExtension => Files.Count == 1 ? NormalizeExtension(Path.GetExtension(Files[0]).TrimStart('.')) : null;
+
         public override void SaveAs(string path, string extension, bool append = false) {
+            if (SingleFileExtension != null && SingleFileExtension == NormalizeExtension(extension)) {
+                if (append) throw new AppendNotSupportedException();
+                File.Copy(Files[0], path, overwrite: true);
+                return;
+            }
             switch (NormalizeExtension(extension)) {
                 case "zip":
                     // TODO: since zipping can take a while depending on file size, this should show a progress to the user
