@@ -36,6 +36,8 @@ jobs:
             # Install pre-commit
             python3 -m pip install pre-commit
             pre-commit install
+            # Restore
+            dotnet restore
             # Format files
             FILES=$(git diff --name-only HEAD origin/$GITHUB_BASE_REF | tr '\n' ' ')
             echo $FILES
