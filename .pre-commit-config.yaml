@@ -5,7 +5,7 @@ repos:
       - id: dotnet-format
         name: dotnet-format
         language: system
-        entry: dotnet format --include-generated --include
+        entry: dotnet restore; dotnet format --include-generated --include
         types_or: [ "c#", "vb" ]
   - repo: https://github.com/efrecon/pre-commit-hook-lxml
     rev: v0.1.4
