@@ -68,7 +68,7 @@
     <value>저장</value>
   </data>
   <data name="str_filename" xml:space="preserve">
-    <value>파일명</value>
+    <value>파일 이름</value>
     <comment>Filename to save as
 </comment>
   </data>
@@ -78,43 +78,43 @@
 </comment>
   </data>
   <data name="str_location" xml:space="preserve">
-    <value>저장 경로</value>
+    <value>폴더</value>
     <comment>Folder path location to save file into</comment>
   </data>
   <data name="str_message_run_as_admin" xml:space="preserve">
-    <value>관리자 권한으로 실행하세요!</value>
+    <value>응용 프로그램을 관리자로 실행해 주세요!</value>
   </data>
   <data name="str_contextentry" xml:space="preserve">
-    <value>Paste into file</value>
+    <value>파일에 붙여넣기</value>
     <comment>Context menu entry for pasting</comment>
   </data>
   <data name="str_select_folder" xml:space="preserve">
-    <value>파일을 저장할 경로를 선택합니다</value>
+    <value>이 파일을 저장할 폴더 선택</value>
     <comment>str_select_folder
 Tooltip</comment>
   </data>
   <data name="str_autosave_infotext" xml:space="preserve">
-    <value>이제 파일명과 확장자를 묻지 않고 파일이 자동으로 저장됩니다. 이름 변경을 위해, 생성된 파일이 선택된 채로 새 탐색기 창이 열립니다. 대화 상자를 다시 표시하려면 명령행 인자 없이 프로그램을 실행하거나 컨텍스트 메뉴 항목을 선택할 때에 Shift 키를 누르세요.</value>
+    <value>이제 파일 이름과 확장자를 묻지 않고 파일이 자동으로 저장됩니다. 대신 생성된 파일은 탐색기 창에서 이름 변경을 위해 선택됩니다. 대화 상자를 다시 표시하려면 인수 없이 PasteInfoFile 실행 파일을 실행하거나 컨텍스트 메뉴 항목을 선택하는 동안 SHIFT 키를 누르고 있으면 됩니다.</value>
   </data>
   <data name="str_noclip_text" xml:space="preserve">
-    <value>클립보드가 비었거나 알 수 없는 데이터를 포함하고 있습니다</value>
+    <value>클립보드가 비어 있거나 지원되지 않는 데이터가 포함되어 있습니다</value>
   </data>
   <data name="str_wizard_title" xml:space="preserve">
-    <value>세체프 Paste Into File</value>
+    <value>Paste Into File에 오신 것을 환영합니다</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
-    <value>클립보드 비우기</value>
+    <value>클립보드 지우기</value>
     <comment>Checkbox to clear clipboard after saving
 </comment>
   </data>
   <data name="str_main_info" xml:space="preserve">
-    <value>공식 GitHub 페이지</value>
+    <value>GitHub에서 이 프로젝트 찾기</value>
   </data>
   <data name="str_wizard_contextentry_info" xml:space="preserve">
-    <value>탐색기 메뉴에 아래 기능들을 추가하면, 우클릭을 통해 빠르게 클립보드 내용을 파일로 저장하거나 파일 컨텐츠 복사를 할 수 있습니다.</value>
+    <value>파일 탐색기 컨텍스트 메뉴에 항목을 추가하면 클립보드 내용을 파일에 빠르게 붙여넣거나 오른쪽 클릭을 통해 파일 내용을 복사할 수 있습니다.</value>
   </data>
   <data name="str_wizard_contextentry_title" xml:space="preserve">
-    <value>탐색기 메뉴에 추가</value>
+    <value>컨텍스트 메뉴 항목을 추가할까요?</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>버전 {0}</value>
@@ -122,39 +122,39 @@ Tooltip</comment>
 </comment>
   </data>
   <data name="str_preview" xml:space="preserve">
-    <value>미리 보기</value>
+    <value>미리보기</value>
   </data>
   <data name="str_preview_image" xml:space="preserve">
-    <value>이미지 미리 보기 ({0}x{1} px)</value>
+    <value>이미지 미리보기 ({0}x{1} px)</value>
   </data>
   <data name="str_preview_text" xml:space="preserve">
-    <value>텍스트 미리 보기 ({0} 글자, {1} 줄)</value>
+    <value>텍스트 미리보기 ({0}자, {1}줄)</value>
   </data>
   <data name="str_file_exists_directory" xml:space="preserve">
-    <value>같은 이름의 파일이 이미 있습니다: {0}.</value>
+    <value>동일한 이름을 가진 디렉터리가 이미 {0}에 존재합니다.</value>
   </data>
   <data name="str_file_exists" xml:space="preserve">
     <value>파일 {0} 은 이미 존재합니다. 덮어쓸까요?</value>
   </data>
   <data name="str_autosave_checkbox" xml:space="preserve">
-    <value>자동 저장 (대화 상자 표시 안함)</value>
+    <value>자동 저장 (대화 상자 건너뛰기)</value>
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
   <data name="str_wizard_autosave_title" xml:space="preserve">
-    <value>파일로 저장 시 대화 상자 건너뛰기 (자동 저장)</value>
+    <value>프롬프트 없이 파일을 자동으로 저장하시겠습니까?</value>
   </data>
   <data name="str_wizard_autosave_button" xml:space="preserve">
     <value>자동 저장 활성화</value>
   </data>
   <data name="str_wizard_finish" xml:space="preserve">
-    <value>마침</value>
+    <value>설정 완료</value>
   </data>
   <data name="str_wizard_autosave_info" xml:space="preserve">
-    <value>파일명과 확장자를 묻는 대화 상자가 더 이상 나오지 않습니다. 파일이 자동으로 저장되며 이름 변경을 위해 새로운 탐색기 창이 열립니다. 일시적으로 설정 창을 보고 싶으면 Paste Into File이 실행될 때 Shift 키를 누르고 있으면 됩니다. 명령행 인자 없이 프로그램을 실행하면 항상 대화 상자가 표시됩니다.</value>
+    <value>활성화하면 파일 이름과 확장자를 묻는 대화 상자가 건너뛸 수 있습니다. 대신 파일은 자동으로 결정된 형식으로 직접 저장되고 파일 탐색기 창에서 이름 변경을 위해 선택됩니다(하위 폴더에 붙여넣으면 새 탐색기 창이 열릴 수 있습니다). 이 설정을 일시적으로 뒤집으려면 파일에 붙여넣기를 실행하는 동안 SHIFT 키를 누르고 있으면 됩니다.</value>
   </data>
   <data name="str_continuous_mode" xml:space="preserve">
-    <value>배치 모드</value>
+    <value>일괄 모드</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
 </comment>
   </data>
@@ -165,28 +165,28 @@ Tooltip</comment>
     <value>템플릿 편집</value>
   </data>
   <data name="str_accept" xml:space="preserve">
-    <value>저장</value>
+    <value>수락</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
     <value>취소</value>
   </data>
   <data name="str_template_edit_info" xml:space="preserve">
-    <value>지원되는 변수는 다음과 같습니다:
+    <value>다음 변수들이 지원됩니다:
   	{0}  	날짜 및 시간
-  	{1}  	저장 횟수 (배치 모드)
-  	{2}  	Clipboard text
-서식 지정자에 대한 자세한 내용은 &lt;a&gt;링크를 참고하세요&lt;/a&gt;.</value>
+  	{1}  	일괄 모드에서 저장 횟수
+  	{2}  	클립보드 텍스트
+서식 지정자에 대한 자세한 내용은 &lt;a&gt;여기를 클릭하세요&lt;/a&gt;.</value>
   </data>
   <data name="str_filename_template" xml:space="preserve">
-    <value>파일명 템플릿</value>
+    <value>파일 이름 템플릿</value>
   </data>
   <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
-    <value>배치 모드에서는 새 데이터가 복사될 때마다 클립보드 내용이 즉시 저장됩니다.
+    <value>일괄 모드에서는 새 데이터가 복사되면 클립보드 내용이 즉시 저장됩니다.
 
-지금 현재 클립보드 내용을 저장할까요?</value>
+현재 클립보드 내용을 지금 저장하시겠습니까?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
-    <value>유효하지 않은 문자가 발견됐습니다: {0}</value>
+    <value>잘못된 문자: {0}</value>
   </data>
   <data name="str_contextentry_copyfromfile" xml:space="preserve">
     <value>파일 내용 복사</value>
@@ -194,28 +194,28 @@ Tooltip</comment>
 </comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
-    <value>파일 {0} 은 알 수 없는 형식의 데이터를 포함하고 있어 클립보드로 복사될 수 없습니다.</value>
+    <value>파일 {0}에는 클립보드에 복사할 수 없는 형식이 알려지지 않은 데이터가 포함되어 있습니다.</value>
   </data>
   <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
-    <value>변환 실패: 클립보드는 확장자 {0} 로 변환 가능한 데이터를 포함하고 있지 않습니다</value>
+    <value>클립보드에 확장 {0}으로 변환할 수 있는 데이터가 없거나 변환에 실패했습니다.</value>
   </data>
   <data name="str_preview_html" xml:space="preserve">
-    <value>HTML 미리 보기</value>
+    <value>HTML 미리보기</value>
   </data>
   <data name="str_preview_url" xml:space="preserve">
     <value>URL 미리 보기</value>
   </data>
   <data name="str_preview_csv" xml:space="preserve">
-    <value>CSV 미리 보기</value>
+    <value>CSV 미리보기</value>
   </data>
   <data name="str_preview_sylk" xml:space="preserve">
-    <value>SYLK 파일 미리 보기</value>
+    <value>심볼릭 링크 (SYLK) 미리보기</value>
   </data>
   <data name="str_preview_rtf" xml:space="preserve">
-    <value>서식 있는 텍스트 미리 보기</value>
+    <value>리치 텍스트 미리보기</value>
   </data>
   <data name="str_preview_dif" xml:space="preserve">
-    <value>DIF 파일 미리 보기</value>
+    <value>데이터 교환 미리보기</value>
   </data>
   <data name="str_exit" xml:space="preserve">
     <value>종료</value>
@@ -242,10 +242,10 @@ Tooltip</comment>
     <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
   </data>
   <data name="str_preview_files" xml:space="preserve">
-    <value>파일 목록 미리 보기 ({0} 파일 및 폴더)</value>
+    <value>파일 목록 미리보기 ({0}개의 파일 및 폴더)</value>
   </data>
   <data name="str_wizard_tray_patching_button" xml:space="preserve">
-    <value>클립보드 패치 활성화 (실험실 기능)</value>
+    <value>클립보드 패치 적용 활성화 (실험적)</value>
   </data>
   <data name="str_version_update_available" xml:space="preserve">
     <value>업데이트 가능: {0} ➜ {1}</value>
@@ -254,52 +254,68 @@ Tooltip</comment>
     <value>열기</value>
   </data>
   <data name="str_preview_image_vector" xml:space="preserve">
-    <value>벡터 이미지 미리 보기 ({0}x{1} px, {2} dpi)</value>
+    <value>벡터 이미지 미리보기 ({0}x{1} px, {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
-    <value>SVG 파일 미리 보기</value>
+    <value>확장 가능한 벡터 그래픽 미리보기</value>
   </data>
   <data name="str_portable" xml:space="preserve">
-    <value>무설치</value>
+    <value>포터블</value>
   </data>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
-    <value>파일로 저장이 완료되면 클립보드를 비웁니다.</value>
+    <value>내용이 저장된 후 클립보드를 지웁니다.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
-    <value>대화 상자 없이 기본 파일 확장자로 클립보드 내용을 저장합니다.
-일시적으로 설정 창을 열고 싶다면 SHIFT키를 꾹 누르세요.</value>
+    <value>프롬프트 없이 클립보드 데이터를 기본 파일 형식으로 저장합니다.
+SHIFT를 누르고 있으면 이 설정이 일시적으로 반전됩니다.</value>
   </data>
   <data name="str_wizard_notify_on_updates" xml:space="preserve">
     <value>업데이트 알림</value>
   </data>
   <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
-    <value>자동 저장 시 탐색기가 열릴 수 있음 (예: 하위 폴더에 붙여넣는 경우)</value>
+    <value>자동 저장은 탐색기를 열 수 있습니다 (예: 하위 폴더에 붙여넣을 때)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
-    <value>항상 위에 표시</value>
+    <value>항상 맨 위에</value>
     <comment>Checkbox in window bar context menu.
 Allows to keep application window always on top (in foreground of other windows), even if not focussed.
 </comment>
   </data>
   <data name="str_append_to_file" xml:space="preserve">
-    <value>파일에 덧붙이기</value>
+    <value>파일에 추가</value>
   </data>
   <data name="str_append_tooltip" xml:space="preserve">
-    <value>선택한 파일이 이미 존재한다면, 내용을 덧붙입니다. (지원하는 파일 형식만)</value>
+    <value>선택한 파일이 이미 있는 경우 내용을 추가합니다.
+(지원되는 파일 형식에만 해당)</value>
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
-    <value>확장자 "{0}" 는 덧붙이기를 지원하지 않습니다.</value>
+    <value>확장자 "{0}"에서는 추가 기능이 지원되지 않습니다.</value>
   </data>
   <data name="str_replace" xml:space="preserve">
-    <value>덮어쓰기</value>
+    <value>바꾸기</value>
   </data>
   <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
     <value>이 파일에 붙여넣기</value>
   </data>
   <data name="str_append" xml:space="preserve">
-    <value>덧붙이기</value>
+    <value>추가</value>
+  </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+    <value>하위 폴더 템플릿은 CTRL 키를 눌러 파일에 붙여넣기를 실행할 때 폴더 경로에 추가됩니다. 절대 경로도 지원되며 폴더를 대체합니다.</value>
   </data>
   <data name="str_template_edit_filename_info" xml:space="preserve">
-    <value>템플릿을 설정하여 파일명 지정 규칙을 세울 수 있습니다.</value>
+    <value>파일 이름 템플릿은 파일 이름을 형식화하는 데 사용됩니다. </value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+    <value>하위 폴더 템플릿</value>
+  </data>
+  <data name="str_language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="str_system_language" xml:space="preserve">
+    <value>시스템 언어</value>
+  </data>
+  <data name="str_preview_calendar" xml:space="preserve">
+    <value>캘린더 미리보기 ({0}개 이벤트)</value>
   </data>
 </root>
