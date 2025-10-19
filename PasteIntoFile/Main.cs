@@ -370,6 +370,7 @@ namespace PasteIntoFile {
             var ext = Dialog.determineExtension(clipData);
             var contentToSave = clipData.ForExtension(ext);
             if (contentToSave == null) return null;
+            if (Settings.Default.trayPatchingEnabledOnlyImageLike && !(contentToSave is ImageLikeContent)) return null;
 
             // Save clipboard content to temporary file
             var dirname = Path.Combine(Path.GetTempPath(), "PasteIntoFile");

@@ -29,6 +29,7 @@ namespace PasteIntoFile {
         /// </summary>
         private void InitializeComponent() {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.autoSaveCheckBox = new System.Windows.Forms.CheckBox();
             this.autoSaveMayOpenNewCheckBox = new System.Windows.Forms.CheckBox();
             this.autoSaveInfoLabel = new System.Windows.Forms.Label();
@@ -37,6 +38,8 @@ namespace PasteIntoFile {
             this.autostartInfoLabel = new System.Windows.Forms.Label();
             this.autostartTitleLabel = new System.Windows.Forms.Label();
             this.patchingCheckBox = new System.Windows.Forms.CheckBox();
+            this.patchingCheckBoxImg = new System.Windows.Forms.CheckBox();
+            this.patchingCheckBoxTxt = new System.Windows.Forms.CheckBox();
             this.title = new System.Windows.Forms.Label();
             this.contextEntryTitleLabel = new System.Windows.Forms.Label();
             this.contextEntryInfoLabel = new System.Windows.Forms.Label();
@@ -46,6 +49,7 @@ namespace PasteIntoFile {
             this.finish = new System.Windows.Forms.Button();
             this.version = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             //
             // tableLayoutPanel1
@@ -68,7 +72,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.Controls.Add(this.autostartTitleLabel, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.autostartInfoLabel, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.autostartCheckBox, 0, 13);
-            this.tableLayoutPanel1.Controls.Add(this.patchingCheckBox, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.finish, 0, 15);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -94,6 +98,24 @@ namespace PasteIntoFile {
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.TabIndex = 0;
+            //
+            // tableLayoutPanel2
+            //
+            this.tableLayoutPanel2.AutoScroll = true;
+            this.tableLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(210, 26);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Controls.Add(this.patchingCheckBox, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.patchingCheckBoxImg, 1, 0);
             //
             // autoSaveCheckBox
             //
@@ -261,13 +283,27 @@ namespace PasteIntoFile {
             this.patchingCheckBox.AutoSize = true;
             this.patchingCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.patchingCheckBox.Location = new System.Drawing.Point(248, 341);
-            this.patchingCheckBox.Margin = new System.Windows.Forms.Padding(9, 0, 9, 9);
+            this.patchingCheckBox.Margin = new System.Windows.Forms.Padding(9, 0, 5, 9);
             this.patchingCheckBox.Name = "patchingCheckBox";
             this.patchingCheckBox.Size = new System.Drawing.Size(210, 17);
             this.patchingCheckBox.TabIndex = 6;
             this.patchingCheckBox.Text = Resources.str_wizard_tray_patching_button;
             this.patchingCheckBox.UseVisualStyleBackColor = true;
             this.patchingCheckBox.CheckedChanged += new System.EventHandler(this.ChkPatching_CheckedChanged);
+            //
+            // patchingCheckBoxImg
+            //
+            this.patchingCheckBoxImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.patchingCheckBoxImg.AutoSize = true;
+            this.patchingCheckBoxImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patchingCheckBoxImg.Location = new System.Drawing.Point(248, 341);
+            this.patchingCheckBoxImg.Margin = new System.Windows.Forms.Padding(0, 0, 5, 9);
+            this.patchingCheckBoxImg.Name = "patchingCheckBoxImg";
+            this.patchingCheckBoxImg.Size = new System.Drawing.Size(210, 17);
+            this.patchingCheckBoxImg.TabIndex = 7;
+            this.patchingCheckBoxImg.Text = Resources.str_wizard_tray_patching_img_only;
+            this.patchingCheckBoxImg.UseVisualStyleBackColor = true;
+            this.patchingCheckBoxImg.CheckedChanged += new System.EventHandler(this.ChkPatchingImg_CheckedChanged);
             //
             // finish
             //
@@ -277,7 +313,7 @@ namespace PasteIntoFile {
             this.finish.Margin = new System.Windows.Forms.Padding(4, 30, 4, 15);
             this.finish.Name = "finish";
             this.finish.Size = new System.Drawing.Size(206, 30);
-            this.finish.TabIndex = 7;
+            this.finish.TabIndex = 9;
             this.finish.Text = Resources.str_wizard_finish;
             this.finish.UseVisualStyleBackColor = true;
             this.finish.Click += new System.EventHandler(this.finish_Click);
@@ -340,12 +376,16 @@ namespace PasteIntoFile {
             this.Name = "Wizard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Shown += new System.EventHandler(this.Wizard_Shown);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
         }
 
         private System.Windows.Forms.CheckBox patchingCheckBox;
+        private System.Windows.Forms.CheckBox patchingCheckBoxImg;
+        private System.Windows.Forms.CheckBox patchingCheckBoxTxt;
         private System.Windows.Forms.Label settingsButton;
         private System.Windows.Forms.ContextMenuStrip settingsMenu;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuUpdateChecks;
@@ -367,6 +407,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.Label autostartInfoLabel;
         private System.Windows.Forms.Label autoSaveInfoLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 
         #endregion
     }
