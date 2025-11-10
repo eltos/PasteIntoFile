@@ -285,6 +285,11 @@ namespace PasteIntoFile {
 
 
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
+            // Check if live clipboard updates are disabled
+            if (Settings.Default.disableLiveClipboardUpdate) {
+                return; // Don't update the UI when this setting is enabled
+            }
+
             var previousClipboardTimestamp = clipData.Timestamp;
             readClipboard();
 

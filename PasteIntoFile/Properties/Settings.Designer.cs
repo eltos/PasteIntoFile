@@ -213,5 +213,17 @@ namespace PasteIntoFile.Properties {
                 this["language"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool disableLiveClipboardUpdate {
+            get {
+                return ((bool)(this["disableLiveClipboardUpdate"]));
+            }
+            set {
+                this["disableLiveClipboardUpdate"] = value;
+            }
+        }
     }
 }
