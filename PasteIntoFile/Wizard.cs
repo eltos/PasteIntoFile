@@ -34,6 +34,7 @@ namespace PasteIntoFile {
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
+            patchingCheckBoxImg.Enabled = patchingCheckBox.Checked;
 
             // Menu
             UpdateLanguageMenu();
@@ -174,6 +175,15 @@ namespace PasteIntoFile {
         private void ChkPatching_CheckedChanged(object sender, EventArgs e) {
             if (Settings.Default.trayPatchingEnabled != patchingCheckBox.Checked) {
                 Settings.Default.trayPatchingEnabled = patchingCheckBox.Checked;
+                patchingCheckBoxImg.Enabled = patchingCheckBox.Checked;
+                Settings.Default.Save();
+                // no SavedAnimation so as not to give the feeling this would take effect immediately
+            }
+        }
+
+        private void ChkPatchingImg_CheckedChanged(object sender, EventArgs e) {
+            if (Settings.Default.trayPatchingEnabledOnlyImageLike != patchingCheckBoxImg.Checked) {
+                Settings.Default.trayPatchingEnabledOnlyImageLike = patchingCheckBoxImg.Checked;
                 Settings.Default.Save();
                 // no SavedAnimation so as not to give the feeling this would take effect immediately
             }

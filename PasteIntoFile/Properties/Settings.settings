@@ -29,6 +29,9 @@
     <Setting Name="trayPatchingEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="trayPatchingEnabledOnlyImageLike" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="updateLatestVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

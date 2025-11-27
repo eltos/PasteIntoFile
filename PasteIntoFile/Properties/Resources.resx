@@ -337,4 +337,7 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_preview_calendar" xml:space="preserve">
     <value>Calendar preview ({0} event(s))</value>
   </data>
+  <data name="str_wizard_tray_patching_img_only" xml:space="preserve">
+    <value>only for images</value>
+  </data>
 </root>

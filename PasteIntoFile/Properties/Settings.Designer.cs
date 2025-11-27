@@ -132,6 +132,18 @@ namespace PasteIntoFile.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool trayPatchingEnabledOnlyImageLike {
+            get {
+                return ((bool)(this["trayPatchingEnabledOnlyImageLike"]));
+            }
+            set {
+                this["trayPatchingEnabledOnlyImageLike"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string updateLatestVersion {
             get {

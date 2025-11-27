@@ -765,6 +765,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to only for images.
+        /// </summary>
+        internal static string str_wizard_tray_patching_img_only {
+            get {
+                return ResourceManager.GetString("str_wizard_tray_patching_img_only", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Enable autostart and hotkeys?.
         /// </summary>
         internal static string str_wizard_tray_title {
