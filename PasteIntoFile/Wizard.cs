@@ -193,7 +193,6 @@ namespace PasteIntoFile {
             // update
             settingsMenuUpdateChecks.Checked = Settings.Default.updateChecksEnabled;
             settingsMenuClearClipboard.Checked = Settings.Default.clrClipboard;
-            settingsMenuDisableLiveClipboardUpdate.Checked = Settings.Default.disableLiveClipboardUpdate;
             // show it
             Point ptLowerLeft = new Point(4, settingsButton.Height);
             ptLowerLeft = settingsButton.PointToScreen(ptLowerLeft);
@@ -214,12 +213,7 @@ namespace PasteIntoFile {
             }
         }
 
-        private void menuDisableLiveClipboardUpdate_CheckedChanged(object sender, EventArgs e) {
-            if (Settings.Default.disableLiveClipboardUpdate != settingsMenuDisableLiveClipboardUpdate.Checked) {
-                Settings.Default.disableLiveClipboardUpdate = settingsMenuDisableLiveClipboardUpdate.Checked;
-                Settings.Default.Save();
-            }
-        }
+
 
         private void finish_Click(object sender, EventArgs e) {
             Settings.Default.firstLaunch = false;

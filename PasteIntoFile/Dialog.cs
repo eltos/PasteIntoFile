@@ -179,6 +179,7 @@ namespace PasteIntoFile {
             _disableUiEvents = true;
             chkContinuousMode.Checked = Settings.Default.continuousMode;
             chkAutoSave.Checked = Settings.Default.autoSave;
+            chkDisableLiveClipboardUpdate.Checked = Settings.Default.disableLiveClipboardUpdate;
             updateSavebutton();
             _disableUiEvents = false;
         }
@@ -285,15 +286,12 @@ namespace PasteIntoFile {
 
 
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
-            // Check if live clipboard updates are disabled
-            if (Settings.Default.disableLiveClipboardUpdate) {
-                return; // Don't update the UI when this setting is enabled
-            }
-
             var previousClipboardTimestamp = clipData.Timestamp;
+            
+            // Read clipboard to get latest data (needed for batch mode)
             readClipboard();
 
-            // continuous batch mode
+            // continuous batch mode - must work even when live updates are disabled
             if (chkContinuousMode.Checked) {
                 var ignore = false;
                 // ignore duplicate updates within 100ms
@@ -302,11 +300,20 @@ namespace PasteIntoFile {
                 ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
 
                 if (!ignore) {
+                    // In batch mode, always update UI and save (filename field is disabled anyway)
+                    updateContentPreview();
                     if (!chkAppend.Checked) updateFilename();
                     save();
                     updateSavebutton();
                 }
+            } else if (!chkDisableLiveClipboardUpdate.Checked) {
+                // Normal mode: only update UI (preview/filename) if live updates are enabled
+                // Use checkbox state (per-session) instead of persistent setting
+                updateContentPreview();
+                updateFilename();
             }
+            // If checkbox is checked and not in batch mode, do nothing
+            // (allows user to edit filename without it being overwritten)
         }
 
 
@@ -379,6 +386,7 @@ namespace PasteIntoFile {
             txtFilename.Enabled = !chkContinuousMode.Checked || chkAppend.Checked;
             btnSave.Enabled = !chkContinuousMode.Checked;
             btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
+            chkDisableLiveClipboardUpdate.Enabled = !chkContinuousMode.Checked;
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -514,6 +522,12 @@ namespace PasteIntoFile {
         private void chkAppend_CheckedChanged(object sender, EventArgs e) {
             if (_disableUiEvents) return;
             updateSavebutton();
+        }
+
+        private void chkDisableLiveClipboardUpdate_CheckedChanged(object sender, EventArgs e) {
+            if (_disableUiEvents) return;
+            Settings.Default.disableLiveClipboardUpdate = chkDisableLiveClipboardUpdate.Checked;
+            Settings.Default.Save();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {

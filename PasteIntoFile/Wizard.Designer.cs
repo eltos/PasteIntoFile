@@ -346,12 +346,6 @@ namespace PasteIntoFile {
             this.settingsMenuClearClipboard.Text = Resources.str_clear_clipboard;
             this.settingsMenuClearClipboard.ToolTipText = Resources.str_clear_clipboard_tooltip;
             this.settingsMenu.Items.Add(this.settingsMenuClearClipboard);
-            this.settingsMenuDisableLiveClipboardUpdate = new ToolStripMenuItem();
-            this.settingsMenuDisableLiveClipboardUpdate.CheckOnClick = true;
-            this.settingsMenuDisableLiveClipboardUpdate.CheckedChanged += new EventHandler(this.menuDisableLiveClipboardUpdate_CheckedChanged);
-            this.settingsMenuDisableLiveClipboardUpdate.Text = Resources.str_disable_live_clipboard_update;
-            this.settingsMenuDisableLiveClipboardUpdate.ToolTipText = Resources.str_disable_live_clipboard_update_tooltip;
-            this.settingsMenu.Items.Add(this.settingsMenuDisableLiveClipboardUpdate);
             this.settingsMenuLanguage = new ToolStripMenuItem();
             this.settingsMenuLanguage.Text = Resources.str_language + " 🌐";
             this.settingsMenu.Items.Add(this.settingsMenuLanguage);
@@ -396,7 +390,6 @@ namespace PasteIntoFile {
         private System.Windows.Forms.ContextMenuStrip settingsMenu;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuUpdateChecks;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuClearClipboard;
-        private System.Windows.Forms.ToolStripMenuItem settingsMenuDisableLiveClipboardUpdate;
         private System.Windows.Forms.ToolStripMenuItem settingsMenuLanguage;
         private System.Windows.Forms.LinkLabel version;
         private System.Windows.Forms.Button finish;
