@@ -288,11 +288,11 @@ namespace PasteIntoFile {
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
             var previousClipboardTimestamp = clipData.Timestamp;
             
-            // Read clipboard to get latest data (needed for batch mode)
-            readClipboard();
-
             // continuous batch mode - must work even when live updates are disabled
             if (chkContinuousMode.Checked) {
+                // Read clipboard to get latest data (needed for batch mode)
+                readClipboard();
+                
                 var ignore = false;
                 // ignore duplicate updates within 100ms
                 ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
@@ -308,6 +308,8 @@ namespace PasteIntoFile {
                 }
             } else if (!chkDisableLiveClipboardUpdate.Checked) {
                 // Normal mode: only update UI (preview/filename) if live updates are enabled
+                // Read clipboard to get latest data
+                readClipboard();
                 // Use checkbox state (per-session) instead of persistent setting
                 updateContentPreview();
                 updateFilename();

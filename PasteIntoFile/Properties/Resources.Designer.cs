@@ -189,6 +189,24 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Disable live clipboard update.
+        /// </summary>
+        internal static string str_disable_live_clipboard_update {
+            get {
+                return ResourceManager.GetString("str_disable_live_clipboard_update", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, the preview and filename fields will not update automatically when the clipboard changes. This prevents the dialog from being overwritten while you are editing the filename or copying text to use as a filename..
+        /// </summary>
+        internal static string str_disable_live_clipboard_update_tooltip {
+            get {
+                return ResourceManager.GetString("str_disable_live_clipboard_update_tooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Paste into file.
         /// </summary>
         internal static string str_contextentry {
