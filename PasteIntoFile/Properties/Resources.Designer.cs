@@ -189,6 +189,24 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Enable live clipboard update.
+        /// </summary>
+        internal static string str_enable_live_clipboard_update {
+            get {
+                return ResourceManager.GetString("str_enable_live_clipboard_update", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, the preview and filename fields will update automatically when the clipboard changes..
+        /// </summary>
+        internal static string str_enable_live_clipboard_update_tooltip {
+            get {
+                return ResourceManager.GetString("str_enable_live_clipboard_update_tooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Disable live clipboard update.
         /// </summary>
         internal static string str_disable_live_clipboard_update {

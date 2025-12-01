@@ -277,12 +277,12 @@ These setting will take effect on the next login.</value>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
     <value>Clears the clipboard after its content has been saved.</value>
   </data>
-  <data name="str_disable_live_clipboard_update" xml:space="preserve">
-    <value>Disable live clipboard update</value>
-    <comment>Checkbox to disable live clipboard updates in the preview/rename dialog</comment>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>Live clipboard update</value>
+    <comment>Checkbox to enable live clipboard updates in the preview/rename dialog</comment>
   </data>
-  <data name="str_disable_live_clipboard_update_tooltip" xml:space="preserve">
-    <value>When enabled, the preview and filename fields will not update automatically when the clipboard changes. This prevents the dialog from being overwritten while you are editing the filename or copying text to use as a filename.</value>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>When enabled, the preview and filename fields will update automatically when the clipboard changes. Uncheck this to prevent the dialog from being overwritten while you are editing the filename or copying text to use as a filename.</value>
   </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>Saves clipboard data to default filetype without prompt.

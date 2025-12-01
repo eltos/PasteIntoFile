@@ -228,13 +228,13 @@ namespace PasteIntoFile.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool disableLiveClipboardUpdate {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enableLiveClipboardUpdate {
             get {
-                return ((bool)(this["disableLiveClipboardUpdate"]));
+                return ((bool)(this["enableLiveClipboardUpdate"]));
             }
             set {
-                this["disableLiveClipboardUpdate"] = value;
+                this["enableLiveClipboardUpdate"] = value;
             }
         }
     }
