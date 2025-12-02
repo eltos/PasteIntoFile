@@ -296,8 +296,8 @@ namespace PasteIntoFile {
             // continuous batch mode
             if (chkContinuousMode.Checked) {
                 var ignore = false;
-                // ignore duplicate updates within 100ms
-                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
+                // ignore duplicate updates within 1000ms
+                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 1_000;
                 // ignore internal updates due to clipboard patching
                 ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
 
