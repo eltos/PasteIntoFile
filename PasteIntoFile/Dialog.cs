@@ -286,46 +286,24 @@ namespace PasteIntoFile {
 
 
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
+            // Only process update if live update enabled, or in batch mode
+            if (!chkEnableLiveClipboardUpdate.Checked && !chkContinuousMode.Checked) return;
+
             var previousClipboardTimestamp = clipData.Timestamp;
-            
-            // Peek at new clipboard data to get timestamp (without updating UI)
-            var newClipData = ClipboardContents.FromClipboard();
-            
-            // Determine if we should update the UI
-            bool shouldUpdateUI = false;
-            bool shouldSave = false;
-            
+            readClipboard();
+
+            // continuous batch mode
             if (chkContinuousMode.Checked) {
-                // Batch mode: always update UI and save when clipboard changes
-                // (regardless of live update setting, since batch mode needs to show progress)
                 var ignore = false;
-                // ignore duplicate updates within 500ms
-                ignore |= (newClipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
+                // ignore duplicate updates within 100ms
+                ignore |= (clipData.Timestamp - previousClipboardTimestamp).TotalMilliseconds <= 500;
                 // ignore internal updates due to clipboard patching
                 ignore |= Clipboard.ContainsData(Program.PATCHED_CLIPBOARD_MAGIC);
 
                 if (!ignore) {
-                    shouldUpdateUI = true;
-                    shouldSave = true;
+                    if (!chkAppend.Checked) updateFilename();
+                    save();
                 }
-            } else if (chkEnableLiveClipboardUpdate.Checked) {
-                // Normal mode: update UI only if live updates are enabled
-                shouldUpdateUI = true;
-            }
-            
-            // Read clipboard and update UI if needed
-            if (shouldUpdateUI) {
-                readClipboard();
-                // In batch mode with append, don't update filename to preserve user's choice
-                if (!chkContinuousMode.Checked || !chkAppend.Checked) {
-                    updateFilename();
-                }
-            }
-            
-            // Save in batch mode
-            if (shouldSave) {
-                save();
-                updateSavebutton();
             }
         }
 
