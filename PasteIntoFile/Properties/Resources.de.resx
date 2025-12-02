@@ -321,4 +321,10 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_wizard_tray_patching_img_only" xml:space="preserve">
     <value>nur für Bilder</value>
   </data>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>Inhalt aktuell halten</value>
+  </data>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>Automatisch aktualisieren wenn neue Inhalte kopiert werden</value>
+  </data>
 </root>
