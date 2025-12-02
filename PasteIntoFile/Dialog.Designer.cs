@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Drawing;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
@@ -159,8 +160,7 @@ namespace PasteIntoFile {
             this.btnSave.Location = new System.Drawing.Point(277, 4);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.tableLayoutPanel2.SetRowSpan(this.btnSave, 2);
-            this.btnSave.Size = new System.Drawing.Size(265, 46);
+            this.btnSave.Size = new System.Drawing.Size(265, 40);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = Resources.str_save;
             this.btnSave.UseVisualStyleBackColor = true;
@@ -364,6 +364,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
+            this.tableLayoutPanel2.SetRowSpan(this.btnSave, 3);
             this.tableLayoutPanel2.Controls.Add(this.chkAppend, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.chkEnableLiveClipboardUpdate, 0, 2);
@@ -374,7 +375,7 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(546, 84);
             this.tableLayoutPanel2.TabIndex = 12;
             //
@@ -382,7 +383,7 @@ namespace PasteIntoFile {
             //
             this.chkAppend.AutoSize = true;
             this.chkAppend.Location = new System.Drawing.Point(4, 0);
-            this.chkAppend.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.chkAppend.Margin = new System.Windows.Forms.Padding(4, 2, 4, 0);
             this.chkAppend.Name = "chkAppend";
             this.chkAppend.Size = new System.Drawing.Size(169, 24);
             this.chkAppend.TabIndex = 5;
@@ -457,7 +458,7 @@ namespace PasteIntoFile {
             this.ClientSize = new System.Drawing.Size(576, 542);
             this.Controls.Add(this.tableLayoutPanel1);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 8);
             this.MinimumSize = new System.Drawing.Size(589, 422);
             this.Name = "Dialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
