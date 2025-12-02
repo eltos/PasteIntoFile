@@ -180,7 +180,8 @@ namespace PasteIntoFile {
             chkContinuousMode.Checked = Settings.Default.continuousMode;
             chkAutoSave.Checked = Settings.Default.autoSave;
             chkEnableLiveClipboardUpdate.Checked = Settings.Default.enableLiveClipboardUpdate;
-            updateSavebutton();
+            updateEnabledStates();
+            updateSaveButtonText();
             _disableUiEvents = false;
         }
 
@@ -373,11 +374,14 @@ namespace PasteIntoFile {
         }
 
 
-        private void updateSavebutton() {
+        private void updateEnabledStates() {
             txtFilename.Enabled = !chkContinuousMode.Checked || chkAppend.Checked;
-            btnSave.Enabled = !chkContinuousMode.Checked;
-            btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
             chkEnableLiveClipboardUpdate.Enabled = !chkContinuousMode.Checked;
+            btnSave.Enabled = !chkContinuousMode.Checked;
+        }
+
+        private void updateSaveButtonText() {
+            btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -468,6 +472,7 @@ namespace PasteIntoFile {
 
                 rememberExtension(content, comExt.Text);
                 saveCount++;
+                updateSaveButtonText();
                 return file;
 
             } catch (UnauthorizedAccessException ex) {
@@ -512,13 +517,14 @@ namespace PasteIntoFile {
 
         private void chkAppend_CheckedChanged(object sender, EventArgs e) {
             if (_disableUiEvents) return;
-            updateSavebutton();
+            updateEnabledStates();
         }
 
         private void chkEnableLiveClipboardUpdate_CheckedChanged(object sender, EventArgs e) {
             if (_disableUiEvents) return;
             Settings.Default.enableLiveClipboardUpdate = chkEnableLiveClipboardUpdate.Checked;
             Settings.Default.Save();
+            updateEnabledStates();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {
@@ -528,6 +534,7 @@ namespace PasteIntoFile {
 
             if (chkContinuousMode.Checked) {
                 saveCount = 0;
+                updateSaveButtonText();
 
                 // ask weather save current clipboard now
                 var saveNow = MessageBox.Show(Resources.str_continuous_mode_enabled_ask_savenow, Resources.str_continuous_mode, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -537,7 +544,6 @@ namespace PasteIntoFile {
                     return;
                 } else if (saveNow == DialogResult.Yes) {
                     save();
-                    updateSavebutton();
                 }
 
                 // save always on top state and enforce it
