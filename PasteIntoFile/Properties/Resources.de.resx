@@ -265,6 +265,13 @@ Diese Einstellungen werden ab dem nächsten Login aktiv.</value>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
     <value>Löscht die Daten in der Zwischenablage nach dem Speichern.</value>
   </data>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>Inhalt aktuell halten</value>
+    <comment>Checkbox to enable live clipboard updates in the preview/rename dialog</comment>
+  </data>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>Automatisch aktualisieren wenn neue Inhalte kopiert werden</value>
+  </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>Speichert Dateien automatisch im Standarddateiformat ohne den Dialog zu zeigen.
 Die Umschalttaste gedrückt halten, um diese Einstellung temporär zu invertieren.</value>
@@ -320,11 +327,5 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_wizard_tray_patching_img_only" xml:space="preserve">
     <value>nur für Bilder</value>
-  </data>
-  <data name="str_enable_live_clipboard_update" xml:space="preserve">
-    <value>Inhalt aktuell halten</value>
-  </data>
-  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
-    <value>Automatisch aktualisieren wenn neue Inhalte kopiert werden</value>
   </data>
 </root>
