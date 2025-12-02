@@ -43,6 +43,7 @@ namespace PasteIntoFile {
             this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
             this.chkAppend = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
+            this.chkEnableLiveClipboardUpdate = new System.Windows.Forms.CheckBox();
             this.box = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -365,14 +366,16 @@ namespace PasteIntoFile {
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkAppend, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkContinuousMode, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.chkEnableLiveClipboardUpdate, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 125);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(546, 54);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(546, 84);
             this.tableLayoutPanel2.TabIndex = 12;
             //
             // chkAppend
@@ -399,6 +402,19 @@ namespace PasteIntoFile {
             this.chkContinuousMode.Text = Resources.str_continuous_mode;
             this.chkContinuousMode.UseVisualStyleBackColor = true;
             this.chkContinuousMode.CheckedChanged += new System.EventHandler(this.chkContinuousMode_CheckedChanged);
+            //
+            // chkEnableLiveClipboardUpdate
+            //
+            this.chkEnableLiveClipboardUpdate.AutoSize = true;
+            this.chkEnableLiveClipboardUpdate.Location = new System.Drawing.Point(4, 48);
+            this.chkEnableLiveClipboardUpdate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.chkEnableLiveClipboardUpdate.Name = "chkEnableLiveClipboardUpdate";
+            this.chkEnableLiveClipboardUpdate.Size = new System.Drawing.Size(189, 24);
+            this.chkEnableLiveClipboardUpdate.TabIndex = 7;
+            this.chkEnableLiveClipboardUpdate.Text = Resources.str_enable_live_clipboard_update;
+            this.chkEnableLiveClipboardUpdate.UseVisualStyleBackColor = true;
+            this.chkEnableLiveClipboardUpdate.CheckedChanged += new System.EventHandler(this.chkEnableLiveClipboardUpdate_CheckedChanged);
+            this.toolTip.SetToolTip(this.chkEnableLiveClipboardUpdate, Resources.str_enable_live_clipboard_update_tooltip);
             //
             // tableLayoutPanel5
             //
@@ -466,6 +482,7 @@ namespace PasteIntoFile {
         private System.Windows.Forms.LinkLabel editSubfolder;
 
         private System.Windows.Forms.CheckBox chkContinuousMode;
+        private System.Windows.Forms.CheckBox chkEnableLiveClipboardUpdate;
         private System.Windows.Forms.LinkLabel settingsLinkLabel;
         private System.Windows.Forms.PictureBox imagePreview;
         private System.Windows.Forms.RichTextBox textPreview;

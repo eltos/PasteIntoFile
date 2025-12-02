@@ -179,6 +179,7 @@ namespace PasteIntoFile {
             _disableUiEvents = true;
             chkContinuousMode.Checked = Settings.Default.continuousMode;
             chkAutoSave.Checked = Settings.Default.autoSave;
+            chkEnableLiveClipboardUpdate.Checked = Settings.Default.enableLiveClipboardUpdate;
             updateSavebutton();
             _disableUiEvents = false;
         }
@@ -285,6 +286,9 @@ namespace PasteIntoFile {
 
 
         private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
+            // Only process update if live update enabled, or in batch mode
+            if (!chkEnableLiveClipboardUpdate.Checked && !chkContinuousMode.Checked) return;
+
             var previousClipboardTimestamp = clipData.Timestamp;
             readClipboard();
 
@@ -299,7 +303,6 @@ namespace PasteIntoFile {
                 if (!ignore) {
                     if (!chkAppend.Checked) updateFilename();
                     save();
-                    updateSavebutton();
                 }
             }
         }
@@ -374,6 +377,7 @@ namespace PasteIntoFile {
             txtFilename.Enabled = !chkContinuousMode.Checked || chkAppend.Checked;
             btnSave.Enabled = !chkContinuousMode.Checked;
             btnSave.Text = chkContinuousMode.Checked ? string.Format(Resources.str_n_saved, saveCount) : Resources.str_save;
+            chkEnableLiveClipboardUpdate.Enabled = !chkContinuousMode.Checked;
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
@@ -509,6 +513,12 @@ namespace PasteIntoFile {
         private void chkAppend_CheckedChanged(object sender, EventArgs e) {
             if (_disableUiEvents) return;
             updateSavebutton();
+        }
+
+        private void chkEnableLiveClipboardUpdate_CheckedChanged(object sender, EventArgs e) {
+            if (_disableUiEvents) return;
+            Settings.Default.enableLiveClipboardUpdate = chkEnableLiveClipboardUpdate.Checked;
+            Settings.Default.Save();
         }
 
         private void chkContinuousMode_CheckedChanged(object sender, EventArgs e) {

@@ -213,6 +213,8 @@ namespace PasteIntoFile {
             }
         }
 
+
+
         private void finish_Click(object sender, EventArgs e) {
             Settings.Default.firstLaunch = false;
             Settings.Default.Save();
