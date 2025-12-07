@@ -266,6 +266,13 @@ Tooltip</comment>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
     <value>剪贴板内容保存完成后清空剪贴板。</value>
   </data>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>保持内容更新</value>
+    <comment>Checkbox to enable live clipboard updates in the preview/rename dialog</comment>
+  </data>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>当剪贴板更改时自动更新</value>
+  </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>无需确认，自动将剪贴板数据保存为默认文件类型。
 按住 SHIFT 可暂时反转此设置。</value>
