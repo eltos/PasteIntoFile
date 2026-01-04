@@ -35,6 +35,7 @@ namespace PasteIntoFile {
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
             patchingCheckBoxImg.Enabled = patchingCheckBox.Checked;
+            patchingCheckBoxImg.Checked = Settings.Default.trayPatchingEnabledOnlyImageLike;
 
             // Menu
             UpdateLanguageMenu();
