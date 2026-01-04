@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PasteIntoFile.Properties" GeneratedClassName="Settings">
-  <Profiles />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="PasteIntoFile.Properties" GeneratedClassName="Settings">
+  <Profiles/>
   <Settings>
     <Setting Name="clrClipboard" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -33,10 +34,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="updateLatestVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)"/>
     </Setting>
     <Setting Name="updateLatestVersionLink" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)"/>
     </Setting>
     <Setting Name="updateLatestVersionLastCheck" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2000-01-01</Value>
@@ -51,7 +52,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="language" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)"/>
     </Setting>
     <Setting Name="enableLiveClipboardUpdate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

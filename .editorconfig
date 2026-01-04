@@ -17,6 +17,9 @@ trim_trailing_whitespace = true
 [*.resx]
 indent_size = 2
 
+[*.settings]
+indent_size = 2
+
 [*.svg]
 indent_size = 2
 
