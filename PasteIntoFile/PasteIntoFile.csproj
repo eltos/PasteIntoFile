@@ -22,8 +22,8 @@
         <!-- Configuration: Installer, Portable -->
         <Flavor Condition=" '$(Flavor)' == '' ">Installer</Flavor>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+        <PlatformTarget>x64</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
@@ -32,8 +32,8 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+        <PlatformTarget>x64</PlatformTarget>
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\Release\</OutputPath>
@@ -88,6 +88,7 @@
         <Compile Include="TemplateEdit.Designer.cs">
             <DependentUpon>TemplateEdit.cs</DependentUpon>
         </Compile>
+        <Compile Include="Webp.cs"/>
         <Compile Include="Wizard.cs">
             <SubType>Form</SubType>
         </Compile>
@@ -135,6 +136,12 @@
     <ItemGroup>
         <Content Include="Resources\icon.ico" />
         <Content Include="Resources\icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="native\libwebp.x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Link>libwebp.dll</Link>
+        </Content>
     </ItemGroup>
     <ItemGroup>
         <COMReference Include="SHDocVw">
