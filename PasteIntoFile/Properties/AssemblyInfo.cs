@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 #if DEBUG
-[assembly: AssemblyVersion("5.5.*")]
+[assembly: AssemblyVersion("5.6.*")]
 #else
-[assembly: AssemblyVersion("5.5")]
+[assembly: AssemblyVersion("5.6")]
 #endif
