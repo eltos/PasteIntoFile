@@ -845,6 +845,7 @@ namespace PasteIntoFile {
                         && ImageContentFromBytes(ext, stream.ToArray()) is ImageLikeContent imageContent
                         ) {
                         images.Add(ext, imageContent);
+                        break;
                     }
                 }
             }
