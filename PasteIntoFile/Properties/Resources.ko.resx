@@ -265,6 +265,13 @@ Tooltip</comment>
   <data name="str_clear_clipboard_tooltip" xml:space="preserve">
     <value>내용이 저장된 후 클립보드를 지웁니다.</value>
   </data>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>콘텐츠 업데이트 유지</value>
+    <comment>Checkbox to enable live clipboard updates in the preview/rename dialog</comment>
+  </data>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>클립보드가 변경되면 자동으로 업데이트</value>
+  </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>프롬프트 없이 클립보드 데이터를 기본 파일 형식으로 저장합니다.
 SHIFT를 누르고 있으면 이 설정이 일시적으로 반전됩니다.</value>
@@ -317,5 +324,8 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_preview_calendar" xml:space="preserve">
     <value>캘린더 미리보기 ({0}개 이벤트)</value>
+  </data>
+  <data name="str_wizard_tray_patching_img_only" xml:space="preserve">
+    <value>이미지 전용</value>
   </data>
 </root>
