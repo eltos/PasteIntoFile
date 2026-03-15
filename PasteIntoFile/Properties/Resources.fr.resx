@@ -65,7 +65,7 @@
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral</value>
   </data>
   <data name="str_save" xml:space="preserve">
-    <value>Enregistre</value>
+    <value>Enregistrer</value>
   </data>
   <data name="str_filename" xml:space="preserve">
     <value>Nom du fichier</value>
@@ -81,9 +81,26 @@
     <value>Dossier</value>
     <comment>Folder path location to save file into</comment>
   </data>
+  <data name="str_message_run_as_admin" xml:space="preserve">
+    <value>Veuillez exécuter l'application en tant qu'administrateur !</value>
+  </data>
   <data name="str_contextentry" xml:space="preserve">
     <value>Coller dans un fichier </value>
     <comment>Context menu entry for pasting</comment>
+  </data>
+  <data name="str_select_folder" xml:space="preserve">
+    <value>Sélectionnez un dossier pour enregistrer ce fichier</value>
+    <comment>str_select_folder
+Tooltip</comment>
+  </data>
+  <data name="str_autosave_infotext" xml:space="preserve">
+    <value>Les fichiers sont désormais enregistrés automatiquement sans demander le nom et l'extension du fichier. À la place, le fichier créé sera sélectionné pour être renommé dans la fenêtre de l'explorateur. Pour afficher à nouveau la boîte de dialogue, exécutez le fichier exécutable PasteInfoFile sans arguments ou maintenez la touche MAJ enfoncée tout en sélectionnant l'entrée du menu contextuel.</value>
+  </data>
+  <data name="str_noclip_text" xml:space="preserve">
+    <value>Le presse-papiers est vide ou contient des données non prises en charge</value>
+  </data>
+  <data name="str_wizard_title" xml:space="preserve">
+    <value>Bienvenue sur Paste Into File</value>
   </data>
   <data name="str_clear_clipboard" xml:space="preserve">
     <value>Vider le presse-papiers</value>
@@ -92,6 +109,12 @@
   </data>
   <data name="str_main_info" xml:space="preserve">
     <value>Voir le projet sur GitHub</value>
+  </data>
+  <data name="str_wizard_contextentry_info" xml:space="preserve">
+    <value>En ajoutant des entrées au menu contextuel de l'explorateur de fichiers, vous pouvez rapidement coller le contenu du presse-papiers dans des fichiers ou copier le contenu du fichier par un clic droit.</value>
+  </data>
+  <data name="str_wizard_contextentry_title" xml:space="preserve">
+    <value>Ajouter des entrées de menu contextuel ?</value>
   </data>
   <data name="str_version" xml:space="preserve">
     <value>Version {0}</value>
@@ -118,6 +141,18 @@
     <comment>Checkbox to toggle autosave mode, for which no pop-up dialog is displayed, but the file is directly saved without prompt.
 </comment>
   </data>
+  <data name="str_wizard_autosave_title" xml:space="preserve">
+    <value>Enregistrer automatiquement le fichier sans demander ?</value>
+  </data>
+  <data name="str_wizard_autosave_button" xml:space="preserve">
+    <value>Activer la sauvegarde automatique</value>
+  </data>
+  <data name="str_wizard_finish" xml:space="preserve">
+    <value>Terminer l'installation</value>
+  </data>
+  <data name="str_wizard_autosave_info" xml:space="preserve">
+    <value>Lorsque cette option est activée, la boîte de dialogue demandant le nom et l'extension du fichier est ignorée. À la place, le fichier est enregistré directement dans un format déterminé automatiquement et sélectionné pour être renommé dans la fenêtre de l'explorateur de fichiers (lorsque vous collez dans des sous-dossiers, cela peut ouvrir une nouvelle fenêtre de l'explorateur). Pour inverser temporairement ce paramètre, maintenez la touche MAJ enfoncée pendant l'exécution de Coller dans le fichier.</value>
+  </data>
   <data name="str_continuous_mode" xml:space="preserve">
     <value>Mode batch</value>
     <comment>Checkbox for batch mode, in which files are automatically saved every time new data is copied
@@ -127,13 +162,28 @@
     <value>{0} enregistrés</value>
   </data>
   <data name="str_edit_template" xml:space="preserve">
-    <value>Modifier le gabarit</value>
+    <value>Éditer le modèle</value>
   </data>
   <data name="str_accept" xml:space="preserve">
     <value>Accepter</value>
   </data>
   <data name="str_cancel" xml:space="preserve">
     <value>Annuler</value>
+  </data>
+  <data name="str_template_edit_info" xml:space="preserve">
+    <value>Les variables suivantes sont prises en charge :
+      {0}      Date et heure
+      {1}      Nombre d'enregistrements en mode batch
+      {2}      Texte du presse-papiers
+Pour plus d'informations sur les spécificateurs de format, &lt;a&gt;cliquez ici&lt;/a&gt;.</value>
+  </data>
+  <data name="str_filename_template" xml:space="preserve">
+    <value>Modèle de nom de fichier</value>
+  </data>
+  <data name="str_continuous_mode_enabled_ask_savenow" xml:space="preserve">
+    <value>En mode batch, le contenu du presse-papiers sera sauvegardé instantanément lorsque de nouvelles données seront copiées.
+
+Enregistrer le contenu actuel du presse-papiers maintenant ?</value>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
     <value>Caractère invalide : {0}</value>
@@ -142,6 +192,30 @@
     <value>Copier le contenu du fichier</value>
     <comment>Context menu entry for copying
 </comment>
+  </data>
+  <data name="str_copy_failed_unknown_format" xml:space="preserve">
+    <value>Le fichier {0} contient des données de format inconnu qui ne peuvent pas être copiées dans le presse-papiers.</value>
+  </data>
+  <data name="str_error_cliboard_format_missmatch" xml:space="preserve">
+    <value>Le presse-papiers ne contient aucune donnée convertible vers l'extension {0} ou la conversion a échoué.</value>
+  </data>
+  <data name="str_preview_html" xml:space="preserve">
+    <value>Prévisualisation HTML</value>
+  </data>
+  <data name="str_preview_url" xml:space="preserve">
+    <value>Aperçu de l'URL</value>
+  </data>
+  <data name="str_preview_csv" xml:space="preserve">
+    <value>Aperçu CSV</value>
+  </data>
+  <data name="str_preview_sylk" xml:space="preserve">
+    <value>Aperçu du lien symbolique (SYLK)</value>
+  </data>
+  <data name="str_preview_rtf" xml:space="preserve">
+    <value>Aperçu du texte riche</value>
+  </data>
+  <data name="str_preview_dif" xml:space="preserve">
+    <value>Aperçu de l'échange de données</value>
   </data>
   <data name="str_exit" xml:space="preserve">
     <value>Quitter</value>
@@ -152,14 +226,60 @@
   <data name="str_settings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
+  <data name="str_wizard_tray_title" xml:space="preserve">
+    <value>Activer le démarrage automatique et les raccourcis clavier ?</value>
+  </data>
+  <data name="str_wizard_tray_autostart_button" xml:space="preserve">
+    <value>Démarrage automatique dans la barre d'état</value>
+  </data>
+  <data name="str_wizard_tray_info" xml:space="preserve">
+    <value>Si cette option est activée, Paste Into File démarre au lancement de Windows et continue de fonctionner dans la barre d'état système. Cela permet d'appeler Paste Into File en appuyant sur WIN+ALT+V (et WIN+ALT+C pour copier le contenu du fichier).
+De plus, vous pouvez activer la correction du presse-papiers. Cette fonction surveille le presse-papiers et le corrige automatiquement, ce qui vous permet d'utiliser CTRL+V dans l'explorateur de fichiers comme d'habitude.
+Ces paramètres prendront effet lors de la prochaine connexion.</value>
+  </data>
+  <data name="str_copy_failed_not_single_file" xml:space="preserve">
+    <value>Veuillez sélectionner un seul fichier pour copier le contenu du fichier</value>
+    <comment>Error message displayed when trying to copy file contents to clipboard while the number of selected files does not equal 1</comment>
+  </data>
+  <data name="str_preview_files" xml:space="preserve">
+    <value>Aperçu de la liste des fichiers ({0} fichiers et dossiers)</value>
+  </data>
+  <data name="str_wizard_tray_patching_button" xml:space="preserve">
+    <value>Activer le correctif du presse-papiers (expérimental)</value>
+  </data>
+  <data name="str_version_update_available" xml:space="preserve">
+    <value>Mise à jour disponible : {0} ➜ {1}</value>
+  </data>
   <data name="str_open" xml:space="preserve">
     <value>Ouvrir</value>
+  </data>
+  <data name="str_preview_image_vector" xml:space="preserve">
+    <value>Aperçu de l'image vectorielle ({0}x{1} px à {2} dpi)</value>
   </data>
   <data name="str_preview_svg" xml:space="preserve">
     <value>Prévisualisation SVG</value>
   </data>
+  <data name="str_portable" xml:space="preserve">
+    <value>Portable</value>
+  </data>
+  <data name="str_clear_clipboard_tooltip" xml:space="preserve">
+    <value>Efface le presse-papiers une fois son contenu enregistré.</value>
+  </data>
+  <data name="str_enable_live_clipboard_update" xml:space="preserve">
+    <value>Garder le contenu à jour</value>
+    <comment>Checkbox to enable live clipboard updates in the preview/rename dialog</comment>
+  </data>
+  <data name="str_enable_live_clipboard_update_tooltip" xml:space="preserve">
+    <value>Mettre à jour automatiquement lorsque le presse-papiers change</value>
+  </data>
   <data name="str_autosave_tooltip" xml:space="preserve">
     <value>Enregistre les données du presse-papiers au format par défaut sans demander. Un appui sur la touche MAJ inverse temporairement cette option.</value>
+  </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+    <value>Notifier des mises à jour</value>
+  </data>
+  <data name="str_wizard_autosave_may_open_new_explorer" xml:space="preserve">
+    <value>L'enregistrement automatique peut ouvrir l'explorateur (par exemple lors du collage dans un sous-dossier)</value>
   </data>
   <data name="str_always_on_top" xml:space="preserve">
     <value>Toujours au premier plan</value>
@@ -170,6 +290,13 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append_to_file" xml:space="preserve">
     <value>Ajouter au fichier</value>
   </data>
+  <data name="str_append_tooltip" xml:space="preserve">
+    <value>Ajoute le contenu au fichier sélectionné, s'il existe déjà.
+(Uniquement pour les types de fichiers pris en charge)</value>
+  </data>
+  <data name="str_append_not_supported" xml:space="preserve">
+    <value>L'ajout n'est pas pris en charge pour l'extension "{0}".</value>
+  </data>
   <data name="str_replace" xml:space="preserve">
     <value>Remplacer</value>
   </data>
@@ -179,7 +306,25 @@ Allows to keep application window always on top (in foreground of other windows)
   <data name="str_append" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="str_template_edit_subfolder_info" xml:space="preserve">
+    <value>Le modèle de sous-dossier est ajouté au chemin du dossier lors de l'exécution de Coller dans un fichier avec la touche CTRL pressée. Les chemins absolus sont également pris en charge et remplaceront le dossier.</value>
+  </data>
+  <data name="str_template_edit_filename_info" xml:space="preserve">
+    <value>Le modèle de nom de fichier est utilisé pour formater le nom du fichier. </value>
+  </data>
+  <data name="str_subfolder_template" xml:space="preserve">
+    <value>Modèle de sous-dossier</value>
+  </data>
   <data name="str_language" xml:space="preserve">
     <value>Langue</value>
+  </data>
+  <data name="str_system_language" xml:space="preserve">
+    <value>Langue système</value>
+  </data>
+  <data name="str_preview_calendar" xml:space="preserve">
+    <value>Aperçu du calendrier ({0} évènement(s))</value>
+  </data>
+  <data name="str_wizard_tray_patching_img_only" xml:space="preserve">
+    <value>uniquement pour les images</value>
   </data>
 </root>
