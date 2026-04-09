@@ -41,7 +41,7 @@ _Note: On Windows 11, the context menu entries are located in the extended menu 
 ### Related projects
 
 This project started as a fork of [sorge13248/PasteIntoFile](https://github.com/sorge13248/PasteIntoFile), itself being a fork of [EslaMx7/PasteIntoFile](https://github.com/EslaMx7/PasteIntoFile), both of which are no longer maintained.
-It is similar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx) (FOSS), [Paste As File](https://pasteasfile.org) (trialware), [PasteHere](https://github.com/tomzorz/PasteHere) (unmaintained), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) (no longer available) and [PowerToys Advanced Paste](https://learn.microsoft.com/en-us/windows/powertoys/advanced-paste).
+It is similar but more advanced than [PasteEx](https://github.com/huiyadanli/PasteEx) (FOSS), [Paste As File](https://pasteasfile.org) (trialware), [PasteHere](https://github.com/tomzorz/PasteHere) (unmaintained), [Paste To File](https://apps.microsoft.com/store/detail/paste-to-file/9PM34S06CFVJ) (trialware) and [PowerToys Advanced Paste](https://learn.microsoft.com/en-us/windows/powertoys/advanced-paste).
 
 This fork comes with many new features: autosave, batch mode, more formats, keyboard shortcuts, a new fluid GUI and new console options.
 The full changelog can be found on the [release page](https://github.com/eltos/PasteIntoFile/releases).
