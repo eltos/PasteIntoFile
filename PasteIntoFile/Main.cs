@@ -14,7 +14,6 @@ using CommandLine;
 using CommandLine.Text;
 using Microsoft.Toolkit.Uwp.Notifications;
 using PasteIntoFile.Properties;
-using WK.Libraries.SharpClipboardNS;
 #if PORTABLE
 using Bluegrams.Application;
 #endif
@@ -273,56 +272,55 @@ namespace PasteIntoFile {
                 }
 
 
-                // Register hotkeys
-                KeyboardHook paste = new KeyboardHook();
-                paste.KeyPressed += (s, e) => {
-                    var arg = new ArgsPaste();
-                    arg.Directory = ExplorerUtil.GetActiveExplorerPath();
-                    RunPaste(arg);
-                };
-                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
-                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
-                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
-                paste.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+                var monitor = new SystemEventMonitor();
 
-                KeyboardHook copy = new KeyboardHook();
-                copy.KeyPressed += (s, e) => {
-                    var files = ExplorerUtil.GetActiveExplorerSelectedFiles();
-                    if (files.Count == 1) {
-                        var arg = new ArgsCopy();
-                        arg.FilePath = files.Item(0).Path;
-                        RunCopy(arg);
-                    } else {
-                        MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Register hotkeys
+                monitor.KeyPressed += (s, e) => {
+                    if (e.Key == Keys.V) {
+                        // Paste hotkey
+                        var arg = new ArgsPaste();
+                        arg.Directory = ExplorerUtil.GetActiveExplorerPath();
+                        RunPaste(arg);
+                    } else if (e.Key == Keys.C) {
+                        // Copy hotkey
+                        var files = ExplorerUtil.GetActiveExplorerSelectedFiles();
+                        if (files.Count == 1) {
+                            var arg = new ArgsCopy();
+                            arg.FilePath = files.Item(0).Path;
+                            RunCopy(arg);
+                        } else {
+                            MessageBox.Show(Resources.str_copy_failed_not_single_file, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 };
-                copy.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
+                // Paste hotkeys (with different modifier combinations)
+                monitor.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.V);
+                monitor.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift, Keys.V);
+                monitor.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Control, Keys.V);
+                monitor.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt | ModifierKeys.Shift | ModifierKeys.Control, Keys.V);
+                // Copy hotkey
+                monitor.RegisterHotKey(ModifierKeys.Win | ModifierKeys.Alt, Keys.C);
+
 
                 // Register clipboard observer for patching
-                SharpClipboard clipMonitor = null;
                 if (Settings.Default.trayPatchingEnabled) {
                     bool skipFirst = true;
-                    void PatchClipboard(object s, SharpClipboard.ClipboardChangedEventArgs e) {
+                    monitor.ClipboardChanged += (s, e) => {
                         if (skipFirst) { skipFirst = false; return; }
                         Settings.Default.Reload(); // load modifications made from other instance
                         if (!Settings.Default.trayPatchingEnabled) return; // allow to temporarily disable
                         if (Settings.Default.continuousMode) return; // don't interfere with batch mode
+
                         if (PatchedClipboardContents() is IDataObject data) {
                             // TODO: This is experimental (might impact performance, might break proprietary formats used internally by other programs, not 100% stable)
-                            // Temporarily pausing monitoring seams unstable with the SharpClipboard library, so close and re-create the monitor instead
-
-                            // Stop monitoring and leave clipboard chain cleanly
-                            clipMonitor.MonitorClipboard = false;
-                            clipMonitor.StopMonitoring();
-                            // Re-write clipboard contents
-                            Clipboard.SetDataObject(data, false);
-                            // Create a new monitor to handle future updates
-                            clipMonitor = new SharpClipboard();
-                            clipMonitor.ClipboardChanged += PatchClipboard;
+                            monitor.CallWithoutClipboardMonitoring(() => {
+                                // Re-write clipboard contents with patched version
+                                Clipboard.SetDataObject(data, false);
+                            });
                         }
-                    }
-                    clipMonitor = new SharpClipboard();
-                    clipMonitor.ClipboardChanged += PatchClipboard;
+                    };
+
+                    monitor.StartClipboardMonitoring();
                 }
 
                 // Tray icon
@@ -345,7 +343,7 @@ namespace PasteIntoFile {
                 Application.Run();
 
                 // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
-                clipMonitor?.StopMonitoring();
+                monitor.StopClipboardMonitoring();
 
                 icon.Visible = false;
 

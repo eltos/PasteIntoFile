@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
 using WK.Libraries.BetterFolderBrowserNS;
-using WK.Libraries.SharpClipboardNS;
 
 namespace PasteIntoFile {
     public sealed partial class Dialog : MasterForm {
@@ -16,20 +15,14 @@ namespace PasteIntoFile {
         private int saveCount = 0;
         private bool _formLoaded = false;
 
-        private SharpClipboard _clipMonitor;
+        private SystemEventMonitor eventMonitor = new SystemEventMonitor();
         private bool _disableUiEvents = false;
         private bool _topMostPreviousState = false;
         private const string DYNAMIC_EXTENSION = "*"; // special value to determine extension dynamically
 
-        public SharpClipboard clipMonitor {
-            get {
-                if (_clipMonitor == null) _clipMonitor = new SharpClipboard();
-                return _clipMonitor;
-            }
-        }
         protected override void OnFormClosed(FormClosedEventArgs e) {
             // leave the clipboard monitoring chain in a clean way, otherwise the chain will break when the program exits
-            clipMonitor?.StopMonitoring();
+            eventMonitor?.StopClipboardMonitoring();
             base.OnFormClosed(e);
         }
 
@@ -118,8 +111,8 @@ namespace PasteIntoFile {
                 BringToFrontForced();
 
                 // register clipboard monitor
-                clipMonitor.ClipboardChanged += ClipboardChanged;
-                FormClosing += (s, e) => clipMonitor.ClipboardChanged -= ClipboardChanged;
+                eventMonitor.StartClipboardMonitoring();
+                eventMonitor.ClipboardChanged += ClipboardChanged;
 
 
             } else {
@@ -286,7 +279,7 @@ namespace PasteIntoFile {
 
 
 
-        private void ClipboardChanged(Object sender, SharpClipboard.ClipboardChangedEventArgs e) {
+        private void ClipboardChanged(Object sender, EventArgs e) {
             // Only process update if live update enabled, or in batch mode
             if (!chkEnableLiveClipboardUpdate.Checked && !chkContinuousMode.Checked) return;
 
@@ -465,9 +458,10 @@ namespace PasteIntoFile {
                 }
 
                 if (clearClipboardOverwrite ?? Settings.Default.clrClipboard) {
-                    clipMonitor.MonitorClipboard = false; // to prevent callback during batch mode
-                    Clipboard.Clear();
-                    clipMonitor.MonitorClipboard = true;
+                    // Prevent callback during batch mode
+                    eventMonitor.CallWithoutClipboardMonitoring(() => {
+                        Clipboard.Clear();
+                    });
                 }
 
                 rememberExtension(content, comExt.Text);
