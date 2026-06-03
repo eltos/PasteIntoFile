@@ -308,6 +308,6 @@ Allows to keep application window always on top (in foreground of other windows)
     <value>O modelo é usado para formatar o nome do arquivo.</value>
   </data>
   <data name="str_subfolder_template" xml:space="preserve">
-    <value>Modelo de subpasta</value>
+    <value>Modelo da pasta</value>
   </data>
 </root>

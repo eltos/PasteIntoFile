@@ -320,13 +320,13 @@ Allows to keep application window always on top (in foreground of other windows)
     <value>Append</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
-    <value>The subfolder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder.</value>
+    <value>The folder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder.</value>
   </data>
   <data name="str_template_edit_filename_info" xml:space="preserve">
     <value>The filename template is used to format the filename. </value>
   </data>
   <data name="str_subfolder_template" xml:space="preserve">
-    <value>Subfolder template</value>
+    <value>Folder template</value>
   </data>
   <data name="str_language" xml:space="preserve">
     <value>Language</value>

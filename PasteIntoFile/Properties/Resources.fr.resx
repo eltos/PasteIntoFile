@@ -307,13 +307,13 @@ Allows to keep application window always on top (in foreground of other windows)
     <value>Ajouter</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
-    <value>Le modèle de sous-dossier est ajouté au chemin du dossier lors de l'exécution de Coller dans un fichier avec la touche CTRL pressée. Les chemins absolus sont également pris en charge et remplaceront le dossier.</value>
+    <value>Le modèle de dossier est ajouté au chemin du dossier lors de l'exécution de Coller dans un fichier avec la touche CTRL pressée. Les chemins absolus sont également pris en charge et remplaceront le dossier.</value>
   </data>
   <data name="str_template_edit_filename_info" xml:space="preserve">
     <value>Le modèle de nom de fichier est utilisé pour formater le nom du fichier. </value>
   </data>
   <data name="str_subfolder_template" xml:space="preserve">
-    <value>Modèle de sous-dossier</value>
+    <value>Modèle de dossier</value>
   </data>
   <data name="str_language" xml:space="preserve">
     <value>Langue</value>
