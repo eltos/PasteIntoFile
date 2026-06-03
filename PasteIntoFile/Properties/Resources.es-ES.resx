@@ -307,7 +307,7 @@ Allows to keep application window always on top (in foreground of other windows)
     <value>La plantilla de nombre de archivo se usa para formatear el nombre del archivo. </value>
   </data>
   <data name="str_subfolder_template" xml:space="preserve">
-    <value>Plantilla de subcarpeta</value>
+    <value>Plantilla de carpeta</value>
   </data>
   <data name="str_language" xml:space="preserve">
     <value>Idioma</value>
