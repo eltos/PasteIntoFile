@@ -40,7 +40,7 @@ jobs:
     steps:
     - name: Install crowdin cli
       run: |
-        wget https://github.com/crowdin/crowdin-cli/releases/download/4.1.2/crowdin-cli.zip --no-verbose
+        wget https://github.com/crowdin/crowdin-cli/releases/download/4.14.2/crowdin-cli.zip --no-verbose
         unzip crowdin-cli.zip -d crowdin-cli
         cd crowdin-cli/*/
         sudo ./install-crowdin-cli.sh
