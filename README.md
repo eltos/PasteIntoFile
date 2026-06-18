@@ -89,14 +89,14 @@ This option is exspecially useful in combination with batch mode (see below).
 
 If **autosave mode** is enabled, the file to paste will directly be created and selected for renaming.
 Otherwise, a dialog will prompt for filename and type.
-By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled). 
+By holding `SHIFT` when the program starts, the autosave mode setting can be temporarily inverted (show the dialog even though autosave is enabled, or skip the dialog even though autosave is disabled).
 When using the hotkey, use `WIN`+`ALT`+`SHIFT`+`V` accordingly.
 When running Paste Into File from the start menu or tray, the dialog will always be shown.
 
 The **filename template** can be edited from the UI or via command line (see [below](#template-format) for a description of the available formats).
 
 A **folder template** can likewise be configured from the UI or via command line (see below).
-When holding `CTRL` while the program starts, the file will be saved to a subdirectory according to the specified template. The hotkey becomes `WIN`+`ALT`+`CTRL`+`V` accordingly.
+When holding `CTRL` while the program starts, the file will be saved to a subdirectory according to the specified template. The hotkey becomes `WIN`+`ALT`+`CTRL`+`V` accordingly[^hotkey_conflict_warning].
 The folder template also accepts absolute paths, in which case the file is saved to the absolute path specified. This can be useful to have a quick way to save the file to a specific folder, such as a static "Clipboard Archive" or "Screenshots" folder.
 
 The available **file extensions** depend on the formats available in the clipboard.
@@ -115,6 +115,10 @@ prepend a dot to the file extension (the actual filename will still have only a 
 For example, when copying syntax highlighted HTML code snippets from a browser,
 using `html` will cause the html-formatted text to be saved,
 while using `.html` will save the plain text.
+
+[^hotkey_conflict_warning]: Note that PasteIntoFile will not work if other applications use the same hotkey.
+For example, `WIN`+`ALT`+`CTRL`+`V` is also used by Microsoft PowerToys for their "Paste as plain text" feature by default.
+If you want to use this hotkey for PasteIntoFile, you first have to disable or change it in the other application and then restart PasteIntoFile.
 
 
 
