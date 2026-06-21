@@ -256,6 +256,17 @@ namespace PasteIntoFile {
             return 0;
         }
 
+        static void ShowSingleInstance<TForm>(Func<TForm> createForm) where TForm : MasterForm {
+            foreach (Form openForm in Application.OpenForms) {
+                if (openForm is TForm form) {
+                    form.BringToFrontForced();
+                    return;
+                }
+            }
+
+            createForm().Show();
+        }
+
         /// <summary>
         /// Run program in system tray and wait for hotkey press
         /// If enabled, also monitor and patch clipboard with file drop list
@@ -328,12 +339,14 @@ namespace PasteIntoFile {
                 icon.Icon = Resources.app_icon;
                 icon.Text = Resources.app_title;
                 icon.ContextMenu = new ContextMenu(new[] {
-                    new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(showDialogOverwrite: true).Show()),
-                    new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
+                    new MenuItem(Resources.str_open_paste_into_file,
+                        (s, e) => ShowSingleInstance(() => new Dialog(showDialogOverwrite: true))),
+                    new MenuItem(Resources.str_settings, (s, e) => ShowSingleInstance(() => new Wizard())),
                     new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
                 });
                 icon.MouseClick += (sender, eventArgs) => {
-                    if (eventArgs.Button == MouseButtons.Left) new Dialog(showDialogOverwrite: true).Show();
+                    if (eventArgs.Button == MouseButtons.Left)
+                        ShowSingleInstance(() => new Dialog(showDialogOverwrite: true));
                 };
                 icon.Visible = true;
 
