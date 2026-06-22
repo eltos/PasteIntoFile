@@ -10,6 +10,7 @@ using Shell32;
 namespace PasteIntoFile {
     public static class ExplorerUtil {
 
+        private static readonly Guid SID_STopLevelBrowser = new Guid("4C96BE40-915C-11CF-99D3-00AA004AE837");
 
         /// <summary>
         /// Get path of active or only windows explorer window
@@ -25,9 +26,26 @@ namespace PasteIntoFile {
         /// <param name="explorer">File Explorer or Desktop shell window</param>
         /// <returns></returns>
         private static string GetExplorerPath(InternetExplorer explorer) {
+            if (explorer == null) {
+                return null;
+            }
+
             // check special case of Desktop
             if (explorer == GetDesktop()) {
                 return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            }
+
+            // Windows 11 tabbed Explorer:
+            // ShellWindows may expose multiple tabs with the same top-level HWND.
+            // Resolve the passed Explorer frame to the currently focused/visible tab first.
+            // On older Windows versions this simply resolves to the only ShellView of that Explorer window.
+            explorer = GetFocusedExplorerTab(explorer) ?? explorer;
+
+            // Prefer the current ShellView PIDL. This also works for empty folders where Folder.Items()
+            // would not provide an item from which we could infer the parent directory.
+            var shellViewPath = GetPathFromShellView(explorer);
+            if (!string.IsNullOrEmpty(shellViewPath)) {
+                return shellViewPath;
             }
 
             // Try folder item path
@@ -59,6 +77,205 @@ namespace PasteIntoFile {
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Heuristic method to get the currently focused or visible tab of a windows explorer window,
+        /// since ShellWindows may expose multiple tabs with the same top-level HWND.
+        /// </summary>
+        /// <param name="explorer"></param>
+        /// <returns></returns>
+        private static InternetExplorer GetFocusedExplorerTab(InternetExplorer explorer) {
+            if (explorer == null) {
+                return null;
+            }
+
+            var focusedHwnd = GetFocusedWindow(new IntPtr(explorer.HWND));
+            try {
+                InternetExplorer hitTestVisibleTab = null;
+                InternetExplorer fallbackVisibleTab = null;
+                var shellWindows = new ShellWindows();
+                foreach (InternetExplorer window in shellWindows) {
+                    if (window == null || window.HWND != explorer.HWND) {
+                        continue;
+                    }
+
+                    var viewHwnd = GetShellViewWindow(window);
+                    if (viewHwnd == IntPtr.Zero) {
+                        continue;
+                    }
+
+                    // Best case: keyboard focus is inside the ShellView of this tab.
+                    if (focusedHwnd != IntPtr.Zero &&
+                        (focusedHwnd == viewHwnd || IsChild(viewHwnd, focusedHwnd))) {
+                        return window;
+                    }
+
+                    // Important for address bar, navigation pane and search box focus:
+                    // The focused HWND is outside the ShellView, so we cannot identify the active tab by focus.
+                    // Inactive tab ShellViews may still report IsWindowVisible == true, therefore verify that
+                    // the ShellView is actually hit-test visible at its screen position.
+                    if (hitTestVisibleTab == null && IsWindowHitTestVisible(viewHwnd)) {
+                        hitTestVisibleTab = window;
+                    }
+
+                    // Last-resort fallback for older Explorer implementations.
+                    if (fallbackVisibleTab == null && IsWindowVisible(viewHwnd)) {
+                        fallbackVisibleTab = window;
+                    }
+                }
+
+                return hitTestVisibleTab ?? fallbackVisibleTab;
+
+            } catch {
+                // Fall back to the originally supplied Explorer object.
+                return explorer;
+            }
+
+        }
+
+        private static IntPtr GetFocusedWindow(IntPtr hwnd) {
+            uint processId;
+            var threadId = GetWindowThreadProcessId(hwnd, out processId);
+            if (threadId == 0) {
+                return IntPtr.Zero;
+            }
+
+            var info = new GUITHREADINFO();
+            info.cbSize = Marshal.SizeOf(typeof(GUITHREADINFO));
+
+            return GetGUIThreadInfo(threadId, ref info) ? info.hwndFocus : IntPtr.Zero;
+        }
+
+        private static IntPtr GetShellViewWindow(InternetExplorer explorer) {
+            var shellView = GetShellView(explorer);
+            if (shellView == null) {
+                return IntPtr.Zero;
+            }
+
+            try {
+                IntPtr hwnd;
+                return shellView.GetWindow(out hwnd) == 0 ? hwnd : IntPtr.Zero;
+            } catch {
+                return IntPtr.Zero;
+            } finally {
+                Marshal.ReleaseComObject(shellView);
+            }
+        }
+
+        private static string GetPathFromShellView(InternetExplorer explorer) {
+            var shellView = GetShellView(explorer);
+            if (shellView == null) {
+                return null;
+            }
+
+            try {
+                var folderView = shellView as IFolderView;
+                if (folderView == null) {
+                    return null;
+                }
+
+                var iid = typeof(IPersistFolder2).GUID;
+                IntPtr folderPtr;
+                if (folderView.GetFolder(ref iid, out folderPtr) != 0 || folderPtr == IntPtr.Zero) {
+                    return null;
+                }
+
+                IPersistFolder2 persistFolder = null;
+                try {
+                    persistFolder = (IPersistFolder2)Marshal.GetObjectForIUnknown(folderPtr);
+
+                    IntPtr pidl;
+                    if (persistFolder.GetCurFolder(out pidl) != 0 || pidl == IntPtr.Zero) {
+                        return null;
+                    }
+
+                    try {
+                        var path = new StringBuilder(260);
+                        return SHGetPathFromIDListW(pidl, path) ? path.ToString() : null;
+                    } finally {
+                        ILFree(pidl);
+                    }
+                } finally {
+                    if (persistFolder != null) {
+                        Marshal.ReleaseComObject(persistFolder);
+                    }
+
+                    Marshal.Release(folderPtr);
+                }
+            } catch {
+                return null;
+            } finally {
+                Marshal.ReleaseComObject(shellView);
+            }
+        }
+
+        private static IShellView GetShellView(InternetExplorer explorer) {
+            if (explorer == null) {
+                return null;
+            }
+
+            object browserObject = null;
+
+            try {
+                var serviceProvider = explorer as IComServiceProvider;
+                if (serviceProvider == null) {
+                    return null;
+                }
+
+                var serviceId = SID_STopLevelBrowser;
+                var browserId = typeof(IShellBrowser).GUID;
+
+                if (serviceProvider.QueryService(ref serviceId, ref browserId, out browserObject) != 0 || browserObject == null) {
+                    return null;
+                }
+
+                var shellBrowser = (IShellBrowser)browserObject;
+
+                IShellView shellView;
+                return shellBrowser.QueryActiveShellView(out shellView) == 0 ? shellView : null;
+            } catch {
+                return null;
+            } finally {
+                if (browserObject != null) {
+                    Marshal.ReleaseComObject(browserObject);
+                }
+            }
+        }
+
+        private static bool IsWindowHitTestVisible(IntPtr hwnd) {
+            if (hwnd == IntPtr.Zero || !IsWindowVisible(hwnd)) {
+                return false;
+            }
+
+            RECT rect;
+            if (!GetWindowRect(hwnd, out rect)) {
+                return false;
+            }
+
+            if (rect.right <= rect.left || rect.bottom <= rect.top) {
+                return false;
+            }
+
+            // Use a few sample points instead of only the exact center. The center can occasionally
+            // be covered by an overlay, an empty area, a scrollbar, or another child control.
+            var points = new[] {
+                new POINT((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2),
+                new POINT(rect.left + Math.Max(1, (rect.right - rect.left) / 4), (rect.top + rect.bottom) / 2),
+                new POINT(rect.right - Math.Max(1, (rect.right - rect.left) / 4), (rect.top + rect.bottom) / 2),
+                new POINT((rect.left + rect.right) / 2, rect.top + Math.Max(1, (rect.bottom - rect.top) / 4)),
+                new POINT((rect.left + rect.right) / 2, rect.bottom - Math.Max(1, (rect.bottom - rect.top) / 4))
+            };
+
+            foreach (var point in points) {
+                var hitHwnd = WindowFromPoint(point);
+
+                if (hitHwnd == hwnd || IsChild(hwnd, hitHwnd)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
@@ -98,7 +315,7 @@ namespace PasteIntoFile {
             var shellWindows = new ShellWindows();
             foreach (InternetExplorer window in shellWindows) {
                 if (window.HWND == (int)handle) {
-                    return window;
+                    return GetFocusedExplorerTab(window) ?? window;
                 }
             }
 
@@ -259,12 +476,155 @@ namespace PasteIntoFile {
         [DllImport("shell32.dll")]
         private static extern int SHGetDesktopFolder(out IShellFolder ppshf);
 
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetGUIThreadInfo(uint idThread, ref GUITHREADINFO lpgui);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SHGetPathFromIDListW(IntPtr pidl, StringBuilder pszPath);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr WindowFromPoint(POINT point);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT {
+            public int x;
+            public int y;
+
+            public POINT(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct GUITHREADINFO {
+            public int cbSize;
+            public int flags;
+            public IntPtr hwndActive;
+            public IntPtr hwndFocus;
+            public IntPtr hwndCapture;
+            public IntPtr hwndMenuOwner;
+            public IntPtr hwndMoveSize;
+            public IntPtr hwndCaret;
+            public RECT rcCaret;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
         [ComImport, Guid("000214E6-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         internal interface IShellFolder {
             void ParseDisplayName(IntPtr hwnd, IBindCtx pbc, [In, MarshalAs(UnmanagedType.LPWStr)] string pszDisplayName, out uint pchEaten, out IntPtr ppidl, ref uint pdwAttributes);
             // NOTE: we declared only what we needed...
         }
 
+        [ComImport, Guid("6D5140C1-7436-11CE-8034-00AA006009FA"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IComServiceProvider {
+            [PreserveSig]
+            int QueryService(ref Guid guidService, ref Guid riid, [MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+        }
 
+        [ComImport, Guid("000214E2-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IShellBrowser {
+            [PreserveSig]
+            int GetWindow(out IntPtr phwnd);
+
+            [PreserveSig]
+            int ContextSensitiveHelp([MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
+
+            [PreserveSig]
+            int InsertMenusSB(IntPtr hmenuShared, IntPtr lpMenuWidths);
+
+            [PreserveSig]
+            int SetMenuSB(IntPtr hmenuShared, IntPtr holemenuRes, IntPtr hwndActiveObject);
+
+            [PreserveSig]
+            int RemoveMenusSB(IntPtr hmenuShared);
+
+            [PreserveSig]
+            int SetStatusTextSB(IntPtr pszStatusText);
+
+            [PreserveSig]
+            int EnableModelessSB([MarshalAs(UnmanagedType.Bool)] bool fEnable);
+
+            [PreserveSig]
+            int TranslateAcceleratorSB(IntPtr pmsg, ushort wID);
+
+            [PreserveSig]
+            int BrowseObject(IntPtr pidl, uint wFlags);
+
+            [PreserveSig]
+            int GetViewStateStream(uint grfMode, out IStream ppStrm);
+
+            [PreserveSig]
+            int GetControlWindow(uint id, out IntPtr phwnd);
+
+            [PreserveSig]
+            int SendControlMsg(uint id, uint uMsg, IntPtr wParam, IntPtr lParam, out IntPtr pret);
+
+            [PreserveSig]
+            int QueryActiveShellView(out IShellView ppshv);
+
+            [PreserveSig]
+            int OnViewWindowActive(IShellView pshv);
+
+            [PreserveSig]
+            int SetToolbarItems(IntPtr lpButtons, uint nButtons, uint uFlags);
+        }
+
+        [ComImport, Guid("000214E3-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IShellView {
+            [PreserveSig]
+            int GetWindow(out IntPtr phwnd);
+
+            [PreserveSig]
+            int ContextSensitiveHelp([MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
+        }
+
+        [ComImport, Guid("CDE725B0-CCC9-4519-917E-325D72FAB4CE"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IFolderView {
+            [PreserveSig]
+            int GetCurrentViewMode(out uint pViewMode);
+
+            [PreserveSig]
+            int SetCurrentViewMode(uint ViewMode);
+
+            [PreserveSig]
+            int GetFolder(ref Guid riid, out IntPtr ppv);
+        }
+
+        [ComImport, Guid("1AC3D9F0-175C-11D1-95BE-00609797EA4F"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IPersistFolder2 {
+            [PreserveSig]
+            int GetClassID(out Guid pClassID);
+
+            [PreserveSig]
+            int Initialize(IntPtr pidl);
+
+            [PreserveSig]
+            int GetCurFolder(out IntPtr ppidl);
+        }
     }
 }
