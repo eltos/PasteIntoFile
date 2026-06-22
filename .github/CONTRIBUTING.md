@@ -1,8 +1,10 @@
 # Contributing
 
-All contributions are welcome. Thank you for contributing!
+Contributions are welcome. Thank you for contributing!
 
 If you are new, check out the **[contribution page](https://github.com/eltos/PasteIntoFile/contribute)** for good first issues to address.
+
+Do not vibecode the contribution! There is very limited value in having an external contributor as an intermediary between a maintainer and an AI model. It's also worth emphasizing that all contributions are reviewed by humans with limited available time. AI-driven contributions can easily create a dangerous imbalance where a maintainer invests more time into a PR than the contributor themselves.
 
 
 ## Developer setup
