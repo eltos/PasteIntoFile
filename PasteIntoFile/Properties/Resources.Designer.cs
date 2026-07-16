@@ -216,6 +216,15 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Use new Windows 11 context menu.
+        /// </summary>
+        internal static string str_contextentry_win11 {
+            get {
+                return ResourceManager.GetString("str_contextentry_win11", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Batch mode.
         /// </summary>
         internal static string str_continuous_mode {
@@ -597,7 +606,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Subfolder template.
+        ///   Looks up a localized string similar to Folder template.
         /// </summary>
         internal static string str_subfolder_template {
             get {
@@ -646,7 +655,7 @@ namespace PasteIntoFile.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to The subfolder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder..
+        ///   Looks up a localized string similar to The folder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder..
         /// </summary>
         internal static string str_template_edit_subfolder_info {
             get {

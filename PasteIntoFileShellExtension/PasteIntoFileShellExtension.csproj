@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <!-- Erzeugt ShellExtension.comhost.dll für COM-Hosting -->
+        <EnableComHosting>true</EnableComHosting>
+        <!-- Explorer ist 64-bit, daher für den ersten Spike explizit x64 -->
+        <PlatformTarget>x64</PlatformTarget>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <!-- Hilfreich für COM-Komponenten, die dynamisch geladen werden -->
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+    </PropertyGroup>
+    <Target Name="CopyFiles" AfterTargets="Build">
+        <ItemGroup>
+            <Manifest Include="AppXManifest.xml" />
+            <Icon Include="../PasteIntoFile/Resources/icon*.png" />
+        </ItemGroup>
+        <Copy SourceFiles="@(Manifest)" DestinationFiles="@(Manifest-&gt;'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(Icon)" DestinationFiles="@(Icon-&gt;'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
+</Project>

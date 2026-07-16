@@ -93,6 +93,9 @@
     <value>Paste into file</value>
     <comment>Context menu entry for pasting</comment>
   </data>
+  <data name="str_contextentry_win11" xml:space="preserve">
+    <value>Use new Windows 11 context menu</value>
+  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file</value>
     <comment>str_select_folder
