@@ -159,7 +159,7 @@
         <ItemGroup>
             <ShellFiles Include="..\PasteIntoFileShellExtension\bin\$(Configuration)\**\*.*" />
         </ItemGroup>
-        <Copy SourceFiles="@(ShellFiles)" DestinationFiles="@(ShellFiles-&gt;'$(OutDir)/%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(ShellFiles)" DestinationFolder="$(OutDir)" />
     </Target>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteIntoFile", "PasteIntoFile\PasteIntoFile.csproj", "{F6F4215C-6CD7-4279-9C4C-C2DA9A823D0C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3FF1060D-CD0D-43BE-8E4F-61D2C0475AF2} = {3FF1060D-CD0D-43BE-8E4F-61D2C0475AF2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteIntoFileShellExtension", "PasteIntoFileShellExtension\PasteIntoFileShellExtension.csproj", "{3FF1060D-CD0D-43BE-8E4F-61D2C0475AF2}"
 EndProject

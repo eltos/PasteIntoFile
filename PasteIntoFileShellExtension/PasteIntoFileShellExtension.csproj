@@ -17,7 +17,7 @@
             <Manifest Include="AppXManifest.xml" />
             <Icon Include="../PasteIntoFile/Resources/icon*.png" />
         </ItemGroup>
-        <Copy SourceFiles="@(Manifest)" DestinationFiles="@(Manifest-&gt;'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
-        <Copy SourceFiles="@(Icon)" DestinationFiles="@(Icon-&gt;'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(Manifest)" DestinationFolder="$(OutDir)" />
+        <Copy SourceFiles="@(Icon)" DestinationFolder="$(OutDir)" />
     </Target>
 </Project>
