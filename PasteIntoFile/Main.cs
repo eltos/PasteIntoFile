@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading;
 using CommandLine;
 using CommandLine.Text;
-using Microsoft.Toolkit.Uwp.Notifications;
 using PasteIntoFile.Properties;
 #if PORTABLE
 using Bluegrams.Application;
@@ -149,6 +148,8 @@ namespace PasteIntoFile {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            ApplicationConfiguration.Initialize();
 
             // parse command line arguments
             var parseResult = new Parser(with => with.HelpWriter = null)
@@ -327,11 +328,14 @@ namespace PasteIntoFile {
                 NotifyIcon icon = new NotifyIcon();
                 icon.Icon = Resources.app_icon;
                 icon.Text = Resources.app_title;
-                icon.ContextMenu = new ContextMenu(new[] {
-                    new MenuItem(Resources.str_open_paste_into_file, (s, e) => new Dialog(showDialogOverwrite: true).Show()),
-                    new MenuItem(Resources.str_settings, (s, e) => new Wizard().Show()),
-                    new MenuItem(Resources.str_exit, (s, e) => { Application.Exit(); }),
-                });
+                var menu = new ContextMenuStrip();
+                menu.Items.Add(Resources.str_open_paste_into_file, null,
+                    (_, _) => new Dialog(showDialogOverwrite: true).Show());
+                menu.Items.Add(Resources.str_settings, null,
+                    (_, _) => new Wizard().Show());
+                menu.Items.Add(Resources.str_exit, null,
+                    (_, _) => Application.Exit());
+                icon.ContextMenuStrip = menu;
                 icon.MouseClick += (sender, eventArgs) => {
                     if (eventArgs.Button == MouseButtons.Left) new Dialog(showDialogOverwrite: true).Show();
                 };
@@ -467,52 +471,12 @@ namespace PasteIntoFile {
         }
 
         /// <summary>
-        /// Shows a balloon message in the windows notification bar
-        /// </summary>
-        /// <param name="title">Title of the message</param>
-        /// <param name="message">Body of the message</param>
-        /// <param name="expire">Duration after which message is dismissed in second</param>
-        /// <param name="link">Optional link to visit when clicking the balloon</param>
-        /// <param name="silent">If true, make a silent balloon (default)</param>
-        public static void ShowBalloon(string title, string[] message, ushort expire = 5, string link = null, bool silent = true) {
-            try {
-                var builder = new ToastContentBuilder().AddText(title);
-                foreach (var s in message) {
-                    builder.AddText(s);
-                }
-
-                if (silent)
-                    builder.AddAudio(null, null, true);
-
-                if (link != null)
-                    builder.AddButton(Resources.str_open, ToastActivationType.Protocol, link);
-
-                builder.Show(toast => {
-                    if (expire > 0) {
-                        toast.ExpirationTime = DateTime.Now.AddSeconds(expire);
-                    }
-                });
-
-            } catch (SystemException) {
-                // Microsoft.Toolkit.Uwp requires Windows version 1809 (build 17763) or higher
-                // if that's not available, print to console instead
-                Console.WriteLine(title);
-                foreach (var s in message) {
-                    Console.WriteLine(s);
-                }
-
-            }
-        }
-
-
-        /// <summary>
         /// Checks for updates
         /// To reduce server load, results are cached and frequent queries skipped
         /// </summary>
         /// <returns>If an update is available</returns>
         public static async Task<bool> CheckForUpdates() {
             if (!Settings.Default.updateChecksEnabled) return false;
-            bool newReleaseFound = false;
             if ((DateTime.Now - Settings.Default.updateLatestVersionLastCheck).TotalDays > 30) {
                 // Last check outdated, check again
                 Settings.Default.updateLatestVersionLastCheck = DateTime.Now;
@@ -523,7 +487,6 @@ namespace PasteIntoFile {
                     var data = await client.GetStringAsync(new Uri("https://api.github.com/repos/eltos/PasteIntoFile/releases/latest"));
                     var match = Regex.Match(data, "\"(https://github.com/eltos/PasteIntoFile/releases/tag/v(\\d+(\\.\\d+)*))\"");
                     if (match.Success && match.Groups[2].Value != Settings.Default.updateLatestVersion) {
-                        newReleaseFound = true;
                         Settings.Default.updateLatestVersion = match.Groups[2].Value;
                         Settings.Default.updateLatestVersionLink = match.Groups[1].Value;
                         Settings.Default.Save();
@@ -538,10 +501,6 @@ namespace PasteIntoFile {
                 var latestVersion = Version.Parse(Settings.Default.updateLatestVersion);
                 if (latestVersion.CompareTo(thisVersion) > 0) {
                     // Update available
-                    if (newReleaseFound) {
-                        ShowBalloon(string.Format(Resources.str_version_update_available, Application.ProductVersion, Settings.Default.updateLatestVersion),
-                            new[] { Settings.Default.updateLatestVersionLink }, 0, Settings.Default.updateLatestVersionLink, false);
-                    }
                     return true;
                 }
             } catch { /* ignore errors due to parsing of fetched version */ }
