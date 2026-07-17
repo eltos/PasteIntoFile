@@ -1001,7 +1001,9 @@ namespace PasteIntoFile {
                      {DataFormats.CommaSeparatedValue, TextDataFormat.CommaSeparatedValue},
                 }) {
                     if (string.Equals(format, simpleFormat.Key) && Clipboard.ContainsText(simpleFormat.Value)) {
-                        return Clipboard.GetText(simpleFormat.Value);
+                        var text = Clipboard.GetText(simpleFormat.Value);
+                        if (!string.IsNullOrWhiteSpace(text))
+                            return text;
                     }
                 }
 
