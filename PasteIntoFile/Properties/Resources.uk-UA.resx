@@ -195,6 +195,9 @@ Tooltip</comment>
     <value>Збереження даних буфера обміну у стандартний тип файлу без запиту.
 Щоб тимчасово інвертувати цей параметр, утримуйте клавішу Shift.</value>
   </data>
+  <data name="str_wizard_notify_on_updates" xml:space="preserve">
+    <value>Повідомити про оновлення</value>
+  </data>
   <data name="str_always_on_top" xml:space="preserve">
     <value>Поверх інших вікон</value>
     <comment>Checkbox in window bar context menu.
