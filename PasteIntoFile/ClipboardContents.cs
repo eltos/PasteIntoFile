@@ -14,10 +14,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Ical.Net.DataTypes;
-using LINQtoCSV;
+using Csv;
 using PasteIntoFile.Properties;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
 
 namespace PasteIntoFile {
 
@@ -173,7 +171,7 @@ namespace PasteIntoFile {
 
 
     public class ImageContent : ImageLikeContent {
-        public static readonly string[] EXTENSIONS = { "png", "bmp", "gif", "jpg", "pdf", "tif", "ico" };
+        public static readonly string[] EXTENSIONS = { "png", "bmp", "gif", "jpg", "tif", "ico" };
         public ImageContent(Image image) {
             Data = image;
         }
@@ -188,24 +186,6 @@ namespace PasteIntoFile {
                 throw new FormatException(string.Format(Resources.str_error_cliboard_format_missmatch, extension));
 
             switch (NormalizeExtension(extension)) {
-                case "pdf":
-                    // convert image to ximage
-                    var stream = new MemoryStream();
-                    image.Save(stream, image.RawFormat);
-                    stream.Position = 0;
-                    XImage img = XImage.FromStream(stream);
-                    // create pdf document
-                    PdfDocument document = new PdfDocument();
-                    document.Info.Creator = Resources.app_title;
-                    PdfPage page = document.AddPage();
-                    page.Width = XUnit.FromPoint(img.PointWidth);
-                    page.Height = XUnit.FromPoint(img.PointHeight);
-                    // insert image and save
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
-                    gfx.DrawImage(img, 0, 0);
-                    document.Save(path);
-                    return;
-
                 case "ico":
                     using (var fs = new FileStream(path, FileMode.Create)) {
                         ImageAsIcon.Save(fs);
@@ -227,7 +207,6 @@ namespace PasteIntoFile {
             extension = NormalizeExtension(extension);
             // Special formats with intermediate conversion types
             switch (extension) {
-                case "pdf": extension = "png"; break;
                 case "ico": return PreviewHolder.ForImage(ImageAsIcon.ToBitmap());
             }
             // Find suitable codec and convert image
@@ -279,7 +258,7 @@ namespace PasteIntoFile {
     /// Like ImageContent, but only for formats which support alpha channel
     /// </summary>
     public class TransparentImageContent : ImageContent {
-        public static new readonly string[] EXTENSIONS = { "png", "gif", "pdf", "tif", "ico" };
+        public static new readonly string[] EXTENSIONS = { "png", "gif", "tif", "ico" };
         public TransparentImageContent(Image image) : base(image) { }
         public override string[] Extensions => EXTENSIONS; // Note: gif has only alpha 100% or 0%
     }
@@ -535,19 +514,21 @@ namespace PasteIntoFile {
             }
         }
 
-        public class Row : List<DataRowItem>, IDataRow { }
-
         /// <summary>
         /// Parse the CVS data
         /// </summary>
         /// <returns>List of rows</returns>
-        public IEnumerable<Row> Parse() {
-            var context = new CsvContext();
-            var readConfig = new CsvFileDescription();
-            readConfig.FirstLineHasColumnNames = false;
-            readConfig.SeparatorChar = Delimiter;
-            var readStream = new StreamReader(new MemoryStream(readConfig.TextEncoding.GetBytes(Text)));
-            return context.Read<Row>(readStream, readConfig);
+        public IEnumerable<string[]> Parse() {
+            var options = new CsvOptions {
+                HeaderMode = HeaderMode.HeaderAbsent,
+                AllowNewLineInEnclosedFieldValues = true,
+                AllowBackSlashToEscapeQuote = true,
+            };
+            return CsvReader.ReadFromText(Text, options).Select(o => o.Values);
+        }
+
+        public string WithDelimeter(char delimeter) {
+            return CsvWriter.WriteToText(Parse(), delimeter);
         }
 
         /// <summary>
@@ -559,9 +540,9 @@ namespace PasteIntoFile {
 
             var markdown = "";
             foreach (var row in Parse()) {
-                ncol = Math.Max(ncol, row.Count);
+                ncol = Math.Max(ncol, row.Length);
                 foreach (var item in row) {
-                    markdown += "|" + (item.Value ?? "").PadRight(10);
+                    markdown += "|" + (item ?? "").PadRight(10);
                 }
                 markdown += "|\n";
             }
@@ -576,6 +557,10 @@ namespace PasteIntoFile {
             switch (NormalizeExtension(extension)) {
                 case "md":
                     return AsMarkdown();
+                case "tsv":
+                case "tab":
+                    return WithDelimeter('\t');
+                case "csv":
                 default:
                     return base.TextFor(extension);
             }
@@ -632,7 +617,7 @@ namespace PasteIntoFile {
                         + "\n</body>\n</html>\n",
                         description
                     );
-                } catch (SerializationException e) {
+                } catch (SerializationException) {
                     // ignored (default to text preview below)
                 }
             }

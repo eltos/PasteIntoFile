@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PasteIntoFile.Properties;
-using WK.Libraries.BetterFolderBrowserNS;
 
 namespace PasteIntoFile {
     public sealed partial class Dialog : MasterForm {
@@ -489,16 +488,12 @@ namespace PasteIntoFile {
         }
 
         private void btnBrowseForFolder_Click(object sender, EventArgs e) {
-            BetterFolderBrowser betterFolderBrowser = new BetterFolderBrowser();
+            using var dialog = new FolderBrowserDialog();
+            dialog.Description = Resources.str_select_folder;
+            dialog.SelectedPath = txtCurrentLocation.Text;
 
-            betterFolderBrowser.Title = Resources.str_select_folder;
-            betterFolderBrowser.RootFolder = txtCurrentLocation.Text ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-            // Allow multi-selection of folders.
-            betterFolderBrowser.Multiselect = false;
-
-            if (betterFolderBrowser.ShowDialog(this) == DialogResult.OK) {
-                txtCurrentLocation.Text = betterFolderBrowser.SelectedFolder;
+            if (dialog.ShowDialog(this) == DialogResult.OK) {
+                txtCurrentLocation.Text = dialog.SelectedPath;
             }
         }
 

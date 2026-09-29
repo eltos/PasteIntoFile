@@ -31,6 +31,7 @@ namespace PasteIntoFile {
             contextEntryCheckBoxPaste.Checked = RegistryUtil.ContextMenuPaste.IsRegistered();
             contextEntryCheckBoxCopy.Checked = RegistryUtil.ContextMenuCopy.IsRegistered();
             contextEntryCheckBoxReplace.Checked = RegistryUtil.ContextMenuReplace.IsRegistered();
+            contextEntryCheckBoxWin11.Checked = ExplorerUtil.IsWin11ContextMenuRegistered();
             autostartCheckBox.Checked = RegistryUtil.IsAutostartRegistered();
             patchingCheckBox.Checked = Settings.Default.trayPatchingEnabled;
             patchingCheckBox.Enabled = autostartCheckBox.Checked;
@@ -123,29 +124,60 @@ namespace PasteIntoFile {
         }
 
 
-        private void ChkContextEntry_CheckedChanged(object sender, EventArgs e) {
+        private async void ChkContextEntry_CheckedChanged(object sender, EventArgs e) {
             var checkBox = sender as CheckBox;
-            RegistryUtil.ContextMenuEntry entry;
-            if (sender == contextEntryCheckBoxPaste) {
-                entry = RegistryUtil.ContextMenuPaste;
-            } else if (sender == contextEntryCheckBoxCopy) {
-                entry = RegistryUtil.ContextMenuCopy;
-            } else if (sender == contextEntryCheckBoxReplace) {
-                entry = RegistryUtil.ContextMenuReplace;
-            } else {
-                return;
-            }
+            var desiredState = checkBox.Checked;
+            Cursor = Cursors.WaitCursor;
+
             try {
-                if (checkBox.Checked && !entry.IsRegistered()) {
-                    entry.Register();
-                    SavedAnimation(checkBox);
-                } else if (!checkBox.Checked && entry.IsRegistered()) {
-                    entry.UnRegister();
+                bool changed;
+                if (sender == contextEntryCheckBoxWin11) {
+                    changed = await Task.Run(() => {
+                        var isRegistered = ExplorerUtil.IsWin11ContextMenuRegistered();
+
+                        if (desiredState && !isRegistered) {
+                            ExplorerUtil.RegisterWin11ContextMenu();
+                            return true;
+                        } else if (!desiredState && isRegistered) {
+                            ExplorerUtil.UnregisterWin11ContextMenu();
+                            return true;
+                        }
+                        return false;
+                    });
+                } else {
+                    RegistryUtil.ContextMenuEntry entry;
+                    if (sender == contextEntryCheckBoxPaste) {
+                        entry = RegistryUtil.ContextMenuPaste;
+                    } else if (sender == contextEntryCheckBoxCopy) {
+                        entry = RegistryUtil.ContextMenuCopy;
+                    } else if (sender == contextEntryCheckBoxReplace) {
+                        entry = RegistryUtil.ContextMenuReplace;
+                    } else {
+                        return;
+                    }
+                    changed = await Task.Run(() => {
+                        if (desiredState && !entry.IsRegistered()) {
+                            entry.Register();
+                            return true;
+                        } else if (!desiredState && entry.IsRegistered()) {
+                            entry.UnRegister();
+                            return true;
+                        }
+                        return false;
+                    });
+                }
+
+                if (changed) {
                     SavedAnimation(checkBox);
                 }
+
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message + "\n" + Resources.str_message_run_as_admin, Resources.app_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            } finally {
+                Cursor = Cursors.Default;
             }
+
         }
 
         private void SavedAnimation(Control control) {
