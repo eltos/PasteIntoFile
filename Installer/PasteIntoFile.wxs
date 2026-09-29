@@ -1,114 +1,81 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Language='1033'
-           Id='*'
-           UpgradeCode='D3BEE3F0-4EC0-44CC-ADDC-E7A3E133B9D2'
-           Name='Paste Into File'
-           Manufacturer='PasteIntoFile'
-           Version='!(bind.FileVersion.mainExecutable)'>
-
-    <Package InstallerVersion='100' Compressed='yes' />
-    <MediaTemplate EmbedCab="yes"/>
-    <Icon Id="icon.ico" SourceFile="SourceDir\PasteIntoFile.exe" />
-    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
-
-    <!-- Check system requirements -->
-    <PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED"/>
-    <Condition Message='This program requires the .NET Framework 4.8 or later to be installed.'>
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+    <Product Language="1033" Id="*" UpgradeCode="D3BEE3F0-4EC0-44CC-ADDC-E7A3E133B9D2" Name="Paste Into File" Manufacturer="PasteIntoFile" Version="!(bind.FileVersion.mainExecutable)">
+        <Package InstallerVersion="100" Compressed="yes" />
+        <MediaTemplate EmbedCab="yes" />
+        <Icon Id="icon.ico" SourceFile="SourceDir\PasteIntoFile.exe" />
+        <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+        <!-- Check system requirements -->
+        <PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED" />
+        <Condition Message="This program requires the .NET Framework 4.8 or later to be installed.">
       <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
     </Condition>
-
-    <!-- Components to be installed -->
-    <Feature Id="ProductFeature" Title="Paste Into File" Level="1">
-      <ComponentGroupRef Id="ProductComponents" />
-      <ComponentRef Id="StartmenuShortcut" />
-      <ComponentRef Id="ContextMenuEntry" />
-      <ComponentRef Id="AutostartTray" />
-    </Feature>
-
-    <!-- Upgrade: uninstall previous version before installing new one -->
-    <MajorUpgrade AllowDowngrades="no" DowngradeErrorMessage="A more recent version is already installed."
-                  AllowSameVersionUpgrades="no" />
-
-    <!-- After install: launch wizard -->
-    <CustomAction Id='LaunchProgram' FileKey='mainExecutable' ExeCommand='wizard' Impersonate='yes'  />
-
-    <InstallExecuteSequence>
-      <!-- This action is not executed during uninstall and silent mode -->
-      <Custom Action='LaunchProgram' After='InstallFinalize'>(NOT Installed) AND (NOT UILevel=2)</Custom>
-    </InstallExecuteSequence>
-
-  </Product>
-
-
-  <!-- define installation folders -->
-  <Fragment>
-    <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="PasteIntoFile" />
-      </Directory>
-
-      <Directory Id="ProgramMenuFolder">
-        <!--<Directory Id="AppProgramMenuFolder" Name="PasteIntoFile" />-->
-      </Directory>
-    </Directory>
-  </Fragment>
-
-
-  <!-- copy program files -->
-  <Fragment>
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <ComponentGroupRef Id="ReleaseFragment" />
-    </ComponentGroup>
-  </Fragment>
-
-
-  <!-- register start menu shortcut -->
-  <Fragment>
-    <DirectoryRef Id="ProgramMenuFolder">
-      <Component Id="StartmenuShortcut" Guid="21886147-1E8F-47A1-94A3-8D4FF182AB0D">
-        <Shortcut Id="StartMenuShortcut"
-                  Name="Paste Into File"
-                  Target="[INSTALLFOLDER]PasteIntoFile.exe"
-                  WorkingDirectory="INSTALLFOLDER"
-                  Icon="icon.ico"/>
-        <!--<RemoveFolder Id="CleanupShortcut" Directory="AppProgramMenuFolder" On="uninstall" />-->
-        <RegistryValue Root="HKCU" Key="Software\PasteInfoFile\[ProductName]"
-                       Name="startmenushortcutinstalled" Type="integer" Value="1" KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-  </Fragment>
-
-
-  <!-- register context menu entries (and remove on uninstall) -->
-  <Fragment>
-    <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
-        <!-- install placeholders (will be filled in by InstallExecuteSequence > LaunchProgram) -->
-        <RegistryValue Root='HKCU' Key='Software\Classes\Directory\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
-        <RegistryValue Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
-        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile' Type='string' Name='MUIVerb' Value='Paste into file'/>
-        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace' Type='string' Name='MUIVerb' Value='Paste into file'/>
-        <RegistryValue Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace_append' Type='string' Name='MUIVerb' Value='Paste into file'/>
-        <!-- clean up on uninstall -->
-        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\shell\PasteIntoFile'/>
-        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\Directory\Background\shell\PasteIntoFile'/>
-        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile'/>
-        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace'/>
-        <RemoveRegistryKey Action="removeOnUninstall" Root='HKCU' Key='Software\Classes\*\shell\PasteIntoFile_replace_append'/>
-    </Component>
-  </Fragment>
-
-
-  <!-- register autostart into tray -->
-  <Fragment>
-    <Component Id="AutostartTray" Directory="INSTALLFOLDER" Guid="744f34d7-5086-4c28-97f1-375dc8658256">
-      <RegistryKey Root='HKCU' Key='Software\Microsoft\Windows\CurrentVersion\Run'>
-        <RegistryValue Type='string' Name='PasteIntoFile' Value='"[INSTALLFOLDER]PasteIntoFile.exe" tray'/>
-      </RegistryKey>
-    </Component>
-  </Fragment>
-
-
-
+        <!-- Components to be installed -->
+        <Feature Id="ProductFeature" Title="Paste Into File" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+            <ComponentRef Id="StartmenuShortcut" />
+            <ComponentRef Id="ContextMenuEntry" />
+            <ComponentRef Id="AutostartTray" />
+        </Feature>
+        <!-- Upgrade: uninstall previous version before installing new one -->
+        <MajorUpgrade AllowDowngrades="no" DowngradeErrorMessage="A more recent version is already installed." AllowSameVersionUpgrades="no" />
+        <!-- After install: launch wizard -->
+        <CustomAction Id="LaunchProgram" FileKey="mainExecutable" ExeCommand="wizard" Impersonate="yes" />
+        <InstallExecuteSequence>
+            <!-- This action is not executed during uninstall and silent mode -->
+            <Custom Action="LaunchProgram" After="InstallFinalize">(NOT Installed) AND (NOT UILevel=2)</Custom>
+        </InstallExecuteSequence>
+    </Product>
+    <!-- define installation folders -->
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="PasteIntoFile" />
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <!--<Directory Id="AppProgramMenuFolder" Name="PasteIntoFile" />-->
+            </Directory>
+        </Directory>
+    </Fragment>
+    <!-- copy program files -->
+    <Fragment>
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <ComponentGroupRef Id="ReleaseFragment" />
+        </ComponentGroup>
+    </Fragment>
+    <!-- register start menu shortcut -->
+    <Fragment>
+        <DirectoryRef Id="ProgramMenuFolder">
+            <Component Id="StartmenuShortcut" Guid="21886147-1E8F-47A1-94A3-8D4FF182AB0D">
+                <Shortcut Id="StartMenuShortcut" Name="Paste Into File" Target="[INSTALLFOLDER]PasteIntoFile.exe" WorkingDirectory="INSTALLFOLDER" Icon="icon.ico" />
+                <!--<RemoveFolder Id="CleanupShortcut" Directory="AppProgramMenuFolder" On="uninstall" />-->
+                <RegistryValue Root="HKCU" Key="Software\PasteInfoFile\[ProductName]" Name="startmenushortcutinstalled" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <!-- register context menu entries (and remove on uninstall) -->
+    <Fragment>
+        <Component Id="ContextMenuEntry" Directory="INSTALLFOLDER" Guid="4D3AA72B-AD0C-4CE8-A8CD-C6542089E1AF">
+            <!-- install placeholders (will be filled in by InstallExecuteSequence > LaunchProgram) -->
+            <RegistryValue Root="HKCU" Key="Software\Classes\Directory\shell\PasteIntoFile" Type="string" Name="MUIVerb" Value="Paste into file" />
+            <RegistryValue Root="HKCU" Key="Software\Classes\Directory\Background\shell\PasteIntoFile" Type="string" Name="MUIVerb" Value="Paste into file" />
+            <RegistryValue Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile" Type="string" Name="MUIVerb" Value="Paste into file" />
+            <RegistryValue Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile_replace" Type="string" Name="MUIVerb" Value="Paste into file" />
+            <RegistryValue Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile_replace_append" Type="string" Name="MUIVerb" Value="Paste into file" />
+            <!-- clean up on uninstall -->
+            <RemoveRegistryKey Action="removeOnUninstall" Root="HKCU" Key="Software\Classes\Directory\shell\PasteIntoFile" />
+            <RemoveRegistryKey Action="removeOnUninstall" Root="HKCU" Key="Software\Classes\Directory\Background\shell\PasteIntoFile" />
+            <RemoveRegistryKey Action="removeOnUninstall" Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile" />
+            <RemoveRegistryKey Action="removeOnUninstall" Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile_replace" />
+            <RemoveRegistryKey Action="removeOnUninstall" Root="HKCU" Key="Software\Classes\*\shell\PasteIntoFile_replace_append" />
+        </Component>
+    </Fragment>
+    <!-- register autostart into tray -->
+    <Fragment>
+        <Component Id="AutostartTray" Directory="INSTALLFOLDER" Guid="744f34d7-5086-4c28-97f1-375dc8658256">
+            <RegistryKey Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run">
+                <RegistryValue Type="string" Name="PasteIntoFile" Value="&quot;[INSTALLFOLDER]PasteIntoFile.exe&quot; tray" />
+            </RegistryKey>
+        </Component>
+    </Fragment>
 </Wix>
