@@ -12,6 +12,9 @@
         <!-- Hilfreich für COM-Komponenten, die dynamisch geladen werden -->
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\PasteIntoFile.Core\PasteIntoFile.Core.csproj" />
+    </ItemGroup>
     <Target Name="CopyFiles" AfterTargets="Build">
         <ItemGroup>
             <Manifest Include="AppXManifest.xml" />
