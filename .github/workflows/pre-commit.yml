@@ -6,7 +6,7 @@ on:
 
 jobs:
     pre-commit:
-        runs-on: ubuntu-latest
+        runs-on: windows-2025
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-python@v3

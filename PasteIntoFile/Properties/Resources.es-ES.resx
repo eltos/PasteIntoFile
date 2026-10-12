@@ -84,10 +84,6 @@
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>¡Por favor, ejecute la aplicación como administrador!</value>
   </data>
-  <data name="str_contextentry" xml:space="preserve">
-    <value>Pegar en fichero</value>
-    <comment>Context menu entry for pasting</comment>
-  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Seleccione una carpeta para guardar este archivo</value>
     <comment>str_select_folder
@@ -188,11 +184,6 @@ Para más detalles sobre el formato especificados &lt;a&gt;haga clic aquí&lt;/a
   <data name="str_invalid_character" xml:space="preserve">
     <value>Carácter no válido: '{0}'</value>
   </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copiar contenido del archivo</value>
-    <comment>Context menu entry for copying
-</comment>
-  </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>El archivo {0} contiene datos de formato desconocido que no pueden copiarse al portapapeles.</value>
   </data>
@@ -290,15 +281,6 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
     <value>Adjuntar no está soportado para la extensión "{0}".</value>
-  </data>
-  <data name="str_replace" xml:space="preserve">
-    <value>Reemplazar</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>Pegar en este archivo</value>
-  </data>
-  <data name="str_append" xml:space="preserve">
-    <value>Anexar</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
     <value>La plantilla de subcarpeta se añade a la ruta de la carpeta cuando se ejecuta Pegar en el archivo con la tecla CTRL presionada. Las rutas absolutas también están soportadas y reemplazarán la carpeta.</value>

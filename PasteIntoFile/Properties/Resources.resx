@@ -89,9 +89,8 @@
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>Please run the application as administrator!</value>
   </data>
-  <data name="str_contextentry" xml:space="preserve">
-    <value>Paste into file</value>
-    <comment>Context menu entry for pasting</comment>
+  <data name="str_contextentry_win11" xml:space="preserve">
+    <value>Use new Windows 11 context menu</value>
   </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>Select a folder for saving this file</value>
@@ -200,11 +199,6 @@ Save current clipboard contents now?</value>
   <data name="str_invalid_character" xml:space="preserve">
     <value>Invalid character: {0}</value>
   </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>Copy file content</value>
-    <comment>Context menu entry for copying
-</comment>
-  </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>The file {0} contains data of unknown format which cannot be copied to the clipboard.</value>
   </data>
@@ -309,15 +303,6 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
     <value>Appending is not supported for extension "{0}".</value>
-  </data>
-  <data name="str_replace" xml:space="preserve">
-    <value>Replace</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>Paste into this file</value>
-  </data>
-  <data name="str_append" xml:space="preserve">
-    <value>Append</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
     <value>The folder template is appended to the folder path when executing Paste Into File with pressed CTRL key. Absolute paths are also supported and will replace the folder.</value>

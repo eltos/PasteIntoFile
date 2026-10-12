@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
@@ -33,13 +34,13 @@ namespace PasteIntoFile {
         public static readonly ContextMenuEntryPaste ContextMenuPaste = new ContextMenuEntryPaste();
         public class ContextMenuEntryPaste : ContextMenuEntry {
             public ContextMenuEntryPaste() : base("Directory", "PasteIntoFile") { }
-            protected override Command Command => new Command(Resources.str_contextentry, "paste \"%V\"", () => !Settings.Default.autoSave);
+            protected override Command Command => new Command(Core.Properties.Resources.str_contextentry, "paste \"%V\"", () => !Settings.Default.autoSave);
         }
 
         public static readonly ContextMenuEntryCopy ContextMenuCopy = new ContextMenuEntryCopy();
         public class ContextMenuEntryCopy : ContextMenuEntry {
             public ContextMenuEntryCopy() : base("*", "PasteIntoFile") { }
-            protected override Command Command => new Command(Resources.str_contextentry_copyfromfile, "copy \"%V\"");
+            protected override Command Command => new Command(Core.Properties.Resources.str_contextentry_copyfromfile, "copy \"%V\"");
         }
 
         public static readonly ContextMenuEntryReplace ContextMenuReplace = new ContextMenuEntryReplace();
@@ -47,7 +48,7 @@ namespace PasteIntoFile {
             public ContextMenuEntryReplace() : base("*", "PasteIntoFile_replace") { }
             protected override string AppliesTo() => APPEND_NOT_SUPPORTED;
             protected override Command Command => new Command(
-                Resources.str_contextentry_paste_into_existing_file + " (" + Resources.str_replace + ")",
+                Core.Properties.Resources.str_contextentry_paste_into_existing_file + " (" + Core.Properties.Resources.str_contextentry_replace + ")",
                 "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true"
             );
             public override void Register() {
@@ -62,10 +63,10 @@ namespace PasteIntoFile {
         private class ContextMenuEntryReplaceAppend : ContextMenuEntry {
             public ContextMenuEntryReplaceAppend() : base("*", "PasteIntoFile_replace_append") { }
             protected override string AppliesTo() => "NOT ( " + APPEND_NOT_SUPPORTED + " )";
-            protected override string Title => Resources.str_contextentry_paste_into_existing_file;
+            protected override string Title => Core.Properties.Resources.str_contextentry_paste_into_existing_file;
             protected override Command[] SubCommands => new[]{
-                new Command(Resources.str_replace, "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true"),
-                new Command(Resources.str_append, "paste --append --directory=\"%w\" --filename=\"%V\" --autosave=true")
+                new Command(Core.Properties.Resources.str_contextentry_replace, "paste --overwrite=true --directory=\"%w\" --filename=\"%V\" --autosave=true"),
+                new Command(Core.Properties.Resources.str_contextentry_append, "paste --append --directory=\"%w\" --filename=\"%V\" --autosave=true")
             };
         }
         // for file types that are known not to support appending, show an entry without subcommands instead

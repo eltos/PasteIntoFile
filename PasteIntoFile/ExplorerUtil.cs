@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using SHDocVw;
 using Shell32;
 
@@ -436,6 +438,128 @@ namespace PasteIntoFile {
             Folder recyclingBin = shell.NameSpace(ShellSpecialFolderConstants.ssfBITBUCKET);
             recyclingBin.MoveHere(path);
         }
+
+
+
+        private const string Win11ContextMenuPackageName = "PasteIntoFile.Dev.ShellExtension";
+
+        public static bool IsWin11ContextMenuRegistered() {
+            string output;
+            var exitCode = RunPowerShell(
+                "if (Get-AppxPackage -Name " + PowerShellQuote(Win11ContextMenuPackageName) + ") { exit 0 } else { exit 1 }",
+                out output,
+                false
+            );
+
+            return exitCode == 0;
+        }
+
+        public static void SetWin11ContextMenuRegistered(bool registered) {
+            if (registered) {
+                RegisterWin11ContextMenu();
+            } else {
+                UnregisterWin11ContextMenu();
+            }
+        }
+
+        public static void RegisterWin11ContextMenu() {
+            var directory = Path.GetDirectoryName(Application.ExecutablePath);
+
+            if (string.IsNullOrWhiteSpace(directory)) {
+                throw new InvalidOperationException("Der Installationsordner konnte nicht ermittelt werden.");
+            }
+
+            var manifest = Path.Combine(directory, "AppxManifest.xml");
+
+            if (!File.Exists(manifest)) {
+                throw new FileNotFoundException(
+                    "Das AppxManifest.xml wurde nicht gefunden. Die Win11-Menüintegration kann nicht registriert werden.",
+                    manifest
+                );
+            }
+
+            string output;
+            RunPowerShell(
+                "$ErrorActionPreference = 'Stop'; " +
+                "Add-AppxPackage " +
+                "-Register " + PowerShellQuote(manifest) + " " +
+                "-ExternalLocation " + PowerShellQuote(directory) + " " +
+                "-ForceApplicationShutdown",
+                out output,
+                true
+            );
+
+            //RestartExplorer();
+        }
+
+        public static void UnregisterWin11ContextMenu() {
+            string output;
+            RunPowerShell(
+                "$ErrorActionPreference = 'Stop'; " +
+                "$package = Get-AppxPackage -Name " + PowerShellQuote(Win11ContextMenuPackageName) + "; " +
+                "if ($package) { $package | Remove-AppxPackage }",
+                out output,
+                true
+            );
+
+            //RestartExplorer();
+        }
+
+        private static string PowerShellQuote(string value) {
+            return "'" + value.Replace("'", "''") + "'";
+        }
+
+        private static int RunPowerShell(string command, out string output, bool throwOnError) {
+            var encodedCommand = Convert.ToBase64String(Encoding.Unicode.GetBytes(command));
+
+            var startInfo = new ProcessStartInfo {
+                FileName = "powershell.exe",
+                Arguments = "-NoProfile -ExecutionPolicy Bypass -EncodedCommand " + encodedCommand,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            using (var process = Process.Start(startInfo)) {
+                if (process == null) {
+                    throw new InvalidOperationException("PowerShell konnte nicht gestartet werden.");
+                }
+
+                var stdout = process.StandardOutput.ReadToEnd();
+                var stderr = process.StandardError.ReadToEnd();
+
+                process.WaitForExit();
+
+                output = stdout;
+
+                if (!string.IsNullOrWhiteSpace(stderr)) {
+                    output += Environment.NewLine + stderr;
+                }
+
+                if (throwOnError && process.ExitCode != 0) {
+                    throw new InvalidOperationException(output.Trim());
+                }
+
+                return process.ExitCode;
+            }
+        }
+
+        private static void RestartExplorer() {
+            foreach (var process in Process.GetProcessesByName("explorer")) {
+                try {
+                    process.Kill();
+                } catch {
+                    // Ignorieren: Explorer wird gleich neu gestartet.
+                }
+            }
+
+            Process.Start("explorer.exe");
+        }
+
+
+
+
 
 
         private static IntPtr PathToPidl(string path, bool special = false) {
