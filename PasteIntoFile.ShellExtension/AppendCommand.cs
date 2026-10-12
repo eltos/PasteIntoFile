@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using PasteIntoFile.Core.Properties;
 
 namespace PasteIntoFileShellExtension;
 
@@ -12,7 +13,7 @@ public sealed class AppendCommand : BaseExplorerCommand {
     public override string Clsid => Clsids.AppendCommand;
 
     public override int GetTitle(IShellItemArray psiItemArray, out IntPtr ppszName) {
-        ppszName = Marshal.StringToCoTaskMemUni(Titles.Append);
+        ppszName = Marshal.StringToCoTaskMemUni(Resources.str_contextentry_append);
         return HResult.S_OK;
     }
 
@@ -42,7 +43,7 @@ public sealed class AppendCommand : BaseExplorerCommand {
                     if (shellItem.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out var pathPtr) == HResult.S_OK && pathPtr != IntPtr.Zero) {
                         var path = Marshal.PtrToStringUni(pathPtr);
                         Marshal.FreeCoTaskMem(pathPtr);
-                        if (!string.IsNullOrEmpty(path) && File.Exists(path) && IsAppendSupported(path)) {
+                        if (!string.IsNullOrEmpty(path) && IsAppendSupported(path)) {
                             return EXPCMDSTATE.ECS_ENABLED;
                         }
                     }

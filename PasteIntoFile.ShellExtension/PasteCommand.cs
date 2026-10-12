@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using PasteIntoFile.Core;
+using PasteIntoFile.Core.Properties;
 
 namespace PasteIntoFileShellExtension;
 
@@ -17,7 +18,7 @@ public sealed class PasteCommand : BaseExplorerCommand {
         // while avoiding expensive file I/O on slow storage.
         SettingsUtil.ReloadIfChanged(Settings.Default);
 
-        var title = Titles.Paste;
+        var title = Resources.str_contextentry;
         if (!Settings.Default.autoSave) {
             title += "…";  // opens a dialog
         }

@@ -213,7 +213,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxPaste.Name = "contextEntryCheckBoxPaste";
             this.contextEntryCheckBoxPaste.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxPaste.TabIndex = 1;
-            this.contextEntryCheckBoxPaste.Text = Resources.str_contextentry;
+            this.contextEntryCheckBoxPaste.Text = Core.Properties.Resources.str_contextentry;
             this.contextEntryCheckBoxPaste.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxPaste.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
@@ -227,7 +227,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxCopy.Name = "contextEntryCheckBoxCopy";
             this.contextEntryCheckBoxCopy.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxCopy.TabIndex = 2;
-            this.contextEntryCheckBoxCopy.Text = Resources.str_contextentry_copyfromfile;
+            this.contextEntryCheckBoxCopy.Text = Core.Properties.Resources.str_contextentry_copyfromfile;
             this.contextEntryCheckBoxCopy.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxCopy.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //
@@ -241,7 +241,7 @@ namespace PasteIntoFile {
             this.contextEntryCheckBoxReplace.Name = "contextEntryCheckBoxReplace";
             this.contextEntryCheckBoxReplace.Size = new System.Drawing.Size(288, 24);
             this.contextEntryCheckBoxReplace.TabIndex = 3;
-            this.contextEntryCheckBoxReplace.Text = Resources.str_contextentry_paste_into_existing_file + " (" + Resources.str_replace + "/" + Resources.str_append + ")";
+            this.contextEntryCheckBoxReplace.Text = Core.Properties.Resources.str_contextentry_paste_into_existing_file + " (" + Core.Properties.Resources.str_contextentry_replace + "/" + Core.Properties.Resources.str_contextentry_append + ")";
             this.contextEntryCheckBoxReplace.UseVisualStyleBackColor = true;
             this.contextEntryCheckBoxReplace.CheckedChanged += new System.EventHandler(this.ChkContextEntry_CheckedChanged);
             //

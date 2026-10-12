@@ -6,15 +6,6 @@ using PasteIntoFile.Core;
 
 namespace PasteIntoFileShellExtension;
 
-// Shared title constants — match the localized strings from the main app's Resources.
-// Since the shell extension runs in a surrogate process, we use hardcoded English titles
-// that match the default (English) resource strings.
-static class Titles {
-    public const string Paste = "PasteIntoFile";
-    public const string Copy = "Copy file contents";
-    public const string Replace = "Paste into (Replace)";
-    public const string Append = "Paste into (Append)";
-}
 
 // Shared COM class IDs — must match AppxManifest.xml registrations
 static class Clsids {
@@ -182,12 +173,12 @@ public abstract class BaseExplorerCommand : IExplorerCommand {
 
     public abstract int Invoke(IShellItemArray psiItemArray, IntPtr pbc);
 
-    public int GetFlags(out EXPCMDFLAGS pFlags) {
+    public virtual int GetFlags(out EXPCMDFLAGS pFlags) {
         pFlags = EXPCMDFLAGS.ECF_DEFAULT;
         return HResult.S_OK;
     }
 
-    public int EnumSubCommands(out IEnumExplorerCommand ppEnum) {
+    public virtual int EnumSubCommands(out IEnumExplorerCommand ppEnum) {
         ppEnum = null!;
         return HResult.E_NOTIMPL;
     }
