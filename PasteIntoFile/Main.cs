@@ -192,8 +192,8 @@ namespace PasteIntoFile {
             bool? showDialogOverwrite = null;
 
             // filename and directory (one time options)
-            var directory = args.Directory ?? args.DirectoryFallback;
-            var filename = args.Filename;
+            var directory = (args.Directory ?? args.DirectoryFallback)?.Trim('\'', '"', ' ');
+            var filename = args.Filename?.Trim('\'', '"', ' ');
             if (!string.IsNullOrWhiteSpace(Path.GetDirectoryName(filename))) {
                 // filename contains full path, so use that instead
                 directory = Path.GetDirectoryName(filename);
