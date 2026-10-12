@@ -93,7 +93,7 @@
     </ItemGroup>
     <Target Name="CopyShellExtension" AfterTargets="Build">
         <ItemGroup>
-            <ShellFiles Include="..\PasteIntoFileShellExtension\bin\$(Configuration)\**\*.*" />
+            <ShellFiles Include="..\PasteIntoFile.ShellExtension\bin\$(Configuration)\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(ShellFiles)" DestinationFolder="$(OutDir)" />
     </Target>

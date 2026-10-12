@@ -11,6 +11,7 @@
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <!-- Hilfreich für COM-Komponenten, die dynamisch geladen werden -->
         <EnableDynamicLoading>true</EnableDynamicLoading>
+        <RootNamespace>PasteIntoFileShellExtension</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\PasteIntoFile.Core\PasteIntoFile.Core.csproj" />

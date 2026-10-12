@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteIntoFile", "PasteIntoF
 		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteIntoFileShellExtension", "PasteIntoFileShellExtension\PasteIntoFileShellExtension.csproj", "{3FF1060D-CD0D-43BE-8E4F-61D2C0475AF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteIntoFile.ShellExtension", "PasteIntoFile.ShellExtension\PasteIntoFile.ShellExtension.csproj", "{3FF1060D-CD0D-43BE-8E4F-61D2C0475AF2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 	EndProjectSection
