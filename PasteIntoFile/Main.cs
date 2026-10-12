@@ -12,10 +12,8 @@ using System.Text;
 using System.Threading;
 using CommandLine;
 using CommandLine.Text;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
-#if PORTABLE
-using Bluegrams.Application;
-#endif
 
 namespace PasteIntoFile {
     static class Program {
@@ -120,11 +118,8 @@ namespace PasteIntoFile {
                 // ignored (probably non-console mode)
             }
 
-#if PORTABLE
-            // Portable settings
-            PortableSettingsProvider.SettingsFileName = "settings.config";
-            PortableSettingsProvider.ApplyProvider(Settings.Default);
-#endif
+            // Configure settings provider to use the shared settings file path
+            SettingsUtil.Apply(Settings.Default);
 
             // Localization
             try {

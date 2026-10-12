@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
-using Color = System.Drawing.Color;
 
 namespace PasteIntoFile {
     public sealed partial class Wizard : MasterForm {

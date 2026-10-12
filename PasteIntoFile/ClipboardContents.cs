@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Ical.Net.DataTypes;
 using Csv;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {
