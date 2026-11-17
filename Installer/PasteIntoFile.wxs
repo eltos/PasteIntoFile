@@ -46,10 +46,10 @@
     <!-- register start menu shortcut -->
     <Fragment>
         <DirectoryRef Id="ProgramMenuFolder">
-            <Component Id="StartmenuShortcut" Guid="21886147-1E8F-47A1-94A3-8D4FF182AB0D">
+            <Component Id="StartmenuShortcut" Guid="D885D8D6-9224-480F-BD8D-1F905E210E86">
                 <Shortcut Id="StartMenuShortcut" Name="Paste Into File" Target="[INSTALLFOLDER]PasteIntoFile.exe" WorkingDirectory="INSTALLFOLDER" Icon="icon.ico" />
                 <!--<RemoveFolder Id="CleanupShortcut" Directory="AppProgramMenuFolder" On="uninstall" />-->
-                <RegistryValue Root="HKCU" Key="Software\PasteInfoFile\[ProductName]" Name="startmenushortcutinstalled" Type="integer" Value="1" KeyPath="yes" />
+                <RegistryValue Root="HKCU" Key="Software\PasteIntoFile\[ProductName]" Name="startmenushortcutinstalled" Type="integer" Value="1" KeyPath="yes" />
             </Component>
         </DirectoryRef>
     </Fragment>
