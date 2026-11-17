@@ -8,40 +8,46 @@ inputs:
   configuration:
     description: 'Build configuration: Debug or Release'
     required: true
-    type: string
+
   flavor:
-      description: 'Build flavor: Installer or Portable'
-      required: true
-      type: string
+    description: 'Build flavor: Installer or Portable'
+    required: true
+
   solution_name:
+    description: Solution file name
     required: false
     default: PasteIntoFile.sln
+
   project_directory:
+    description: Project directory
     required: false
     default: PasteIntoFile
+
   build_options:
-    description: 'Additional options passed to msbuild'
+    description: Additional options passed to MSBuild
     required: false
     default: ''
-    type: string
+
   artifact:
-    description: 'Name of build artifact to upload'
+    description: Name of build artifact to upload
     required: false
     default: ''
-    type: string
+
 outputs:
   path:
-    description: 'Build output path'
+    description: Build output path
     value: ${{ steps.build.outputs.path }}
+
   version:
-    description: 'Program version'
+    description: Program version
     value: ${{ steps.build.outputs.version }}
+
   artifact-id:
-    description: 'Build output artifact ID'
+    description: Build output artifact ID
     value: ${{ steps.upload.outputs.artifact-id }}
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     ## Install the .NET Core workload
     ## This is not required since the windows-2025 runner comes with pre-installed .NET Framework
@@ -50,26 +56,29 @@ runs:
     #  with:
     #    dotnet-version: 5.0.x
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v3
 
     # Build the app (after restoring dependencies)
     - name: Build
       id: build
-      run: |
-        msbuild /r /p:Configuration=${{ inputs.configuration }} /p:Flavor=${{ inputs.flavor }} ${{ inputs.build_options }}
-        copy LICENSE ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}
-        echo "path=${{ inputs.project_directory }}\bin\${{ inputs.configuration }}" >> $env:GITHUB_OUTPUT
-        $VERSION=(Get-Item -Path ${{ inputs.project_directory }}\bin\${{ inputs.configuration }}\*.exe).VersionInfo.ProductVersion
-        echo "version=$VERSION" >> $env:GITHUB_OUTPUT
       shell: pwsh
+      run: |
+        msbuild "${{ inputs.solution_name }}" /restore /p:Configuration=${{ inputs.configuration }} /p:Flavor=${{ inputs.flavor }} ${{ inputs.build_options }}
+        $outputPath = "${{ inputs.project_directory }}\bin\${{ inputs.configuration }}"
+        Copy-Item -LiteralPath LICENSE -Destination $outputPath
+        $exe = Get-ChildItem -LiteralPath $outputPath -Filter '*.exe' | Select-Object -First 1
+        if (-not $exe) { throw "No executable found in $outputPath" }
+        $version = $exe.VersionInfo.ProductVersion
+        Add-Content -Path $env:GITHUB_OUTPUT -Value "path=$outputPath"
+        Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$version"
 
+    # Upload build artifacts if requested
     - name: Upload build artifacts
       id: upload
       if: ${{ inputs.artifact != '' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.artifact }}
         path: ${{ steps.build.outputs.path }}
-

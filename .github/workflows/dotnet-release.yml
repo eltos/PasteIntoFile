@@ -11,7 +11,8 @@ jobs:
   portable:
     runs-on: windows-2025
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
 
       - uses: ./.github/build
         id: build
@@ -24,17 +25,15 @@ jobs:
         run: Compress-Archive -Path ${{steps.build.outputs.path}}/* -Destination release_artifact_portable_unsigned.zip
 
       - name: Upload release artifact
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: release_artifact_portable_unsigned.zip
-          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable_unsigned.zip
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $asset = "PasteIntoFile_${{ github.event.release.tag_name }}_portable_unsigned.zip"
+          Copy-Item release_artifact_portable_unsigned.zip $asset
+          gh release upload "${{ github.event.release.tag_name }}" $asset --clobber
 
       - name: Sign with Signpath
-        uses: signpath/github-action-submit-signing-request@v1.1
+        uses: signpath/github-action-submit-signing-request@v2
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
@@ -51,20 +50,18 @@ jobs:
         run: Compress-Archive -Path signing_result/* -Destination release_artifact_portable_signed.zip
 
       - name: Upload signed release artifact
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: release_artifact_portable_signed.zip
-          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_portable_signed.zip
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $asset = "PasteIntoFile_${{ github.event.release.tag_name }}_portable_signed.zip"
+          Copy-Item release_artifact_portable_signed.zip $asset
+          gh release upload "${{ github.event.release.tag_name }}" $asset --clobber
 
   installer:
     runs-on: windows-2025
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build program executable
         id: build
@@ -80,30 +77,27 @@ jobs:
       - name: Build MSI file with WiX toolchain
         run: |
           cd Installer
-          heat dir ../${{steps.build.outputs.path}} -dr INSTALLFOLDER -ag -cg ReleaseFragment -ke -srd -sfrag -nologo -pog:Binaries -pog:Documents -pog: Satellites -pog:Sources -pog:Content -t releaseFiles.xslt -out releaseFiles.wxs
+          heat dir ../${{steps.build.outputs.path}} -dr INSTALLFOLDER -ag -cg ReleaseFragment -ke -srd -sfrag -nologo -pog:Binaries -pog:Documents -pog:Satellites -pog:Sources -pog:Content -t releaseFiles.xslt -out releaseFiles.wxs
           candle releaseFiles.wxs
           candle PasteIntoFile.wxs
           light -b ../${{steps.build.outputs.path}} releaseFiles.wixobj PasteIntoFile.wixobj -ext WixNetFxExtension -out Installer.msi
 
       - name: Upload release artifact
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: Installer/Installer.msi
-          asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer_unsigned.msi
-          asset_content_type: application/msi
-
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $asset = "PasteIntoFile_${{ github.event.release.tag_name }}_installer_unsigned.msi"
+          Copy-Item Installer/Installer.msi $asset
+          gh release upload "${{ github.event.release.tag_name }}" $asset --clobber
 
       - name: Upload artifact for signing
         id: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
             path: Installer/Installer.msi
 
       - name: Sign with Signpath
-        uses: signpath/github-action-submit-signing-request@v1.1
+        uses: signpath/github-action-submit-signing-request@v2
         with:
             api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
             organization-id: '030bee06-17be-4a2a-a788-9efdbd14a889'
@@ -117,12 +111,10 @@ jobs:
             output-artifact-directory: 'signing_result'
 
       - name: Upload signed release artifact
-        uses: actions/upload-release-asset@v1
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ github.event.release.upload_url }}
-            asset_path: signing_result/Installer.msi
-            asset_name: PasteIntoFile_${{ github.event.release.tag_name }}_installer_signed.msi
-            asset_content_type: application/msi
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $asset = "PasteIntoFile_${{ github.event.release.tag_name }}_installer_signed.msi"
+          Copy-Item signing_result/Installer.msi $asset
+          gh release upload "${{ github.event.release.tag_name }}" $asset --clobber
 
