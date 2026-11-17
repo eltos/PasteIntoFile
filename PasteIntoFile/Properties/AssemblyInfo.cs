@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 #if DEBUG
 [assembly: AssemblyVersion("5.6.*")]
 #else
-[assembly: AssemblyVersion("5.6.1")]
+[assembly: AssemblyVersion("5.6.2")]
 #endif
