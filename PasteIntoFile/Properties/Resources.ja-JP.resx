@@ -84,10 +84,6 @@
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>管理者としてアプリケーションを実行してください！</value>
   </data>
-  <data name="str_contextentry" xml:space="preserve">
-    <value>ファイルに貼り付け</value>
-    <comment>Context menu entry for pasting</comment>
-  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>このファイルを保存するフォルダーを選択してください</value>
     <comment>str_select_folder
@@ -189,11 +185,6 @@ Tooltip</comment>
   <data name="str_invalid_character" xml:space="preserve">
     <value>無効な文字: {0}</value>
   </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>ファイルの内容をコピー</value>
-    <comment>Context menu entry for copying
-</comment>
-  </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>ファイル {0} は、クリップボードにコピーできない不明なフォーマットのデータを含んでいます。</value>
   </data>
@@ -291,15 +282,6 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_append_not_supported" xml:space="preserve">
     <value>拡張機能「{0}」の追加はサポートされていません。</value>
-  </data>
-  <data name="str_replace" xml:space="preserve">
-    <value>置き換え</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>このファイルに貼り付け</value>
-  </data>
-  <data name="str_append" xml:space="preserve">
-    <value>追記</value>
   </data>
   <data name="str_template_edit_subfolder_info" xml:space="preserve">
     <value>CTRLキーを押しながら Paste Into File を実行すると、サブフォルダーテンプレートがフォルダーパスに追加されます。 絶対パスもサポートされ、フォルダーを置き換えます。</value>

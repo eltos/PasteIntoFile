@@ -84,10 +84,6 @@
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>請以管理員模式執行本應用程式！</value>
   </data>
-  <data name="str_contextentry" xml:space="preserve">
-    <value>貼入檔案</value>
-    <comment>Context menu entry for pasting</comment>
-  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>選擇資料夾來儲存此檔案</value>
     <comment>str_select_folder
@@ -189,11 +185,6 @@ Tooltip</comment>
   <data name="str_invalid_character" xml:space="preserve">
     <value>無效字元：{0}</value>
   </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>複製檔案內容</value>
-    <comment>Context menu entry for copying
-</comment>
-  </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>檔案 {0} 內含未知的資料格式而無法複製到剪貼簿。</value>
   </data>
@@ -293,9 +284,6 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_replace" xml:space="preserve">
     <value>取代</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>貼入此檔案</value>
   </data>
   <data name="str_append" xml:space="preserve">
     <value>貼入尾端</value>

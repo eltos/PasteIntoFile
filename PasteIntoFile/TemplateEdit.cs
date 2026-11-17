@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {

@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
+using PasteIntoFile.Core;
 using PasteIntoFile.Properties;
 
 namespace PasteIntoFile {

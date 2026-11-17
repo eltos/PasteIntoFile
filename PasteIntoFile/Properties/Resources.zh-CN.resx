@@ -84,10 +84,6 @@
   <data name="str_message_run_as_admin" xml:space="preserve">
     <value>请以管理员身份运行此应用程序！</value>
   </data>
-  <data name="str_contextentry" xml:space="preserve">
-    <value>Paste Into File</value>
-    <comment>Context menu entry for pasting</comment>
-  </data>
   <data name="str_select_folder" xml:space="preserve">
     <value>选择保存此文件的文件夹</value>
     <comment>str_select_folder
@@ -188,11 +184,6 @@ Tooltip</comment>
   </data>
   <data name="str_invalid_character" xml:space="preserve">
     <value>无效字符：{0}</value>
-  </data>
-  <data name="str_contextentry_copyfromfile" xml:space="preserve">
-    <value>复制文件内容</value>
-    <comment>Context menu entry for copying
-</comment>
   </data>
   <data name="str_copy_failed_unknown_format" xml:space="preserve">
     <value>文件 {0} 包含未知格式的数据，无法复制到剪贴板。</value>
@@ -301,9 +292,6 @@ Allows to keep application window always on top (in foreground of other windows)
   </data>
   <data name="str_replace" xml:space="preserve">
     <value>替换</value>
-  </data>
-  <data name="str_contextentry_paste_into_existing_file" xml:space="preserve">
-    <value>粘贴到此文件中</value>
   </data>
   <data name="str_append" xml:space="preserve">
     <value>追加</value>
